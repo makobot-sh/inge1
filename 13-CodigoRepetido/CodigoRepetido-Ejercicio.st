@@ -64,7 +64,7 @@ test03CanNotAddACustomerWithEmptyName
 						
 	self attempt: [ customerBook addCustomerNamed: ''.self fail ]  ifFailsWith: Error do: checkCustomerCanNotBeEmpty.		! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Chiro 9/9/2021 15:12:43'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'MK 9/9/2021 16:48:27'!
 test04CanNotRemoveAnInvalidCustomer
 	
 	| customerBook johnLennon 	checkAddCustomerBehaviour |
@@ -72,12 +72,12 @@ test04CanNotRemoveAnInvalidCustomer
 	customerBook := CustomerBook new.
 	johnLennon := 'John Lennon'.
 	customerBook addCustomerNamed: johnLennon.
-	checkAddCustomerBehaviour := [ :anError | self assertAddCustomerBehaviourOf: customerBook with: johnLennon].
+	checkAddCustomerBehaviour := [ :anError | self assertNoChangesWereMadeIn: customerBook thatOriginallyHadCustomer: johnLennon].
 	
 	self attempt: 	[ customerBook removeCustomerNamed: 'Paul McCartney'. self fail ]  ifFailsWith: NotFound do: checkAddCustomerBehaviour.		
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Chiro 9/9/2021 01:53:53'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'AF 9/9/2021 16:28:38'!
 test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 
 	| customerBook paulMcCartney |
@@ -88,7 +88,7 @@ test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 	customerBook addCustomerNamed: paulMcCartney.
 	customerBook suspendCustomerNamed: paulMcCartney.
 	
-	self checkIfNumberOfCustomersIn: customerBook Is: 0 WithActive: 1 WithSuspended: 1.
+	self checkIfNumberOfCustomersIn: customerBook Is: 1 WithActive: 0 WithSuspended: 1.
 	self assert: (customerBook includesCustomerNamed: paulMcCartney).
 	
 
@@ -114,7 +114,7 @@ test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Chiro 9/9/2021 15:19:51'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'MK 9/9/2021 16:48:27'!
 test07CanNotSuspendAnInvalidCustomer
 	
 	| customerBook johnLennon checkAddCustomerBehaviour |
@@ -123,12 +123,12 @@ test07CanNotSuspendAnInvalidCustomer
 	johnLennon := 'John Lennon'.
 	customerBook addCustomerNamed: johnLennon.
 	
-	checkAddCustomerBehaviour :=  [ :anError | self assertAddCustomerBehaviourOf: customerBook with: johnLennon].
+	checkAddCustomerBehaviour :=  [ :anError | self assertNoChangesWereMadeIn: customerBook thatOriginallyHadCustomer: johnLennon].
 	
 	self attempt: [ customerBook suspendCustomerNamed: 'George Harrison'. self fail ]  ifFailsWith: CantSuspend do: checkAddCustomerBehaviour.		
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Chiro 9/9/2021 15:16:10'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'MK 9/9/2021 16:48:27'!
 test08CanNotSuspendAnAlreadySuspendedCustomer
 	
 	| customerBook johnLennon checkAddCustomerBehaviour |
@@ -138,16 +138,11 @@ test08CanNotSuspendAnAlreadySuspendedCustomer
 	customerBook addCustomerNamed: johnLennon.
 	customerBook suspendCustomerNamed: johnLennon.
 	
-	checkAddCustomerBehaviour :=  [ :anError | self assertAddCustomerBehaviourOf: customerBook with: johnLennon].
+	checkAddCustomerBehaviour :=  [ :anError | self assertNoChangesWereMadeIn: customerBook thatOriginallyHadCustomer: johnLennon].
 	
 	self attempt: [ customerBook suspendCustomerNamed: johnLennon. self fail ]  ifFailsWith: CantSuspend do: checkAddCustomerBehaviour.		
 ! !
 
-
-!CustomerBookTest methodsFor: 'assertions' stamp: 'Chiro 9/9/2021 15:19:27'!
-assertAddCustomerBehaviourOf: customerBook with: customerName
-	^self assert: (customerBook numberOfCustomers = 1) & (customerBook includesCustomerNamed: customerName)
-! !
 
 !CustomerBookTest methodsFor: 'assertions' stamp: 'Chiro 9/9/2021 15:44:41'!
 assertExecutionTimeOf: aClosure WithinMiliseconds: timeBound
@@ -163,6 +158,11 @@ assertExecutionTimeOf: aClosure WithinMiliseconds: timeBound
 	^self assert: totalRunningTime < (timeBound * millisecond)
 ! !
 
+!CustomerBookTest methodsFor: 'assertions' stamp: 'MK 9/9/2021 16:48:59'!
+assertNoChangesWereMadeIn: aCustomerBook thatOriginallyHadCustomer: aCustomerName
+	^self assert: (aCustomerBook numberOfCustomers = 1) & (aCustomerBook includesCustomerNamed: aCustomerName)
+! !
+
 !CustomerBookTest methodsFor: 'assertions' stamp: 'MK 9/7/2021 17:28:04'!
 attempt: aClosure ifFailsWith: anErrorClass do: aPostErrorVerificationClosure
 	
@@ -170,12 +170,12 @@ attempt: aClosure ifFailsWith: anErrorClass do: aPostErrorVerificationClosure
 		on: anErrorClass
 		do: [ :anError | aPostErrorVerificationClosure value: anError].! !
 
-!CustomerBookTest methodsFor: 'assertions' stamp: 'Chiro 9/9/2021 01:54:10'!
+!CustomerBookTest methodsFor: 'assertions' stamp: 'AF 9/9/2021 16:27:17'!
 checkIfNumberOfCustomersIn: CustomerBook Is: aNumberOfCustomers WithActive: aNumberOfActiveCustomers WithSuspended: aNumberOfSuspendedCustomers
 	
-	self assert: (aNumberOfCustomers = CustomerBook numberOfActiveCustomers) &
-		(aNumberOfActiveCustomers = CustomerBook numberOfSuspendedCustomers) & 
-		(aNumberOfSuspendedCustomers = CustomerBook numberOfCustomers).
+	self assert: (aNumberOfCustomers = CustomerBook numberOfCustomers) &
+		(aNumberOfActiveCustomers = CustomerBook numberOfActiveCustomers) & 
+		(aNumberOfSuspendedCustomers = CustomerBook numberOfSuspendedCustomers).
 ! !
 
 
