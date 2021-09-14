@@ -322,6 +322,14 @@ addEntero: anAdder
 addFraction: anAdder
 	self subclassResponsibility! !
 
+!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:38:33'!
+divideEntero: aDivisor
+	self subclassResponsibility! !
+
+!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:38:47'!
+divideFraction: aDivisor
+	self subclassResponsibility! !
+
 !Numero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 22:48'!
 invalidNumberType
 
@@ -376,11 +384,13 @@ Numero subclass: #Entero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:03:11'!
-* aMultiplier 
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:34:36'!
+* aMultiplier
+	^aMultiplier multiplyEntero: self
+	"
 	(aMultiplier isKindOf:Fraccion)ifTrue:[^aMultiplier * self].
 	(aMultiplier isKindOf:self class)ifTrue:[^self class with: value * aMultiplier integerValue].
-	
+	"
 	! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:19:51'!
@@ -394,17 +404,20 @@ Numero subclass: #Entero
 	
   ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:32:14'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:01:06'!
 - aSubtrahend 
-	
+	^aSubtrahend substractEntero: self
+	"
 	(aSubtrahend isKindOf: self class) ifTrue: [^ self class with: value - aSubtrahend integerValue.].
 	(aSubtrahend isKindOf: Fraccion) ifTrue: [^(Entero with: -1)*(aSubtrahend - self)].
-	^self class invalidNumberTypeErrorDescription. ! !
+	^self class invalidNumberTypeErrorDescription." ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:20:39'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:45:36'!
 / aDivisor 
+	^aDivisor divideEntero: self
+	"
 	(aDivisor isKindOf: Fraccion )ifTrue:[^self * aDivisor invert	].
-	(aDivisor isKindOf: self class )ifTrue:[^Fraccion with: self over: aDivisor	].! !
+	(aDivisor isKindOf: self class )ifTrue:[^Fraccion with: self over: aDivisor	]."! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:55'!
 // aDivisor 
@@ -418,6 +431,14 @@ addEntero: anAdderEntero
 !Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:15:33'!
 addFraction: anAdderFraction
 	^anAdderFraction addEntero: self! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:48:19'!
+divideEntero: aDivisor
+	^Fraccion with: aDivisor over: self	! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:45:08'!
+divideFraction: aDivisor
+	^(self invert) * aDivisor "Esto hay que cambiar"! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HAW 9/24/2018 08:47:50'!
 fibonacci
@@ -442,6 +463,24 @@ greatestCommonDivisorWith: anEntero
 invert
 
 	^Fraccion with: (self class with: 1) over: self. ! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:25:23'!
+multiplyEntero: aMultiplier
+	^self class with: value * aMultiplier integerValue
+! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:37:10'!
+multiplyFraction: aMultiplier
+	^aMultiplier multiplyEntero: self! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:04:27'!
+substractEntero: aSubtrahendEntero
+	^ self class with: (aSubtrahendEntero integerValue) - value.
+	! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:18:39'!
+substractFraction: aSubstractedFraction
+	^(Entero with: -1) * (aSubstractedFraction substractEntero: self) "Consultar con el equipo"! !
 
 
 !Entero methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 21:01'!
@@ -490,6 +529,7 @@ isZero
 	
 	^value = 0! !
 
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Entero class' category: 'Numero-Exercise'!
@@ -516,12 +556,13 @@ Numero subclass: #Fraccion
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:01:34'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:34:29'!
 * aMultiplier 
-	
+	^aMultiplier multiplyFraction: self.
+	"
 	(aMultiplier isKindOf: Entero)ifTrue:[^(numerator * aMultiplier) / denominator ].
 	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)
-	! !
+	"! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:20:08'!
 + anAdder 
@@ -537,9 +578,11 @@ Numero subclass: #Fraccion
 	
 	^newNumerator / newDenominator "! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:30:23'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 12:56:30'!
 - aSubtrahend 
-	
+
+	^aSubtrahend substractFraction: self
+	"
 	| newNumerator newDenominator|
 	(aSubtrahend isKindOf: Entero)ifTrue:[
 		newNumerator := (numerator * (Entero with: 1)) - (denominator * aSubtrahend).
@@ -548,14 +591,16 @@ Numero subclass: #Fraccion
 	newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
 	newDenominator := denominator * aSubtrahend denominator.
 	
-	^newNumerator / newDenominator 
+	^newNumerator / newDenominator "
 ! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:16:49'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:43:18'!
 / aDivisor 
+	^aDivisor divideFraction: self.
+"
 	(aDivisor isKindOf: Entero)ifTrue:[^self * aDivisor invert 	].
 	(aDivisor isKindOf: self class)ifTrue:[^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)	].
-	^self class invalidNumberTypeErrorDescription. ! !
+	^self class invalidNumberTypeErrorDescription. "! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:03:13'!
 addEntero: anAdderEntero
@@ -576,9 +621,44 @@ addFraction: anAdderFraction
 	
 	^newNumerator / newDenominator! !
 
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:42:45'!
+divideEntero: aDivisor
+	^(self invert) * aDivisor ! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:49:42'!
+divideFraction: aDivisor
+	^ (denominator * aDivisor numerator)	 / (numerator * aDivisor denominator).
+	! !
+
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:24:43'!
 invert
 	^self initializeWith: denominator over: numerator.! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:32:37'!
+multiplyEntero: aMultiplier
+	^(numerator * aMultiplier) / denominator ! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:29:25'!
+multiplyFraction: aMultiplier
+
+	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator).! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:15:37'!
+substractEntero: aSubtrahendEntero
+	|newDenominator newNumerator|
+	
+	newNumerator := (denominator * aSubtrahendEntero) - (numerator * (Entero with: 1) ).
+	newDenominator := denominator.
+	^newNumerator / newDenominator.! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:11:52'!
+substractFraction: aSubtrahendFraction
+	
+	|newNumerator newDenominator|
+	newNumerator :=  (denominator * aSubtrahendFraction numerator) - (numerator * aSubtrahendFraction denominator).
+	newDenominator := denominator * aSubtrahendFraction denominator.
+	
+	^newNumerator / newDenominator ! !
 
 
 !Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:42'!
@@ -637,6 +717,7 @@ printOn: aStream
 		print: numerator;
 		nextPut: $/;
 		print: denominator ! !
+
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
