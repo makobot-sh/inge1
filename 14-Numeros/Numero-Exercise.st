@@ -314,10 +314,22 @@ Object subclass: #Numero
 
 	self subclassResponsibility ! !
 
+!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:26:53'!
+addEntero: anAdder
+	self subclassResponsibility! !
+
+!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:28:26'!
+addFraction: anAdder
+	self subclassResponsibility! !
+
 !Numero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 22:48'!
 invalidNumberType
 
 	self error: self class invalidNumberTypeErrorDescription! !
+
+!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:22:44'!
+invert
+	self subclassResponsibility ! !
 
 !Numero methodsFor: 'arithmetic operations' stamp: 'NR 9/23/2018 23:37:13'!
 negated
@@ -371,11 +383,13 @@ Numero subclass: #Entero
 	
 	! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 15:45:35'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:19:51'!
 + anAdder 
+	^anAdder addEntero: self
+	"
 	(anAdder isKindOf: self class) ifTrue: [^self class with: value + anAdder integerValue].
 	(anAdder isKindOf: Fraccion) ifTrue: [^anAdder + self].
-	^self class invalidNumberTypeErrorDescription. "Hay que chequear esto"
+	^self class invalidNumberTypeErrorDescription." "Hay que chequear esto"
 	
 	
   ! !
@@ -396,6 +410,14 @@ Numero subclass: #Entero
 // aDivisor 
 	
 	^self class with: value // aDivisor integerValue! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:01:42'!
+addEntero: anAdderEntero
+	^self class with: value + anAdderEntero integerValue! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:15:33'!
+addFraction: anAdderFraction
+	^anAdderFraction addEntero: self! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HAW 9/24/2018 08:47:50'!
 fibonacci
@@ -501,9 +523,10 @@ Numero subclass: #Fraccion
 	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)
 	! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 15:59:13'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:20:08'!
 + anAdder 
-	
+	^anAdder addFraction: self
+	"
 	| newNumerator newDenominator|
 	(anAdder isKindOf: Entero)ifTrue:[
 		newNumerator := (numerator * (Entero with: 1)) + (denominator * anAdder).
@@ -512,7 +535,7 @@ Numero subclass: #Fraccion
 	newNumerator := (numerator * anAdder denominator) + (denominator * anAdder numerator).
 	newDenominator := denominator * anAdder denominator.
 	
-	^newNumerator / newDenominator ! !
+	^newNumerator / newDenominator "! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:30:23'!
 - aSubtrahend 
@@ -533,6 +556,25 @@ Numero subclass: #Fraccion
 	(aDivisor isKindOf: Entero)ifTrue:[^self * aDivisor invert 	].
 	(aDivisor isKindOf: self class)ifTrue:[^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)	].
 	^self class invalidNumberTypeErrorDescription. ! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:03:13'!
+addEntero: anAdderEntero
+	|newNumerator newDenominator|
+	
+	newNumerator := (numerator * (Entero with: 1)) + (denominator * anAdderEntero).
+	newDenominator := denominator.
+	^newNumerator / newDenominator.
+
+! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:03:05'!
+addFraction: anAdderFraction
+	|newNumerator newDenominator|
+	
+	newNumerator := (numerator * anAdderFraction denominator) + (denominator * anAdderFraction numerator).
+	newDenominator := denominator * anAdderFraction denominator.
+	
+	^newNumerator / newDenominator! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 16:24:43'!
 invert
