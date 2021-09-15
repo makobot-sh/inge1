@@ -314,22 +314,6 @@ Object subclass: #Numero
 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:26:53'!
-addEntero: anAdder
-	self subclassResponsibility! !
-
-!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:28:26'!
-addFraction: anAdder
-	self subclassResponsibility! !
-
-!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:38:33'!
-divideEntero: aDivisor
-	self subclassResponsibility! !
-
-!Numero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:38:47'!
-divideFraction: aDivisor
-	self subclassResponsibility! !
-
 !Numero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 22:48'!
 invalidNumberType
 
@@ -380,61 +364,68 @@ Numero subclass: #Entero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:34:36'!
-* aMultiplier
-	^aMultiplier multiplyEntero: self
-	"
-	(aMultiplier isKindOf:Fraccion)ifTrue:[^aMultiplier * self].
-	(aMultiplier isKindOf:self class)ifTrue:[^self class with: value * aMultiplier integerValue].
-	"
+!Entero methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 18:24:08'!
+addEntero: anAdderEntero
+	^Entero with: value + anAdderEntero integerValue! !
+
+!Entero methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/13/2021 22:15:33'!
+addFraction: anAdderFraction
+	^anAdderFraction addEntero: self! !
+
+!Entero methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 13:48:19'!
+divideEntero: aDivisor
+	^Fraccion with: aDivisor over: self	! !
+
+!Entero methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 15:37:12'!
+divideFraction: aDivisor
+	^aDivisor divideByEntero: self! !
+
+!Entero methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 18:24:26'!
+multiplyEntero: aMultiplier
+	^Entero with: value * aMultiplier integerValue
+! !
+
+!Entero methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 13:37:10'!
+multiplyFraction: aMultiplier
+	^aMultiplier multiplyEntero: self! !
+
+!Entero methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 18:24:32'!
+subtractToEntero: aMiniuendEntero
+	^Entero with: (aMiniuendEntero integerValue) - value.
 	! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:19:51'!
+!Entero methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 15:25:57'!
+subtractToFraction: aSubstractedFraction
+	^(aSubstractedFraction subtractEntero: self) ! !
+
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 12:23:02'!
+* aMultiplier
+	^aMultiplier multiplyEntero: self! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 12:23:07'!
 + anAdder 
 	^anAdder addEntero: self
-	"
-	(anAdder isKindOf: self class) ifTrue: [^self class with: value + anAdder integerValue].
-	(anAdder isKindOf: Fraccion) ifTrue: [^anAdder + self].
-	^self class invalidNumberTypeErrorDescription." "Hay que chequear esto"
-	
-	
   ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:07:12'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 12:23:11'!
 - aSubtrahend 
-	^aSubtrahend subtractToEntero: self
-	"
-	(aSubtrahend isKindOf: self class) ifTrue: [^ self class with: value - aSubtrahend integerValue.].
-	(aSubtrahend isKindOf: Fraccion) ifTrue: [^(Entero with: -1)*(aSubtrahend - self)].
-	^self class invalidNumberTypeErrorDescription." ! !
+	^aSubtrahend subtractToEntero: self! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:45:36'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 12:23:16'!
 / aDivisor 
-	^aDivisor divideEntero: self
-	"
-	(aDivisor isKindOf: Fraccion )ifTrue:[^self * aDivisor invert	].
-	(aDivisor isKindOf: self class )ifTrue:[^Fraccion with: self over: aDivisor	]."! !
+	^aDivisor divideEntero: self! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:43:27'!
 // aDivisor 
 	
 	^Entero with: value // aDivisor integerValue! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:24:08'!
-addEntero: anAdderEntero
-	^Entero with: value + anAdderEntero integerValue! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:15:33'!
-addFraction: anAdderFraction
-	^anAdderFraction addEntero: self! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:48:19'!
-divideEntero: aDivisor
-	^Fraccion with: aDivisor over: self	! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:37:12'!
-divideFraction: aDivisor
-	^aDivisor divideByEntero: self! !
+!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 16:40:30'!
+divideByGCDWith: aValue
+	|greatestCommonDivisor |
+	greatestCommonDivisor := self greatestCommonDivisorWith: aValue. 
+	^self // greatestCommonDivisor.! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 17:13:36'!
 fibonacci
@@ -445,24 +436,6 @@ fibonacci
 greatestCommonDivisorWith: anEntero 
 	
 	^self class with: (value gcd: anEntero integerValue)! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:24:26'!
-multiplyEntero: aMultiplier
-	^Entero with: value * aMultiplier integerValue
-! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:37:10'!
-multiplyFraction: aMultiplier
-	^aMultiplier multiplyEntero: self! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:24:32'!
-subtractToEntero: aMiniuendEntero
-	^Entero with: (aMiniuendEntero integerValue) - value.
-	! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:25:57'!
-subtractToFraction: aSubstractedFraction
-	^(aSubstractedFraction subtractEntero: self) ! !
 
 
 !Entero methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 21:01'!
@@ -523,15 +496,14 @@ negativeFibonacciErrorDescription
 	^'Fibonacci no está definido aquí para Enteros Negativos!!!!!!'
 ! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'Chiro 9/14/2021 18:49:33'!
+!Entero class methodsFor: 'instance creation' stamp: 'Chiro 9/15/2021 17:23:17'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
 	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].
 
 	^(self subclasses detect:[:unEnteroClass | unEnteroClass isValidFor: aValue]) with: aValue.
-	
-	"^self new initalizeWith: aValue "! !
+	! !
 
 
 !classDefinition: #EnteroCero category: 'Numero-Exercise'!
@@ -541,7 +513,7 @@ Entero subclass: #EnteroCero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroCero methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 17:06:02'!
+!EnteroCero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 17:06:02'!
 fibonacci
 	^EnteroPositivo with: 1! !
 
@@ -571,7 +543,7 @@ Entero subclass: #EnteroNegativo
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroNegativo methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 15:52:45'!
+!EnteroNegativo methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:52:45'!
 fibonacci
 	self error: EnteroNegativo negativeFibonacciErrorDescription. ! !
 
@@ -606,7 +578,7 @@ Entero subclass: #EnteroPositivo
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroPositivo methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:26:15'!
+!EnteroPositivo methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:26:15'!
 fibonacci
 	self subclassResponsibility 
 		! !
@@ -638,7 +610,7 @@ EnteroPositivo subclass: #EnteroMayorAUno
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroMayorAUno methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:25:41'!
+!EnteroMayorAUno methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:25:41'!
 fibonacci
 
 	| one two |
@@ -674,7 +646,7 @@ EnteroPositivo subclass: #EnteroUno
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroUno methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 17:07:29'!
+!EnteroUno methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 17:07:29'!
 fibonacci
 	^self! !
 
@@ -704,53 +676,7 @@ Numero subclass: #Fraccion
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:34:29'!
-* aMultiplier 
-	^aMultiplier multiplyFraction: self.
-	"
-	(aMultiplier isKindOf: Entero)ifTrue:[^(numerator * aMultiplier) / denominator ].
-	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)
-	"! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:20:08'!
-+ anAdder 
-	^anAdder addFraction: self
-	"
-	| newNumerator newDenominator|
-	(anAdder isKindOf: Entero)ifTrue:[
-		newNumerator := (numerator * (Entero with: 1)) + (denominator * anAdder).
-		newDenominator := denominator.
-		^newNumerator / newDenominator.].
-	newNumerator := (numerator * anAdder denominator) + (denominator * anAdder numerator).
-	newDenominator := denominator * anAdder denominator.
-	
-	^newNumerator / newDenominator "! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:09:58'!
-- aSubtrahend 
-
-	^aSubtrahend subtractToFraction: self
-	"
-	| newNumerator newDenominator|
-	(aSubtrahend isKindOf: Entero)ifTrue:[
-		newNumerator := (numerator * (Entero with: 1)) - (denominator * aSubtrahend).
-		newDenominator := denominator.
-		^newNumerator / newDenominator.].
-	newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
-	newDenominator := denominator * aSubtrahend denominator.
-	
-	^newNumerator / newDenominator "
-! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:43:18'!
-/ aDivisor 
-	^aDivisor divideFraction: self.
-"
-	(aDivisor isKindOf: Entero)ifTrue:[^self * aDivisor invert 	].
-	(aDivisor isKindOf: self class)ifTrue:[^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)	].
-	^self class invalidNumberTypeErrorDescription. "! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:03:13'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/13/2021 22:03:13'!
 addEntero: anAdderEntero
 	|newNumerator newDenominator|
 	
@@ -760,7 +686,7 @@ addEntero: anAdderEntero
 
 ! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/13/2021 22:03:05'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/13/2021 22:03:05'!
 addFraction: anAdderFraction
 	|newNumerator newDenominator|
 	
@@ -769,29 +695,29 @@ addFraction: anAdderFraction
 	
 	^newNumerator / newDenominator! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:41:02'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 15:41:02'!
 divideByEntero: anEntero 
 	^self numerator / (self denominator * anEntero).! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:33:42'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/15/2021 12:18:14'!
 divideEntero: aDivisor
-	^(self denominator * aDivisor) / (self numerator)    "(self invert) * aDivisor" ! !
+	^(self denominator * aDivisor) / (self numerator)! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:49:42'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 13:49:42'!
 divideFraction: aDivisor
 	^ (denominator * aDivisor numerator)	 / (numerator * aDivisor denominator).
 	! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:32:37'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 13:32:37'!
 multiplyEntero: aMultiplier
 	^(numerator * aMultiplier) / denominator ! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 13:29:25'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 13:29:25'!
 multiplyFraction: aMultiplier
 
 	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator).! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:21:09'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 15:21:09'!
 subtractEntero: aMinuendFraction
 	|newDenominator newNumerator|
 	
@@ -799,7 +725,7 @@ subtractEntero: aMinuendFraction
 	newDenominator := denominator.
 	^newNumerator / newDenominator.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:09:07'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 15:09:07'!
 subtractToEntero: aMinuendFraction
 	|newDenominator newNumerator|
 	
@@ -807,7 +733,7 @@ subtractToEntero: aMinuendFraction
 	newDenominator := denominator.
 	^newNumerator / newDenominator.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:09:58'!
+!Fraccion methodsFor: 'arithmetic operations XXXX' stamp: 'Chiro 9/14/2021 15:09:58'!
 subtractToFraction: aSubtrahendFraction
 	
 	|newNumerator newDenominator|
@@ -815,6 +741,27 @@ subtractToFraction: aSubtrahendFraction
 	newDenominator := denominator * aSubtrahendFraction denominator.
 	
 	^newNumerator / newDenominator ! !
+
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 12:15:43'!
+* aMultiplier 
+	^aMultiplier multiplyFraction: self.! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 12:15:49'!
++ anAdder 
+	^anAdder addFraction: self! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 12:15:53'!
+- aSubtrahend 
+
+	^aSubtrahend subtractToFraction: self
+
+! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 12:15:56'!
+/ aDivisor 
+	^aDivisor divideFraction: self.
+! !
 
 
 !Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:42'!
@@ -839,12 +786,8 @@ numerator
 	^ numerator! !
 
 
-!Fraccion methodsFor: 'initialization' stamp: 'HernanWilkinson 5/7/2016 22:54'!
+!Fraccion methodsFor: 'initialization' stamp: 'Chiro 9/15/2021 16:47:21'!
 initializeWith: aNumerator over: aDenominator
-
-	"Estas precondiciones estan por si se comenten errores en la implementacion - Hernan"
-	aNumerator isZero ifTrue: [ self error: 'una fraccion no puede ser cero' ].
-	aDenominator isOne ifTrue: [ self error: 'una fraccion no puede tener denominador 1 porque sino es un entero' ].
 	
 	numerator := aNumerator.
 	denominator := aDenominator ! !
@@ -881,21 +824,155 @@ printOn: aStream
 Fraccion class
 	instanceVariableNames: ''!
 
-!Fraccion class methodsFor: 'intance creation' stamp: 'NR 9/23/2018 23:45:19'!
+!Fraccion class methodsFor: 'intance creation' stamp: 'Chiro 9/15/2021 16:46:43'!
 with: aDividend over: aDivisor
 
-	| greatestCommonDivisor numerator denominator |
-	
-	aDivisor isZero ifTrue: [ self error: self canNotDivideByZeroErrorDescription ].
-	aDividend isZero ifTrue: [ ^aDividend ].
-	
-	aDivisor isNegative ifTrue:[ ^aDividend negated / aDivisor negated].
-	
-	greatestCommonDivisor := aDividend greatestCommonDivisorWith: aDivisor. 
-	numerator := aDividend // greatestCommonDivisor.
-	denominator := aDivisor // greatestCommonDivisor.
-	
-	denominator isOne ifTrue: [ ^numerator ].
+	^(self subclasses detect:[:unaFraccionClass | unaFraccionClass isValidForNumerator: aDividend andDenominator: aDivisor]) with: aDividend over: aDivisor.	
+! !
 
+
+!classDefinition: #FraccionWithDenominator0 category: 'Numero-Exercise'!
+Fraccion subclass: #FraccionWithDenominator0
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FraccionWithDenominator0 class' category: 'Numero-Exercise'!
+FraccionWithDenominator0 class
+	instanceVariableNames: ''!
+
+!FraccionWithDenominator0 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:12:36'!
+isValidForNumerator: aNumerator andDenominator: aDenominator 
+	^aDenominator integerValue = 0.! !
+
+!FraccionWithDenominator0 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 15:35:17'!
+with: aDividend over: aDivisor
+
+	Fraccion error: Fraccion canNotDivideByZeroErrorDescription ! !
+
+
+!classDefinition: #FraccionWithNegativeDenominator category: 'Numero-Exercise'!
+Fraccion subclass: #FraccionWithNegativeDenominator
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FraccionWithNegativeDenominator class' category: 'Numero-Exercise'!
+FraccionWithNegativeDenominator class
+	instanceVariableNames: ''!
+
+!FraccionWithNegativeDenominator class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:12:46'!
+isValidForNumerator: aNumerator andDenominator: aDenominator 
+	^(aDenominator integerValue < 0) & (aNumerator integerValue ~= 0).! !
+
+!FraccionWithNegativeDenominator class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 15:36:53'!
+with: aDividend over: aDivisor
+	
+	 ^aDividend negated / aDivisor negated! !
+
+
+!classDefinition: #FraccionWithNumerator0 category: 'Numero-Exercise'!
+Fraccion subclass: #FraccionWithNumerator0
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FraccionWithNumerator0 class' category: 'Numero-Exercise'!
+FraccionWithNumerator0 class
+	instanceVariableNames: ''!
+
+!FraccionWithNumerator0 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:12:55'!
+isValidForNumerator: aNumerator andDenominator: aDenominator 
+	^(aNumerator integerValue = 0) & (aDenominator integerValue ~= 0).! !
+
+!FraccionWithNumerator0 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:22:44'!
+with: aDividend over: aDivisor
+	 ^aDividend.! !
+
+
+!classDefinition: #FraccionWithPositiveDenominator category: 'Numero-Exercise'!
+Fraccion subclass: #FraccionWithPositiveDenominator
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FraccionWithPositiveDenominator class' category: 'Numero-Exercise'!
+FraccionWithPositiveDenominator class
+	instanceVariableNames: ''!
+
+!FraccionWithPositiveDenominator class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:36:04'!
+divide: aValue byGCDWith: aValue2
+	|greatestCommonDivisor |
+	greatestCommonDivisor := aValue greatestCommonDivisorWith: aValue2. 
+	^aValue // greatestCommonDivisor.! !
+
+!FraccionWithPositiveDenominator class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:13:01'!
+isValidForNumerator: aNumerator andDenominator: aDenominator 
+	^(aDenominator integerValue > 0) & (aNumerator integerValue ~= 0) ! !
+
+!FraccionWithPositiveDenominator class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 15:46:16'!
+with: aDividend over: aDivisor
+
+	^(self subclasses detect:[:unaFraccionClass | unaFraccionClass isValidForNumerator: aDividend andDenominator: aDivisor]) with: aDividend over: aDivisor.	! !
+
+
+!classDefinition: #FraccionWithDenominator1 category: 'Numero-Exercise'!
+FraccionWithPositiveDenominator subclass: #FraccionWithDenominator1
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FraccionWithDenominator1 class' category: 'Numero-Exercise'!
+FraccionWithDenominator1 class
+	instanceVariableNames: ''!
+
+!FraccionWithDenominator1 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:40:30'!
+isValidForNumerator: aNumerator andDenominator: aDenominator 
+	^(aDenominator divideByGCDWith: aNumerator) integerValue = 1.! !
+
+!FraccionWithDenominator1 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:40:30'!
+with: aDividend over: aDivisor
+	^aDividend divideByGCDWith: aDivisor.
+! !
+
+
+!classDefinition: #FraccionWithDenominatorGreaterThan1 category: 'Numero-Exercise'!
+FraccionWithPositiveDenominator subclass: #FraccionWithDenominatorGreaterThan1
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FraccionWithDenominatorGreaterThan1 class' category: 'Numero-Exercise'!
+FraccionWithDenominatorGreaterThan1 class
+	instanceVariableNames: ''!
+
+!FraccionWithDenominatorGreaterThan1 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:40:51'!
+isValidForNumerator: aNumerator andDenominator: aDenominator 
+	
+	^(aDenominator divideByGCDWith: aNumerator) integerValue ~= 1.! !
+
+!FraccionWithDenominatorGreaterThan1 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:41:14'!
+with: aDividend over: aDivisor
+	|denominator numerator|
+	numerator    := aDividend divideByGCDWith: aDivisor.
+	denominator :=  aDivisor divideByGCDWith: aDividend.
 	^self new initializeWith: numerator over: denominator
-	! !
+! !
