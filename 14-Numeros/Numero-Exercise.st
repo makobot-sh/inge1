@@ -496,73 +496,41 @@ negativeFibonacciErrorDescription
 	^'Fibonacci no está definido aquí para Enteros Negativos!!!!!!'
 ! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'Chiro 9/15/2021 17:23:17'!
+!Entero class methodsFor: 'instance creation' stamp: 'Chiro 9/15/2021 13:21:25'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
 	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].
 
-	^(self subclasses detect:[:unEnteroClass | unEnteroClass isValidFor: aValue]) with: aValue.
-	! !
+	^(self subclasses detect:[:unEnteroClass | unEnteroClass isValidFor: aValue]) with: aValue.! !
 
 
-!classDefinition: #EnteroCero category: 'Numero-Exercise'!
-Entero subclass: #EnteroCero
+!classDefinition: #EnteroNegative category: 'Numero-Exercise'!
+Entero subclass: #EnteroNegative
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroCero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 17:06:02'!
-fibonacci
-	^EnteroPositivo with: 1! !
+!EnteroNegative methodsFor: 'arithmetic operations'!
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'EnteroCero class' category: 'Numero-Exercise'!
-EnteroCero class
+!classDefinition: 'EnteroNegative class' category: 'Numero-Exercise'!
+EnteroNegative class
 	instanceVariableNames: ''!
 
-!EnteroCero class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
-isValidFor: aValue
-	^aValue = 0.! !
-
-!EnteroCero class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:19:56'!
-with: aValue 
-	
-	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
-	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].
-	
-	^self new initalizeWith: aValue! !
-
-
-!classDefinition: #EnteroNegativo category: 'Numero-Exercise'!
-Entero subclass: #EnteroNegativo
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Numero-Exercise'!
-
-!EnteroNegativo methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 15:52:45'!
-fibonacci
-	self error: EnteroNegativo negativeFibonacciErrorDescription. ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'EnteroNegativo class' category: 'Numero-Exercise'!
-EnteroNegativo class
-	instanceVariableNames: ''!
-
-!EnteroNegativo class methodsFor: 'errorsDescriptions' stamp: 'Chiro 9/14/2021 18:45:04'!
+!EnteroNegative class methodsFor: 'errorsDescriptions' stamp: 'Chiro 9/14/2021 18:45:04'!
 negativeFibonacciErrorDescription
 	^ 'Fibonacci no está definido aquí para Enteros Negativos!!!!!!'! !
 
 
-!EnteroNegativo class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
+!EnteroNegative class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
 isValidFor: aValue
 	^aValue < 0.! !
 
-!EnteroNegativo class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:19:52'!
+!EnteroNegative class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:19:52'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
@@ -571,29 +539,29 @@ with: aValue
 	^self new initalizeWith: aValue! !
 
 
-!classDefinition: #EnteroPositivo category: 'Numero-Exercise'!
-Entero subclass: #EnteroPositivo
+!classDefinition: #EnteroPositive category: 'Numero-Exercise'!
+Entero subclass: #EnteroPositive
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroPositivo methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:26:15'!
+!EnteroPositive methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:26:15'!
 fibonacci
 	self subclassResponsibility 
 		! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'EnteroPositivo class' category: 'Numero-Exercise'!
-EnteroPositivo class
+!classDefinition: 'EnteroPositive class' category: 'Numero-Exercise'!
+EnteroPositive class
 	instanceVariableNames: ''!
 
-!EnteroPositivo class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
+!EnteroPositive class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
 isValidFor: aValue
 	^aValue > 0.! !
 
-!EnteroPositivo class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
+!EnteroPositive class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
@@ -603,14 +571,14 @@ with: aValue
 	! !
 
 
-!classDefinition: #EnteroMayorAUno category: 'Numero-Exercise'!
-EnteroPositivo subclass: #EnteroMayorAUno
+!classDefinition: #EnteroGreaterThanOne category: 'Numero-Exercise'!
+EnteroPositive subclass: #EnteroGreaterThanOne
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroMayorAUno methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:25:41'!
+!EnteroGreaterThanOne methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 18:25:41'!
 fibonacci
 
 	| one two |
@@ -622,15 +590,15 @@ fibonacci
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'EnteroMayorAUno class' category: 'Numero-Exercise'!
-EnteroMayorAUno class
+!classDefinition: 'EnteroGreaterThanOne class' category: 'Numero-Exercise'!
+EnteroGreaterThanOne class
 	instanceVariableNames: ''!
 
-!EnteroMayorAUno class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
+!EnteroGreaterThanOne class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
 isValidFor: aValue
 	^aValue > 1.! !
 
-!EnteroMayorAUno class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:19:33'!
+!EnteroGreaterThanOne class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:19:33'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
@@ -639,28 +607,57 @@ with: aValue
 	^self new initalizeWith: aValue! !
 
 
-!classDefinition: #EnteroUno category: 'Numero-Exercise'!
-EnteroPositivo subclass: #EnteroUno
+!classDefinition: #EnteroOne category: 'Numero-Exercise'!
+EnteroPositive subclass: #EnteroOne
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroUno methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 17:07:29'!
+!EnteroOne methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 17:07:29'!
 fibonacci
 	^self! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'EnteroUno class' category: 'Numero-Exercise'!
-EnteroUno class
+!classDefinition: 'EnteroOne class' category: 'Numero-Exercise'!
+EnteroOne class
 	instanceVariableNames: ''!
 
-!EnteroUno class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
+!EnteroOne class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
 isValidFor: aValue
 	^aValue = 1.! !
 
-!EnteroUno class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:19:46'!
+!EnteroOne class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:19:46'!
+with: aValue 
+	
+	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
+	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].
+	
+	^self new initalizeWith: aValue! !
+
+
+!classDefinition: #EnteroZero category: 'Numero-Exercise'!
+Entero subclass: #EnteroZero
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!EnteroZero methodsFor: 'arithmetic operations'!
+! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'EnteroZero class' category: 'Numero-Exercise'!
+EnteroZero class
+	instanceVariableNames: ''!
+
+!EnteroZero class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:49:33'!
+isValidFor: aValue
+	^aValue = 0.! !
+
+!EnteroZero class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/14/2021 18:19:56'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
@@ -831,8 +828,8 @@ with: aDividend over: aDivisor
 ! !
 
 
-!classDefinition: #FraccionWithDenominator0 category: 'Numero-Exercise'!
-Fraccion subclass: #FraccionWithDenominator0
+!classDefinition: #FraccionWithDenominatorZero category: 'Numero-Exercise'!
+Fraccion subclass: #FraccionWithDenominatorZero
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -840,15 +837,15 @@ Fraccion subclass: #FraccionWithDenominator0
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'FraccionWithDenominator0 class' category: 'Numero-Exercise'!
-FraccionWithDenominator0 class
+!classDefinition: 'FraccionWithDenominatorZero class' category: 'Numero-Exercise'!
+FraccionWithDenominatorZero class
 	instanceVariableNames: ''!
 
-!FraccionWithDenominator0 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:12:36'!
+!FraccionWithDenominatorZero class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:12:36'!
 isValidForNumerator: aNumerator andDenominator: aDenominator 
 	^aDenominator integerValue = 0.! !
 
-!FraccionWithDenominator0 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 15:35:17'!
+!FraccionWithDenominatorZero class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 15:35:17'!
 with: aDividend over: aDivisor
 
 	Fraccion error: Fraccion canNotDivideByZeroErrorDescription ! !
@@ -877,8 +874,8 @@ with: aDividend over: aDivisor
 	 ^aDividend negated / aDivisor negated! !
 
 
-!classDefinition: #FraccionWithNumerator0 category: 'Numero-Exercise'!
-Fraccion subclass: #FraccionWithNumerator0
+!classDefinition: #FraccionWithNumeratorZero category: 'Numero-Exercise'!
+Fraccion subclass: #FraccionWithNumeratorZero
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -886,15 +883,15 @@ Fraccion subclass: #FraccionWithNumerator0
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'FraccionWithNumerator0 class' category: 'Numero-Exercise'!
-FraccionWithNumerator0 class
+!classDefinition: 'FraccionWithNumeratorZero class' category: 'Numero-Exercise'!
+FraccionWithNumeratorZero class
 	instanceVariableNames: ''!
 
-!FraccionWithNumerator0 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:12:55'!
+!FraccionWithNumeratorZero class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:12:55'!
 isValidForNumerator: aNumerator andDenominator: aDenominator 
 	^(aNumerator integerValue = 0) & (aDenominator integerValue ~= 0).! !
 
-!FraccionWithNumerator0 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:22:44'!
+!FraccionWithNumeratorZero class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:22:44'!
 with: aDividend over: aDivisor
 	 ^aDividend.! !
 
@@ -912,12 +909,6 @@ Fraccion subclass: #FraccionWithPositiveDenominator
 FraccionWithPositiveDenominator class
 	instanceVariableNames: ''!
 
-!FraccionWithPositiveDenominator class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:36:04'!
-divide: aValue byGCDWith: aValue2
-	|greatestCommonDivisor |
-	greatestCommonDivisor := aValue greatestCommonDivisorWith: aValue2. 
-	^aValue // greatestCommonDivisor.! !
-
 !FraccionWithPositiveDenominator class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:13:01'!
 isValidForNumerator: aNumerator andDenominator: aDenominator 
 	^(aDenominator integerValue > 0) & (aNumerator integerValue ~= 0) ! !
@@ -928,8 +919,8 @@ with: aDividend over: aDivisor
 	^(self subclasses detect:[:unaFraccionClass | unaFraccionClass isValidForNumerator: aDividend andDenominator: aDivisor]) with: aDividend over: aDivisor.	! !
 
 
-!classDefinition: #FraccionWithDenominator1 category: 'Numero-Exercise'!
-FraccionWithPositiveDenominator subclass: #FraccionWithDenominator1
+!classDefinition: #FraccionWithDenominatorGreaterThanOne category: 'Numero-Exercise'!
+FraccionWithPositiveDenominator subclass: #FraccionWithDenominatorGreaterThanOne
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -937,22 +928,19 @@ FraccionWithPositiveDenominator subclass: #FraccionWithDenominator1
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'FraccionWithDenominator1 class' category: 'Numero-Exercise'!
-FraccionWithDenominator1 class
+!classDefinition: 'FraccionWithDenominatorGreaterThanOne class' category: 'Numero-Exercise'!
+FraccionWithDenominatorGreaterThanOne class
 	instanceVariableNames: ''!
 
-!FraccionWithDenominator1 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:40:30'!
-isValidForNumerator: aNumerator andDenominator: aDenominator 
-	^(aDenominator divideByGCDWith: aNumerator) integerValue = 1.! !
+!FraccionWithDenominatorGreaterThanOne class methodsFor: 'as yet unclassified'!
+! !
 
-!FraccionWithDenominator1 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:40:30'!
-with: aDividend over: aDivisor
-	^aDividend divideByGCDWith: aDivisor.
+!FraccionWithDenominatorGreaterThanOne class methodsFor: 'as yet unclassified'!
 ! !
 
 
-!classDefinition: #FraccionWithDenominatorGreaterThan1 category: 'Numero-Exercise'!
-FraccionWithPositiveDenominator subclass: #FraccionWithDenominatorGreaterThan1
+!classDefinition: #FraccionWithDenominatorOne category: 'Numero-Exercise'!
+FraccionWithPositiveDenominator subclass: #FraccionWithDenominatorOne
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -960,19 +948,15 @@ FraccionWithPositiveDenominator subclass: #FraccionWithDenominatorGreaterThan1
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'FraccionWithDenominatorGreaterThan1 class' category: 'Numero-Exercise'!
-FraccionWithDenominatorGreaterThan1 class
+!classDefinition: 'FraccionWithDenominatorOne class' category: 'Numero-Exercise'!
+FraccionWithDenominatorOne class
 	instanceVariableNames: ''!
 
-!FraccionWithDenominatorGreaterThan1 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:40:51'!
+!FraccionWithDenominatorOne class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:40:30'!
 isValidForNumerator: aNumerator andDenominator: aDenominator 
-	
-	^(aDenominator divideByGCDWith: aNumerator) integerValue ~= 1.! !
+	^(aDenominator divideByGCDWith: aNumerator) integerValue = 1.! !
 
-!FraccionWithDenominatorGreaterThan1 class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:41:14'!
+!FraccionWithDenominatorOne class methodsFor: 'as yet unclassified' stamp: 'Chiro 9/15/2021 16:40:30'!
 with: aDividend over: aDivisor
-	|denominator numerator|
-	numerator    := aDividend divideByGCDWith: aDivisor.
-	denominator :=  aDivisor divideByGCDWith: aDividend.
-	^self new initializeWith: numerator over: denominator
+	^aDividend divideByGCDWith: aDivisor.
 ! !
