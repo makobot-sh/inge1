@@ -421,12 +421,6 @@ subtractToFraction: aSubstractedFraction
 	
 	^Entero with: value // aDivisor integerValue! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/15/2021 16:40:30'!
-divideByGCDWith: aValue
-	|greatestCommonDivisor |
-	greatestCommonDivisor := self greatestCommonDivisorWith: aValue. 
-	^self // greatestCommonDivisor.! !
-
 !Entero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/14/2021 17:13:36'!
 fibonacci
 	self subclassResponsibility 
@@ -484,7 +478,6 @@ isZero
 	
 	^value = 0! !
 
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Entero class' category: 'Numero-Exercise'!
@@ -512,8 +505,9 @@ Entero subclass: #EnteroNegative
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroNegative methodsFor: 'arithmetic operations'!
-! !
+!EnteroNegative methodsFor: 'arithmetic operations' stamp: 'Chiro 9/16/2021 16:31:32'!
+fibonacci
+  	self error: EnteroNegative negativeFibonacciErrorDescription.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -648,8 +642,9 @@ Entero subclass: #EnteroZero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroZero methodsFor: 'arithmetic operations'!
-! !
+!EnteroZero methodsFor: 'arithmetic operations' stamp: 'Chiro 9/16/2021 16:32:48'!
+fibonacci
+	^EnteroPositive with: 1! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -788,8 +783,13 @@ numerator
 	^ numerator! !
 
 
-!Fraccion methodsFor: 'initialization' stamp: 'Chiro 9/15/2021 16:47:21'!
+!Fraccion methodsFor: 'initialization' stamp: 'MK 9/16/2021 16:41:48'!
 initializeWith: aNumerator over: aDenominator
+	
+	"Estas precondiciones estan por si se comenten errores en la implementacion - Hernan"
+	"Las dejamos a pesar de que sean ifs ya que por mail dijeron no hay problema. Se podrian borrar ya que los chequeos estan en otro lado - Grupo 1"
+	aNumerator isZero ifTrue: [ self error: 'una fraccion no puede ser cero' ].
+	aDenominator isOne ifTrue: [ self error: 'una fraccion no puede tener denominador 1 porque sino es un entero' ].
 	
 	numerator := aNumerator.
 	denominator := aDenominator ! !
@@ -818,7 +818,6 @@ printOn: aStream
 		print: numerator;
 		nextPut: $/;
 		print: denominator ! !
-
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -928,8 +927,8 @@ matchesWithNumerator: aNumerator andDenominator: aDenominator
 	^(aDenominator integerValue > 0) & (aNumerator isZero not) ! !
 
 
-!classDefinition: #FraccionWithDenominatorGreaterThanOne category: 'Numero-Exercise'!
-FraccionWithPositiveDenominator subclass: #FraccionWithDenominatorGreaterThanOne
+!classDefinition: #FraccionNotSimplified category: 'Numero-Exercise'!
+FraccionWithPositiveDenominator subclass: #FraccionNotSimplified
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -937,22 +936,46 @@ FraccionWithPositiveDenominator subclass: #FraccionWithDenominatorGreaterThanOne
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'FraccionWithDenominatorGreaterThanOne class' category: 'Numero-Exercise'!
-FraccionWithDenominatorGreaterThanOne class
+!classDefinition: 'FraccionNotSimplified class' category: 'Numero-Exercise'!
+FraccionNotSimplified class
 	instanceVariableNames: ''!
 
-!FraccionWithDenominatorGreaterThanOne class methodsFor: 'instance creation' stamp: 'Chiro 9/16/2021 15:59:41'!
+!FraccionNotSimplified class methodsFor: 'instance creation' stamp: 'Chiro 9/16/2021 16:10:31'!
 with: aDividend over: aDivisor
-	| numerator denominator greatestCommonDivisor |
+	|numerator denominator greatestCommonDivisor |
 	greatestCommonDivisor _ aDividend greatestCommonDivisorWith: aDivisor.
 	numerator _ aDividend // greatestCommonDivisor.
 	denominator _ aDivisor // greatestCommonDivisor.
-	^ self new initializeWith: numerator over: denominator.! !
+	^numerator / denominator
+	! !
 
 
-!FraccionWithDenominatorGreaterThanOne class methodsFor: 'class definition' stamp: 'Chiro 9/16/2021 16:05:44'!
-matchesWithNumerator: aDividend andDenominator: aDivisor
-	^ (aDivisor divideByGCDWith: aDividend) integerValue > 1.! !
+!FraccionNotSimplified class methodsFor: 'class definition' stamp: 'Chiro 9/16/2021 16:08:02'!
+matchesWithNumerator: aNumerator andDenominator: aDenominator 
+	^(aNumerator greatestCommonDivisorWith: aDenominator) isOne not. ! !
+
+
+!classDefinition: #FraccionSimplifiedWithDenominatorGreaterThanOne category: 'Numero-Exercise'!
+FraccionWithPositiveDenominator subclass: #FraccionSimplifiedWithDenominatorGreaterThanOne
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FraccionSimplifiedWithDenominatorGreaterThanOne class' category: 'Numero-Exercise'!
+FraccionSimplifiedWithDenominatorGreaterThanOne class
+	instanceVariableNames: ''!
+
+!FraccionSimplifiedWithDenominatorGreaterThanOne class methodsFor: 'instance creation' stamp: 'Chiro 9/16/2021 16:23:52'!
+with: aDividend over: aDivisor
+	^ self new initializeWith: aDividend over: aDivisor.! !
+
+
+!FraccionSimplifiedWithDenominatorGreaterThanOne class methodsFor: 'class definition' stamp: 'Chiro 9/16/2021 16:17:58'!
+matchesWithNumerator: aNumerator andDenominator: aDenominator 
+	^((aNumerator greatestCommonDivisorWith: aDenominator) isOne) & (aDenominator isOne not). ! !
 
 
 !classDefinition: #FraccionWithDenominatorOne category: 'Numero-Exercise'!
@@ -968,12 +991,12 @@ FraccionWithPositiveDenominator subclass: #FraccionWithDenominatorOne
 FraccionWithDenominatorOne class
 	instanceVariableNames: ''!
 
-!FraccionWithDenominatorOne class methodsFor: 'class definition' stamp: 'Chiro 9/16/2021 16:02:35'!
+!FraccionWithDenominatorOne class methodsFor: 'class definition' stamp: 'Chiro 9/16/2021 16:12:26'!
 matchesWithNumerator: aNumerator andDenominator: aDenominator 
-	^(aDenominator divideByGCDWith: aNumerator) isOne.! !
+	^aDenominator isOne.! !
 
 
-!FraccionWithDenominatorOne class methodsFor: 'instance creation' stamp: 'Chiro 9/15/2021 16:40:30'!
+!FraccionWithDenominatorOne class methodsFor: 'instance creation' stamp: 'Chiro 9/16/2021 16:12:04'!
 with: aDividend over: aDivisor
-	^aDividend divideByGCDWith: aDivisor.
+	^aDividend.
 ! !
