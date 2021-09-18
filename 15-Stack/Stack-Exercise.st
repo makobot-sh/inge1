@@ -144,56 +144,73 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Chiro 9/18/2021 16:09:10'!
+test01StackEmptyShouldReturnEmptyCollection
+
+	|stack prefixMatch finder|
+	stack := OOStack new.
+	finder := SentenceFinderByPrefix with: stack.
+	prefixMatch := finder find:'Macarena       '.
+	
+	self assert: prefixMatch isEmpty! !
+
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
-	instanceVariableNames: 'stateMachine'
+	instanceVariableNames: 'stateMachine elementContainerList'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'initialization' stamp: 'AF 9/18/2021 13:45:36'!
+!OOStack methodsFor: 'initialization' stamp: 'Chiro 9/18/2021 14:57:45'!
 initialize
+	elementContainerList  := OrderedCollection new.
+	stateMachine := OOStackStateMachine new 
 	
 
 	! !
 
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:38'!
+!OOStack methodsFor: 'operations' stamp: 'Chiro 9/18/2021 14:55:29'!
 isEmpty 
 
-	"^elementContainerList isEmpty. "! !
+	^elementContainerList isEmpty.! !
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:14'!
+!OOStack methodsFor: 'operations' stamp: 'Chiro 9/18/2021 14:54:17'!
 pop
 	
-	"|returnedString|
+	|returnedString|
 
 	returnedString _ self top.
 	elementContainerList removeLast.
-	^returnedString."
+	^returnedString.
 					
 ! !
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:19'!
+!OOStack methodsFor: 'operations' stamp: 'Chiro 9/18/2021 14:54:23'!
 push: anItem
 
-	"elementContainerList add: anItem."
+	elementContainerList add: anItem.
 	! !
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:25'!
+!OOStack methodsFor: 'operations' stamp: 'Chiro 9/18/2021 14:55:21'!
 size
  
-	"^elementContainerList size."! !
+	^elementContainerList size.! !
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:31'!
+!OOStack methodsFor: 'operations' stamp: 'Chiro 9/18/2021 15:06:37'!
 top
-
-	"elementContainerList isEmpty not ifTrue: [^elementContainerList last].
-					
-	^self error: self class stackEmptyErrorDescription."
+	^stateMachine topOf: self.
 	
 ! !
+
+!OOStack methodsFor: 'operations' stamp: 'Chiro 9/18/2021 14:47:12'!
+topEmpty
+	^self error: self class stackEmptyErrorDescription.! !
+
+!OOStack methodsFor: 'operations' stamp: 'Chiro 9/18/2021 14:46:52'!
+topNotEmpty
+	^elementContainerList last.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -207,42 +224,73 @@ stackEmptyErrorDescription
 	^ 'stack is empty!!!!!!'! !
 
 
-!classDefinition: #OOStackEmptyState category: 'Stack-Exercise'!
-OOStack subclass: #OOStackEmptyState
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-
-!classDefinition: #OOStackNotEmptyState category: 'Stack-Exercise'!
-OOStack subclass: #OOStackNotEmptyState
-	instanceVariableNames: 'elementContainer'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-
 !classDefinition: #OOStackStateMachine category: 'Stack-Exercise'!
 OOStack subclass: #OOStackStateMachine
-	instanceVariableNames: 'emptyState notEmptyState'
+	instanceVariableNames: 'topDictionary'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackStateMachine methodsFor: 'as yet unclassified' stamp: 'AF 9/18/2021 14:00:01'!
+!OOStackStateMachine methodsFor: 'as yet unclassified' stamp: 'Chiro 9/18/2021 14:59:25'!
 initialize
 
-	emptyState := OOStackEmptyState new.
-	
-	notEmptyState := OOStackNotEmptyState  new.
-
+	topDictionary := Dictionary new.
+	topDictionary add: 0 -> [:aStack| aStack topEmpty].
 	! !
+
+!OOStackStateMachine methodsFor: 'as yet unclassified' stamp: 'Chiro 9/18/2021 15:03:36'!
+topOf: aStack
+	|size|
+	size := aStack size.
+	(topDictionary at: size ifAbsent:[^aStack topNotEmpty]) value: aStack. ! !
 
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: ''
+	instanceVariableNames: 'stack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'Chiro 9/18/2021 16:03:45'!
+find: aPrefix
+	|sentence auxiliaryStack prefixMatched|
+	
+	[self validatePrefix: aPrefix] ifFalse: [^self error: self class invalidPrefixWithEmptySpaces].
+	prefixMatched := OrderedCollection new.
+	auxiliaryStack := OOStack new.
+	[stack isEmpty not] whileTrue: [
+		sentence := stack pop.
+		[sentence beginsWith: aPrefix] ifTrue: [prefixMatched add: sentence].
+		auxiliaryStack push: sentence.
+	].
+	[auxiliaryStack isEmpty not] whileTrue: [
+		stack push: auxiliaryStack pop.
+	].
+	^prefixMatched! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'Chiro 9/18/2021 15:56:54'!
+initializeWith: aStack
+	stack := aStack! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'Chiro 9/18/2021 16:07:41'!
+validatePrefix: prefix
+	^prefix findString: ' ' ~= 0
+	
+! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
+SentenceFinderByPrefix class
+	instanceVariableNames: ''!
+
+!SentenceFinderByPrefix class methodsFor: 'initialize' stamp: 'Chiro 9/18/2021 15:56:28'!
+with: aStack
+	self new initializeWith: aStack! !
+
+
+!SentenceFinderByPrefix class methodsFor: 'error' stamp: 'Chiro 9/18/2021 16:07:57'!
+invalidPrefixWithEmptySpaces
+
+	^'The prefix should not contain any spaces'! !
