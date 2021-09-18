@@ -147,49 +147,53 @@ TestCase subclass: #SentenceFinderByPrefixTest
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
-	instanceVariableNames: 'elementContainerList'
+	instanceVariableNames: 'stateMachine'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'initialization' stamp: 'AF 9/16/2021 21:05:03'!
+!OOStack methodsFor: 'initialization' stamp: 'AF 9/18/2021 13:45:36'!
 initialize
+	
 
-	elementContainerList := OrderedCollection new.! !
+	! !
 
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/16/2021 21:05:03'!
+!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:38'!
 isEmpty 
 
-	^elementContainerList isEmpty. ! !
+	"^elementContainerList isEmpty. "! !
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/16/2021 21:24:02'!
+!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:14'!
 pop
-
-	|returnedString|
+	
+	"|returnedString|
 
 	returnedString _ self top.
 	elementContainerList removeLast.
-	^returnedString.
+	^returnedString."
 					
 ! !
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/16/2021 21:05:03'!
-push: aString
+!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:19'!
+push: anItem
 
-	elementContainerList add: aString.! !
+	"elementContainerList add: anItem."
+	! !
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/16/2021 21:05:03'!
+!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:25'!
 size
  
-	^elementContainerList size.! !
+	"^elementContainerList size."! !
 
-!OOStack methodsFor: 'operations' stamp: 'AF 9/16/2021 21:05:03'!
+!OOStack methodsFor: 'operations' stamp: 'AF 9/18/2021 13:46:31'!
 top
 
-	elementContainerList isEmpty not ifTrue: [^elementContainerList last].
+	"elementContainerList isEmpty not ifTrue: [^elementContainerList last].
 					
-	^self error: self class stackEmptyErrorDescription.! !
+	^self error: self class stackEmptyErrorDescription."
+	
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -201,6 +205,39 @@ OOStack class
 stackEmptyErrorDescription
 	
 	^ 'stack is empty!!!!!!'! !
+
+
+!classDefinition: #OOStackEmptyState category: 'Stack-Exercise'!
+OOStack subclass: #OOStackEmptyState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+
+!classDefinition: #OOStackNotEmptyState category: 'Stack-Exercise'!
+OOStack subclass: #OOStackNotEmptyState
+	instanceVariableNames: 'elementContainer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+
+!classDefinition: #OOStackStateMachine category: 'Stack-Exercise'!
+OOStack subclass: #OOStackStateMachine
+	instanceVariableNames: 'emptyState notEmptyState'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!OOStackStateMachine methodsFor: 'as yet unclassified' stamp: 'AF 9/18/2021 14:00:01'!
+initialize
+
+	emptyState := OOStackEmptyState new.
+	
+	notEmptyState := OOStackNotEmptyState  new.
+
+	! !
 
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
