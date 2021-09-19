@@ -144,72 +144,72 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 18:10:21'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 20:33:04'!
 test01StackEmptyShouldReturnEmptyCollection
 
 	|stack prefixMatch finder|
 	stack := OOStack new.
-	finder := SentenceFinderByPrefix with: stack.
-	prefixMatch := finder find: 'Macarena'.
+	finder := SentenceFinderByPrefix new.
+	prefixMatch := finder findAllSentencesWith: 'Macarena' in: stack.
 	
 	self assert: prefixMatch isEmpty! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 18:54:48'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 20:33:04'!
 test02PrefixWithSpacesShouldThrowError
 
 	|stack finder|
 	stack := OOStack new.
-	finder := SentenceFinderByPrefix with: stack.
+	finder := SentenceFinderByPrefix new.
 	self	
-		should: [finder find: 'Invalid prefix']
+		should: [finder findAllSentencesWith: 'Invalid prefix' in: stack]
 		raise: Error
 		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix invalidPrefixWithSpaces].! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 18:54:59'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 20:33:04'!
 test03EmptyPrefixShouldThrowError
 
 	|stack finder|
 	stack := OOStack new.
-	finder := SentenceFinderByPrefix with: stack.
+	finder := SentenceFinderByPrefix new.
 	self	
-		should: [finder find: '']
+		should: [finder findAllSentencesWith: '' in: stack]
 		raise: Error
 		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix invalidPrefixEmpty].! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 19:02:03'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 20:33:04'!
 test04StackWithOneElementThatMatchesPrefix
 
 	|stack prefixMatch finder|
 	stack := OOStack new.
 	stack push: 'Tomas'.
-	finder := SentenceFinderByPrefix with: stack.
-	prefixMatch := finder find: 'Tom'.
+	finder := SentenceFinderByPrefix new.
+	prefixMatch := finder findAllSentencesWith: 'Tom' in: stack.
 	
 	self assert: prefixMatch = (OrderedCollection with: 'Tomas').! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 19:02:36'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 20:33:04'!
 test05StackWithOneElementThatDoesNotMatchPrefix
 
 	|stack prefixMatch finder|
 	stack := OOStack new.
 	stack push: 'Tomas'.
-	finder := SentenceFinderByPrefix with: stack.
-	prefixMatch := finder find: 'Agus'.
+	finder := SentenceFinderByPrefix new.
+	prefixMatch := finder findAllSentencesWith: 'Agus' in: stack.
 	
 	self assert: prefixMatch = (OrderedCollection new).! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 19:03:43'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 20:33:04'!
 test06StackWithOneElementThatDoesNotMatchPrefixCase
 
 	|stack prefixMatch finder|
 	stack := OOStack new.
 	stack push: 'Tomas'.
-	finder := SentenceFinderByPrefix with: stack.
-	prefixMatch := finder find: 'tomas'.
+	finder := SentenceFinderByPrefix new.
+	prefixMatch := finder findAllSentencesWith: 'tomas' in: stack.
 	
 	self assert: prefixMatch = (OrderedCollection new).! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 19:08:09'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 20:33:04'!
 test07StackWithMultipleMatches
 
 	|stack prefixMatch finder|
@@ -220,12 +220,12 @@ test07StackWithMultipleMatches
 	stack push: 'Agustin tampoco'.
 	stack push: 'Tomas estuvo aqui'.
 	
-	finder := SentenceFinderByPrefix with: stack.
-	prefixMatch := finder find: 'Tomas'.
+	finder := SentenceFinderByPrefix new.
+	prefixMatch := finder findAllSentencesWith: 'Tomas' in: stack.
 	
 	self assert: prefixMatch = (OrderedCollection with: 'Tomas' with: 'Tomas estuvo' with: 'Tomas estuvo aqui').! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 19:12:28'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MK 9/19/2021 20:33:04'!
 test08StackWithMultipleMatchesButWrongCases
 
 	|stack prefixMatch finder|
@@ -236,8 +236,8 @@ test08StackWithMultipleMatchesButWrongCases
 	stack push: 'Agustin tampoco'.
 	stack push: 'TOMAS ESTUVO AQUI!!!!!!'.
 	
-	finder := SentenceFinderByPrefix with: stack.
-	prefixMatch := finder find: 'Tomas'.
+	finder := SentenceFinderByPrefix new.
+	prefixMatch := finder findAllSentencesWith: 'Tomas' in: stack.
 	
 	self assert: prefixMatch = (OrderedCollection with: 'Tomas').! !
 
@@ -408,7 +408,7 @@ canHandle: aStack
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: 'stack auxiliaryStack'
+	instanceVariableNames: 'auxiliaryStack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
@@ -427,50 +427,44 @@ assertPrefixIsValid: aPrefix
 	self assertPrefixIsNotEmpty: aPrefix.! !
 
 
-!SentenceFinderByPrefix methodsFor: 'initialization' stamp: 'MK 9/19/2021 20:04:52'!
-initializeWith: aStack
-	stack := aStack.
+!SentenceFinderByPrefix methodsFor: 'initialization' stamp: 'MK 9/19/2021 20:26:43'!
+initialize
 	auxiliaryStack := OOStack new.! !
 
 
-!SentenceFinderByPrefix methodsFor: 'restorer' stamp: 'MK 9/19/2021 19:51:22'!
-restoreStackFromAuxiliaryStack
+!SentenceFinderByPrefix methodsFor: 'restorer' stamp: 'MK 9/19/2021 20:29:00'!
+restoreStack: aStackOfSentences
 	[auxiliaryStack isEmpty not] whileTrue: [
-		stack push: auxiliaryStack pop.
+		aStackOfSentences push: auxiliaryStack pop.
 	].
 ! !
 
 
-!SentenceFinderByPrefix methodsFor: 'fetchers' stamp: 'MK 9/19/2021 20:03:37'!
-fetchSentencesInStackThatMatch: aPrefix
+!SentenceFinderByPrefix methodsFor: 'fetchers' stamp: 'MK 9/19/2021 20:29:00'!
+fetchSentencesFrom: aStackOfSentences thatMatch: aPrefix
 	|sentence matchingSentences|
 	matchingSentences := OrderedCollection new.
 	
-	[stack isEmpty not] whileTrue: [
-		sentence := stack pop.
+	[aStackOfSentences isEmpty not] whileTrue: [
+		sentence := aStackOfSentences pop.
 		(sentence beginsWith: aPrefix) ifTrue: [matchingSentences addFirst: sentence].
 		auxiliaryStack push: sentence.
 	].
 
-	self restoreStackFromAuxiliaryStack.
+	self restoreStack: aStackOfSentences .
 	^ matchingSentences! !
 
-!SentenceFinderByPrefix methodsFor: 'fetchers' stamp: 'MK 9/19/2021 20:02:52'!
-find: aPrefix
+!SentenceFinderByPrefix methodsFor: 'fetchers' stamp: 'MK 9/19/2021 20:26:18'!
+findAllSentencesWith: aPrefix in: aStackOfSentences 
 	
 	self assertPrefixIsValid: aPrefix.
-	^ self fetchSentencesInStackThatMatch: aPrefix.! !
+	^ self fetchSentencesFrom: aStackOfSentences thatMatch: aPrefix.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
-
-!SentenceFinderByPrefix class methodsFor: 'initialize' stamp: 'MK 9/19/2021 18:11:45'!
-with: aStack
-	^ self new initializeWith: aStack! !
-
 
 !SentenceFinderByPrefix class methodsFor: 'error' stamp: 'MK 9/19/2021 18:50:54'!
 invalidPrefixEmpty
