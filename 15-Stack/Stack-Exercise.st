@@ -339,9 +339,9 @@ Object subclass: #OOStackStateMachine
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackStateMachine methodsFor: 'initialization' stamp: 'MK 9/19/2021 17:52:26'!
+!OOStackStateMachine methodsFor: 'initialization' stamp: 'Chiro 9/20/2021 16:26:51'!
 initializeWith: aStack
-	^ self subclassResponsibility.! !
+	stack := aStack.! !
 
 
 !OOStackStateMachine methodsFor: 'operations' stamp: 'MK 9/19/2021 18:01:39'!
@@ -371,11 +371,6 @@ OOStackStateMachine subclass: #OOStackEmptyState
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackEmptyState methodsFor: 'initialization' stamp: 'MK 9/19/2021 17:54:18'!
-initializeWith: aStack
-	stack := aStack.! !
-
-
 !OOStackEmptyState methodsFor: 'operations' stamp: 'MK 9/19/2021 18:01:39'!
 top
 	^ stack topEmpty.! !
@@ -402,11 +397,6 @@ OOStackStateMachine subclass: #OOStackNotEmptyState
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
-
-!OOStackNotEmptyState methodsFor: 'initialization' stamp: 'MK 9/19/2021 17:54:33'!
-initializeWith: aStack
-	stack := aStack.! !
-
 
 !OOStackNotEmptyState methodsFor: 'operations' stamp: 'MK 9/19/2021 18:01:40'!
 top
