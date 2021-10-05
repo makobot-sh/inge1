@@ -5,11 +5,11 @@ TestCase subclass: #MarsRoverTest
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MK 10/4/2021 21:46:05'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MK 10/5/2021 16:16:56'!
 test01NoCommands
 	| marsRover|
 	marsRover _ MarsRover at: 1@2 heading: #North.
-	
+		
 	marsRover process: ''.
 	
 	self assert: (marsRover isAt: 1@2 heading: #North).! !
@@ -94,10 +94,10 @@ Object subclass: #MarsRover
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/4/2021 21:14:00'!
-isAt: aPoint heading: aSymbol 
-	position = aPoint ifTrue: [
-		direction = aSymbol ifTrue: [^ true].	
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/5/2021 16:21:27'!
+isAt: aPosition heading: aDirection 
+	position = aPosition ifTrue: [
+		direction = aDirection ifTrue: [^ true].	
 	].
 	
 	^false.! !
@@ -111,36 +111,33 @@ process: aSequenceOfCommands
 		aCommand = $r ifTrue: [ self rotateRight.].
 	].! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/4/2021 21:39:33'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/5/2021 16:25:38'!
 rotateLeft
 
-	^ direction = #North ifTrue: [direction _ #West]
-			ifFalse: [
-				direction = #South ifTrue: [direction _ #East] ifFalse: [
-					direction = #West ifTrue: [direction _ #South] ifFalse: [
-						direction = #East ifTrue: [direction _ #North] 
-					].
-				]	.
-			]! !
+	^ direction = #North ifTrue: [direction _ #West] ifFalse: [
+		direction = #South ifTrue: [direction _ #East] ifFalse: [
+			direction = #West ifTrue: [direction _ #South] ifFalse: [
+				direction = #East ifTrue: [direction _ #North] 
+			].
+		].
+	].! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/4/2021 21:44:05'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/5/2021 16:26:49'!
 rotateRight
 
-	^ direction = #North ifTrue: [direction _ #East]
-			ifFalse: [
-				direction = #South ifTrue: [direction _ #West] ifFalse: [
-					direction = #West ifTrue: [direction _ #North] ifFalse: [
-						direction = #East ifTrue: [direction _ #South] 
-					].
-				]	.
-			]! !
+	^ direction = #North ifTrue: [direction _ #East] ifFalse: [
+		direction = #South ifTrue: [direction _ #West] ifFalse: [
+			direction = #West ifTrue: [direction _ #North] ifFalse: [
+				direction = #East ifTrue: [direction _ #South] 
+			].
+		].
+	].! !
 
 
-!MarsRover methodsFor: 'initialization' stamp: 'MK 10/4/2021 21:12:07'!
-initializeWith: aPoint and: aSymbol 
-	position := aPoint.
-	direction := aSymbol.
-	^ self.! !
+!MarsRover methodsFor: 'initialization' stamp: 'MK 10/5/2021 16:20:29'!
+initializeWith: aPosition and: aDirection 
+	position := aPosition.
+	direction := aDirection.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -148,7 +145,6 @@ initializeWith: aPoint and: aSymbol
 MarsRover class
 	instanceVariableNames: ''!
 
-!MarsRover class methodsFor: 'as yet unclassified' stamp: 'MK 10/4/2021 20:54:32'!
-at: aPoint heading: aSymbol 
-	^ self new initializeWith: aPoint and: aSymbol.! !
-
+!MarsRover class methodsFor: 'initialization' stamp: 'MK 10/5/2021 16:14:56'!
+at: aPosition heading: aDirection 
+	^ self new initializeWith: aPosition and: aDirection.! !
