@@ -131,69 +131,89 @@ test14MoveBackwardsFacingSouth
 	
 	self assert: (marsRover isAt: 1@3 facing: #South).! !
 
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:58:16'!
+test15ProcessMultipleCommands
+	| marsRover |
+	"Este test lo agregamos por fuera del proceso de TDD ya que por la decisión que se dió en clase temprano de implementar en process la ejecución de comandos con un:
+		aSequenceOfCommands do: [:aCommand | ...]
+	la situación de correr varios comandos se resolvió desde muy temprano.
+	Decidimos agregar este test de todos modos por completitud."
+	marsRover _ MarsRover at: 1@2 facing: #South.
+	
+	marsRover process: 'bbr'.
+	
+	self assert: (marsRover isAt: 1@4 facing: #West).! !
+
 
 !classDefinition: #MarsRover category: 'MarsRover'!
 Object subclass: #MarsRover
-	instanceVariableNames: 'position direction'
+	instanceVariableNames: 'position facingDirection'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/5/2021 18:22:56'!
-isAt: aPosition facing: aDirection 
-	position = aPosition ifTrue: [
-		direction = aDirection ifTrue: [^ true].	
-	].
-	
-	^false.! !
+!MarsRover methodsFor: 'movement' stamp: 'MK 10/6/2021 17:06:18'!
+moveBackward
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/5/2021 18:29:44'!
+	position _ facingDirection backwardFrom: position.! !
+
+!MarsRover methodsFor: 'movement' stamp: 'MK 10/6/2021 17:06:17'!
+moveForward
+
+	position _ facingDirection forwardFrom: position.! !
+
+
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 17:09:51'!
+changeFacingDirectionTo: aCardinalDirection
+
+	facingDirection _ MarsRoverFacingDirection newWith: aCardinalDirection.! !
+
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:40:26'!
 process: aSequenceOfCommands 
 	| noMatch |
 	aSequenceOfCommands do: [:aCommand | 
 		noMatch _ true.
 		aCommand = $f ifTrue: [
-			direction = #North ifTrue: [position _ position + (0@1).]. 
-			direction = #South ifTrue: [position _ position - (0@1).]. 
-			direction = #West ifTrue: [position _ position - (1@0).]. 
-			direction = #East ifTrue: [position _ position + (1@0).]. 
-			noMatch _ false
+			self moveForward.
+			noMatch _ false.
 		].
 		aCommand = $b ifTrue: [
-			direction = #North ifTrue: [position _ position - (0@1).].
-			direction = #South ifTrue: [position _ position + (0@1).].
-			direction = #West ifTrue: [position _ position + (1@0).]. 
-			direction = #East ifTrue: [position _ position - (1@0).]. 
-			noMatch _ false
+			self moveBackward.
+			noMatch _ false.
 		].
 		aCommand = $l ifTrue: [			
-			direction = #North ifTrue: [direction _ #West] ifFalse: [
-				direction = #South ifTrue: [direction _ #East] ifFalse: [
-					direction = #West ifTrue: [direction _ #South] ifFalse: [
-						direction = #East ifTrue: [direction _ #North] 
-					].
-				].
-			].
+			self rotateLeft.
 			noMatch _ false
 		].
 		aCommand = $r ifTrue: [
-			direction = #North ifTrue: [direction _ #East] ifFalse: [
-				direction = #South ifTrue: [direction _ #West] ifFalse: [
-					direction = #West ifTrue: [direction _ #North] ifFalse: [
-						direction = #East ifTrue: [direction _ #South] 
-					].
-				].
-			].
+			self rotateRight.
 			noMatch _ false
 		].
 		noMatch ifTrue: [^ self].
 	].! !
 
 
-!MarsRover methodsFor: 'initialization' stamp: 'MK 10/5/2021 18:49:22'!
-initializeWith: aPosition and: aDirection 
+!MarsRover methodsFor: 'rotation' stamp: 'MK 10/6/2021 17:10:26'!
+rotateLeft
+
+	self changeFacingDirectionTo: (facingDirection directionAfterRotatingLeft).! !
+
+!MarsRover methodsFor: 'rotation' stamp: 'MK 10/6/2021 17:10:40'!
+rotateRight
+
+	self changeFacingDirectionTo: (facingDirection directionAfterRotatingRight).! !
+
+
+!MarsRover methodsFor: 'initialization' stamp: 'MK 10/6/2021 17:07:56'!
+initializeAt: aPosition facing: aCardinalDirection
 	position := aPosition.
-	direction := aDirection.! !
+	facingDirection := MarsRoverFacingDirection newWith: aCardinalDirection.! !
+
+
+!MarsRover methodsFor: 'assertion' stamp: 'MK 10/6/2021 17:14:32'!
+isAt: aPosition facing: aCardinalDirection 
+
+	^ position = aPosition and: [facingDirection asCardinalDirection = aCardinalDirection].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -201,26 +221,30 @@ initializeWith: aPosition and: aDirection
 MarsRover class
 	instanceVariableNames: ''!
 
-!MarsRover class methodsFor: 'initialization' stamp: 'MK 10/5/2021 18:22:25'!
-at: aPosition facing: aDirection 
-	^ self new initializeWith: aPosition and: aDirection.! !
+!MarsRover class methodsFor: 'initialization' stamp: 'MK 10/6/2021 17:08:23'!
+at: aPosition facing: aCardinalDirection 
+	^ self new initializeAt: aPosition facing: aCardinalDirection.! !
 
 
-!classDefinition: #MarsRoverState category: 'MarsRover'!
-Object subclass: #MarsRoverState
+!classDefinition: #MarsRoverFacingDirection category: 'MarsRover'!
+Object subclass: #MarsRoverFacingDirection
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
+!MarsRoverFacingDirection methodsFor: 'class initialization' stamp: 'MK 10/6/2021 17:14:16'!
+asCardinalDirection
+	self subclassResponsibility ! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRoverState class' category: 'MarsRover'!
-MarsRoverState class
+!classDefinition: 'MarsRoverFacingDirection class' category: 'MarsRover'!
+MarsRoverFacingDirection class
 	instanceVariableNames: ''!
 
-!MarsRoverState class methodsFor: 'class initialization' stamp: 'MK 10/5/2021 18:25:07'!
-facing: aDirection
+!MarsRoverFacingDirection class methodsFor: 'class initialization' stamp: 'MK 10/6/2021 17:07:56'!
+newWith: aDirection
 	aDirection = #South ifTrue: [^ FacingSouth new].
 	aDirection = #North ifTrue: [^ FacingNorth new].
 	aDirection = #West ifTrue: [^ FacingWest new].
@@ -228,32 +252,112 @@ facing: aDirection
 
 
 !classDefinition: #FacingEast category: 'MarsRover'!
-MarsRoverState subclass: #FacingEast
+MarsRoverFacingDirection subclass: #FacingEast
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover'!
+
+!FacingEast methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 17:14:16'!
+asCardinalDirection
+	^ #East! !
+
+!FacingEast methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:53:38'!
+backwardFrom: aPosition
+	^ aPosition - (1@0).! !
+
+!FacingEast methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:05:17'!
+directionAfterRotatingLeft
+	^ #North! !
+
+!FacingEast methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:07:05'!
+directionAfterRotatingRight
+	^ #South! !
+
+!FacingEast methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:01:34'!
+forwardFrom: aPosition
+	^ aPosition + (1@0).! !
 
 
 !classDefinition: #FacingNorth category: 'MarsRover'!
-MarsRoverState subclass: #FacingNorth
+MarsRoverFacingDirection subclass: #FacingNorth
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover'!
+
+!FacingNorth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 17:14:16'!
+asCardinalDirection
+	^ #North! !
+
+!FacingNorth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:53:43'!
+backwardFrom: aPosition
+	^ aPosition - (0@1).! !
+
+!FacingNorth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:05:33'!
+directionAfterRotatingLeft
+	^ #West! !
+
+!FacingNorth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:07:12'!
+directionAfterRotatingRight
+	^ #East! !
+
+!FacingNorth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:01:47'!
+forwardFrom: aPosition
+	^ aPosition + (0@1).! !
 
 
 !classDefinition: #FacingSouth category: 'MarsRover'!
-MarsRoverState subclass: #FacingSouth
+MarsRoverFacingDirection subclass: #FacingSouth
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
+!FacingSouth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 17:14:16'!
+asCardinalDirection
+	^ #South! !
+
+!FacingSouth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:53:48'!
+backwardFrom: aPosition
+	^ aPosition + (0@1).! !
+
+!FacingSouth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:05:46'!
+directionAfterRotatingLeft
+	^ #East! !
+
+!FacingSouth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:07:20'!
+directionAfterRotatingRight
+	^ #West! !
+
+!FacingSouth methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:02:24'!
+forwardFrom: aPosition
+	^ aPosition - (0@1).! !
+
 
 !classDefinition: #FacingWest category: 'MarsRover'!
-MarsRoverState subclass: #FacingWest
+MarsRoverFacingDirection subclass: #FacingWest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover'!
+
+!FacingWest methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 17:14:16'!
+asCardinalDirection
+	^ #West! !
+
+!FacingWest methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:53:51'!
+backwardFrom: aPosition
+	^ aPosition + (1@0).! !
+
+!FacingWest methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:05:54'!
+directionAfterRotatingLeft
+	^ #South! !
+
+!FacingWest methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 16:07:30'!
+directionAfterRotatingRight
+	^ #North! !
+
+!FacingWest methodsFor: 'as yet unclassified' stamp: 'MK 10/6/2021 15:02:29'!
+forwardFrom: aPosition
+	^ aPosition - (1@0).! !
