@@ -334,3 +334,797 @@ test02PortfolioWithAccountMatchesBalance
 	!
 
 ----SNAPSHOT----(14 October 2021 21:50:55) CuisUniversity-4913.image priorSource: 18661997!
+
+----SNAPSHOT----(14 October 2021 22:09:29) CuisUniversity-4913.image priorSource: 18680362!
+
+----STARTUP---- (15 October 2021 18:38:05) as D:\001.Maca\2c2021\inge1\newqa1\CuisUniversity-4913.image!
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 18:43:56' prior: 50915398!
+test02PortfolioWithOneAccountMatchesItsBalance
+	| portfolio account |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount.
+	portfolio addMonetaryService: account.
+	self assert: portfolio balance = 0.
+	! !
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'MK 10/15/2021 18:44:13' prior: 50915046 overrides: 16896425!
+initialize
+
+	transactions := OrderedCollection new.! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'MK 10/15/2021 18:44:28' prior: 50915051!
+register: aTransaction
+
+	transactions add: aTransaction ! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'MK 10/15/2021 18:44:34' prior: 50915056!
+transactions 
+
+	^ transactions copy! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 18:49:00' prior: 50915422!
+test02PortfolioWithOneAccountMatchesItsBalance
+	| portfolio account |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	portfolio addMonetaryService: account.
+	self assert: portfolio balance = 0.
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 18:49:45' prior: 50915448!
+test02PortfolioWithOneAccountMatchesItsBalance
+	| portfolio account transaction |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ AccountTransaction .
+	portfolio addMonetaryService: account.
+	self assert: portfolio balance = 0.
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 18:53:18' prior: 50915458!
+test02PortfolioWithOneAccountMatchesItsBalance
+	| portfolio account |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	
+	portfolio addMonetaryService: account.
+	self assert: portfolio balance = 50.
+	! !
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:53:23'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 18:53:30'!
+addMonetaryService: aReceptiveAccount 
+	self shouldBeImplemented.! !
+
+Object subclass: #Portfolio
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'MK 10/15/2021 18:54:12'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 18:54:14' prior: 50915484!
+addMonetaryService: aReceptiveAccount 
+	account _ aReceptiveAccount.! !
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:54:19'!
+FAILURE!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:54:38'!
+FAILURE!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:55:30'!
+FAILURE!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 18:55:50' prior: 50915470!
+test02PortfolioWithOneAccountMatchesItsBalance
+	| portfolio account |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	
+	portfolio addMonetaryService: account.
+	self assert: (portfolio balance = 50).
+	! !
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:55:56'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 18:56:30' prior: 50915381!
+balance
+	^ account balance.! !
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:56:32'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 18:56:32'!
+ERROR!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:56:32'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 18:56:32'!
+ERROR!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:57:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 18:57:16'!
+ERROR!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:57:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 18:57:16'!
+ERROR!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:57:43'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 18:57:43'!
+ERROR!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:57:43'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 18:57:43'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 18:59:11' prior: 50915533!
+balance
+	account isNil ifTrue: [^ 0].
+	^ account balance.! !
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:59:12'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 18:59:12'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 18:59:13'!
+PASSED!
+!Behavior method!
+balance
+	[
+	([
+	(account
+		cover: (10 to: 16)
+		declaredAt: (10 to: 16)) isNil ] valueCoveringAll:
+		{18 to: 22}) ifTrue: [ ^ 0 coverAll:
+			{35 to: 35} ]] valueCoveringAll:
+		{24 to: 30}.
+	^ [
+	(account
+		cover: (42 to: 48)
+		declaredAt: (10 to: 16)) balance ] valueCoveringAll:
+		{50 to: 56}.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 19:00:01'!
+PASSED!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (121 to: 131)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+addMonetaryService: aReceptiveAccount
+	(account _ aReceptiveAccount
+		cover: (51 to: 67)
+		declaredAt: (21 to: 37))
+		cover: (41 to: 47)
+		declaredAt: (41 to: 47).! !
+!Behavior method!
+balance
+	| depositSum withdrawSum |
+	(depositSum _ [
+	([
+	(transactions
+		cover: (50 to: 61)
+		declaredAt: (50 to: 61)) select: [ :aTransaction |
+		[
+		([
+		(aTransaction
+			cover: (88 to: 99)
+			declaredAt: (73 to: 84)) class ] valueCoveringAll:
+			{101 to: 105}) =
+			(Deposit
+				cover: (109 to: 115)
+				declaredAt: (109 to: 115)) ] valueCoveringAll:
+			{107 to: 107} ]] valueCoveringAll:
+		{63 to: 69})
+		sum: [ :aTransaction |
+			[
+			(aTransaction
+				cover: (143 to: 154)
+				declaredAt: (128 to: 139)) value ] valueCoveringAll:
+				{156 to: 160} ]
+		ifEmpty: [
+			0 coverAll:
+				{175 to: 175} ]] valueCoveringAll:
+		{120 to: 123. 164 to: 171})
+		cover: (36 to: 45)
+		declaredAt: (11 to: 20).
+	(withdrawSum _ [
+	([
+	(transactions
+		cover: (196 to: 207)
+		declaredAt: (50 to: 61)) select: [ :aTransaction |
+		[
+		([
+		(aTransaction
+			cover: (234 to: 245)
+			declaredAt: (219 to: 230)) class ] valueCoveringAll:
+			{247 to: 251}) =
+			(Withdraw
+				cover: (255 to: 262)
+				declaredAt: (255 to: 262)) ] valueCoveringAll:
+			{253 to: 253} ]] valueCoveringAll:
+		{209 to: 215})
+		sum: [ :aTransaction |
+			[
+			(aTransaction
+				cover: (290 to: 301)
+				declaredAt: (275 to: 286)) value ] valueCoveringAll:
+				{303 to: 307} ]
+		ifEmpty: [
+			0 coverAll:
+				{322 to: 322} ]] valueCoveringAll:
+		{267 to: 270. 311 to: 318})
+		cover: (181 to: 191)
+		declaredAt: (22 to: 32).
+	^ [
+	(depositSum
+		cover: (330 to: 339)
+		declaredAt: (11 to: 20)) -
+		(withdrawSum
+			cover: (343 to: 353)
+			declaredAt: (22 to: 32)) ] valueCoveringAll:
+		{341 to: 341}.! !
+!Behavior method!
+value
+	^ value
+		cover: (10 to: 14)
+		declaredAt: (10 to: 14).! !
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 19:00:01'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:00:40'!
+test03PortfolioWithOnePortfolioMatchesItsBalance
+	| portfolio account |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	
+	portfolio addMonetaryService: account.
+	self assert: (portfolio balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:01:05' prior: 50915712!
+test03PortfolioWithOnePortfolioMatchesItsBalance
+	| portfolio1 account |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	self assert: (portfolio1 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:01:18' prior: 50915724!
+test03PortfolioWithOnePortfolioMatchesItsBalance
+	| portfolio1 portfolio2 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ ReceptiveAccount new.
+	Deposit register: 50 on: portfolio2.
+	
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:01:23' prior: 50915736!
+test03PortfolioWithOnePortfolioMatchesItsBalance
+	| portfolio1 portfolio2 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	Deposit register: 50 on: portfolio2.
+	
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:01:38' prior: 50915748!
+test03PortfolioWithOnePortfolioMatchesItsBalance
+	| portfolio1 portfolio2 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ ReceptiveAccount new.
+	Deposit register: 50 on: portfolio2.
+	
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:02:39' prior: 50915760!
+test03PortfolioWithOnePortfolioMatchesItsBalance
+	| portfolio1 account portfolio2 |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	portfolio2 _ Portfolio new.
+	
+	portfolio1 addMonetaryService: account.
+	portfolio2 addMonetaryService: portfolio1.
+	self assert: (portfolio2 balance = 50).
+	! !
+
+!testRun: #PortfolioTests #test03PortfolioWithOnePortfolioMatchesItsBalance stamp: 'MK 10/15/2021 19:02:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 19:02:45'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 19:02:45'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithOnePortfolioMatchesItsBalance stamp: 'MK 10/15/2021 19:02:45'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:03:11' prior: 50915501!
+addMonetaryService: aMonetaryService 
+	account _ aMonetaryService.! !
+!Behavior method!
+balance
+	[
+	([
+	(account
+		cover: (10 to: 16)
+		declaredAt: (10 to: 16)) isNil ] valueCoveringAll:
+		{18 to: 22}) ifTrue: [ ^ 0 coverAll:
+			{35 to: 35} ]] valueCoveringAll:
+		{24 to: 30}.
+	^ [
+	(account
+		cover: (42 to: 48)
+		declaredAt: (10 to: 16)) balance ] valueCoveringAll:
+		{50 to: 56}.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 19:03:41'!
+PASSED!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (121 to: 131)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+addMonetaryService: aMonetaryService
+	(account _ aMonetaryService
+		cover: (50 to: 65)
+		declaredAt: (21 to: 36))
+		cover: (40 to: 46)
+		declaredAt: (40 to: 46).! !
+!Behavior method!
+balance
+	| depositSum withdrawSum |
+	(depositSum _ [
+	([
+	(transactions
+		cover: (50 to: 61)
+		declaredAt: (50 to: 61)) select: [ :aTransaction |
+		[
+		([
+		(aTransaction
+			cover: (88 to: 99)
+			declaredAt: (73 to: 84)) class ] valueCoveringAll:
+			{101 to: 105}) =
+			(Deposit
+				cover: (109 to: 115)
+				declaredAt: (109 to: 115)) ] valueCoveringAll:
+			{107 to: 107} ]] valueCoveringAll:
+		{63 to: 69})
+		sum: [ :aTransaction |
+			[
+			(aTransaction
+				cover: (143 to: 154)
+				declaredAt: (128 to: 139)) value ] valueCoveringAll:
+				{156 to: 160} ]
+		ifEmpty: [
+			0 coverAll:
+				{175 to: 175} ]] valueCoveringAll:
+		{120 to: 123. 164 to: 171})
+		cover: (36 to: 45)
+		declaredAt: (11 to: 20).
+	(withdrawSum _ [
+	([
+	(transactions
+		cover: (196 to: 207)
+		declaredAt: (50 to: 61)) select: [ :aTransaction |
+		[
+		([
+		(aTransaction
+			cover: (234 to: 245)
+			declaredAt: (219 to: 230)) class ] valueCoveringAll:
+			{247 to: 251}) =
+			(Withdraw
+				cover: (255 to: 262)
+				declaredAt: (255 to: 262)) ] valueCoveringAll:
+			{253 to: 253} ]] valueCoveringAll:
+		{209 to: 215})
+		sum: [ :aTransaction |
+			[
+			(aTransaction
+				cover: (290 to: 301)
+				declaredAt: (275 to: 286)) value ] valueCoveringAll:
+				{303 to: 307} ]
+		ifEmpty: [
+			0 coverAll:
+				{322 to: 322} ]] valueCoveringAll:
+		{267 to: 270. 311 to: 318})
+		cover: (181 to: 191)
+		declaredAt: (22 to: 32).
+	^ [
+	(depositSum
+		cover: (330 to: 339)
+		declaredAt: (11 to: 20)) -
+		(withdrawSum
+			cover: (343 to: 353)
+			declaredAt: (22 to: 32)) ] valueCoveringAll:
+		{341 to: 341}.! !
+!Behavior method!
+value
+	^ value
+		cover: (10 to: 14)
+		declaredAt: (10 to: 14).! !
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 19:03:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithOnePortfolioMatchesItsBalance stamp: 'MK 10/15/2021 19:03:41'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:04:15'!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 account portfolio2 |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	portfolio2 _ Portfolio new.
+	
+	portfolio1 addMonetaryService: account.
+	portfolio2 addMonetaryService: portfolio1.
+	self assert: (portfolio2 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:04:21' prior: 50915927!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 account account2 |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	account2 _ Portfolio new.
+	
+	portfolio1 addMonetaryService: account.
+	account2 addMonetaryService: portfolio1.
+	self assert: (account2 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:04:27' prior: 50915941!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 account1 account2 |
+	portfolio1 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ Portfolio new.
+	
+	portfolio1 addMonetaryService: account1.
+	account2 addMonetaryService: portfolio1.
+	self assert: (account2 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:04:32' prior: 50915955!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ Portfolio new.
+	
+	portfolio addMonetaryService: account1.
+	account2 addMonetaryService: portfolio.
+	self assert: (account2 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:04:43' prior: 50915969!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	
+	portfolio addMonetaryService: account1.
+	account2 addMonetaryService: portfolio.
+	self assert: (account2 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:04:51' prior: 50915983!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	
+	portfolio addMonetaryService: account1.
+	account2 addMonetaryService: portfolio.
+	self assert: (account2 balance = 50).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:05:17' prior: 50915997!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	
+	portfolio addMonetaryService: account1.
+	portfolio addMonetaryService: account2.
+	self assert: (portfolio balance = 150).
+	! !
+
+!testRun: #PortfolioTests #test03PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/15/2021 19:05:18'!
+FAILURE!
+
+!testRun: #PortfolioTests #test03PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/15/2021 19:05:48'!
+FAILURE!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:06:21' prior: 50916012!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio addMonetaryService: account1.
+	portfolio addMonetaryService: account2.
+	self assert: (portfolio balance = 150).
+	! !
+
+!testRun: #PortfolioTests #test03PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/15/2021 19:06:24'!
+FAILURE!
+
+!testRun: #PortfolioTests #test03PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/15/2021 19:08:42'!
+FAILURE!
+
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'MK 10/15/2021 19:09:15'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:10:01' overrides: 16896425!
+initialize
+	accounts _ OrderedCollection new.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:10:14' prior: 50915800!
+addMonetaryService: aMonetaryService 
+	accounts add: aMonetaryService.! !
+
+----End fileIn of D:\001.Maca\2c2021\inge1\newqa1\Packages\TerseGuide.pck.st----!
+
+----SNAPSHOT----(15 October 2021 19:11:02) CuisUniversity-4913.image priorSource: 18680455!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:12:53' prior: 50915578!
+balance
+	accounts isEmpty ifTrue: [^ 0].
+	^ accounts balance.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:26:59' prior: 50919008!
+balance
+	accounts isEmpty ifTrue: [^ 0].
+	^ accounts sum: [:anAccount | anAccount balance].! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MK 10/15/2021 19:27:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MK 10/15/2021 19:27:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/15/2021 19:27:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MK 10/15/2021 19:27:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MK 10/15/2021 19:27:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MK 10/15/2021 19:27:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MK 10/15/2021 19:27:53'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/15/2021 19:27:58'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 19:27:58'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 19:27:58'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithOnePortfolioMatchesItsBalance stamp: 'MK 10/15/2021 19:27:58'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/15/2021 19:27:58'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:28:52'!
+test04PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio addMonetaryService: account1.
+	portfolio addMonetaryService: account2.
+	self assert: (portfolio balance = 150).
+	! !
+
+!methodRemoval: PortfolioTests #test03PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/15/2021 19:28:52'!
+test03PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio addMonetaryService: account1.
+	portfolio addMonetaryService: account2.
+	self assert: (portfolio balance = 150).
+	!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:32:11' prior: 50919013!
+balance
+	^ accounts sum: [:anAccount | anAccount balance].! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 19:32:11'!
+ERROR!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/15/2021 19:32:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithOnePortfolioMatchesItsBalance stamp: 'MK 10/15/2021 19:32:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test04PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/15/2021 19:32:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/15/2021 19:32:11'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:32:16' prior: 50919093!
+balance
+	accounts isEmpty ifTrue: [^ 0].
+	^ accounts sum: [:anAccount | anAccount balance].! !
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'MK 10/15/2021 19:32:29'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'monetaryServices'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:32:29' prior: 50916074!
+addMonetaryService: aMonetaryService 
+	monetaryServices add: aMonetaryService.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:32:29' prior: 50916069 overrides: 16896425!
+initialize
+	monetaryServices _ OrderedCollection new.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:32:29' prior: 50919115!
+balance
+	monetaryServices isEmpty ifTrue: [^ 0].
+	^ monetaryServices sum: [:anAccount | anAccount balance].! !
+
+----SNAPSHOT----(15 October 2021 19:34:44) CuisUniversity-4913.image priorSource: 18795318!

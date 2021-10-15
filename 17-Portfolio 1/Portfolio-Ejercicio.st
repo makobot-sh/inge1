@@ -12,11 +12,42 @@ test01EmptyPortfolioHasBalance0
 	self assert: portfolio balance = 0.
 	! !
 
-!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/14/2021 21:46:06'!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 18:55:50'!
 test02PortfolioWithOneAccountMatchesItsBalance
-	| portfolio |
+	| portfolio account |
 	portfolio _ Portfolio new.
-	self assert: portfolio balance = 0.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	
+	portfolio addMonetaryService: account.
+	self assert: (portfolio balance = 50).
+	! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:02:39'!
+test03PortfolioWithOnePortfolioMatchesItsBalance
+	| portfolio1 account portfolio2 |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	portfolio2 _ Portfolio new.
+	
+	portfolio1 addMonetaryService: account.
+	portfolio2 addMonetaryService: portfolio1.
+	self assert: (portfolio2 balance = 50).
+	! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:28:52'!
+test04PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio addMonetaryService: account1.
+	portfolio addMonetaryService: account2.
+	self assert: (portfolio balance = 150).
 	! !
 
 
@@ -168,14 +199,23 @@ AccountTransaction subclass: #Withdraw
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 Object subclass: #Portfolio
-	instanceVariableNames: ''
+	instanceVariableNames: 'monetaryServices'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/14/2021 21:44:59'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:32:29'!
+addMonetaryService: aMonetaryService 
+	monetaryServices add: aMonetaryService.! !
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:32:29'!
 balance
-	^ 0.! !
+	monetaryServices isEmpty ifTrue: [^ 0].
+	^ monetaryServices sum: [:anAccount | anAccount balance].! !
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:32:29'!
+initialize
+	monetaryServices _ OrderedCollection new.! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
@@ -185,19 +225,18 @@ Object subclass: #ReceptiveAccount
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!ReceptiveAccount methodsFor: 'initialization' stamp: 'NR 10/17/2019 15:06:56'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'MK 10/15/2021 18:44:13'!
 initialize
 
 	transactions := OrderedCollection new.! !
 
 
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'MK 10/15/2021 18:44:28'!
 register: aTransaction
 
-	transactions add: aTransaction 
-! !
+	transactions add: aTransaction ! !
 
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'MK 10/15/2021 18:44:34'!
 transactions 
 
 	^ transactions copy! !
