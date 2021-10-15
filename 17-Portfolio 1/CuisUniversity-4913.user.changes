@@ -1,0 +1,336 @@
+
+
+----QUIT----(13 October 2021 15:20:10) CuisUniversity-4913.image priorSource: 14638157!
+
+----STARTUP---- (13 October 2021 15:20:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-4913.image!
+
+
+----QUIT----(13 October 2021 15:20:10) CuisUniversity-4913.image priorSource: 18661767!
+
+----STARTUP---- (13 October 2021 15:21:02) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-4913.image!
+
+
+----QUIT----(13 October 2021 15:21:02) CuisUniversity-4913.image priorSource: 18661997!
+
+----QUIT----(13 October 2021 15:26:07) CuisUniversity-4913.image priorSource: 14638157!
+
+----STARTUP---- (13 October 2021 15:26:08) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-4913.image!
+
+
+----QUIT----(13 October 2021 15:26:08) CuisUniversity-4913.image priorSource: 18661767!
+
+----STARTUP---- (14 October 2021 21:15:10) as D:\001.Maca\2c2021\inge1\newqa1\CuisUniversity-4913.image!
+
+
+----End fileIn of D:\001.Maca\2c2021\inge1\repoEntrega\17-Portfolio 1\Portfolio-Ejercicio.st----!
+
+Object subclass: #Portfolio
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'MK 10/14/2021 21:22:02'!
+Object subclass: #Portfolio
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+TestCase subclass: #PortfolioTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #PortfolioTests category: 'Portfolio-Ejercicio' stamp: 'MK 10/14/2021 21:22:22'!
+TestCase subclass: #PortfolioTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #AccountTransaction
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+AccountTransaction subclass: #Withdraw
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Withdraw category: 'Portfolio-Ejercicio' stamp: 'MK 10/14/2021 21:25:42'!
+AccountTransaction subclass: #Withdraw
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+AccountTransaction subclass: #Deposit
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Deposit category: 'Portfolio-Ejercicio' stamp: 'MK 10/14/2021 21:25:52'!
+AccountTransaction subclass: #Deposit
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #AccountTransaction
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #AccountTransaction category: 'Portfolio-Ejercicio' stamp: 'MK 10/14/2021 21:26:00'!
+Object subclass: #AccountTransaction
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!AccountTransaction class methodsFor: 'instance creation' stamp: 'MK 10/14/2021 21:26:46' prior: 50914957!
+register: aValue on: account
+
+	| transaction |
+	
+	transaction := self for: aValue.
+	
+	account register: transaction.
+	
+	^ transaction! !
+!Deposit class methodsFor: 'instance creation' stamp: 'MK 10/14/2021 21:26:56' prior: 50914994!
+for: aValue
+
+	^ self new initializeFor: aValue ! !
+!Withdraw methodsFor: 'initialization' stamp: 'MK 10/14/2021 21:27:33' prior: 50915011!
+initializeFor: aValue
+
+	value := aValue ! !
+!AccountTransaction class methodsFor: 'instance creation' stamp: 'MK 10/14/2021 21:27:50' prior: 50915140!
+register: aValue on: account
+
+	| transaction |
+	
+	transaction := self for: aValue.
+	account register: transaction.
+	
+	^ transaction! !
+!AccountTransaction methodsFor: 'value' stamp: 'MK 10/14/2021 21:28:29' prior: 50914944 overrides: 16881508!
+value
+	self subclassResponsibility ! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MK 10/14/2021 21:29:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:29:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:29:02'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MK 10/14/2021 21:29:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MK 10/14/2021 21:29:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MK 10/14/2021 21:29:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MK 10/14/2021 21:29:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:29:03'!
+FAILURE!
+!AccountTransaction class methodsFor: 'instance creation' stamp: 'MK 10/14/2021 21:30:07' prior: 50915158!
+register: aValue on: account
+
+	| transaction |
+	
+	transaction := self for: aValue.
+	account register: transaction.
+	
+	^ transaction! !
+!AccountTransaction class methodsFor: 'instance creation' stamp: 'MK 10/14/2021 21:30:21'!
+for: aValue
+
+	^ self new initializeFor: aValue ! !
+!AccountTransaction methodsFor: 'value' stamp: 'MK 10/14/2021 21:30:43'!
+initializeFor: aValue
+
+	value := aValue ! !
+
+!methodRemoval: Withdraw class #for: stamp: 'MK 10/14/2021 21:31:52'!
+for: aValue
+
+	^ self new initializeFor: aValue !
+
+!methodRemoval: Deposit class #for: stamp: 'MK 10/14/2021 21:31:55'!
+for: aValue
+
+	^ self new initializeFor: aValue !
+
+!methodRemoval: Deposit #initializeFor: stamp: 'MK 10/14/2021 21:32:01'!
+initializeFor: aValue
+
+	value := aValue !
+
+!methodRemoval: Withdraw #initializeFor: stamp: 'MK 10/14/2021 21:32:09'!
+initializeFor: aValue
+
+	value := aValue !
+!AccountTransaction methodsFor: 'value' stamp: 'MK 10/14/2021 21:33:01' prior: 50915166 overrides: 16881508!
+value
+	^ value.! !
+
+!methodRemoval: Deposit #value stamp: 'MK 10/14/2021 21:33:05'!
+value
+
+	^ value!
+
+!methodRemoval: Withdraw #value stamp: 'MK 10/14/2021 21:33:09'!
+value
+
+	^ value!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MK 10/14/2021 21:34:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:34:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:34:26'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MK 10/14/2021 21:34:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MK 10/14/2021 21:34:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MK 10/14/2021 21:34:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MK 10/14/2021 21:34:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:34:26'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MK 10/14/2021 21:36:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:36:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:36:43'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MK 10/14/2021 21:36:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MK 10/14/2021 21:36:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MK 10/14/2021 21:36:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MK 10/14/2021 21:36:44'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:36:44'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MK 10/14/2021 21:37:16' prior: 50914874!
+test03WithdrawDecreasesBalanceOnTransactionValue 
+	| account |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account.
+	
+	self assert: 50 equals: account balance.
+! !
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:37:29'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'MK 10/14/2021 21:40:21' prior: 50915060!
+balance
+	|depositSum withdrawSum|
+	depositSum _ (transactions select: [:aTransaction | aTransaction class = Deposit ]) sum: [ :aTransaction | aTransaction value ] ifEmpty: [ 0 ].
+	withdrawSum _ (transactions select: [:aTransaction | aTransaction class = Withdraw ]) sum: [ :aTransaction | aTransaction value ] ifEmpty: [ 0 ].
+	^ depositSum - withdrawSum ! !
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:40:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MK 10/14/2021 21:40:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:40:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MK 10/14/2021 21:40:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MK 10/14/2021 21:40:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MK 10/14/2021 21:40:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MK 10/14/2021 21:40:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MK 10/14/2021 21:40:50'!
+PASSED!
+!PortfolioTests methodsFor: 'nil' stamp: 'MK 10/14/2021 21:43:12'!
+test01EmptyPortfolioHasBalance0
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/14/2021 21:44:11' prior: 50915361!
+test01EmptyPortfolioHasBalance0
+	| portfolio |
+	portfolio _ Portfolio new.
+	self assert: portfolio balance = 0.
+	! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/14/2021 21:44:13'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/14/2021 21:44:47'!
+balance
+	self shouldBeImplemented.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/14/2021 21:44:59' prior: 50915376!
+balance
+	^ 0.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/14/2021 21:45:02'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/14/2021 21:45:02'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/14/2021 21:45:42'!
+test02PortfolioWithAccountMatchesBalance
+	| portfolio |
+	portfolio _ Portfolio new.
+	self assert: portfolio balance = 0.
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/14/2021 21:46:06'!
+test02PortfolioWithOneAccountMatchesItsBalance
+	| portfolio |
+	portfolio _ Portfolio new.
+	self assert: portfolio balance = 0.
+	! !
+
+!methodRemoval: PortfolioTests #test02PortfolioWithAccountMatchesBalance stamp: 'MK 10/14/2021 21:46:06'!
+test02PortfolioWithAccountMatchesBalance
+	| portfolio |
+	portfolio _ Portfolio new.
+	self assert: portfolio balance = 0.
+	!
+
+----SNAPSHOT----(14 October 2021 21:50:55) CuisUniversity-4913.image priorSource: 18661997!
