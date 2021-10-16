@@ -1128,3 +1128,2875 @@ balance
 	^ monetaryServices sum: [:anAccount | anAccount balance].! !
 
 ----SNAPSHOT----(15 October 2021 19:34:44) CuisUniversity-4913.image priorSource: 18795318!
+
+----STARTUP---- (16 October 2021 12:07:00) as D:\001.Maca\2c2021\inge1\newqa1\CuisUniversity-4913.image!
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 12:09:23' prior: 50919141!
+balance
+	^ monetaryServices sum: [:anAccount | anAccount balance] ifEmpty: [^ 0].! !
+
+----SNAPSHOT----(16 October 2021 12:10:00) CuisUniversity-4913.image priorSource: 18799886!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:23:30'!
+test04PortfolioWithPortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 portfolio2 account1 account2 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account2.
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 150).
+	! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:23:38'!
+test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 portfolio2 account1 account2 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account2.
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 150).
+	! !
+
+!methodRemoval: PortfolioTests #test03PortfolioWithOnePortfolioMatchesItsBalance stamp: 'MK 10/16/2021 12:25:24'!
+test03PortfolioWithOnePortfolioMatchesItsBalance
+	| portfolio1 account portfolio2 |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	Deposit register: 50 on: account.
+	portfolio2 _ Portfolio new.
+	
+	portfolio1 addMonetaryService: account.
+	portfolio2 addMonetaryService: portfolio1.
+	self assert: (portfolio2 balance = 50).
+	!
+
+!methodRemoval: PortfolioTests #test04PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:25:26'!
+test04PortfolioWithPortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 portfolio2 account1 account2 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account2.
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 150).
+	!
+
+!methodRemoval: PortfolioTests #test04PortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:28:03'!
+test04PortfolioWithTwoAccountsMatchesBalance
+	| portfolio account1 account2 |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio addMonetaryService: account1.
+	portfolio addMonetaryService: account2.
+	self assert: (portfolio balance = 150).
+	!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:28:43' prior: 50919181!
+test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 portfolio2 account1 account2 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: account2.
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 150).
+	! !
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:28:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 12:28:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 12:28:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:28:46'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:29:53' prior: 50919248!
+test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 portfolio2 account1 account2 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	account2 _ ReceptiveAccount new.
+	Withdraw register: 25 on: account2.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: account2.
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 75).
+	! !
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:29:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 12:29:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 12:29:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:29:55'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:39:24'!
+test04
+	| portfolio1 transaction |
+	portfolio1 _ Portfolio new.
+	transaction _ Deposit for: 50.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	! !
+
+!testRun: #PortfolioTests #test04 stamp: 'MK 10/16/2021 12:39:42'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 12:39:51'!
+hasRegistered: aDeposit 
+	self shouldBeImplemented.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 12:40:02' prior: 50919324!
+hasRegistered: aDeposit 
+	^ false.! !
+
+!testRun: #PortfolioTests #test04 stamp: 'MK 10/16/2021 12:40:04'!
+FAILURE!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:40:17' prior: 50919314!
+test04
+	| portfolio1 transaction |
+	portfolio1 _ Portfolio new.
+	transaction _ Deposit for: 50.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	! !
+
+!testRun: #PortfolioTests #test04 stamp: 'MK 10/16/2021 12:40:18'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 12:40:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 12:40:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:40:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test04 stamp: 'MK 10/16/2021 12:40:19'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:40:54'!
+test04EmptyPortfolioDoesNotHaveTransaction
+	| portfolio1 transaction |
+	portfolio1 _ Portfolio new.
+	transaction _ Deposit for: 50.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	! !
+
+!methodRemoval: PortfolioTests #test04 stamp: 'MK 10/16/2021 12:40:54'!
+test04
+	| portfolio1 transaction |
+	portfolio1 _ Portfolio new.
+	transaction _ Deposit for: 50.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:46:25'!
+test05
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ AccountTransaction new.
+	Deposit register: 50 on: account.
+	transaction _ Deposit for: 50.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	! !
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:46:52'!
+ERROR!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:47:43' prior: 50919377!
+test05
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ AccountTransaction new.
+	transaction _ Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	! !
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:47:44'!
+ERROR!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:48:25' prior: 50919392!
+test05
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	! !
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:48:27'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 12:48:27'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 12:48:27'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:48:28'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 12:48:28'!
+PASSED!
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:48:28'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:48:33' prior: 50919406!
+test05
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	! !
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:48:34'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'testing' stamp: 'MK 10/16/2021 12:49:43' prior: 50915066!
+hasRegistered: aTransaction
+	^ transactions includes: aTransaction 
+! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 12:50:52' prior: 50919329!
+hasRegistered: aTransaction 
+	^ monetaryServices first hasRegistered: aTransaction.! !
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:50:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 12:50:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 12:50:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:50:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 12:50:55'!
+ERROR!
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:50:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 12:50:55'!
+ERROR!
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:51:17'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 12:51:17'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 12:51:17'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:51:17'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 12:51:17'!
+ERROR!
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:51:17'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 12:51:17'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 12:51:53' prior: 50919457!
+hasRegistered: aTransaction 
+	monetaryServices ifEmpty: [^ false].
+	^ monetaryServices first hasRegistered: aTransaction.! !
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:51:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 12:51:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 12:51:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 12:51:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 12:51:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test05 stamp: 'MK 10/16/2021 12:51:56'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:52:26'!
+test05PortfolioWithOneAccountWithOneTransactionHasIt
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	! !
+
+!methodRemoval: PortfolioTests #test05 stamp: 'MK 10/16/2021 12:52:30'!
+test05
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:55:08'!
+test06PortfolioWithTwoAccountsWithTransactionsHasThem
+	| portfolio1 transaction account1 account2 |
+	portfolio1 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	transaction _ Deposit register: 100 on: account2.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: account2.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	! !
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 12:55:09'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:02:18' prior: 50919508!
+hasRegistered: aTransaction 
+	^ monetaryServices findFirst: [:service | service hasRegistered: aTransaction ] ~= 0.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 13:02:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 13:02:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 13:02:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 13:02:20'!
+ERROR!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 13:02:20'!
+ERROR!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 13:02:20'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:02:29' prior: 50919578!
+hasRegistered: aTransaction 
+	monetaryServices ifEmpty: [^ false].
+	^ monetaryServices findFirst: [:service | service hasRegistered: aTransaction ] ~= 0.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 13:02:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 13:02:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 13:02:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 13:02:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 13:02:31'!
+ERROR!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 13:02:31'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:02:54' prior: 50919607!
+hasRegistered: aTransaction 
+	monetaryServices ifEmpty: [^ false].
+	^ (monetaryServices findFirst: [:service | service hasRegistered: aTransaction ]) ~= 0.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 13:02:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 13:02:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 13:02:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 13:02:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 13:02:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 13:02:56'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:02:59' prior: 50919637!
+hasRegistered: aTransaction 
+	^ (monetaryServices findFirst: [:service | service hasRegistered: aTransaction ]) ~= 0.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 13:02:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 13:03:00'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 13:03:00'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 13:03:00'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 13:03:00'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 13:03:00'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 13:23:15'!
+test07PortfolioDoesNotHaveDuplicates
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:23:26'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:32:05' prior: 50919129!
+addMonetaryService: aMonetaryService 
+	(monetaryServices findFirst: [aMonetaryService]) ~= 0 ifTrue: [
+		self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 13:32:08'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 13:32:08'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 13:32:08'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 13:32:08'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 13:32:08'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 13:32:09'!
+ERROR!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:32:09'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:39:57' prior: 50919717!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ~= 0 ifTrue: [
+		self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:40:16'!
+ERROR!
+!Portfolio class methodsFor: 'error descriptions' stamp: 'MK 10/16/2021 13:40:35'!
+cannotAddDuplicatedAccountErrorDescription
+	self shouldBeImplemented.! !
+!Portfolio class methodsFor: 'error descriptions' stamp: 'MK 10/16/2021 13:41:53' prior: 50919766!
+cannotAddDuplicatedAccountErrorDescription
+	^ 'Cannot add account to portfolio if it was already present.'! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:41:54'!
+FAILURE!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:42:23'!
+FAILURE!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:42:35'!
+FAILURE!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:42:45'!
+FAILURE!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 13:43:33' prior: 50919696!
+test07PortfolioDoesNotHaveDuplicates
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:43:36'!
+FAILURE!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:44:39'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:45:03'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:46:21' prior: 50919752!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ~= 0 ifTrue: [
+		^ self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:46:23'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:46:56' prior: 50919819!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+		^ self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:46:58'!
+FAILURE!
+!Portfolio class methodsFor: 'error descriptions' stamp: 'MK 10/16/2021 13:49:51' prior: 50919772!
+cannotAddDuplicatedAccountErrorDescription
+	^ 'Cannot add account to portfolio if it was already present.'! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:50:15' prior: 50919833!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:50:17'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 13:50:17'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 13:50:17'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 13:50:18'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 13:50:18'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 13:50:18'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 13:50:18'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:50:18'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 13:53:18' prior: 50919792!
+test07PortfolioDoesNotHaveDuplicates
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:53:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 13:53:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 13:53:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 13:53:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 13:53:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 13:53:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 13:53:20'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 13:53:20'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 13:55:38'!
+test08
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 13:55:39'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 13:56:48'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:02:14' prior: 50919854!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService].
+		aService class = Portfolio ifTrue: [aService contains: aMonetaryService].
+	]) 
+	ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:03:04'!
+contains: aMonetaryService 
+	^ monetaryServices anySatisfy: [:aService | aService = aMonetaryService].! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:03:10'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:06:13' prior: 50919963!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]) or:
+		[aService class = Portfolio ifTrue: [aService contains: aMonetaryService]].
+	]) 
+	ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:06:19'!
+FAILURE!
+
+!methodRemoval: Portfolio #contains: stamp: 'MK 10/16/2021 14:10:18'!
+contains: aMonetaryService 
+	^ monetaryServices anySatisfy: [:aService | aService = aMonetaryService].!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:10:29' prior: 50919986!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]) or:
+		[aService class = Portfolio ifTrue: [aService = aMonetaryService]].
+	]) 
+	ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:10:31'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:12:12'!
+contains: aMonetaryService
+
+	^ monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]) or:
+		[aService class = Portfolio ifTrue: [aService = aMonetaryService]].
+	]! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:12:12' prior: 50920009!
+addMonetaryService: aMonetaryService 
+	(self contains: aMonetaryService) 
+	ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:13:02' prior: 50920026!
+contains: aMonetaryService
+
+	^ monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]) or:
+		[aService class = Portfolio ifTrue: [aService contains: aMonetaryService]].
+	]! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:13:07'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:13:29'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:14:07'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:14:45'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:17:05'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:17:41'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:19:33'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:23:04'!
+FAILURE!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 14:27:06' prior: 50919941!
+test08
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: account1] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:27:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 14:27:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 14:27:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 14:27:11'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 14:27:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 14:27:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 14:27:11'!
+ERROR!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:27:11'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:27:11'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:50:15' prior: 50920037!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:28:57'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 14:30:07' prior: 50920077!
+test08
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2 ] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:30:09'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:36:55' prior: 50920123!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | 
+		 aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]. 
+		 aService class = Portfolio ifTrue: [
+			aService contains: aMonetaryService .
+		]. 
+	]
+	) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:36:56' prior: 50920184!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | 
+		 aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]. 
+		 aService class = Portfolio ifTrue: [
+			aService contains: aMonetaryService.
+		]. 
+	]
+	) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 14:37:52' prior: 50920164!
+test08
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1 ] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:38:41' prior: 50920047!
+contains: aMonetaryService
+	^ monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]) or:
+		[aService class = Portfolio ifTrue: [aService contains: aMonetaryService]].
+	]! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:38:45' prior: 50920232!
+contains: aMonetaryService
+	^ monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]) or:
+		[aService class = Portfolio ifTrue: [aService contains: aMonetaryService]].
+	].! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:38:49'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 14:38:49'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 14:38:49'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 14:38:49'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 14:38:49'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 14:38:49'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 14:38:49'!
+ERROR!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:38:49'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:38:49'!
+PASSED!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:39:13'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 14:39:13'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 14:39:13'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 14:39:13'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 14:39:13'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 14:39:13'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 14:39:13'!
+ERROR!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:39:13'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:39:13'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:41:03' prior: 50920199!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | 
+		 (aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService])
+		 or: [aService class = Portfolio ifTrue: [
+			aService contains: aMonetaryService.
+		]]. 
+	]
+	) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:41:15' prior: 50920314!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService])
+		or: [aService class = Portfolio ifTrue: [
+			aService contains: aMonetaryService.]
+		]. 
+	]
+	) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:41:21'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 14:44:40' prior: 50920329!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService])
+		or: [aService class = Portfolio ifTrue: [
+			aMonetaryService  = aService or: [aService contains: aMonetaryService.].
+			]
+		]. 
+	]
+	) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:44:44'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:44:49'!
+FAILURE!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:45:09'!
+FAILURE!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:45:10'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 13:50:15' prior: 50920347!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:51:04'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 14:51:04'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 14:51:04'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 14:51:04'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 14:51:04'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 14:51:04'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 14:51:04'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:51:04'!
+PASSED!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:51:04'!
+FAILURE!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 14:51:04'!
+FAILURE!
+
+!methodRemoval: PortfolioTests #test08 stamp: 'MK 10/16/2021 14:51:32'!
+test08
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1 ] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+
+!methodRemoval: Portfolio #contains: stamp: 'MK 10/16/2021 14:51:40'!
+contains: aMonetaryService
+	^ monetaryServices anySatisfy: [:aService | 
+		(aService class = ReceptiveAccount ifTrue: [aService = aMonetaryService]) or:
+		[aService class = Portfolio ifTrue: [aService contains: aMonetaryService]].
+	].!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:51:48'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 14:51:48'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 14:51:48'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 14:51:48'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 14:51:48'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 14:51:48'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 14:51:48'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:51:48'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 14:52:10'!
+test07PortfolioDoesNotHaveDuplicatePortfolio
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test07PortfolioDoesNotHaveDuplicates stamp: 'MK 10/16/2021 14:52:15'!
+test07PortfolioDoesNotHaveDuplicates
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 14:55:00'!
+test08PortfolioDoesNotHaveDuplicateAccount
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 15:08:11' prior: 50920376!
+addMonetaryService: aMonetaryService 
+	(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+	monetaryServices add: aMonetaryService.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 15:54:45' prior: 50920531!
+addMonetaryService: aMonetaryService 
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	monetaryServices add: aMonetaryService.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 15:58:17' prior: 50920542!
+addMonetaryService: aMonetaryService 
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	aMonetaryService class = Portfolio ifTrue: [
+		(self xxx: aMonetaryService) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	
+	monetaryServices add: aMonetaryService.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:02:56'!
+xxx: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService xxx: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:04:56'!
+hasAccount: anAccount
+	monetaryServices do: [:aService | 
+		(aService class = ReceptiveAccount and: [aService = anAccount]) ifTrue: [
+			^ true.
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccount: anAccount ) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:05:06' prior: 50920512!
+test08PortfolioDoesNotHaveDuplicateAccount
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:05:06'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:05:06'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:05:06'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:05:06'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:05:06'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:05:06'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:05:06'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:05:06'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:05:07'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:09:44' prior: 50919667!
+hasRegistered: aTransaction 
+	^ (monetaryServices anySatisfy: [:service | service hasRegistered: aTransaction ]).! !
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:09:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:09:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:09:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:09:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:09:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:09:55'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:09:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:09:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:09:56'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:25:39'!
+test09
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio2 addMonetaryService: account1. "kaboom"! !
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 16:25:41'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:27:01' prior: 50920686!
+test09
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription].
+	! !
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 16:27:03'!
+FAILURE!
+
+Object subclass: #Portfolio
+	instanceVariableNames: 'monetaryServices myParent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'MK 10/16/2021 16:29:10'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'monetaryServices myParent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:29:44' prior: 50920555!
+addMonetaryService: aMonetaryService 
+	(myParent canIAdd: aMonetaryService) ifTrue: [ 
+		monetaryServices add: aMonetaryService. 
+		aMonetaryService addParent: self.
+	] ifFalse: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	aMonetaryService class = Portfolio ifTrue: [
+		(self xxx: aMonetaryService) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:35:26'!
+hasAccountsThatAreIn: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService xxx: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:35:26' prior: 50920573!
+xxx: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccountsThatAreIn: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:35:26' prior: 50920766!
+addMonetaryService: aMonetaryService 
+	(myParent canIAdd: aMonetaryService) ifTrue: [ 
+		monetaryServices add: aMonetaryService. 
+		aMonetaryService addParent: self.
+	] ifFalse: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	aMonetaryService class = Portfolio ifTrue: [
+		(self hasAccountsThatAreIn: aMonetaryService) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:35:26' prior: 50920789!
+hasAccountsThatAreIn: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccountsThatAreIn: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+
+!methodRemoval: Portfolio #xxx: stamp: 'MK 10/16/2021 16:35:26'!
+xxx: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccountsThatAreIn: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:36:37'!
+hasAccountsThatAppearIn: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccountsThatAreIn: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:36:38' prior: 50920813!
+addMonetaryService: aMonetaryService 
+	(myParent canIAdd: aMonetaryService) ifTrue: [ 
+		monetaryServices add: aMonetaryService. 
+		aMonetaryService addParent: self.
+	] ifFalse: [
+		^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+	].
+
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	aMonetaryService class = Portfolio ifTrue: [
+		(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:36:38' prior: 50920837!
+hasAccountsThatAreIn: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccountsThatAppearIn: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:36:38' prior: 50920860!
+hasAccountsThatAppearIn: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccountsThatAppearIn: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+
+!methodRemoval: Portfolio #hasAccountsThatAreIn: stamp: 'MK 10/16/2021 16:36:38'!
+hasAccountsThatAreIn: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccountsThatAppearIn: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 15:58:17' prior: 50920873!
+addMonetaryService: aMonetaryService 
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	aMonetaryService class = Portfolio ifTrue: [
+		(self xxx: aMonetaryService) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:39:52'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:39:53'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:39:53'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:39:53'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:39:53'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:39:53'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:39:53'!
+ERROR!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:39:53'!
+FAILURE!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 16:39:53'!
+ERROR!
+
+!methodRemoval: PortfolioTests #test09 stamp: 'MK 10/16/2021 16:40:16'!
+test09
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription].
+	!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:40:57' prior: 50920935!
+addMonetaryService: aMonetaryService 
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService = aMonetaryService ]) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	aMonetaryService class = Portfolio ifTrue: [
+		(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:40:59'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:41:30' prior: 50920596!
+test08PortfolioDoesNotHaveDuplicateAccount
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:41:32'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:42:27' prior: 50921001!
+addMonetaryService: aMonetaryService 
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+		ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	aMonetaryService class = Portfolio ifTrue: [
+		(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	
+	monetaryServices add: aMonetaryService.! !
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:42:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:42:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:42:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:42:30'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:42:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:42:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:42:30'!
+ERROR!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:42:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:42:30'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:43:41' prior: 50921074!
+addMonetaryService: aMonetaryService 
+	aMonetaryService class = ReceptiveAccount ifTrue: [
+		(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+		ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	aMonetaryService class = Portfolio ifTrue: [
+		(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+			^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+		].
+	].
+	
+	monetaryServices add: aMonetaryService.! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'MK 10/16/2021 16:44:12'!
+hasAccount: anAccount
+
+	^ self = anAccount .! !
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:44:23'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:44:23'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:44:23'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:44:23'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:44:23'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:44:23'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:44:23'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:44:24'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:44:24'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:44:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:44:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:44:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:44:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:44:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:44:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:44:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:44:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:44:30'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:45:14'!
+test07
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test07PortfolioDoesNotHaveDuplicatePortfolio stamp: 'MK 10/16/2021 16:45:14'!
+test07PortfolioDoesNotHaveDuplicatePortfolio
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:45:21'!
+test08
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test08PortfolioDoesNotHaveDuplicateAccount stamp: 'MK 10/16/2021 16:45:21'!
+test08PortfolioDoesNotHaveDuplicateAccount
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 16:52:56'!
+test09
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test07 stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 16:53:09'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:03:43' prior: 50921287!
+test09
+	| portfolio0 portfolio1 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio0 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test07 stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test08 stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:03:44'!
+PASSED!
+
+!methodRemoval: PortfolioTests #test09 stamp: 'MK 10/16/2021 17:04:02'!
+test09
+	| portfolio0 portfolio1 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio0 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:08:43'!
+test07AddAccountThatIsInPreviouslyAddedPortfolio
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test07 stamp: 'MK 10/16/2021 17:08:44'!
+test07
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:09:12'!
+test08AddAccountThatIsInPreviouslyAddedPortfolio
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test08 stamp: 'MK 10/16/2021 17:09:13'!
+test08
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:09:29'!
+test07AddPortfolioThatWasPreviouslyAdded
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test07AddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:09:29'!
+test07AddAccountThatIsInPreviouslyAddedPortfolio
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+
+----SNAPSHOT----(16 October 2021 17:10:21) CuisUniversity-4913.image priorSource: 18800276!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:12:35'!
+test05PortfolioHasRegisteredTransactionThatIsInAddedAccount
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	! !
+
+!methodRemoval: PortfolioTests #test05PortfolioWithOneAccountWithOneTransactionHasIt stamp: 'MK 10/16/2021 17:12:36'!
+test05PortfolioWithOneAccountWithOneTransactionHasIt
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:13:15'!
+test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded
+	| portfolio1 transaction account1 account2 |
+	portfolio1 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	transaction _ Deposit register: 100 on: account2.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: account2.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	! !
+
+!methodRemoval: PortfolioTests #test06PortfolioWithTwoAccountsWithTransactionsHasThem stamp: 'MK 10/16/2021 17:13:15'!
+test06PortfolioWithTwoAccountsWithTransactionsHasThem
+	| portfolio1 transaction account1 account2 |
+	portfolio1 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	transaction _ Deposit register: 100 on: account2.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: account2.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:13:38'!
+test04EmptyPortfolioHasNotRegisteredTransaction
+	| portfolio1 transaction |
+	portfolio1 _ Portfolio new.
+	transaction _ Deposit for: 50.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	! !
+
+!methodRemoval: PortfolioTests #test04EmptyPortfolioDoesNotHaveTransaction stamp: 'MK 10/16/2021 17:13:38'!
+test04EmptyPortfolioDoesNotHaveTransaction
+	| portfolio1 transaction |
+	portfolio1 _ Portfolio new.
+	transaction _ Deposit for: 50.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:14:37'!
+test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test07AddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:14:37'!
+test07AddPortfolioThatWasPreviouslyAdded
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:14:58'!
+test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test08AddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:14:58'!
+test08AddAccountThatIsInPreviouslyAddedPortfolio
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:16:27'!
+test09
+	| portfolio0 portfolio1 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.	
+	portfolio0 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:16:29'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:25:34' prior: 50921126!
+addMonetaryService: aMonetaryService 
+	myParent isNil ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+	].
+	(myParent canIAdd: aMonetaryService) 
+		ifTrue: [
+			monetaryServices add: aMonetaryService.
+			aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent]
+		] 
+		ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+
+	
+	
+	! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:26:23'!
+addParent
+	^ self shouldBeImplemented.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:26:32'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:26:33'!
+ERROR!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:26:33'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'MK 10/16/2021 17:26:33'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'MK 10/16/2021 17:26:33'!
+ERROR!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'MK 10/16/2021 17:26:33'!
+ERROR!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:26:33'!
+ERROR!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:26:33'!
+ERROR!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:26:33'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:27:17'!
+addParent: aPortfolio
+	myParent _ aPortfolio.! !
+
+!methodRemoval: Portfolio #addParent stamp: 'MK 10/16/2021 17:27:20'!
+addParent
+	^ self shouldBeImplemented.!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:27:26' prior: 50921696!
+addMonetaryService: aMonetaryService 
+	myParent isNil ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+	].
+	(myParent canIAdd: aMonetaryService) 
+		ifTrue: [
+			monetaryServices add: aMonetaryService.
+			aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.]
+		] 
+		ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+
+	
+	
+	! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:28:11' prior: 50921768!
+addMonetaryService: aMonetaryService 
+	myParent isNil ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		monetaryServices add: aMonetaryService.
+		aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.].
+		^ self.
+	].
+	(myParent canIAdd: aMonetaryService) 
+		ifTrue: [
+			monetaryServices add: aMonetaryService.
+			aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.]
+		] 
+		ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+
+	
+	
+	! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:28:51' prior: 50921796!
+addMonetaryService: aMonetaryService 
+	myParent isNil ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+	] ifFalse: [
+	(myParent canIAdd: aMonetaryService) 
+		ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+	].
+	monetaryServices add: aMonetaryService.
+	aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.].
+	
+	! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:28:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:28:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:28:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'MK 10/16/2021 17:28:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'MK 10/16/2021 17:28:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'MK 10/16/2021 17:28:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:28:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:28:56'!
+PASSED!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:28:56'!
+FAILURE!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:28:56'!
+FAILURE!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:29:05'!
+FAILURE!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:29:05'!
+FAILURE!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:29:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:29:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:29:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'MK 10/16/2021 17:29:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'MK 10/16/2021 17:29:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'MK 10/16/2021 17:29:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:29:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:29:09'!
+PASSED!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:29:09'!
+FAILURE!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:29:09'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:33:14'!
+canIAdd: aMonetaryService
+	"TODO: ask my parent if i have one"	
+	aMonetaryService class = Portfolio ifTrue: [ ^ self hasAccountsThatAppearIn: aMonetaryService ].
+	aMonetaryService class = ReceptiveAccount ifTrue: [^ self hasAccount: aMonetaryService ].! !
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:33:38'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:34:27' prior: 50921828!
+addMonetaryService: aMonetaryService 
+	myParent isNil ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+	] ifFalse: [
+		(myParent canIAdd: aMonetaryService) 
+			ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+	].
+	monetaryServices add: aMonetaryService.
+	aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.].
+	
+	! !
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:34:30'!
+FAILURE!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:35:42'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:39:42' prior: 50921931!
+canIAdd: aMonetaryService
+	"TODO: ask my parent if i have one"	
+	aMonetaryService class = Portfolio ifTrue: [ ^ self hasAccountsThatAppearIn: aMonetaryService not ].
+	aMonetaryService class = ReceptiveAccount ifTrue: [^ self hasAccount: aMonetaryService not ].! !
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:39:43'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:40:28' prior: 50921977!
+canIAdd: aMonetaryService
+	"TODO: ask my parent if i have one"	
+	aMonetaryService class = Portfolio ifTrue: [ ^ (self hasAccountsThatAppearIn: aMonetaryService) not ].
+	aMonetaryService class = ReceptiveAccount ifTrue: [^ (self hasAccount: aMonetaryService) not ].! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test09 stamp: 'MK 10/16/2021 17:40:30'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:41:00'!
+test09PortfolioCannotAddAccountThatWasInParent
+	| portfolio0 portfolio1 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.	
+	portfolio0 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!methodRemoval: PortfolioTests #test09 stamp: 'MK 10/16/2021 17:41:03'!
+test09
+	| portfolio0 portfolio1 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.	
+	portfolio0 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:41:19'!
+test10PortfolioCannotAddAccountThatWasInGrandparent
+	| portfolio0 portfolio1 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.	
+	portfolio0 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:42:59' prior: 50922077!
+test10PortfolioCannotAddAccountThatWasInGrandparent
+	| portfolio0 portfolio1 portfolio3 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio3 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.	
+	portfolio0 addMonetaryService: account1.
+	portfolio3 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio3.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:43:10' prior: 50922099!
+test10PortfolioCannotAddAccountThatWasInGrandparent
+	| portfolio0 portfolio2 portfolio3 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolio3 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio2.	
+	portfolio0 addMonetaryService: account1.
+	portfolio3 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: portfolio3.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:43:14' prior: 50922121!
+test10PortfolioCannotAddAccountThatWasInGrandparent
+	| portfolio1 portfolio2 portfolio3 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolio3 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: portfolio2.	
+	portfolio1 addMonetaryService: account1.
+	portfolio3 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: portfolio3.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:43:54' prior: 50922143!
+test10PortfolioCannotAddAccountThatWasInGrandparent
+	| portfolio0 portfolio1 portfolio2 portfolio3 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolio3 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.
+	portfolio1 addMonetaryService: portfolio2.	
+	portfolio0 addMonetaryService: account1.
+	portfolio3 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: portfolio3.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'MK 10/16/2021 17:44:10'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:45:27' prior: 50921991!
+canIAdd: aMonetaryService
+	myParent isNil ifTrue: [
+		aMonetaryService class = Portfolio ifTrue: [ ^ (self hasAccountsThatAppearIn: aMonetaryService) not ].
+		aMonetaryService class = ReceptiveAccount ifTrue: [^ (self hasAccount: aMonetaryService) not ]	
+	] ifFalse: [
+		^ myParent canIAdd: aMonetaryService.
+	].! !
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'MK 10/16/2021 17:45:31'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:48:34'!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio0 portfolio1 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio2.
+	portfolio1 addMonetaryService: portfolio2.	
+	portfolio1 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:48:36'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:48:59' prior: 50922248!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio11 portfolio1 portfolio2 account1 |
+	portfolio11 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio11 addMonetaryService: portfolio2.
+	portfolio1 addMonetaryService: portfolio2.	
+	portfolio1 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:49:02' prior: 50922316!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio11 portfolio0 portfolio2 account1 |
+	portfolio11 _ Portfolio new.
+	portfolio0 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio11 addMonetaryService: portfolio2.
+	portfolio0 addMonetaryService: portfolio2.	
+	portfolio0 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:49:08' prior: 50922338!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio1 portfolio0 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio0 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio0 addMonetaryService: portfolio2.	
+	portfolio0 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:49:28' prior: 50922360!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio1 portfolio0 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio0 addMonetaryService: portfolio2.	
+	portfolio0 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:49:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'MK 10/16/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'MK 10/16/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'MK 10/16/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:49:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:49:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'MK 10/16/2021 17:49:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'MK 10/16/2021 17:49:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:49:31'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:49:37' prior: 50922382!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio1 portfolio0 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio2.	
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio0 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:49:38'!
+FAILURE!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'MK 10/16/2021 17:50:33'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'monetaryServices parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:50:34' prior: 50922193!
+canIAdd: aMonetaryService
+	parents isNil ifTrue: [
+		aMonetaryService class = Portfolio ifTrue: [ ^ (self hasAccountsThatAppearIn: aMonetaryService) not ].
+		aMonetaryService class = ReceptiveAccount ifTrue: [^ (self hasAccount: aMonetaryService) not ]	
+	] ifFalse: [
+		^ parents canIAdd: aMonetaryService.
+	].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:50:34' prior: 50921945!
+addMonetaryService: aMonetaryService 
+	parents isNil ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+	] ifFalse: [
+		(parents canIAdd: aMonetaryService) 
+			ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+	].
+	monetaryServices add: aMonetaryService.
+	aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.].
+	
+	! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:50:34' prior: 50921760!
+addParent: aPortfolio
+	parents _ aPortfolio.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:50:49' prior: 50919136 overrides: 16896425!
+initialize
+	monetaryServices _ OrderedCollection new.
+	parents _ OrderedCollection new.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:50:56' prior: 50922497!
+addMonetaryService: aMonetaryService 
+	parents isEmpty ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+	] ifFalse: [
+		(parents canIAdd: aMonetaryService) 
+			ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+	].
+	monetaryServices add: aMonetaryService.
+	aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.].
+	
+	! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:52:02' prior: 50922535!
+addMonetaryService: aMonetaryService 
+	parents isEmpty ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+	] ifFalse: [
+		parents do: [:myParent | (myParent canIAdd: aMonetaryService)
+			ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+		]
+	].
+	monetaryServices add: aMonetaryService.
+	aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.].
+	
+	! !
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:52:09'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:52:21' prior: 50922484!
+canIAdd: aMonetaryService
+	parents isEmpty ifTrue: [
+		aMonetaryService class = Portfolio ifTrue: [ ^ (self hasAccountsThatAppearIn: aMonetaryService) not ].
+		aMonetaryService class = ReceptiveAccount ifTrue: [^ (self hasAccount: aMonetaryService) not ]	
+	] ifFalse: [
+		^ parents canIAdd: aMonetaryService.
+	].! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:52:37' prior: 50922594!
+canIAdd: aMonetaryService
+	parents isEmpty ifTrue: [
+		aMonetaryService class = Portfolio ifTrue: [ ^ (self hasAccountsThatAppearIn: aMonetaryService) not ].
+		aMonetaryService class = ReceptiveAccount ifTrue: [^ (self hasAccount: aMonetaryService) not ]	
+	] ifFalse: [
+		
+		^ parents canIAdd: aMonetaryService.
+	].! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:53:06' prior: 50922607!
+canIAdd: aMonetaryService
+	parents isEmpty ifTrue: [
+		aMonetaryService class = Portfolio ifTrue: [ ^ (self hasAccountsThatAppearIn: aMonetaryService) not ].
+		aMonetaryService class = ReceptiveAccount ifTrue: [^ (self hasAccount: aMonetaryService) not ]	
+	] ifFalse: [
+		parents do: [:myParent | (myParent canIAdd: aMonetaryService)
+			ifFalse: [^ false.].
+		].
+		^ true.
+	].! !
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:53:09'!
+FAILURE!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:53:21' prior: 50922524!
+addParent: aPortfolio
+	parents add: aPortfolio.! !
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'MK 10/16/2021 17:53:25'!
+PASSED!
+
+----SNAPSHOT----(16 October 2021 17:53:35) CuisUniversity-4913.image priorSource: 18875638!
+
+----SNAPSHOT----(16 October 2021 17:55:58) CuisUniversity-4913.image priorSource: 18913224!

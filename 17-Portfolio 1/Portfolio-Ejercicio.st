@@ -23,32 +23,140 @@ test02PortfolioWithOneAccountMatchesItsBalance
 	self assert: (portfolio balance = 50).
 	! !
 
-!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:02:39'!
-test03PortfolioWithOnePortfolioMatchesItsBalance
-	| portfolio1 account portfolio2 |
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 12:29:53'!
+test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance
+	| portfolio1 portfolio2 account1 account2 |
 	portfolio1 _ Portfolio new.
-	account _ ReceptiveAccount new.
-	Deposit register: 50 on: account.
 	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	account2 _ ReceptiveAccount new.
+	Withdraw register: 25 on: account2.
 	
-	portfolio1 addMonetaryService: account.
-	portfolio2 addMonetaryService: portfolio1.
-	self assert: (portfolio2 balance = 50).
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: account2.
+	portfolio1 addMonetaryService: portfolio2.
+	self assert: (portfolio1 balance = 75).
 	! !
 
-!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/15/2021 19:28:52'!
-test04PortfolioWithTwoAccountsMatchesBalance
-	| portfolio account1 account2 |
-	portfolio _ Portfolio new.
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:13:38'!
+test04EmptyPortfolioHasNotRegisteredTransaction
+	| portfolio1 transaction |
+	portfolio1 _ Portfolio new.
+	transaction _ Deposit for: 50.
+	
+	self assert: (portfolio1 hasRegistered: transaction ) not.
+	! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:12:35'!
+test05PortfolioHasRegisteredTransactionThatIsInAddedAccount
+	| portfolio1 transaction account |
+	portfolio1 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ Deposit register: 50 on: account.
+	
+	portfolio1 addMonetaryService: account.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:13:15'!
+test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded
+	| portfolio1 transaction account1 account2 |
+	portfolio1 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	account2 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	transaction _ Deposit register: 100 on: account2.
+	
+	portfolio1 addMonetaryService: account1.
+	portfolio1 addMonetaryService: account2.
+	
+	self assert: (portfolio1 hasRegistered: transaction ).
+	! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:14:37'!
+test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
 	account1 _ ReceptiveAccount new.
 	Deposit register: 50 on: account1.
-	account2 _ ReceptiveAccount new.
-	Deposit register: 100 on: account2.
 	
-	portfolio addMonetaryService: account1.
-	portfolio addMonetaryService: account2.
-	self assert: (portfolio balance = 150).
-	! !
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: portfolio2] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:14:58'!
+test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio
+	| portfolio1 portfolio2 account1 |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio2 addMonetaryService: account1.
+	portfolio1 addMonetaryService: portfolio2.
+	self should: [portfolio1 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:41:00'!
+test09PortfolioCannotAddAccountThatWasInParent
+	| portfolio0 portfolio1 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.	
+	portfolio0 addMonetaryService: account1.
+	portfolio2 addMonetaryService: account1.
+	self should: [portfolio1 addMonetaryService: portfolio2.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:43:54'!
+test10PortfolioCannotAddAccountThatWasInGrandparent
+	| portfolio0 portfolio1 portfolio2 portfolio3 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolio3 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio1.
+	portfolio1 addMonetaryService: portfolio2.	
+	portfolio0 addMonetaryService: account1.
+	portfolio3 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: portfolio3.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:49:37'!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio1 portfolio0 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio2.	
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio0 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
 
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
@@ -199,23 +307,97 @@ AccountTransaction subclass: #Withdraw
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 Object subclass: #Portfolio
-	instanceVariableNames: 'monetaryServices'
+	instanceVariableNames: 'monetaryServices parents'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:32:29'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:52:02'!
 addMonetaryService: aMonetaryService 
-	monetaryServices add: aMonetaryService.! !
+	parents isEmpty ifTrue: [
+		aMonetaryService class = ReceptiveAccount ifTrue: [
+			(monetaryServices anySatisfy: [:aService | aService hasAccount: aMonetaryService ]) 
+			ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+		aMonetaryService class = Portfolio ifTrue: [
+			(self hasAccountsThatAppearIn: aMonetaryService) ifTrue: [
+				^ self error: self class cannotAddDuplicatedAccountErrorDescription.
+			].
+		].
+	] ifFalse: [
+		parents do: [:myParent | (myParent canIAdd: aMonetaryService)
+			ifFalse: [^ self error: self class cannotAddDuplicatedAccountErrorDescription.].
+		]
+	].
+	monetaryServices add: aMonetaryService.
+	aMonetaryService class = Portfolio ifTrue: [aMonetaryService addParent: self.].
+	
+	! !
 
-!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:32:29'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:53:21'!
+addParent: aPortfolio
+	parents add: aPortfolio.! !
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 12:09:23'!
 balance
-	monetaryServices isEmpty ifTrue: [^ 0].
-	^ monetaryServices sum: [:anAccount | anAccount balance].! !
+	^ monetaryServices sum: [:anAccount | anAccount balance] ifEmpty: [^ 0].! !
 
-!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/15/2021 19:32:29'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:53:06'!
+canIAdd: aMonetaryService
+	parents isEmpty ifTrue: [
+		aMonetaryService class = Portfolio ifTrue: [ ^ (self hasAccountsThatAppearIn: aMonetaryService) not ].
+		aMonetaryService class = ReceptiveAccount ifTrue: [^ (self hasAccount: aMonetaryService) not ]	
+	] ifFalse: [
+		parents do: [:myParent | (myParent canIAdd: aMonetaryService)
+			ifFalse: [^ false.].
+		].
+		^ true.
+	].! !
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:04:56'!
+hasAccount: anAccount
+	monetaryServices do: [:aService | 
+		(aService class = ReceptiveAccount and: [aService = anAccount]) ifTrue: [
+			^ true.
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccount: anAccount ) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:36:38'!
+hasAccountsThatAppearIn: aPortfolio 
+	monetaryServices do: [:aService | 
+		aService class = ReceptiveAccount ifTrue: [
+			(aPortfolio hasAccount: aService)	 ifTrue: [^ true].
+		].
+		aService class = Portfolio ifTrue: [
+			(aService hasAccountsThatAppearIn: aPortfolio) ifTrue: [^ true].
+		].
+	].
+	^ false.! !
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 16:09:44'!
+hasRegistered: aTransaction 
+	^ (monetaryServices anySatisfy: [:service | service hasRegistered: aTransaction ]).! !
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 17:50:49'!
 initialize
-	monetaryServices _ OrderedCollection new.! !
+	monetaryServices _ OrderedCollection new.
+	parents _ OrderedCollection new.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Portfolio class' category: 'Portfolio-Ejercicio'!
+Portfolio class
+	instanceVariableNames: ''!
+
+!Portfolio class methodsFor: 'error descriptions' stamp: 'MK 10/16/2021 13:49:51'!
+cannotAddDuplicatedAccountErrorDescription
+	^ 'Cannot add account to portfolio if it was already present.'! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
@@ -230,6 +412,11 @@ initialize
 
 	transactions := OrderedCollection new.! !
 
+
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'MK 10/16/2021 16:44:12'!
+hasAccount: anAccount
+
+	^ self = anAccount .! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'MK 10/15/2021 18:44:28'!
 register: aTransaction
@@ -250,8 +437,7 @@ balance
 	^ depositSum - withdrawSum ! !
 
 
-!ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
+!ReceptiveAccount methodsFor: 'testing' stamp: 'MK 10/16/2021 12:49:43'!
 hasRegistered: aTransaction
-
 	^ transactions includes: aTransaction 
 ! !
