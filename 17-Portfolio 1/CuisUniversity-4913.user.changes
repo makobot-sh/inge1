@@ -2828,3 +2828,722 @@ XXXX: anAccount
 	^monetaryServices allSatisfy: [:aService | aService XXXX: anAccount].! !
 
 ----SNAPSHOT----(17 October 2021 14:04:00) CuisUniversity-4913.image priorSource: 18756795!
+
+----STARTUP---- (18 October 2021 07:24:28) as C:\Users\ferra\Desktop\CUIS SmallTalk\windows64\CuisUniversity-4913.image!
+
+
+----End fileIn of D:\Apuntes\Inge 1\Repos\Repo de entregas\17-Portfolio 1\Portfolio-Ejercicio.st----!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 07:26:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/18/2021 07:39:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/18/2021 07:39:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/18/2021 07:39:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/18/2021 07:39:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/18/2021 07:39:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/18/2021 07:39:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/18/2021 07:39:11'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 07:47:16'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 07:47:22' prior: 50915015!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio1 portfolio0 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio2.	
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio1 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 07:47:22'!
+PASSED!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 07:47:29' prior: 50915525!
+test11PortfolioCannotAddAccountThatIsInSecondParent
+	| portfolio1 portfolio0 portfolio2 account1 |
+	portfolio0 _ Portfolio new.
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio0 addMonetaryService: portfolio2.	
+	portfolio1 addMonetaryService: portfolio2.
+	portfolio0 addMonetaryService: account1.
+	self should: [portfolio2 addMonetaryService: account1.] 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 07:47:29'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:01:52' prior: 50915247!
+XXXX: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices anySatisfy: [:aService | aService XXXX: anAccount].! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 08:01:52'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 08:01:52'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 08:01:52'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 08:01:52'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'Chiro 10/17/2021 13:47:27' prior: 50915681!
+XXXX: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService XXXX: anAccount].! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:31:31' prior: 50915275!
+canBeAddedTo: aPortfolio
+
+	^aPortfolio YYYY: monetaryServices.
+	"^monetaryServices allSatisfy: [:aService | aService canBeAddedTo: aPortfolio]."! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 08:31:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 08:31:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 08:31:31'!
+ERROR!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 08:31:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 08:31:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 08:31:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 08:31:31'!
+ERROR!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 08:31:31'!
+ERROR!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 08:31:31'!
+ERROR!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 08:31:31'!
+ERROR!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 08:31:31'!
+ERROR!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 08:31:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 08:31:31'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 08:31:31'!
+ERROR!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:33:18'!
+YYYY: aCollectionOfMonetaryServices
+	^aCollectionOfMonetaryServices allSatisfy: [:aMonetaryService | aMonetaryService canBeAddedTo: self].! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 08:33:19'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:35:47' prior: 50915747!
+canBeAddedTo: aPortfolio
+
+	^aPortfolio YYYY: monetaryServices.! !
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 08:35:47'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:37:32'!
+canAddAll: aCollectionOfMonetaryServices
+	^aCollectionOfMonetaryServices allSatisfy: [:aMonetaryService | aMonetaryService canBeAddedTo: self].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 08:37:32' prior: 50915867!
+canBeAddedTo: aPortfolio
+
+	^aPortfolio canAddAll: monetaryServices.! !
+
+!methodRemoval: Portfolio #YYYY: stamp: 'AF 10/18/2021 08:37:32'!
+YYYY: aCollectionOfMonetaryServices
+	^aCollectionOfMonetaryServices allSatisfy: [:aMonetaryService | aMonetaryService canBeAddedTo: self].!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:55:51'!
+canAddAllMonetaryServices: aCollectionOfMonetaryServices
+	^aCollectionOfMonetaryServices allSatisfy: [:aMonetaryService | aMonetaryService canBeAddedTo: self].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 08:55:51' prior: 50915932!
+canBeAddedTo: aPortfolio
+
+	^aPortfolio canAddAllMonetaryServices: monetaryServices.! !
+
+!methodRemoval: Portfolio #canAddAll: stamp: 'AF 10/18/2021 08:55:51'!
+canAddAll: aCollectionOfMonetaryServices
+	^aCollectionOfMonetaryServices allSatisfy: [:aMonetaryService | aMonetaryService canBeAddedTo: self].!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:56:49'!
+canAddAccount: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService XXXX: anAccount].! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/18/2021 08:56:49'!
+canAddAccount: anAccount
+
+	^ self ~= anAccount .! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 08:56:49' prior: 50915740!
+XXXX: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService canAddAccount: anAccount].! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 08:56:49' prior: 50915381!
+canBeAddedTo: aPortfolio
+	^aPortfolio canAddAccount: self! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 08:56:49' prior: 50915965!
+canAddAccount: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService canAddAccount: anAccount].! !
+
+!methodRemoval: Portfolio #XXXX: stamp: 'AF 10/18/2021 08:56:49'!
+XXXX: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService canAddAccount: anAccount].!
+
+!methodRemoval: ReceptiveAccount #XXXX: stamp: 'AF 10/18/2021 08:56:49'!
+XXXX: anAccount
+
+	^ self ~= anAccount .!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/18/2021 08:57:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/18/2021 08:57:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/18/2021 08:57:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/18/2021 08:57:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/18/2021 08:57:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/18/2021 08:57:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/18/2021 08:57:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/18/2021 08:57:08'!
+PASSED!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 08:57:10'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 08:57:14'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 08:57:14'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 08:57:14'!
+PASSED!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 09:00:26'!
+XXXX: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService canAddAccount: anAccount].! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/18/2021 09:00:26'!
+XXXX: anAccount
+
+	^ self ~= anAccount .! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:00:26' prior: 50915984!
+canBeAddedTo: aPortfolio
+	^aPortfolio XXXX: self! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:00:26' prior: 50915989!
+canAddAccount: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService XXXX: anAccount].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:00:26' prior: 50916099!
+XXXX: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService XXXX: anAccount].! !
+
+!methodRemoval: Portfolio #canAddAccount: stamp: 'AF 10/18/2021 09:00:26'!
+canAddAccount: anAccount
+	"XXXX was hasAccount"
+	^monetaryServices allSatisfy: [:aService | aService XXXX: anAccount].!
+
+!methodRemoval: ReceptiveAccount #canAddAccount: stamp: 'AF 10/18/2021 09:00:26'!
+canAddAccount: anAccount
+
+	^ self ~= anAccount .!
+
+Object subclass: #MonetaryService
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #MonetaryService category: 'Portfolio-Ejercicio' stamp: 'AF 10/18/2021 09:02:37'!
+Object subclass: #MonetaryService
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+MonetaryService subclass: #Portfolio
+	instanceVariableNames: 'monetaryServices parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'AF 10/18/2021 09:03:00'!
+MonetaryService subclass: #Portfolio
+	instanceVariableNames: 'monetaryServices parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+MonetaryService subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio' stamp: 'AF 10/18/2021 09:03:15'!
+MonetaryService subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!MonetaryService methodsFor: 'nil' stamp: 'AF 10/18/2021 09:04:29'!
+balance
+
+	^self subclassResponsibility.! !
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 09:05:03' prior: 50915264 overrides: 50916178!
+balance
+	^ monetaryServices sum: [:aMonetaryService | aMonetaryService balance] ifEmpty: [^ 0].! !
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:06:23'!
+hasRegistered: aTransaction
+
+	^self subclassResponsibility.! !
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:06:34'!
+transactions
+
+	^self subclassResponsibility.! !
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:07:17' overrides: 16896425!
+initialize
+
+	^self subclassResponsibility.! !
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:07:57'!
+canBeAddedTo: aPortfolio
+
+	^self subclassResponsibility.! !
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:09:59'!
+XXXX: aMonetaryService
+
+	^self subclassResponsibility.! !
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:10:15' prior: 50916209!
+XXXX: anAccount
+
+	^self subclassResponsibility.! !
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:10:42'!
+becomeChildOf: aPortfolio
+
+	^self subclassResponsibility.! !
+
+----SNAPSHOT----(18 October 2021 09:12:35) CuisUniversity-4913.image priorSource: 18661997!
+
+!testRun: #PortfolioTests #test01EmptyPortfolioHasBalance0 stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test02PortfolioWithOneAccountMatchesItsBalance stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test03PortfolioWithPortfolioWithTwoAccountsMatchesBalance stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test04EmptyPortfolioHasNotRegisteredTransaction stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test05PortfolioHasRegisteredTransactionThatIsInAddedAccount stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test07PortfolioCannotAddPortfolioThatWasPreviouslyAdded stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test09PortfolioCannotAddAccountThatWasInParent stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test10PortfolioCannotAddAccountThatWasInGrandparent stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test11PortfolioCannotAddAccountThatIsInSecondParent stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test12PortfolioHasNoTransactions stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test13PortfolioTransactionsHasOneTransaction stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #PortfolioTests #test14PortfolioTransactionsHasInnerPortfolioTransactions stamp: 'AF 10/18/2021 09:12:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/18/2021 09:12:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/18/2021 09:12:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/18/2021 09:12:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/18/2021 09:12:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/18/2021 09:12:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/18/2021 09:12:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/18/2021 09:12:47'!
+PASSED!
+
+----SNAPSHOT----(18 October 2021 09:14:44) CuisUniversity-4913.image priorSource: 18706332!

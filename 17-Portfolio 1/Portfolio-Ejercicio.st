@@ -141,7 +141,7 @@ test10PortfolioCannotAddAccountThatWasInGrandparent
 		withExceptionDo: [ :anError |
 				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
 
-!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'MK 10/16/2021 17:49:37'!
+!PortfolioTests methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 07:47:29'!
 test11PortfolioCannotAddAccountThatIsInSecondParent
 	| portfolio1 portfolio0 portfolio2 account1 |
 	portfolio0 _ Portfolio new.
@@ -344,14 +344,57 @@ AccountTransaction subclass: #Withdraw
 	category: 'Portfolio-Ejercicio'!
 
 
+!classDefinition: #MonetaryService category: 'Portfolio-Ejercicio'!
+Object subclass: #MonetaryService
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:10:15'!
+XXXX: anAccount
+
+	^self subclassResponsibility.! !
+
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:04:29'!
+balance
+
+	^self subclassResponsibility.! !
+
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:10:42'!
+becomeChildOf: aPortfolio
+
+	^self subclassResponsibility.! !
+
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:07:57'!
+canBeAddedTo: aPortfolio
+
+	^self subclassResponsibility.! !
+
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:06:23'!
+hasRegistered: aTransaction
+
+	^self subclassResponsibility.! !
+
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:07:17'!
+initialize
+
+	^self subclassResponsibility.! !
+
+!MonetaryService methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:06:34'!
+transactions
+
+	^self subclassResponsibility.! !
+
+
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
-Object subclass: #Portfolio
+MonetaryService subclass: #Portfolio
 	instanceVariableNames: 'monetaryServices parents'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'as yet undefined' stamp: 'Chiro 10/17/2021 13:47:27'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 09:00:26'!
 XXXX: anAccount
 	"XXXX was hasAccount"
 	^monetaryServices allSatisfy: [:aService | aService XXXX: anAccount].! !
@@ -368,17 +411,22 @@ addMonetaryService: aMonetaryService
 	
 	! !
 
-!Portfolio methodsFor: 'as yet undefined' stamp: 'MK 10/16/2021 12:09:23'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 09:05:03'!
 balance
-	^ monetaryServices sum: [:anAccount | anAccount balance] ifEmpty: [^ 0].! !
+	^ monetaryServices sum: [:aMonetaryService | aMonetaryService balance] ifEmpty: [^ 0].! !
 
 !Portfolio methodsFor: 'as yet undefined' stamp: 'Chiro 10/17/2021 12:19:44'!
 becomeChildOf: aPortfolio
 	parents add: aPortfolio.! !
 
-!Portfolio methodsFor: 'as yet undefined' stamp: 'Chiro 10/17/2021 13:00:17'!
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:55:51'!
+canAddAllMonetaryServices: aCollectionOfMonetaryServices
+	^aCollectionOfMonetaryServices allSatisfy: [:aMonetaryService | aMonetaryService canBeAddedTo: self].! !
+
+!Portfolio methodsFor: 'as yet undefined' stamp: 'AF 10/18/2021 08:55:51'!
 canBeAddedTo: aPortfolio
-	^monetaryServices allSatisfy: [:aService | aService canBeAddedTo: aPortfolio].! !
+
+	^aPortfolio canAddAllMonetaryServices: monetaryServices.! !
 
 !Portfolio methodsFor: 'as yet undefined' stamp: 'Chiro 10/17/2021 13:44:06'!
 familiyDoesNotHave: aMonetaryService
@@ -415,7 +463,7 @@ cannotAddDuplicatedAccountErrorDescription
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
-Object subclass: #ReceptiveAccount
+MonetaryService subclass: #ReceptiveAccount
 	instanceVariableNames: 'transactions'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -427,7 +475,7 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'Chiro 10/17/2021 13:04:57'!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/18/2021 09:00:26'!
 XXXX: anAccount
 
 	^ self ~= anAccount .! !
@@ -461,6 +509,6 @@ hasRegistered: aTransaction
 becomeChildOf: aPortfolio
 	! !
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Chiro 10/17/2021 12:49:26'!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 09:00:26'!
 canBeAddedTo: aPortfolio
 	^aPortfolio XXXX: self! !
