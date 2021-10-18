@@ -130,51 +130,44 @@ test10PortfolioCannotAddAccountThatWasInGrandparent
 		withExceptionDo: [ :anError |
 				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
 
-!PortfolioTests methodsFor: 'testing' stamp: 'MK 10/18/2021 15:23:46'!
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:50:58'!
 test11PortfolioCannotAddAccountThatIsInSecondParent
 	"This test made sense when parent was a single portfolio instead of a collection of portfolios, since only the last portfolio that parented the current portfolio was saved as parent."
 	| portfolio1 portfolio0 portfolio2 account1 |
-	portfolio0 _ Portfolio new.
-	portfolio1 _ Portfolio new.
-	portfolio2 _ Portfolio new.
 	account1 _ ReceptiveAccount new.
 	Deposit register: 50 on: account1.
-	
-	portfolio0 addMonetaryService: portfolio2.	
-	portfolio1 addMonetaryService: portfolio2.
+		portfolio2 := self createPortfolioWith: OrderedCollection new .
+
+	portfolio0 := self createPortfolioWith: (OrderedCollection with: portfolio2) .	
+	portfolio1 := self createPortfolioWith: (OrderedCollection with: portfolio2) .
 	portfolio0 addMonetaryService: account1.
 	self should: [portfolio2 addMonetaryService: account1.] 
 		raise: Error
 		withExceptionDo: [ :anError |
 				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
 
-!PortfolioTests methodsFor: 'testing' stamp: 'Chiro 10/17/2021 11:18:11'!
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:51:33'!
 test12PortfolioHasNoTransactions
 	| portfolio|
-	portfolio _ Portfolio new.
+	portfolio := self createPortfolioWith: OrderedCollection new. 
 	
 	self assert: OrderedCollection new = portfolio transactions.
 	! !
 
-!PortfolioTests methodsFor: 'testing' stamp: 'Chiro 10/17/2021 11:22:58'!
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:53:07'!
 test13PortfolioTransactionsHasOneTransaction
 	| portfolio account1 transaction|
-	portfolio _ Portfolio new.
-	
 	account1 _ ReceptiveAccount new.
 	transaction _ Deposit for: 50.
 	account1 register: transaction.
-	portfolio addMonetaryService: account1.
+	portfolio := self createPortfolioWith: (OrderedCollection with: account1 ).
 	
 	self assert: (OrderedCollection with: transaction) = portfolio transactions.
 	! !
 
-!PortfolioTests methodsFor: 'testing' stamp: 'Chiro 10/17/2021 11:39:00'!
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:52:55'!
 test14PortfolioTransactionsHasInnerPortfolioTransactions
 	| portfolio1 portfolio2 account1 account2 transaction2 transaction1|
-	portfolio1 _ Portfolio new.
-	portfolio2 _ Portfolio new.
-	
 	account1 _ ReceptiveAccount new.
 	transaction1 _ Deposit for: 50.
 	account2 _ ReceptiveAccount new.
@@ -182,8 +175,8 @@ test14PortfolioTransactionsHasInnerPortfolioTransactions
 	account1 register: transaction1.
 	account2 register: transaction2.
 
-	portfolio1 addMonetaryService: account1.
-	portfolio2 addMonetaryService: account2.
+	portfolio1 := self createPortfolioWith: (OrderedCollection with: account1 ).
+	portfolio2 := self createPortfolioWith: (OrderedCollection with: account2 ).
 	portfolio1 addMonetaryService: portfolio2.
 	self assert: (OrderedCollection with: transaction1 with: transaction2) = portfolio1 transactions.
 	! !
