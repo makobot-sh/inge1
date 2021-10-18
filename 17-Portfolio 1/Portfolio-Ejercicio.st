@@ -5,6 +5,15 @@ TestCase subclass: #PortfolioTests
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:57:14'!
+shouldRaiseCanNotAddDuplicatedAccountError: aClosure 
+
+	
+	^ self should: aClosure 
+		raise: Error
+		withExceptionDo: [ :anError |
+				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+
 !PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:16:46'!
 test01EmptyPortfolioHasBalance0
 	| portfolio |
@@ -68,7 +77,7 @@ test06PortfolioHasRegisteredTransactionThatIsInSecondAccountAdded
 	
 	self assert: (portfolio hasRegistered: transaction ).! !
 
-!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:31:52'!
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:58:31'!
 test07PortfolioCannotAddPortfolioThatWasPreviouslyAddedAndLaterModified
 	| portfolio1 portfolio2 account |
 	
@@ -78,12 +87,9 @@ test07PortfolioCannotAddPortfolioThatWasPreviouslyAddedAndLaterModified
 
 	portfolio1 := self createPortfolioWith: (OrderedCollection with: portfolio2).
 	portfolio2 addMonetaryService: account.
-	self should: [portfolio1 addMonetaryService: portfolio2] 
-		raise: Error
-		withExceptionDo: [ :anError |
-				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+	self shouldRaiseCanNotAddDuplicatedAccountError:  [portfolio1 addMonetaryService: portfolio2] ! !
 
-!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:31:32'!
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:58:19'!
 test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio
 	| portfolio1 portfolio2 account |
 	account _ ReceptiveAccount new.
@@ -92,12 +98,9 @@ test08PortfolioCannotAddAccountThatIsInPreviouslyAddedPortfolio
 
 	portfolio1 := self createPortfolioWith: (OrderedCollection with: portfolio2 ).
 	portfolio2 addMonetaryService: account.
-	self should: [portfolio1 addMonetaryService: account.] 
-		raise: Error
-		withExceptionDo: [ :anError |
-				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+	self shouldRaiseCanNotAddDuplicatedAccountError:  [portfolio1 addMonetaryService: account.] ! !
 
-!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:41:29'!
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:58:00'!
 test09PortfolioCannotAddAccountThatWasInParent
 	| portfolioRoot portfolio1 portfolio2 account |
 	
@@ -107,12 +110,9 @@ test09PortfolioCannotAddAccountThatWasInParent
 
 	portfolioRoot := self createPortfolioWith: (OrderedCollection with: portfolio1 with: account).	
 	portfolio2 := self createPortfolioWith: (OrderedCollection with: account).
-	self should: [portfolio1 addMonetaryService: portfolio2.] 
-		raise: Error
-		withExceptionDo: [ :anError |
-				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+	self shouldRaiseCanNotAddDuplicatedAccountError: [portfolio1 addMonetaryService: portfolio2] ! !
 
-!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:47:44'!
+!PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:58:47'!
 test10PortfolioCannotAddAccountThatWasInGrandparent
 	| portfolio0 portfolio1 portfolio2 portfolio3 account1 |
 
@@ -125,10 +125,8 @@ test10PortfolioCannotAddAccountThatWasInGrandparent
 	portfolio1 addMonetaryService: portfolio2.	
 	portfolio0 addMonetaryService: account1.
 	portfolio3 := self createPortfolioWith: (OrderedCollection with: account1 ).
-	self should: [portfolio2 addMonetaryService: portfolio3.] 
-		raise: Error
-		withExceptionDo: [ :anError |
-				self assert: anError messageText = Portfolio cannotAddDuplicatedAccountErrorDescription]! !
+	self shouldRaiseCanNotAddDuplicatedAccountError: [portfolio2 addMonetaryService: portfolio3.] 
+! !
 
 !PortfolioTests methodsFor: 'testing' stamp: 'AF 10/18/2021 16:50:58'!
 test11PortfolioCannotAddAccountThatIsInSecondParent
