@@ -305,6 +305,96 @@ test07AccountKnowsItsTransactions
 ! !
 
 
+!classDefinition: #ReportTest category: 'Portfolio 2'!
+TestCase subclass: #ReportTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:24:10'!
+test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	self assert: account accountSummary = 'Balance = 0'.! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:25:08'!
+test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aString | aString     		nextPutAll: 'Depósito por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:26:37'!
+test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aString | aString     		nextPutAll: 'Extracción por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = -50']).! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:18:36'!
+test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aString | aString
+		nextPutAll: 'Depósito por 100';		
+ 		nextPut: $.;newLine;	
+		nextPutAll: 'Extracción por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:19:41'!
+test05AccountSummaryShowsTransfersOnSender
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: sender accountSummary = (String streamContents: [:aString | aString
+		nextPutAll: 'Salida por transferencia de 50';		
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = -50']).! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:20:01'!
+test06AccountSummaryShowsTransfersOnReceiver
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: receiver accountSummary = (String streamContents: [:aString | aString
+		nextPutAll: 'Entrada por transferencia de 50';		
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+
+
 !classDefinition: #TransferTest category: 'Portfolio 2'!
 TestCase subclass: #TransferTest
 	instanceVariableNames: ''
@@ -424,16 +514,9 @@ test07SenderHasTheWithdrawalRegisteredAfterTranfer
 	
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 21:59:20'!
+!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 17:30:08'!
 test08ReceiverHasTheDepositRegisteredAfterTransfer
 
-	"Una transferencia es una transacción que tiene dos patas. La pata de la extracción, de
-	donde se saca la plata, y la pata del depósito a donde se deposita la plata. Una
-	transferencia se realiza entonces entre dos cuentas y por un valor. Algo importante a tener
-	en cuenta es que se tiene que poder navegar desde la pata de la extracción a la
-	transferencia y desde esta última a la pata del depósito y viceversa, aunque evitando tener
-	redundancia de información. Es decir, el valor de la transacción debe estar en un solo lugar
-	y no repetido en cada pata"	
 
 	|sender receiver transfer|
 	
@@ -443,6 +526,46 @@ test08ReceiverHasTheDepositRegisteredAfterTransfer
 	transfer := Transfer from: sender to: receiver amount: 100.
 	
 	self assert: (receiver hasRegistered: transfer xXdepositXx).
+	
+	
+	
+	
+! !
+
+!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:05:33'!
+test09ReceiversTransactionKnowsSendersTransaction
+
+
+	|sender receiver transfer transferIn|
+	
+	sender := ReceptiveAccount new.
+	receiver  := ReceptiveAccount new.
+	
+	transfer := Transfer from: sender to: receiver amount: 100.
+	
+	transferIn := transfer xXdepositXx.
+	
+	self assert: ( transferIn transfer xXwithdrawalXx = transfer xXwithdrawalXx ).
+	
+	
+	
+	
+! !
+
+!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:05:53'!
+test10SendersTransactionKnowsReceiversTransaction
+
+
+	|sender receiver transfer transferOut|
+	
+	sender := ReceptiveAccount new.
+	receiver  := ReceptiveAccount new.
+	
+	transfer := Transfer from: sender to: receiver amount: 100.
+	
+	transferOut := transfer xXwithdrawalXx .
+	
+	self assert: ( transferOut transfer xXdepositXx = transfer xXdepositXx ).
 	
 	
 	
@@ -643,6 +766,24 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/20/2021 20:22:00'!
+accountSummary
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	transactions do: [:aTransaction | transactionsString := String streamContents: 			  		 				[:aString | aString nextPutAll: transactionsString, aTransaction XXXX;
+			 	  nextPut: $.;
+			  	  newLine]].
+	
+	balanceString := 'Balance = ', self balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					ifFalse:[^String streamContents: [:aString | 
+							aString nextPutAll: transactionsString;
+								    nextPutAll: balanceString ]].
+! !
+
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
 addTransactionsTo: aCollectionOfTransactions
 
@@ -704,6 +845,12 @@ affectBalance: aBalance
 
 	self subclassResponsibility ! !
 
+
+!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:21:24'!
+XXXX
+
+	^self subclassResponsibility.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'AccountTransaction class' category: 'Portfolio 2'!
@@ -745,6 +892,12 @@ affectBalance: aBalance
 
 	^aBalance + value ! !
 
+
+!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:21:59'!
+XXXX
+
+	^'Depósito por ' , self value asString.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Deposit class' category: 'Portfolio 2'!
@@ -755,6 +908,114 @@ Deposit class
 for: aValue
 
 	^ self new initializeFor: aValue ! !
+
+
+!classDefinition: #TransferIn category: 'Portfolio 2'!
+AccountTransaction subclass: #TransferIn
+	instanceVariableNames: 'transfer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:08:24'!
+XXXX
+
+	^'Entrada por transferencia de ' , self value asString.! !
+
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:53:47'!
+affectBalance: aBalance
+
+	^aBalance + self value ! !
+
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:59:19'!
+initializeFor: aTransfer  
+
+	transfer := aTransfer ! !
+
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:58:17'!
+transfer
+
+	^ transfer ! !
+
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:58:23'!
+value
+
+	^ self transfer value.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TransferIn class' category: 'Portfolio 2'!
+TransferIn class
+	instanceVariableNames: ''!
+
+!TransferIn class methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:07:47'!
+for: aTransfer  
+
+	^ self new initializeFor: aTransfer.! !
+
+!TransferIn class methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:08:52'!
+register: aTransfer on: account
+
+	| transaction |
+	
+	transaction := self for: aTransfer.
+	account register: transaction.
+		
+	^ transaction! !
+
+
+!classDefinition: #TransferOut category: 'Portfolio 2'!
+AccountTransaction subclass: #TransferOut
+	instanceVariableNames: 'value transfer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:03:32'!
+XXXX
+
+	^'Salida por transferencia de ' , self value asString.! !
+
+!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:03:16'!
+affectBalance: aBalance
+
+	^aBalance - self value! !
+
+!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:01:36'!
+initializeFor: aTransfer  
+
+	transfer := aTransfer ! !
+
+!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:01:58'!
+transfer
+
+	^ transfer ! !
+
+!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:01:48'!
+value
+
+	^ self transfer value.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TransferOut class' category: 'Portfolio 2'!
+TransferOut class
+	instanceVariableNames: ''!
+
+!TransferOut class methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:07:36'!
+for: aTransfer
+
+	^ self new initializeFor: aTransfer ! !
+
+!TransferOut class methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:09:01'!
+register: aTransfer on: account
+
+	| transaction |
+	
+	transaction := self for: aTransfer.
+	account register: transaction.
+		
+	^ transaction! !
 
 
 !classDefinition: #Withdraw category: 'Portfolio 2'!
@@ -781,6 +1042,12 @@ affectBalance: aBalance
 
 	^aBalance - value! !
 
+
+!Withdraw methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:22:31'!
+XXXX 
+
+	^'Extracción por ' , self value asString.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Withdraw class' category: 'Portfolio 2'!
@@ -795,18 +1062,19 @@ for: aValue
 
 !classDefinition: #Transfer category: 'Portfolio 2'!
 Object subclass: #Transfer
-	instanceVariableNames: 'senderAccount receiverAccount xXwithdrawalXx xXdepositXx'
+	instanceVariableNames: 'senderAccount receiverAccount xXwithdrawalXx xXdepositXx value'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!Transfer methodsFor: 'initialization' stamp: 'AF 10/18/2021 21:56:03'!
+!Transfer methodsFor: 'initialization' stamp: 'AF 10/20/2021 21:02:23'!
 from: aSender to: aReceiver amount: aValue 
 
 	senderAccount := aSender.
 	receiverAccount  := aReceiver .
-	xXwithdrawalXx := Withdraw register: aValue on: aSender.
-	xXdepositXx := Deposit register: aValue on: aReceiver. 
+	value := aValue.
+	xXwithdrawalXx := TransferOut register: self on: aSender.
+	xXdepositXx := TransferIn register: self on: aReceiver. 
 	
 ! !
 
@@ -818,6 +1086,12 @@ receiverAccount
 !Transfer methodsFor: 'accessing' stamp: 'AF 10/18/2021 21:39:20'!
 senderAccount
 	^ senderAccount.! !
+
+!Transfer methodsFor: 'accessing' stamp: 'AF 10/20/2021 20:54:47'!
+value
+
+	^value
+! !
 
 !Transfer methodsFor: 'accessing' stamp: 'AF 10/18/2021 21:55:44'!
 xXdepositXx
