@@ -15346,3 +15346,2626 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(20 October 2021 21:11:46) CuisUniversity-4913.image priorSource: 19103879!
+
+----STARTUP---- (21 October 2021 20:53:08) as C:\Users\ferra\Desktop\windows64\CuisUniversity-4913.image!
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 20:54:09' prior: 50927915!
+test05AccountSummaryShowsTransfersOnSender
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: sender accountSummary = (String streamContents: [:aStream | aStream
+		nextPutAll: 'Salida por transferencia de 50';		
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = -50']).! !
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/21/2021 20:54:10'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/21/2021 20:54:10'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/21/2021 20:54:10'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/21/2021 20:54:10'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/21/2021 20:54:10'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/21/2021 20:54:10'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/21/2021 20:54:10'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 20:54:26' prior: 50927942!
+test06AccountSummaryShowsTransfersOnReceiver
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: receiver accountSummary = (String streamContents: [:aStream | aStream
+		nextPutAll: 'Entrada por transferencia de 50';		
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 20:54:39' prior: 50927884!
+test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream
+		nextPutAll: 'Depósito por 100';		
+ 		nextPut: $.;newLine;	
+		nextPutAll: 'Extracción por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/21/2021 20:54:40'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/21/2021 20:54:40'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/21/2021 20:54:40'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/21/2021 20:54:40'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/21/2021 20:54:40'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/21/2021 20:54:40'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/21/2021 20:54:40'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 20:54:58' prior: 50927321!
+test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream     		nextPutAll: 'Extracción por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = -50']).! !
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/21/2021 20:54:59'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/21/2021 20:54:59'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/21/2021 20:54:59'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/21/2021 20:54:59'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/21/2021 20:54:59'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/21/2021 20:54:59'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/21/2021 20:54:59'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 20:55:26' prior: 50927296!
+test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream     		nextPutAll: 'Depósito por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 20:55:32' prior: 50928892!
+test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream  		nextPutAll: 'Depósito por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/21/2021 20:55:33'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/21/2021 20:55:33'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/21/2021 20:55:33'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/21/2021 20:55:34'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/21/2021 20:55:34'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/21/2021 20:55:34'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/21/2021 20:55:34'!
+PASSED!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/21/2021 20:56:03' prior: 50927970!
+accountSummary
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	transactions do: [:aTransaction | transactionsString := String streamContents: 			  		 				[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+			 	  nextPut: $.;
+			  	  newLine]].
+	
+	balanceString := 'Balance = ', self balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					ifFalse:[^String streamContents: [:aString | 
+							aString nextPutAll: transactionsString;
+								    nextPutAll: balanceString ]].
+! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/21/2021 20:56:21' prior: 50928950!
+accountSummary
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	transactions do: [:aTransaction | transactionsString := String streamContents: 			  		 				[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+			 	  nextPut: $.;
+			  	  newLine]].
+	
+	balanceString := 'Balance = ', self balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					ifFalse:[^String streamContents: [:aStream | 
+							aStream nextPutAll: transactionsString;
+								    nextPutAll: balanceString ]].
+! !
+
+!classDefinition: #AccountSummary category: 'Portfolio 2' stamp: 'AF 10/21/2021 21:33:47'!
+Object subclass: #AccountSummary
+	instanceVariableNames: 'accountTransactions account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+!AccountSummary class methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 21:33:47'!
+for: anAccount with: aTransactionCollection
+	^self new initializeFor: anAccount with: aTransactionCollection! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 21:33:47'!
+initializeFor: anAccount with: aTransactionCollection
+	accountTransactions := aTransactionCollection.
+	account := anAccount.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 21:33:47'!
+execute
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	accountTransactions do: [:aTransaction | transactionsString := String streamContents: 			  		 				[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+			 	  nextPut: $.;
+			  	  newLine]].
+	
+	balanceString := 'Balance = ', account balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					ifFalse:[^String streamContents: [:aStream | 
+							aStream nextPutAll: transactionsString;
+								    nextPutAll: balanceString ]].
+! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'AF 10/21/2021 21:33:47' prior: 50928970!
+accountSummary
+	^(AccountSummary for: self with: transactions) execute! !
+
+----STARTUP---- (22 October 2021 15:21:24) as C:\Users\ferra\Desktop\windows64\CuisUniversity-4913.image!
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 15:33:28'!
+test07
+
+	|account|
+	
+	account := ReceptiveAccount new.
+
+	self assert: 0 equals: account transferNet! !
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:33:31'!
+ERROR!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:34:09'!
+transferNet
+	self shouldBeImplemented.! !
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:34:28' prior: 50929050!
+transferNet
+	^0.! !
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:34:31'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 15:34:31'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 15:34:31'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 15:34:31'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 15:34:31'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 15:34:31'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 15:34:31'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:34:31'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 15:36:08'!
+test08
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50. 
+	
+	self assert: -50 equals: sender transferNet.! !
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:36:08'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:38:04' prior: 50929055!
+transferNet
+
+	transactions isEmpty ifTrue:[^0.] ifFalse:[^-50]! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/22/2021 15:38:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 15:38:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 15:38:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/22/2021 15:38:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/22/2021 15:38:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/22/2021 15:38:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/22/2021 15:38:05'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 15:38:10'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 15:38:10'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 15:38:10'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 15:38:10'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 15:38:10'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 15:38:10'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:38:10'!
+PASSED!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:38:10'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 15:38:37'!
+test09
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50. 
+	
+	self assert: 50 equals: receiver transferNet.! !
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 15:39:29'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:44:45' prior: 50929100!
+transferNet
+	
+	|transferNet|
+	
+	transferNet := 0.
+	transactions do: [ :aTransaction | ((aTransaction isKindOf: TransferIn) or:[aTransaction isKindOf: TransferOut ]) ifTrue:[ aTransaction affectBalance: transferNet ]].
+	
+	^transferNet! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 15:44:50'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 15:44:50'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 15:44:50'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 15:44:50'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 15:44:50'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 15:44:50'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:44:50'!
+PASSED!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:44:50'!
+FAILURE!
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 15:44:50'!
+FAILURE!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 15:45:29'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 15:45:30'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 15:45:30'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 15:45:30'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 15:45:30'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 15:45:30'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:45:30'!
+PASSED!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:45:30'!
+FAILURE!
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 15:45:30'!
+FAILURE!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:45:32'!
+FAILURE!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:47:02'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:47:59' prior: 50929173!
+transferNet
+	
+	|transferNet|
+	
+	transferNet := 0.
+	transactions do: [ :aTransaction | ((aTransaction isKindOf: TransferIn) or:[aTransaction isKindOf: TransferOut ]) ifTrue:[transferNet := aTransaction affectBalance: transferNet ]].
+	
+	^transferNet! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 15:48:03'!
+PASSED!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:38:04' prior: 50929251!
+transferNet
+
+	transactions isEmpty ifTrue:[^0.] ifFalse:[^-50]! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 15:50:02'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 15:50:02'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 15:50:02'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 15:50:02'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 15:50:02'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 15:50:02'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:50:02'!
+PASSED!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:50:02'!
+PASSED!
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 15:50:02'!
+FAILURE!
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 15:50:02'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:53:43' prior: 50929294!
+transferNet
+
+
+	transactions isEmpty ifTrue:[^0.] ifFalse:[
+		^transactions first affectBalance: 0.
+		]! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 15:53:45'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 15:55:07'!
+test10
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	
+	self assert: 0 equals: account transferNet.! !
+
+!testRun: #ReportTest #test10 stamp: 'AF 10/22/2021 15:55:08'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:58:03' prior: 50929333!
+transferNet
+
+
+	transactions isEmpty ifTrue:[^0.] ifFalse:[
+		
+		((transactions first isKindOf: Deposit) or:[transactions first isKindOf: Withdraw ]) ifTrue: [^0].
+		^transactions  first affectBalance: 0.
+		]! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+
+!testRun: #ReportTest #test10 stamp: 'AF 10/22/2021 15:58:07'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 15:59:25'!
+test11
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Deposit register: 100 on: sender.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: -50 equals: sender transferNet.! !
+
+!testRun: #ReportTest #test11 stamp: 'AF 10/22/2021 15:59:25'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:59:59' prior: 50929381!
+transferNet
+
+	|transferNet|
+	
+	transferNet := 0.
+	transactions do: [ :aTransaction | ((aTransaction isKindOf: TransferIn) or:[aTransaction isKindOf: TransferOut ]) ifTrue:[transferNet := aTransaction affectBalance: transferNet ]].
+	
+	^transferNet! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test07 stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test08 stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test09 stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test10 stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+
+!testRun: #ReportTest #test11 stamp: 'AF 10/22/2021 16:00:01'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:00:29'!
+test07TransferNetReturnsZeroOnEmptyAccount
+
+	|account|
+	
+	account := ReceptiveAccount new.
+
+	self assert: 0 equals: account transferNet! !
+
+!methodRemoval: ReportTest #test07 stamp: 'AF 10/22/2021 16:00:29'!
+test07
+
+	|account|
+	
+	account := ReceptiveAccount new.
+
+	self assert: 0 equals: account transferNet!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:01:33'!
+test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50. 
+	
+	self assert: -50 equals: sender transferNet.! !
+
+!methodRemoval: ReportTest #test08 stamp: 'AF 10/22/2021 16:01:34'!
+test08
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50. 
+	
+	self assert: -50 equals: sender transferNet.!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:02:05'!
+test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50. 
+	
+	self assert: 50 equals: receiver transferNet.! !
+
+!methodRemoval: ReportTest #test09 stamp: 'AF 10/22/2021 16:02:05'!
+test09
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50. 
+	
+	self assert: 50 equals: receiver transferNet.!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:03:08'!
+test10TransferNetDoesNotCountNonTranfertransactions
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	
+	self assert: 0 equals: account transferNet.! !
+
+!methodRemoval: ReportTest #test10 stamp: 'AF 10/22/2021 16:03:08'!
+test10
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	
+	self assert: 0 equals: account transferNet.!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:03:17'!
+test10TransferNetDoesNotCountNonTranferTransactions
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	
+	self assert: 0 equals: account transferNet.! !
+
+!methodRemoval: ReportTest #test10TransferNetDoesNotCountNonTranfertransactions stamp: 'AF 10/22/2021 16:03:17'!
+test10TransferNetDoesNotCountNonTranfertransactions
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	
+	self assert: 0 equals: account transferNet.!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:04:21'!
+test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Deposit register: 100 on: sender.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: -50 equals: sender transferNet.! !
+
+!methodRemoval: ReportTest #test11 stamp: 'AF 10/22/2021 16:04:22'!
+test11
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Deposit register: 100 on: sender.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: -50 equals: sender transferNet.!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:04:35'!
+PASSED!
+
+!testRun: #TransferTest #test01CanNotTransferAZeroAmount stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferReflectsCorrectlyOnBothPartiesBalances stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test03SenderAndReceiverCanNotBeTheSame stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test04CanNotTranferANegativeAmount stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test05TransferKnowsItsSender stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test06TransferKnowsItsReceiver stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test07SenderHasTheWithdrawalRegisteredAfterTranfer stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test08ReceiverHasTheDepositRegisteredAfterTransfer stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test09ReceiversTransactionKnowsSendersTransaction stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #TransferTest #test10SendersTransactionKnowsReceiversTransaction stamp: 'AF 10/22/2021 16:04:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/22/2021 16:04:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 16:04:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 16:04:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/22/2021 16:04:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/22/2021 16:04:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/22/2021 16:04:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/22/2021 16:04:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'AF 10/22/2021 16:04:41'!
+PASSED!
+
+----SNAPSHOT----(22 October 2021 16:04:46) CuisUniversity-4913.image priorSource: 19106729!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 16:05:58' prior: 50927970!
+accountSummary
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	transactions do: [:aTransaction | transactionsString := String streamContents: 			  		 				[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+			 	  nextPut: $.;
+			  	  newLine]].
+	
+	balanceString := 'Balance = ', self balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					ifFalse:[^String streamContents: [:aStream | 
+							aStream nextPutAll: transactionsString;
+								    nextPutAll: balanceString ]].
+! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/22/2021 16:05:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 16:05:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 16:05:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/22/2021 16:05:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/22/2021 16:05:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/22/2021 16:05:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/22/2021 16:05:59'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:06:24' prior: 50927296!
+test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream     		nextPutAll: 'Depósito por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:06:34' prior: 50927321!
+test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream     		nextPutAll: 'Extracción por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = -50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:06:46' prior: 50927884!
+test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream
+		nextPutAll: 'Depósito por 100';		
+ 		nextPut: $.;newLine;	
+		nextPutAll: 'Extracción por 50'; 
+		nextPut: $.;newLine; 
+		nextPutAll: 'Balance = 50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:07:10' prior: 50927915!
+test05AccountSummaryShowsTransfersOnSender
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: sender accountSummary = (String streamContents: [:aStream | aStream
+		nextPutAll: 'Salida por transferencia de 50';		
+		nextPut: $.;
+		newLine; 
+		nextPutAll: 'Balance = -50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:07:24' prior: 50929832!
+test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream
+		nextPutAll: 'Depósito por 100';		
+ 		nextPut: $.;
+		newLine;	
+		nextPutAll: 'Extracción por 50'; 
+		nextPut: $.;
+		newLine; 
+		nextPutAll: 'Balance = 50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:07:29' prior: 50929817!
+test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream     		nextPutAll: 'Extracción por 50'; 
+		nextPut: $.;
+		newLine; 
+		nextPutAll: 'Balance = -50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:07:33' prior: 50929803!
+test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance
+
+	|account|
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 50 on: account. 
+	
+	self assert: account accountSummary = (String streamContents: [:aStream | aStream     		nextPutAll: 'Depósito por 50'; 
+		nextPut: $.;
+		newLine; 
+		nextPutAll: 'Balance = 50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:07:40' prior: 50927942!
+test06AccountSummaryShowsTransfersOnReceiver
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: receiver accountSummary = (String streamContents: [:aString | aString
+		nextPutAll: 'Entrada por transferencia de 50';		
+		nextPut: $.;
+		newLine; 
+		nextPutAll: 'Balance = 50']).! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:08:16' prior: 50929912!
+test06AccountSummaryShowsTransfersOnReceiver
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: receiver accountSummary = (String streamContents: [:aStream | aStream
+		nextPutAll: 'Entrada por transferencia de 50';		
+		nextPut: $.;
+		newLine; 
+		nextPutAll: 'Balance = 50']).! !
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:08:17'!
+PASSED!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 16:09:01' prior: 50929756!
+accountSummary
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	transactions do: [:aTransaction | transactionsString := String streamContents: 			  		 				[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+																				 	  nextPut: $.;
+																				  	  newLine]].
+	
+	balanceString := 'Balance = ', self balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					ifFalse:[^String streamContents: [:aStream | 
+												aStream nextPutAll: transactionsString;
+													    nextPutAll: balanceString ]].
+! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/22/2021 16:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 16:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 16:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/22/2021 16:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/22/2021 16:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/22/2021 16:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/22/2021 16:09:05'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:09:09'!
+PASSED!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 16:10:02' prior: 50929990!
+accountSummary
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	transactions do: [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+																			 	  nextPut: $.;
+																			  	  newLine]].
+
+	balanceString := 'Balance = ', self balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					ifFalse:[^String streamContents: [:aStream | 
+												aStream nextPutAll: transactionsString;
+													    nextPutAll: balanceString ]].
+! !
+
+Object subclass: #AccountSummary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!classDefinition: #AccountSummary category: 'Portfolio 2' stamp: 'AF 10/22/2021 16:13:12'!
+Object subclass: #AccountSummary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!classDefinition: #AccountSummary category: 'Portfolio 2' stamp: 'AF 10/22/2021 16:14:31'!
+Object subclass: #AccountSummary
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+!AccountSummary methodsFor: 'nil' stamp: 'AF 10/22/2021 16:14:29'!
+makeReport
+
+	^account accountSummary.! !
+!AccountSummary class methodsFor: 'nil' stamp: 'AF 10/22/2021 16:18:05'!
+for: anAnccount
+
+
+	^self basicNew for: anAnccount .! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:18:55'!
+for: anAccount
+
+	account := 	anAccount .! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:20:13' prior: 50927279!
+test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance
+
+	|accountSummary|
+	
+	accountSummary := AccountSummary for: ReceptiveAccount new.
+	
+	
+	
+	self assert: accountSummary makeReport = 'Balance = 0'.! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:20:15'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:21:24' prior: 50929897!
+test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance
+
+	|account		accountSummary|
+	
+	account := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: account.
+	
+	Deposit register: 50 on: account. 
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     		nextPutAll: 'Depósito por 50'; 
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = 50']).! !
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:21:29'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:22:06' prior: 50929882!
+test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance
+
+	|account		accountSummary|
+	
+	account := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: account.
+	
+	Withdraw register: 50 on: account. 
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     		nextPutAll: 'Extracción por 50'; 
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = -50']).! !
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:22:08'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:22:45' prior: 50929864!
+test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance
+
+	|account		accountSummary|
+	
+	account := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: account.
+	
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account. 
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     nextPutAll: 'Depósito por 100';		
+																		 		nextPut: $.;
+																				newLine;	
+																				nextPutAll: 'Extracción por 50'; 
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = 50']).! !
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:22:47'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:24:44' prior: 50929849!
+test05AccountSummaryShowsTransfersOnSender
+
+	|sender receiver 	accountSummary|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: sender.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     nextPutAll: 'Salida por transferencia de 50';		
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = -50']).! !
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:24:47'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:25:44' prior: 50929927!
+test06AccountSummaryShowsTransfersOnReceiver
+
+	|sender receiver 	accountSummary|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: receiver.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     nextPutAll: 'Entrada por transferencia de 50';		
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = 50']).! !
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:25:50'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:25:53'!
+PASSED!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 16:28:02' prior: 50930083!
+accountSummary
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	transactions do: [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+																			 	  nextPut: $.;
+																			  	  newLine]].
+
+	balanceString := 'Balance = ', self balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					   ifFalse:[^String streamContents: [:aStream | aStream nextPutAll: transactionsString;
+													     		      nextPutAll: balanceString ]].
+! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/22/2021 16:28:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 16:28:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 16:28:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/22/2021 16:28:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/22/2021 16:28:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/22/2021 16:28:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/22/2021 16:28:03'!
+PASSED!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:29:21' prior: 50930122!
+makeReport
+
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	account transactions do: [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+																					      nextPut: $.;
+																					      newLine]].
+
+	balanceString := 'Balance = ', account balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					   ifFalse:[^String streamContents: [:aStream | aStream nextPutAll: transactionsString;
+													     		      nextPutAll: balanceString ]].
+! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:29:27'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:29:39'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:29:55'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:30:01'!
+PASSED!
+
+!methodRemoval: ReceptiveAccount #accountSummary stamp: 'AF 10/22/2021 16:30:19'!
+accountSummary
+	
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	transactions do: [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+																			 	  nextPut: $.;
+																			  	  newLine]].
+
+	balanceString := 'Balance = ', self balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					   ifFalse:[^String streamContents: [:aStream | aStream nextPutAll: transactionsString;
+													     		      nextPutAll: balanceString ]].
+!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:30:23'!
+PASSED!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:30:39' prior: 50930364!
+makeReport
+
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	account transactionsDo: [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString, aTransaction XXXX;
+																					      nextPut: $.;
+																					      newLine]].
+
+	balanceString := 'Balance = ', account balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					   ifFalse:[^String streamContents: [:aStream | aStream nextPutAll: transactionsString;
+													     		      nextPutAll: balanceString ]].
+! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:30:39'!
+ERROR!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:30:39'!
+ERROR!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:30:39'!
+ERROR!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:30:39'!
+ERROR!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:30:39'!
+ERROR!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:30:39'!
+ERROR!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:30:39'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:30:39'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:30:39'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:30:39'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:30:39'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:30:42'!
+ERROR!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 16:30:54'!
+transactionsDo: aBlockClosure 
+	self shouldBeImplemented.! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 16:31:19' prior: 50930698!
+transactionsDo: aBlockClosure 
+	
+	^transactions do: aBlockClosure .! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:31:26'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:31:27'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:31:27'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:31:27'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:31:28'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:31:28'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:31:28'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:31:28'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:31:28'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:31:28'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:31:28'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:31:28'!
+PASSED!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:49:20' prior: 50930629!
+makeReport
+
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	account transactionsDo: [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString, aTransaction affectReport: self;
+																					      nextPut: $.;
+																					      newLine]].
+
+	balanceString := 'Balance = ', account balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					   ifFalse:[^String streamContents: [:aStream | aStream nextPutAll: transactionsString;
+													     		      nextPutAll: balanceString ]].
+! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:49:21'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:49:21'!
+ERROR!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:49:21'!
+ERROR!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:49:21'!
+ERROR!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:49:21'!
+ERROR!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:49:21'!
+ERROR!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:49:21'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:49:21'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:49:21'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:49:22'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:49:22'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:49:34'!
+ERROR!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 16:50:04'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:50:04'!
+ERROR!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 16:50:04'!
+ERROR!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 16:50:04'!
+ERROR!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 16:50:04'!
+ERROR!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 16:50:04'!
+ERROR!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 16:50:04'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 16:50:04'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 16:50:04'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 16:50:04'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 16:50:04'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 16:50:19'!
+ERROR!
+
+!methodRemoval: AccountTransaction #XXXX stamp: 'AF 10/22/2021 16:51:00'!
+XXXX
+
+	^self subclassResponsibility.!
+!AccountTransaction methodsFor: 'balance' stamp: 'AF 10/22/2021 16:52:03'!
+affectAccountSummary: anAccountSummary
+
+	^self subclassResponsibility ! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:53:25' prior: 50930757!
+makeReport
+
+	|transactionsString balanceString |
+	
+	transactionsString := ''.
+	account transactionsDo: [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString;
+																					      nextPutAll: (aTransaction affectAccountSummary: self);
+																					      nextPut: $.;
+																					      newLine]].
+
+	balanceString := 'Balance = ', account balance asString.
+	
+	transactionsString = '' ifTrue: [ ^ balanceString]
+					   ifFalse:[^String streamContents: [:aStream | aStream nextPutAll: transactionsString;
+													     		      nextPutAll: balanceString ]].
+! !
+!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:53:44'!
+affectAccountSummary
+
+	^'Depósito por ' , self value asString.! !
+
+!methodRemoval: Deposit #XXXX stamp: 'AF 10/22/2021 16:53:53'!
+XXXX
+
+	^'Depósito por ' , self value asString.!
+!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:56:55' overrides: 50930880!
+affectAccountSummary: accountSummary
+
+	^'Depósito por ' , self value asString.! !
+
+!methodRemoval: Deposit #affectAccountSummary stamp: 'AF 10/22/2021 16:56:55'!
+affectAccountSummary
+
+	^'Depósito por ' , self value asString.!
+!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:57:36' prior: 50930918 overrides: 50930880!
+affectAccountSummary: anAccountSummary
+
+	^'Depósito por ' , self value asString.! !
+!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:58:30' prior: 50930929 overrides: 50930880!
+affectAccountSummary: anAccountSummary
+
+	^anAccountSummary applyDepositOfValue: self value.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:58:53'!
+applyDepositOfValue: aValue
+
+	! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:59:40' prior: 50930942!
+applyDepositOfValue: aTransactionValue
+
+	'Depósito por ' , aTransactionValue asString.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:00:16' prior: 50930947!
+applyDepositOfValue: aTransactionValue
+
+	^'Depósito por ' , aTransactionValue asString.! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:00:26'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:00:26'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:00:26'!
+ERROR!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:00:26'!
+ERROR!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:00:26'!
+ERROR!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:00:26'!
+ERROR!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:00:26'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:00:26'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:00:26'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:00:26'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:00:26'!
+PASSED!
+!Deposit methodsFor: 'value' stamp: 'AF 10/22/2021 17:00:57' prior: 50920559 overrides: 50920517!
+value
+
+	^ value copy! !
+!Deposit methodsFor: 'value' stamp: 'AF 10/22/2021 17:01:09' prior: 50931004 overrides: 50920517!
+value
+
+	^ value! !
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:01:52' overrides: 50930880!
+affectAccountSummary: anAccountSummary
+
+	^anAccountSummary applyDepositOfValue: self value.! !
+
+!methodRemoval: TransferIn #XXXX stamp: 'AF 10/22/2021 17:01:54'!
+XXXX
+
+	^'Entrada por transferencia de ' , self value asString.!
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:02:05' prior: 50931012 overrides: 50930880!
+affectAccountSummary: anAccountSummary
+
+	^anAccountSummary applyTransferInOfValue: self value.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:02:58'!
+applyTransferInOfValue: aTransactionValue
+
+	^'Extracción por ' , aTransactionValue asString.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:03:23' prior: 50931029!
+applyTransferInOfValue: aTransferInValue
+
+	^'Extracción por ' , aTransferInValue asString.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:03:35' prior: 50930953!
+applyDepositOfValue: aDepositValue
+
+	^'Depósito por ' , aDepositValue asString.! !
+
+!methodRemoval: TransferOut #XXXX stamp: 'AF 10/22/2021 17:03:46'!
+XXXX
+
+	^'Salida por transferencia de ' , self value asString.!
+!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:04:05' overrides: 50930880!
+affectAccountSummary: anAccountSummary
+
+	^anAccountSummary applyTransferOutOfValue: self value.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:05:02'!
+applyTransferOutOfValue: aTransferOutValue
+
+	^'Salida por transferencia de ' , aTransferOutValue asString.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:05:19' prior: 50931036!
+applyTransferInOfValue: aTransferInValue
+
+	^'Entrada por transferencia de' , aTransferInValue asString.! !
+
+!methodRemoval: Withdraw #XXXX stamp: 'AF 10/22/2021 17:05:50'!
+XXXX 
+
+	^'Extracción por ' , self value asString.!
+!Withdraw methodsFor: 'initialization' stamp: 'AF 10/22/2021 17:06:12' overrides: 50930880!
+affectAccountSummary: anAccountSummary
+
+	^anAccountSummary applyWithdrawOfValue: self value.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:06:45'!
+applyWithdrawOfValue: aWithdrawValue
+
+	^'Extracción por ' , aWithdrawValue asString.! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:06:47'!
+FAILURE!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:06:47'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:06:47'!
+FAILURE!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:07:07' prior: 50931066!
+applyTransferInOfValue: aTransferInValue
+
+	^'Entrada por transferencia de ' , aTransferInValue asString.! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:07:09'!
+PASSED!
+!Deposit methodsFor: 'value' stamp: 'AF 10/22/2021 17:09:04' prior: 50931008 overrides: 50920517!
+value
+
+	^ value copy! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:09:05'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:09:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'AF 10/22/2021 17:09:23'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/22/2021 17:09:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 17:09:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 17:09:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/22/2021 17:09:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/22/2021 17:09:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/22/2021 17:09:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/22/2021 17:09:25'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:09:26'!
+PASSED!
+
+!testRun: #TransferTest #test01CanNotTransferAZeroAmount stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferReflectsCorrectlyOnBothPartiesBalances stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test03SenderAndReceiverCanNotBeTheSame stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test04CanNotTranferANegativeAmount stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test05TransferKnowsItsSender stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test06TransferKnowsItsReceiver stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test07SenderHasTheWithdrawalRegisteredAfterTranfer stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test08ReceiverHasTheDepositRegisteredAfterTransfer stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test09ReceiversTransactionKnowsSendersTransaction stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+
+!testRun: #TransferTest #test10SendersTransactionKnowsReceiversTransaction stamp: 'AF 10/22/2021 17:09:28'!
+PASSED!
+!Transfer methodsFor: 'accessing' stamp: 'AF 10/22/2021 17:09:41' prior: 50928328 overrides: 16881508!
+value
+
+	^value copy
+! !
+
+!testRun: #TransferTest #test01CanNotTransferAZeroAmount stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferReflectsCorrectlyOnBothPartiesBalances stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test03SenderAndReceiverCanNotBeTheSame stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test04CanNotTranferANegativeAmount stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test05TransferKnowsItsSender stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test06TransferKnowsItsReceiver stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test07SenderHasTheWithdrawalRegisteredAfterTranfer stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test08ReceiverHasTheDepositRegisteredAfterTransfer stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test09ReceiversTransactionKnowsSendersTransaction stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+
+!testRun: #TransferTest #test10SendersTransactionKnowsReceiversTransaction stamp: 'AF 10/22/2021 17:09:41'!
+PASSED!
+!Withdraw methodsFor: 'value' stamp: 'AF 10/22/2021 17:09:53' prior: 50920597 overrides: 50920517!
+value
+
+	^ value copy! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:09:53'!
+PASSED!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:12:50'!
+test12
+
+	|account portfolio|
+	
+	account := ReceptiveAccount new.
+	
+	! !
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:16:23' prior: 50931653!
+test12
+
+	|portfolio accountSummary |
+	
+	portfolio := Portfolio new.
+	
+	accountSummary := AccountSummary for: portfolio.
+	
+	self assert: accountSummary makeReport equals: 'Balance = 0'
+	
+	
+	! !
+
+!testRun: #ReportTest #test12 stamp: 'AF 10/22/2021 17:16:24'!
+ERROR!
+!Portfolio methodsFor: 'transactions' stamp: 'AF 10/22/2021 17:16:33'!
+transactionsDo: aBlockClosure 
+	self shouldBeImplemented.! !
+!Portfolio methodsFor: 'transactions' stamp: 'AF 10/22/2021 17:17:14' prior: 50931670!
+transactionsDo: aBlockClosure 
+	
+	self transactions do: aBlockClosure .! !
+
+!testRun: #ReportTest #test12 stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+
+!testRun: #ReportTest #test12 stamp: 'AF 10/22/2021 17:17:16'!
+PASSED!
+!Portfolio methodsFor: 'transactions' stamp: 'AF 10/22/2021 17:30:01' prior: 50931675!
+transactionsDo: aBlockClosure 
+	|anAccountSummary|
+	accounts do: [:anAccount | anAccount affectAccountSummary: anAccountSummary]! !
+!Portfolio methodsFor: 'transactions' stamp: 'AF 10/22/2021 17:31:18'!
+affectAccountSummary: aBlockClosure 
+	|anAccountSummary|
+	accounts do: [:anAccount | anAccount affectAccountSummary: anAccountSummary]! !
+
+!methodRemoval: Portfolio #transactionsDo: stamp: 'AF 10/22/2021 17:31:18'!
+transactionsDo: aBlockClosure 
+	|anAccountSummary|
+	accounts do: [:anAccount | anAccount affectAccountSummary: anAccountSummary]!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 17:32:28' prior: 50930703!
+transactionsDo: aBlockClosure 
+	
+	| anAccountSummary |
+	^transactions do: [:aTransaction | aTransaction affectAccountSummary: anAccountSummary] .! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 17:33:01'!
+affectAccountSummary: aBlockClosure 
+	
+	| anAccountSummary |
+	^transactions do: [:aTransaction | aTransaction affectAccountSummary: anAccountSummary] .! !
+
+!methodRemoval: ReceptiveAccount #transactionsDo: stamp: 'AF 10/22/2021 17:33:01'!
+transactionsDo: aBlockClosure 
+	
+	| anAccountSummary |
+	^transactions do: [:aTransaction | aTransaction affectAccountSummary: anAccountSummary] .!
+
+!classDefinition: #AccountSummary category: 'Portfolio 2' stamp: 'AF 10/22/2021 17:37:26'!
+Object subclass: #AccountSummary
+	instanceVariableNames: 'account ssss'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:37:24' prior: 50930886!
+makeReport
+
+	"|transactionsString balanceString |"
+	
+	"transactionsString := ''."
+	ssss := Stream new.
+	
+	account affectAccountSummary: self.
+	" [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString;
+																					      nextPutAll: (aTransaction affectAccountSummary: self);
+																					      nextPut: $.;
+																					      newLine]]."
+
+	ssss nextPutAll: 'Balance = ';
+		nextPutAll: account balance asString.
+	
+	"transactionsString = '' ifTrue: [ ^ balanceString]
+					   ifFalse:[^String streamContents: [:aStream | aStream nextPutAll: transactionsString;
+													     		      nextPutAll: balanceString ]]."
+! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:39:18' prior: 50931043!
+applyDepositOfValue: aDepositValue
+
+	ssss nextPutAll: 'Depósito por ';
+		nextPutAll: aDepositValue asString;
+		nextPut: $.;
+		newLine.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:39:56' prior: 50931136!
+applyTransferInOfValue: aTransferInValue
+
+	ssss nextPutAll: 'Entrada por transferencia de ';
+	nextPutAll: aTransferInValue asString;
+	nextPut: $.;
+	newLine.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:40:15' prior: 50931059!
+applyTransferOutOfValue: aTransferOutValue
+
+	ssss nextPutAll: 'Salida por transferencia de ';
+	nextPutAll: aTransferOutValue asString;
+	nextPut: $.;
+	newLine.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:40:45' prior: 50931082!
+applyWithdrawOfValue: aWithdrawValue
+
+	ssss nextPutAll: 'Extracción por ';
+		nextPutAll: aWithdrawValue asString;
+		nextPut: $.;
+		newLine.! !
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:41:28'!
+ERROR!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:41:28'!
+ERROR!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:41:28'!
+ERROR!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:41:28'!
+ERROR!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:41:28'!
+ERROR!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:41:28'!
+ERROR!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:41:28'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:41:28'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:41:28'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:41:28'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:41:28'!
+PASSED!
+
+!testRun: #ReportTest #test12 stamp: 'AF 10/22/2021 17:41:28'!
+ERROR!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:41:49'!
+ERROR!
+
+!testRun: #ReportTest #test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance stamp: 'AF 10/22/2021 17:41:49'!
+ERROR!
+
+!testRun: #ReportTest #test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance stamp: 'AF 10/22/2021 17:41:50'!
+ERROR!
+
+!testRun: #ReportTest #test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance stamp: 'AF 10/22/2021 17:41:50'!
+ERROR!
+
+!testRun: #ReportTest #test05AccountSummaryShowsTransfersOnSender stamp: 'AF 10/22/2021 17:41:50'!
+ERROR!
+
+!testRun: #ReportTest #test06AccountSummaryShowsTransfersOnReceiver stamp: 'AF 10/22/2021 17:41:50'!
+ERROR!
+
+!testRun: #ReportTest #test07TransferNetReturnsZeroOnEmptyAccount stamp: 'AF 10/22/2021 17:41:50'!
+PASSED!
+
+!testRun: #ReportTest #test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut stamp: 'AF 10/22/2021 17:41:50'!
+PASSED!
+
+!testRun: #ReportTest #test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn stamp: 'AF 10/22/2021 17:41:50'!
+PASSED!
+
+!testRun: #ReportTest #test10TransferNetDoesNotCountNonTranferTransactions stamp: 'AF 10/22/2021 17:41:50'!
+PASSED!
+
+!testRun: #ReportTest #test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions stamp: 'AF 10/22/2021 17:41:50'!
+PASSED!
+
+!testRun: #ReportTest #test12 stamp: 'AF 10/22/2021 17:41:50'!
+ERROR!
+
+!testRun: #ReportTest #test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance stamp: 'AF 10/22/2021 17:41:53'!
+ERROR!
+
+Stream!
+
+----SNAPSHOT----(22 October 2021 17:49:47) CuisUniversity-4913.image priorSource: 19139266!

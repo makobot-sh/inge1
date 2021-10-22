@@ -312,87 +312,174 @@ TestCase subclass: #ReportTest
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:24:10'!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:20:13'!
 test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance
 
-	|account|
+	|accountSummary|
 	
-	account := ReceptiveAccount new.
+	accountSummary := AccountSummary for: ReceptiveAccount new.
 	
-	self assert: account accountSummary = 'Balance = 0'.! !
+	
+	
+	self assert: accountSummary makeReport = 'Balance = 0'.! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:25:08'!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:21:24'!
 test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance
 
-	|account|
+	|account		accountSummary|
 	
 	account := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: account.
 	
 	Deposit register: 50 on: account. 
 	
-	self assert: account accountSummary = (String streamContents: [:aString | aString     		nextPutAll: 'Depósito por 50'; 
-		nextPut: $.;newLine; 
-		nextPutAll: 'Balance = 50']).! !
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     		nextPutAll: 'Depósito por 50'; 
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = 50']).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:26:37'!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:22:06'!
 test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance
+
+	|account		accountSummary|
+	
+	account := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: account.
+	
+	Withdraw register: 50 on: account. 
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     		nextPutAll: 'Extracción por 50'; 
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = -50']).! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:22:45'!
+test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance
+
+	|account		accountSummary|
+	
+	account := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: account.
+	
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account. 
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     nextPutAll: 'Depósito por 100';		
+																		 		nextPut: $.;
+																				newLine;	
+																				nextPutAll: 'Extracción por 50'; 
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = 50']).! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:24:44'!
+test05AccountSummaryShowsTransfersOnSender
+
+	|sender receiver 	accountSummary|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: sender.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     nextPutAll: 'Salida por transferencia de 50';		
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = -50']).! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:25:44'!
+test06AccountSummaryShowsTransfersOnReceiver
+
+	|sender receiver 	accountSummary|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	accountSummary := AccountSummary for: receiver.
+	
+	Transfer from: sender to: receiver amount: 50.
+	
+	self assert: accountSummary makeReport equals: (String streamContents: [:aStream | aStream     nextPutAll: 'Entrada por transferencia de 50';		
+																				nextPut: $.;
+																				newLine; 
+																				nextPutAll: 'Balance = 50']).! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:00:29'!
+test07TransferNetReturnsZeroOnEmptyAccount
 
 	|account|
 	
 	account := ReceptiveAccount new.
-	
-	Withdraw register: 50 on: account. 
-	
-	self assert: account accountSummary = (String streamContents: [:aString | aString     		nextPutAll: 'Extracción por 50'; 
-		nextPut: $.;newLine; 
-		nextPutAll: 'Balance = -50']).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:18:36'!
-test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance
+	self assert: 0 equals: account transferNet! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:01:33'!
+test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50. 
+	
+	self assert: -50 equals: sender transferNet.! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:02:05'!
+test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn
+
+	|sender receiver|
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer from: sender to: receiver amount: 50. 
+	
+	self assert: 50 equals: receiver transferNet.! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:03:17'!
+test10TransferNetDoesNotCountNonTranferTransactions
 
 	|account|
 	
 	account := ReceptiveAccount new.
 	
 	Deposit register: 100 on: account.
-	Withdraw register: 50 on: account. 
 	
-	self assert: account accountSummary = (String streamContents: [:aString | aString
-		nextPutAll: 'Depósito por 100';		
- 		nextPut: $.;newLine;	
-		nextPutAll: 'Extracción por 50'; 
-		nextPut: $.;newLine; 
-		nextPutAll: 'Balance = 50']).! !
+	self assert: 0 equals: account transferNet.! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:19:41'!
-test05AccountSummaryShowsTransfersOnSender
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:04:21'!
+test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions
 
 	|sender receiver|
 	
 	sender := ReceptiveAccount new.
 	receiver := ReceptiveAccount new.
 	
-	Transfer from: sender to: receiver amount: 50.
-	
-	self assert: sender accountSummary = (String streamContents: [:aString | aString
-		nextPutAll: 'Salida por transferencia de 50';		
-		nextPut: $.;newLine; 
-		nextPutAll: 'Balance = -50']).! !
-
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:20:01'!
-test06AccountSummaryShowsTransfersOnReceiver
-
-	|sender receiver|
-	
-	sender := ReceptiveAccount new.
-	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
 	
 	Transfer from: sender to: receiver amount: 50.
 	
-	self assert: receiver accountSummary = (String streamContents: [:aString | aString
-		nextPutAll: 'Entrada por transferencia de 50';		
-		nextPut: $.;newLine; 
-		nextPutAll: 'Balance = 50']).! !
+	self assert: -50 equals: sender transferNet.! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:16:23'!
+test12
+
+	|portfolio accountSummary |
+	
+	portfolio := Portfolio new.
+	
+	accountSummary := AccountSummary for: portfolio.
+	
+	self assert: accountSummary makeReport equals: 'Balance = 0'
+	
+	
+	! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio 2'!
@@ -674,6 +761,11 @@ addTransactionsTo: aCollectionOfTransactions
 
 	accounts do: [ :anAccount | anAccount addTransactionsTo: aCollectionOfTransactions ]! !
 
+!Portfolio methodsFor: 'transactions' stamp: 'AF 10/22/2021 17:31:18'!
+affectAccountSummary: aBlockClosure 
+	|anAccountSummary|
+	accounts do: [:anAccount | anAccount affectAccountSummary: anAccountSummary]! !
+
 !Portfolio methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:32'!
 transactions
 	
@@ -766,28 +858,16 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/20/2021 20:22:00'!
-accountSummary
-	
-	|transactionsString balanceString |
-	
-	transactionsString := ''.
-	transactions do: [:aTransaction | transactionsString := String streamContents: 			  		 				[:aString | aString nextPutAll: transactionsString, aTransaction XXXX;
-			 	  nextPut: $.;
-			  	  newLine]].
-	
-	balanceString := 'Balance = ', self balance asString.
-	
-	transactionsString = '' ifTrue: [ ^ balanceString]
-					ifFalse:[^String streamContents: [:aString | 
-							aString nextPutAll: transactionsString;
-								    nextPutAll: balanceString ]].
-! !
-
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
 addTransactionsTo: aCollectionOfTransactions
 
 	aCollectionOfTransactions addAll: transactions ! !
+
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 17:33:01'!
+affectAccountSummary: aBlockClosure 
+	
+	| anAccountSummary |
+	^transactions do: [:aTransaction | aTransaction affectAccountSummary: anAccountSummary] .! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
@@ -808,6 +888,16 @@ balance
 		inject: 0
 		into: [ :currentBalance :transaction | transaction affectBalance: currentBalance ]! !
 
+!ReceptiveAccount methodsFor: 'balance' stamp: 'AF 10/22/2021 15:59:59'!
+transferNet
+
+	|transferNet|
+	
+	transferNet := 0.
+	transactions do: [ :aTransaction | ((aTransaction isKindOf: TransferIn) or:[aTransaction isKindOf: TransferOut ]) ifTrue:[transferNet := aTransaction affectBalance: transferNet ]].
+	
+	^transferNet! !
+
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
 hasRegistered: aTransaction
@@ -827,6 +917,85 @@ addedTo: aPortfolio
 	! !
 
 
+!classDefinition: #AccountSummary category: 'Portfolio 2'!
+Object subclass: #AccountSummary
+	instanceVariableNames: 'account ssss'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:39:18'!
+applyDepositOfValue: aDepositValue
+
+	ssss nextPutAll: 'Depósito por ';
+		nextPutAll: aDepositValue asString;
+		nextPut: $.;
+		newLine.! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:39:56'!
+applyTransferInOfValue: aTransferInValue
+
+	ssss nextPutAll: 'Entrada por transferencia de ';
+	nextPutAll: aTransferInValue asString;
+	nextPut: $.;
+	newLine.! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:40:15'!
+applyTransferOutOfValue: aTransferOutValue
+
+	ssss nextPutAll: 'Salida por transferencia de ';
+	nextPutAll: aTransferOutValue asString;
+	nextPut: $.;
+	newLine.! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:40:45'!
+applyWithdrawOfValue: aWithdrawValue
+
+	ssss nextPutAll: 'Extracción por ';
+		nextPutAll: aWithdrawValue asString;
+		nextPut: $.;
+		newLine.! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:18:55'!
+for: anAccount
+
+	account := 	anAccount .! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:37:24'!
+makeReport
+
+	"|transactionsString balanceString |"
+	
+	"transactionsString := ''."
+	ssss := Stream new.
+	
+	account affectAccountSummary: self.
+	" [:aTransaction | transactionsString := String streamContents:			[:aStream | aStream nextPutAll: transactionsString;
+																					      nextPutAll: (aTransaction affectAccountSummary: self);
+																					      nextPut: $.;
+																					      newLine]]."
+
+	ssss nextPutAll: 'Balance = ';
+		nextPutAll: account balance asString.
+	
+	"transactionsString = '' ifTrue: [ ^ balanceString]
+					   ifFalse:[^String streamContents: [:aStream | aStream nextPutAll: transactionsString;
+													     		      nextPutAll: balanceString ]]."
+! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'AccountSummary class' category: 'Portfolio 2'!
+AccountSummary class
+	instanceVariableNames: ''!
+
+!AccountSummary class methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:18:05'!
+for: anAnccount
+
+
+	^self basicNew for: anAnccount .! !
+
+
 !classDefinition: #AccountTransaction category: 'Portfolio 2'!
 Object subclass: #AccountTransaction
 	instanceVariableNames: ''
@@ -840,16 +1009,15 @@ value
 	self subclassResponsibility ! !
 
 
+!AccountTransaction methodsFor: 'balance' stamp: 'AF 10/22/2021 16:52:03'!
+affectAccountSummary: anAccountSummary
+
+	^self subclassResponsibility ! !
+
 !AccountTransaction methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:39'!
 affectBalance: aBalance
 
 	self subclassResponsibility ! !
-
-
-!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:21:24'!
-XXXX
-
-	^self subclassResponsibility.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -881,10 +1049,10 @@ initializeFor: aValue
 	value := aValue ! !
 
 
-!Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
+!Deposit methodsFor: 'value' stamp: 'AF 10/22/2021 17:09:04'!
 value
 
-	^ value! !
+	^ value copy! !
 
 
 !Deposit methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:02'!
@@ -893,10 +1061,10 @@ affectBalance: aBalance
 	^aBalance + value ! !
 
 
-!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:21:59'!
-XXXX
+!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:58:30'!
+affectAccountSummary: anAccountSummary
 
-	^'Depósito por ' , self value asString.! !
+	^anAccountSummary applyDepositOfValue: self value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -917,10 +1085,10 @@ AccountTransaction subclass: #TransferIn
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:08:24'!
-XXXX
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:02:05'!
+affectAccountSummary: anAccountSummary
 
-	^'Entrada por transferencia de ' , self value asString.! !
+	^anAccountSummary applyTransferInOfValue: self value.! !
 
 !TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:53:47'!
 affectBalance: aBalance
@@ -971,10 +1139,10 @@ AccountTransaction subclass: #TransferOut
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:03:32'!
-XXXX
+!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:04:05'!
+affectAccountSummary: anAccountSummary
 
-	^'Salida por transferencia de ' , self value asString.! !
+	^anAccountSummary applyTransferOutOfValue: self value.! !
 
 !TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:03:16'!
 affectBalance: aBalance
@@ -1025,28 +1193,27 @@ AccountTransaction subclass: #Withdraw
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
+!Withdraw methodsFor: 'initialization' stamp: 'AF 10/22/2021 17:06:12'!
+affectAccountSummary: anAccountSummary
+
+	^anAccountSummary applyWithdrawOfValue: self value.! !
+
 !Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
 initializeFor: aValue
 
 	value := aValue ! !
 
 
-!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
+!Withdraw methodsFor: 'value' stamp: 'AF 10/22/2021 17:09:53'!
 value
 
-	^ value! !
+	^ value copy! !
 
 
 !Withdraw methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:15'!
 affectBalance: aBalance
 
 	^aBalance - value! !
-
-
-!Withdraw methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 19:22:31'!
-XXXX 
-
-	^'Extracción por ' , self value asString.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1087,10 +1254,10 @@ receiverAccount
 senderAccount
 	^ senderAccount.! !
 
-!Transfer methodsFor: 'accessing' stamp: 'AF 10/20/2021 20:54:47'!
+!Transfer methodsFor: 'accessing' stamp: 'AF 10/22/2021 17:09:41'!
 value
 
-	^value
+	^value copy
 ! !
 
 !Transfer methodsFor: 'accessing' stamp: 'AF 10/18/2021 21:55:44'!
