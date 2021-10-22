@@ -672,6 +672,11 @@ addTransactionsTo: aCollectionOfTransactions
 
 	self subclassResponsibility ! !
 
+!Account methodsFor: 'transactions' stamp: 'AF 10/22/2021 19:23:08'!
+affectReport: aReport
+
+	self subclassResponsibility ! !
+
 !Account methodsFor: 'transactions' stamp: 'HAW 5/25/2019 12:23:15'!
 transactions
 
@@ -733,10 +738,10 @@ initialize
 	parents := OrderedCollection new.! !
 
 
-!Portfolio methodsFor: 'balance' stamp: 'AF 10/22/2021 19:00:06'!
-affectTransferNet: aTransferNet 
-	
-	accounts do: [:anAccount | anAccount affectTransferNet: aTransferNet ]! !
+!Portfolio methodsFor: 'balance' stamp: 'AF 10/22/2021 19:14:12'!
+affectReport: aReport
+
+	accounts do: [:anAccount | anAccount affectReport: aReport]! !
 
 !Portfolio methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:19:36'!
 balance
@@ -748,11 +753,6 @@ balance
 addTransactionsTo: aCollectionOfTransactions
 
 	accounts do: [ :anAccount | anAccount addTransactionsTo: aCollectionOfTransactions ]! !
-
-!Portfolio methodsFor: 'transactions' stamp: 'AF 10/22/2021 18:04:35'!
-affectAccountSummary: anAccountSummary
-
-	accounts do: [:anAccount | anAccount affectAccountSummary: anAccountSummary]! !
 
 !Portfolio methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:32'!
 transactions
@@ -851,15 +851,11 @@ addTransactionsTo: aCollectionOfTransactions
 
 	aCollectionOfTransactions addAll: transactions ! !
 
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 18:04:21'!
-affectAccountSummary: anAccountSummary 
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 19:23:31'!
+affectReport: aReport
 	
 	
-	^transactions do: [:aTransaction | aTransaction affectAccountSummary: anAccountSummary] .! !
-
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 18:48:06'!
-affectTransferNet: aTransferNet 
-	transactions do: [:aTransaction | aTransaction affectTransferNet: aTransferNet ]! !
+	transactions do: [:aTransaction | aTransaction affectReport: aReport] .! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
@@ -899,77 +895,6 @@ addedTo: aPortfolio
 	! !
 
 
-!classDefinition: #AccountSummary category: 'Portfolio 2'!
-Object subclass: #AccountSummary
-	instanceVariableNames: 'account accountSummaryStream'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio 2'!
-
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:23:56'!
-applyDepositOfValue: aDepositValue
-
-	self writeLine: 'Depósito por ' OnAccountSummaryStreamWithValue: aDepositValue asString.
-! !
-
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:23:18'!
-applyTransferInOfValue: aTransferInValue
-
-	self writeLine: 'Entrada por transferencia de ' OnAccountSummaryStreamWithValue: aTransferInValue asString.
-
-! !
-
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:22:16'!
-applyTransferOutOfValue: aTransferOutValue
-
-	self writeLine: 'Salida por transferencia de ' OnAccountSummaryStreamWithValue: aTransferOutValue asString.
-! !
-
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:22:29'!
-applyWithdrawOfValue: aWithdrawValue
-
-	self writeLine: 'Extracción por ' OnAccountSummaryStreamWithValue: aWithdrawValue asString.! !
-
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:18:55'!
-for: anAccount
-
-	account := 	anAccount .! !
-
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:25:34'!
-makeReport
-
-
-	accountSummaryStream := String new writeStream.
-	
-	account affectAccountSummary: self.
-
-	accountSummaryStream nextPutAll: 'Balance = ';
-					      nextPutAll: account balance asString.
-	
-	^accountSummaryStream contents.
-! !
-
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:18:00'!
-writeLine: aString OnAccountSummaryStreamWithValue: aValue
-
-	accountSummaryStream  nextPutAll: aString;
-						nextPutAll: aValue asString;
-						nextPut: $.;
-						newLine.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'AccountSummary class' category: 'Portfolio 2'!
-AccountSummary class
-	instanceVariableNames: ''!
-
-!AccountSummary class methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:18:05'!
-for: anAnccount
-
-
-	^self basicNew for: anAnccount .! !
-
-
 !classDefinition: #AccountTransaction category: 'Portfolio 2'!
 Object subclass: #AccountTransaction
 	instanceVariableNames: ''
@@ -992,6 +917,11 @@ affectAccountSummary: anAccountSummary
 affectBalance: aBalance
 
 	self subclassResponsibility ! !
+
+!AccountTransaction methodsFor: 'balance' stamp: 'AF 10/22/2021 19:16:40'!
+affectReport: aReport
+
+	^self subclassResponsibility ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1035,15 +965,10 @@ affectBalance: aBalance
 	^aBalance + value ! !
 
 
-!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:58:30'!
-affectAccountSummary: anAccountSummary
+!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:16:51'!
+affectReport: aReport
 
-	^anAccountSummary applyDepositOfValue: self value.! !
-
-!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:53:29'!
-affectTransferNet: aTransferNet 
-	
-	! !
+	^aReport applyDepositOfValue: self value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1064,20 +989,15 @@ AccountTransaction subclass: #TransferIn
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:02:05'!
-affectAccountSummary: anAccountSummary
-
-	^anAccountSummary applyTransferInOfValue: self value.! !
-
 !TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:53:47'!
 affectBalance: aBalance
 
 	^aBalance + self value ! !
 
-!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:51:46'!
-affectTransferNet: aTransferNet 
-	
-	aTransferNet applyTransferInOfValue: self value.! !
+!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:14:41'!
+affectReport: aReport
+
+	^aReport applyTransferInOfValue: self value.! !
 
 !TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:59:19'!
 initializeFor: aTransfer  
@@ -1123,20 +1043,15 @@ AccountTransaction subclass: #TransferOut
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:04:05'!
-affectAccountSummary: anAccountSummary
-
-	^anAccountSummary applyTransferOutOfValue: self value.! !
-
 !TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:03:16'!
 affectBalance: aBalance
 
 	^aBalance - self value! !
 
-!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:49:31'!
-affectTransferNet: aTransferNet 
+!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:16:01'!
+affectReport: aReport
 	
-	aTransferNet applyTransferOutOfValue: self value.! !
+	aReport applyTransferOutOfValue: self value.! !
 
 !TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:01:36'!
 initializeFor: aTransfer  
@@ -1182,15 +1097,10 @@ AccountTransaction subclass: #Withdraw
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!Withdraw methodsFor: 'initialization' stamp: 'AF 10/22/2021 17:06:12'!
-affectAccountSummary: anAccountSummary
+!Withdraw methodsFor: 'initialization' stamp: 'AF 10/22/2021 19:15:39'!
+affectReport: aReport
 
-	^anAccountSummary applyWithdrawOfValue: self value.! !
-
-!Withdraw methodsFor: 'initialization' stamp: 'AF 10/22/2021 18:55:09'!
-affectTransferNet: anAccountSummary
-
-	! !
+	^aReport applyWithdrawOfValue: self value.! !
 
 !Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
 initializeFor: aValue
@@ -1219,6 +1129,159 @@ Withdraw class
 for: aValue
 
 	^ self new initializeFor: aValue ! !
+
+
+!classDefinition: #Report category: 'Portfolio 2'!
+Object subclass: #Report
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!Report methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:11:44'!
+applyDepositOfValue: aDepositValue
+
+	^self subclassResponsibility ! !
+
+!Report methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:12:10'!
+applyTransferInOfValue: aTransferInValue
+
+	^self subclassResponsibility ! !
+
+!Report methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:12:17'!
+applyTransferOutOfValue: aTransferOutValue
+
+	^self subclassResponsibility ! !
+
+!Report methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:11:59'!
+applyWithdrawOfValue: aWithdrawValue
+
+	^self subclassResponsibility ! !
+
+!Report methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:05:40'!
+for: anAccount
+
+	^self subclassResponsibility .! !
+
+!Report methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:06:28'!
+makeReport
+
+	^self subclassResponsibility.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Report class' category: 'Portfolio 2'!
+Report class
+	instanceVariableNames: ''!
+
+!Report class methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:05:23'!
+for: anAccount
+
+	^self basicNew for: anAccount.
+
+	! !
+
+
+!classDefinition: #AccountSummary category: 'Portfolio 2'!
+Report subclass: #AccountSummary
+	instanceVariableNames: 'account result'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+applyDepositOfValue: aDepositValue
+
+	self writeLine: 'Depósito por ' OnResultWithValue: aDepositValue asString.
+! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+applyTransferInOfValue: aTransferInValue
+
+	self writeLine: 'Entrada por transferencia de ' OnResultWithValue: aTransferInValue asString.
+
+! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+applyTransferOutOfValue: aTransferOutValue
+
+	self writeLine: 'Salida por transferencia de ' OnResultWithValue: aTransferOutValue asString.
+! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+applyWithdrawOfValue: aWithdrawValue
+
+	self writeLine: 'Extracción por ' OnResultWithValue: aWithdrawValue asString.! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:18:55'!
+for: anAccount
+
+	account := 	anAccount .! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:18:11'!
+makeReport
+
+
+	result := String new writeStream.
+	
+	account affectReport: self.
+
+	result nextPutAll: 'Balance = ';
+		  nextPutAll: account balance asString.
+	
+	^result contents.
+! !
+
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+writeLine: aString OnResultWithValue: aValue
+
+	result  nextPutAll: aString;
+						nextPutAll: aValue asString;
+						nextPut: $.;
+						newLine.! !
+
+
+!classDefinition: #TransferNet category: 'Portfolio 2'!
+Report subclass: #TransferNet
+	instanceVariableNames: 'account result'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:21:37'!
+applyDepositOfValue: aDepositValue 
+	
+! !
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:52:20'!
+applyTransferInOfValue: aTransferInValue 
+	
+	result := result + aTransferInValue .! !
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:50:38'!
+applyTransferOutOfValue: aTransferOutValue 
+	
+	result := result - aTransferOutValue .! !
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:21:53'!
+applyWithdrawOfValue: aWithdrawValue 
+	
+! !
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:36:03'!
+for: anAccount
+
+	account := anAccount.
+	! !
+
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:18:02'!
+makeReport
+
+	result := 0.
+	
+	account affectReport: self.
+	
+	^result.! !
 
 
 !classDefinition: #Transfer category: 'Portfolio 2'!
@@ -1299,47 +1362,3 @@ amountCanNotBeLessOrEqualToZeroError
 senderCanNotBeRecieverError
 
 	^ self error: self senderCanNotBeReceiverErrorDescription! !
-
-
-!classDefinition: #TransferNet category: 'Portfolio 2'!
-Object subclass: #TransferNet
-	instanceVariableNames: 'account result'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio 2'!
-
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:52:20'!
-applyTransferInOfValue: aTransferInValue 
-	
-	result := result + aTransferInValue .! !
-
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:50:38'!
-applyTransferOutOfValue: aTransferOutValue 
-	
-	result := result - aTransferOutValue .! !
-
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:36:03'!
-for: anAccount
-
-	account := anAccount.
-	! !
-
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:57:25'!
-makeReport
-
-	result := 0.
-	
-	account affectTransferNet: self.
-	
-	^result.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'TransferNet class' category: 'Portfolio 2'!
-TransferNet class
-	instanceVariableNames: ''!
-
-!TransferNet class methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:35:25'!
-for: anAccount
-
-	^self basicNew for: anAccount.! !
