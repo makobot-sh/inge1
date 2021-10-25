@@ -502,7 +502,7 @@ test13TransferNetReturnsZeroForEmptyPortfolio
 	
 	! !
 
-!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 14:32:42'!
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 15:25:50'!
 test14AccountAndPortfolioAreNamed
 
 	|portfolio account |
@@ -512,8 +512,8 @@ test14AccountAndPortfolioAreNamed
 	account := ReceptiveAccount named: 'Account of Mine'.
 	
 	
-	self assert: 'Portfolio of Mine' equals: (portfolio isNamed) .
-	self assert: 'Account of Mine' equals: (account isNamed) 
+	self assert: 'Portfolio of Mine' equals: (portfolio named) .
+	self assert: 'Account of Mine' equals: (account named) 
 	
 	! !
 
@@ -835,13 +835,24 @@ balance
 	self subclassResponsibility ! !
 
 
+!Account methodsFor: 'reporting' stamp: 'Chiro 10/25/2021 15:32:59'!
+affectPortfolioSummaryReport: aReport withTabs: aInteger
+
+	^self subclassResponsibility. ! !
+
+!Account methodsFor: 'reporting' stamp: 'Chiro 10/25/2021 15:33:04'!
+affectReport: aReport
+
+	^self subclassResponsibility ! !
+
+!Account methodsFor: 'reporting' stamp: 'Chiro 10/25/2021 15:33:08'!
+affectTreeReport: aReport withTabs: anInteger
+
+	^self subclassResponsibility ! !
+
+
 !Account methodsFor: 'transactions' stamp: 'HAW 5/25/2019 12:23:27'!
 addTransactionsTo: aCollectionOfTransactions
-
-	self subclassResponsibility ! !
-
-!Account methodsFor: 'transactions' stamp: 'AF 10/22/2021 19:23:08'!
-affectReport: aReport
 
 	self subclassResponsibility ! !
 
@@ -857,13 +868,25 @@ addedTo: aPortfolio
 	self subclassResponsibility ! !
 
 
-!Account methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 10:05:04'!
-addName: aString 
-	name := aString.! !
+!Account methodsFor: 'initialization' stamp: 'Chiro 10/25/2021 15:22:52'!
+initializeWithName: aName
+	self initialize.
+	name := aName! !
 
-!Account methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 10:00:32'!
-isNamed
+
+!Account methodsFor: 'accessing' stamp: 'Chiro 10/25/2021 15:25:50'!
+named
 	^name.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Account class' category: 'Portfolio 2'!
+Account class
+	instanceVariableNames: ''!
+
+!Account class methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 15:18:37'!
+named: aName 
+	^self new initializeWithName: aName.! !
 
 
 !classDefinition: #Portfolio category: 'Portfolio 2'!
@@ -896,11 +919,6 @@ add: accountToAdd
 	accounts add: accountToAdd.
 	accountToAdd addedTo: self 
 	! !
-
-!Portfolio methodsFor: 'accounts management' stamp: 'AF 10/22/2021 19:14:12'!
-affectReport: aReport
-
-	accounts do: [:anAccount | anAccount affectReport: aReport]! !
 
 !Portfolio methodsFor: 'accounts management' stamp: 'HAW 5/25/2019 12:17:31'!
 rootParents
@@ -983,15 +1001,20 @@ signalCanNotAddAccount
 	self error: self class canNotAddAccountErrorMessage! !
 
 
-!Portfolio methodsFor: 'category-name' stamp: 'Chiro 10/25/2021 14:40:25'!
+!Portfolio methodsFor: 'reporting' stamp: 'AF 10/25/2021 16:35:11'!
 affectPortfolioSummaryReport: aReport withTabs: aInteger
-	aReport applyNamedPortfolio: self isNamed withTabs: aInteger.
+	aReport applyName: self named withTabs: aInteger.
 	accounts do: [:anAccount | anAccount affectPortfolioSummaryReport: aReport withTabs: aInteger + 1].
 	aReport applyBalance: self withTabs: aInteger + 1.! !
 
-!Portfolio methodsFor: 'category-name' stamp: 'Chiro 10/25/2021 14:38:37'!
+!Portfolio methodsFor: 'reporting' stamp: 'AF 10/22/2021 19:14:12'!
+affectReport: aReport
+
+	accounts do: [:anAccount | anAccount affectReport: aReport]! !
+
+!Portfolio methodsFor: 'reporting' stamp: 'AF 10/25/2021 16:35:11'!
 affectTreeReport: aReport withTabs: aInteger
-	aReport applyNamedPortfolio: self isNamed withTabs: aInteger.
+	aReport applyName: self named withTabs: aInteger.
 	accounts do: [:anAccount | anAccount affectTreeReport: aReport withTabs: aInteger + 1]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -1004,10 +1027,6 @@ Portfolio class
 canNotAddAccountErrorMessage
 	
 	^'Can not add repeated account to a portfolio'! !
-
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 10:01:09'!
-named: aString 
-	^self new addName: aString; yourself.! !
 
 !Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:18:21'!
 with: anAccount
@@ -1043,12 +1062,6 @@ initialize
 addTransactionsTo: aCollectionOfTransactions
 
 	aCollectionOfTransactions addAll: transactions ! !
-
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'AF 10/22/2021 19:23:31'!
-affectReport: aReport
-	
-	
-	transactions do: [:aTransaction | aTransaction affectReport: aReport] .! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
@@ -1088,24 +1101,20 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 13:43:48'!
+!ReceptiveAccount methodsFor: 'reporting' stamp: 'AF 10/25/2021 16:34:46'!
 affectPortfolioSummaryReport: aReport withTabs: anInteger
 
-	aReport applyNamedAccount: self withTabs: anInteger.! !
+	aReport applyNamedReceptiveAccount: self withTabs: anInteger.! !
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 14:38:47'!
+!ReceptiveAccount methodsFor: 'reporting' stamp: 'AF 10/22/2021 19:23:31'!
+affectReport: aReport
+	
+	
+	transactions do: [:aTransaction | aTransaction affectReport: aReport] .! !
+
+!ReceptiveAccount methodsFor: 'reporting' stamp: 'AF 10/25/2021 16:35:11'!
 affectTreeReport: aReport withTabs: anInteger
-	aReport applyNamedPortfolio: self isNamed withTabs: anInteger.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'ReceptiveAccount class' category: 'Portfolio 2'!
-ReceptiveAccount class
-	instanceVariableNames: ''!
-
-!ReceptiveAccount class methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 10:01:16'!
-named: aString 
-	^self new addName: aString; yourself.! !
+	aReport applyName: self named withTabs: anInteger.! !
 
 
 !classDefinition: #AccountTransaction category: 'Portfolio 2'!
@@ -1115,21 +1124,26 @@ Object subclass: #AccountTransaction
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
+!AccountTransaction methodsFor: 'accessing' stamp: 'HernanWilkinson 9/12/2011 12:25'!
 value 
 
 	self subclassResponsibility ! !
 
 
-!AccountTransaction methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:39'!
+!AccountTransaction methodsFor: 'balance' stamp: 'Chiro 10/25/2021 15:37:17'!
 affectBalance: aBalance
 
-	self subclassResponsibility ! !
+	^self subclassResponsibility ! !
 
 !AccountTransaction methodsFor: 'balance' stamp: 'AF 10/22/2021 19:16:40'!
 affectReport: aReport
 
 	^self subclassResponsibility ! !
+
+
+!AccountTransaction methodsFor: 'initialization' stamp: 'Chiro 10/25/2021 15:40:49'!
+initializeFor: aValue
+ 	^self subclassResponsibility ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1161,7 +1175,7 @@ initializeFor: aValue
 	value := aValue ! !
 
 
-!Deposit methodsFor: 'value' stamp: 'AF 10/22/2021 17:09:04'!
+!Deposit methodsFor: 'accessing' stamp: 'AF 10/22/2021 17:09:04'!
 value
 
 	^ value copy! !
@@ -1173,7 +1187,7 @@ affectBalance: aBalance
 	^aBalance + value ! !
 
 
-!Deposit methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:16:51'!
+!Deposit methodsFor: 'reporting' stamp: 'AF 10/22/2021 19:16:51'!
 affectReport: aReport
 
 	^aReport applyDepositOfValue: self value.! !
@@ -1197,30 +1211,33 @@ AccountTransaction subclass: #TransferIn
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:53:47'!
+!TransferIn methodsFor: 'balance' stamp: 'AF 10/20/2021 20:53:47'!
 affectBalance: aBalance
 
 	^aBalance + self value ! !
 
-!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:14:41'!
-affectReport: aReport
 
-	^aReport applyTransferInOfValue: self value.! !
-
-!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:59:19'!
-initializeFor: aTransfer  
-
-	transfer := aTransfer ! !
-
-!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:58:17'!
+!TransferIn methodsFor: 'accessing' stamp: 'AF 10/20/2021 20:58:17'!
 transfer
 
 	^ transfer ! !
 
-!TransferIn methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 20:58:23'!
+!TransferIn methodsFor: 'accessing' stamp: 'AF 10/20/2021 20:58:23'!
 value
 
 	^ self transfer value.! !
+
+
+!TransferIn methodsFor: 'initialization' stamp: 'AF 10/20/2021 20:59:19'!
+initializeFor: aTransfer  
+
+	transfer := aTransfer ! !
+
+
+!TransferIn methodsFor: 'reporting' stamp: 'AF 10/22/2021 19:14:41'!
+affectReport: aReport
+
+	^aReport applyTransferInOfValue: self value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1251,27 +1268,30 @@ AccountTransaction subclass: #TransferOut
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:03:16'!
-affectBalance: aBalance
-
-	^aBalance - self value! !
-
-!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:16:01'!
+!TransferOut methodsFor: 'reporting' stamp: 'AF 10/22/2021 19:16:01'!
 affectReport: aReport
 	
 	aReport applyTransferOutOfValue: self value.! !
 
-!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:01:36'!
+
+!TransferOut methodsFor: 'initialization' stamp: 'AF 10/20/2021 21:01:36'!
 initializeFor: aTransfer  
 
 	transfer := aTransfer ! !
 
-!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:01:58'!
+
+!TransferOut methodsFor: 'balance' stamp: 'AF 10/20/2021 21:03:16'!
+affectBalance: aBalance
+
+	^aBalance - self value! !
+
+
+!TransferOut methodsFor: 'accessing' stamp: 'AF 10/20/2021 21:01:58'!
 transfer
 
 	^ transfer ! !
 
-!TransferOut methodsFor: 'as yet unclassified' stamp: 'AF 10/20/2021 21:01:48'!
+!TransferOut methodsFor: 'accessing' stamp: 'AF 10/20/2021 21:01:48'!
 value
 
 	^ self transfer value.! !
@@ -1305,18 +1325,13 @@ AccountTransaction subclass: #Withdraw
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!Withdraw methodsFor: 'initialization' stamp: 'AF 10/22/2021 19:15:39'!
-affectReport: aReport
-
-	^aReport applyWithdrawOfValue: self value.! !
-
 !Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
 initializeFor: aValue
 
 	value := aValue ! !
 
 
-!Withdraw methodsFor: 'value' stamp: 'AF 10/22/2021 17:09:53'!
+!Withdraw methodsFor: 'accessing' stamp: 'AF 10/22/2021 17:09:53'!
 value
 
 	^ value copy! !
@@ -1326,6 +1341,12 @@ value
 affectBalance: aBalance
 
 	^aBalance - value! !
+
+
+!Withdraw methodsFor: 'reporting' stamp: 'AF 10/22/2021 19:15:39'!
+affectReport: aReport
+
+	^aReport applyWithdrawOfValue: self value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1376,27 +1397,6 @@ initializeResult.
 	^self subclassResponsibility .
 ! !
 
-
-!Report methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:11:44'!
-applyDepositOfValue: aDepositValue
-
-	^self subclassResponsibility ! !
-
-!Report methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:12:10'!
-applyTransferInOfValue: aTransferInValue
-
-	^self subclassResponsibility ! !
-
-!Report methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:12:17'!
-applyTransferOutOfValue: aTransferOutValue
-
-	^self subclassResponsibility ! !
-
-!Report methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:11:59'!
-applyWithdrawOfValue: aWithdrawValue
-
-	^self subclassResponsibility ! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Report class' category: 'Portfolio 2'!
@@ -1418,31 +1418,32 @@ Report subclass: #AccountSummary
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+!AccountSummary methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:10:56'!
 applyDepositOfValue: aDepositValue
 
 	self writeLine: 'Depósito por ' OnResultWithValue: aDepositValue asString.
 ! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+!AccountSummary methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:10:56'!
 applyTransferInOfValue: aTransferInValue
 
 	self writeLine: 'Entrada por transferencia de ' OnResultWithValue: aTransferInValue asString.
 
 ! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+!AccountSummary methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:10:56'!
 applyTransferOutOfValue: aTransferOutValue
 
 	self writeLine: 'Salida por transferencia de ' OnResultWithValue: aTransferOutValue asString.
 ! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:10:56'!
+!AccountSummary methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:10:56'!
 applyWithdrawOfValue: aWithdrawValue
 
 	self writeLine: 'Extracción por ' OnResultWithValue: aWithdrawValue asString.! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:33:09'!
+
+!AccountSummary methodsFor: 'result preparation' stamp: 'AF 10/22/2021 19:33:09'!
 finalizeResult
 
 	result nextPutAll: 'Balance = ';
@@ -1450,12 +1451,13 @@ finalizeResult
 		
 	result := result contents.! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:33:18'!
+!AccountSummary methodsFor: 'result preparation' stamp: 'AF 10/22/2021 19:33:18'!
 initializeResult
 
 	result := String new writeStream! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:47:57'!
+
+!AccountSummary methodsFor: 'private' stamp: 'AF 10/22/2021 19:47:57'!
 writeLine: aString OnResultWithValue: aValue
 
 	result  nextPutAll: aString;
@@ -1471,30 +1473,31 @@ Report subclass: #TransferNet
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:21:37'!
+!TransferNet methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:21:37'!
 applyDepositOfValue: aDepositValue 
 	
 ! !
 
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:52:20'!
+!TransferNet methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 18:52:20'!
 applyTransferInOfValue: aTransferInValue 
 	
 	result := result + aTransferInValue .! !
 
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:50:38'!
+!TransferNet methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 18:50:38'!
 applyTransferOutOfValue: aTransferOutValue 
 	
 	result := result - aTransferOutValue .! !
 
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:21:53'!
+!TransferNet methodsFor: 'applying transaction' stamp: 'AF 10/22/2021 19:21:53'!
 applyWithdrawOfValue: aWithdrawValue 
 	
 ! !
 
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:34:23'!
+
+!TransferNet methodsFor: 'result preparation' stamp: 'AF 10/22/2021 19:34:23'!
 finalizeResult! !
 
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:34:04'!
+!TransferNet methodsFor: 'result preparation' stamp: 'AF 10/22/2021 19:34:04'!
 initializeResult
 
 	result := 0! !
@@ -1507,12 +1510,17 @@ Report subclass: #TreeSummary
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TreeSummary methodsFor: 'category-name' stamp: 'Chiro 10/25/2021 10:10:54'!
+!TreeSummary methodsFor: 'result preparation' stamp: 'AF 10/25/2021 16:23:07'!
+finalizeResult
+	result := result contents.! !
+
+!TreeSummary methodsFor: 'result preparation' stamp: 'Chiro 10/25/2021 10:10:54'!
 initializeResult
 
 	result := String new writeStream! !
 
-!TreeSummary methodsFor: 'category-name' stamp: 'Chiro 10/25/2021 12:04:36'!
+
+!TreeSummary methodsFor: 'execution' stamp: 'Chiro 10/25/2021 12:04:36'!
 makeReport
 	self initializeResult.
 	
@@ -1524,16 +1532,11 @@ makeReport
 ! !
 
 
-!TreeSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 14:55:39'!
-applyNamedPortfolio: aName withTabs: anInteger
+!TreeSummary methodsFor: 'applying name' stamp: 'AF 10/25/2021 16:35:11'!
+applyName: aName withTabs: anInteger
 	result newLineTab: anInteger when: (anInteger ~= 0).
-	result nextPutAll: aName.
-	! !
-
-!TreeSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 12:31:10'!
-finalizeResult
-
-	result := result contents.! !
+	result nextPutAll: aName
+! !
 
 
 !classDefinition: #PortfolioSummary category: 'Portfolio 2'!
@@ -1543,26 +1546,7 @@ TreeSummary subclass: #PortfolioSummary
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!PortfolioSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 12:35:13'!
-applyBalance: anAccount withTabs: aInteger
-
-	^ result newLineTab: aInteger; nextPutAll: 'Balance = ';
-		  nextPutAll: anAccount balance asString! !
-
-!PortfolioSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 14:39:58'!
-applyNamedAccount: anAccount withTabs: aInteger
-	
-	|accountSummary|
-	
-	
-	self applyNamedPortfolio: (anAccount isNamed) withTabs: aInteger.
-
-
-	accountSummary := AccountSummary for: anAccount.
-	result newLineTab: aInteger + 1;
-	nextPutAll: accountSummary makeReport.! !
-
-!PortfolioSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 13:34:39'!
+!PortfolioSummary methodsFor: 'execution' stamp: 'Chiro 10/25/2021 13:34:39'!
 makeReport
 	self initializeResult.
 	
@@ -1572,6 +1556,24 @@ makeReport
 	
 	^result.
 ! !
+
+
+!PortfolioSummary methodsFor: 'applying' stamp: 'Chiro 10/25/2021 12:35:13'!
+applyBalance: anAccount withTabs: aInteger
+
+	^ result newLineTab: aInteger; nextPutAll: 'Balance = ';
+		  nextPutAll: anAccount balance asString! !
+
+!PortfolioSummary methodsFor: 'applying' stamp: 'AF 10/25/2021 16:35:11'!
+applyNamedReceptiveAccount: anAccount withTabs: aInteger
+
+	|accountSummary|
+	
+
+	self applyName: (anAccount named) withTabs: aInteger.
+	accountSummary := AccountSummary for: anAccount.
+	result newLineTab: aInteger + 1;
+	nextPutAll: accountSummary makeReport.! !
 
 
 !classDefinition: #Transfer category: 'Portfolio 2'!
