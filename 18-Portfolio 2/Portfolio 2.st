@@ -312,7 +312,7 @@ TestCase subclass: #ReportTest
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:02:22'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:02:22'!
 test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance
 
 	|accountSummary|
@@ -323,7 +323,7 @@ test01AccountSummaryOfEmptyAccountReturnsOneLineWithBalance
 	
 	self assert: 'Balance = 0' equals: accountSummary makeReport.! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:21:24'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 16:21:24'!
 test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBalance
 
 	|account		accountSummary|
@@ -339,7 +339,7 @@ test02AccountSummaryOfAccountWithOneDepositReturnsALineForDepositAndALineForBala
 																				newLine; 
 																				nextPutAll: 'Balance = 50']).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:22:06'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 16:22:06'!
 test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineForBalance
 
 	|account		accountSummary|
@@ -355,7 +355,7 @@ test03AccountSummaryOfAccountWithOneWithdrawalReturnsALineForWithdrawAndALineFor
 																				newLine; 
 																				nextPutAll: 'Balance = -50']).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:22:45'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 16:22:45'!
 test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalance
 
 	|account		accountSummary|
@@ -375,7 +375,7 @@ test04AccountSummaryOfAccountReturnsALineForEachTransactionAndAnotherOneForBalan
 																				newLine; 
 																				nextPutAll: 'Balance = 50']).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:24:44'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 16:24:44'!
 test05AccountSummaryShowsTransfersOnSender
 
 	|sender receiver 	accountSummary|
@@ -392,7 +392,7 @@ test05AccountSummaryShowsTransfersOnSender
 																				newLine; 
 																				nextPutAll: 'Balance = -50']).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:25:44'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 16:25:44'!
 test06AccountSummaryShowsTransfersOnReceiver
 
 	|sender receiver 	accountSummary|
@@ -409,7 +409,7 @@ test06AccountSummaryShowsTransfersOnReceiver
 																				newLine; 
 																				nextPutAll: 'Balance = 50']).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:38:19'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:38:19'!
 test07TransferNetReturnsZeroOnEmptyAccount
 
 	|transferNet|
@@ -418,7 +418,7 @@ test07TransferNetReturnsZeroOnEmptyAccount
 
 	self assert: 0 equals: transferNet makeReport! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:39:17'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:39:17'!
 test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut
 
 	|sender receiver transferNet|
@@ -432,7 +432,7 @@ test08TransferNetReturnsCorrectValueOnAccountWithOneTransferOut
 	
 	self assert: -50 equals: transferNet makeReport.! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:39:50'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:39:50'!
 test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn
 
 	|sender receiver transferNet|
@@ -446,7 +446,7 @@ test09TransferNetReturnsCorrectValueOnAccountWithOneTransferIn
 	
 	self assert: 50 equals: transferNet makeReport.! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:41:30'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:41:30'!
 test10TransferNetDoesNotCountNonTranferTransactions
 
 	|transferNet account|
@@ -458,7 +458,7 @@ test10TransferNetDoesNotCountNonTranferTransactions
 	
 	self assert: 0 equals: transferNet makeReport.! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:56:56'!
+!ReportTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:56:56'!
 test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransactions
 
 	|sender receiver transferNet|
@@ -474,8 +474,8 @@ test11TransferNetReturnsCorrectValueOnAccountWithATransferAndANonTransferTransac
 	
 	self assert: -50 equals: transferNet makeReport .! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 17:16:23'!
-test12
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 15:09:01'!
+test12AccountSummaryShowsEmptyPortfolioBalance
 
 	|portfolio accountSummary |
 	
@@ -488,8 +488,8 @@ test12
 	
 	! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:58:41'!
-test13
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 15:09:35'!
+test13TransferNetReturnsZeroForEmptyPortfolio
 
 	|portfolio transferNet |
 	
@@ -502,6 +502,174 @@ test13
 	
 	! !
 
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 14:32:42'!
+test14AccountAndPortfolioAreNamed
+
+	|portfolio account |
+	
+	portfolio := Portfolio named: 'Portfolio of Mine'.
+	
+	account := ReceptiveAccount named: 'Account of Mine'.
+	
+	
+	self assert: 'Portfolio of Mine' equals: (portfolio isNamed) .
+	self assert: 'Account of Mine' equals: (account isNamed) 
+	
+	! !
+
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 10:33:31'!
+test15TreeSummaryReturnsEmptyPortfolioStructure
+
+	|portfolio treeSummary |
+	
+	portfolio := Portfolio named: 'Portfolio of Mine'.
+	
+	treeSummary := TreeSummary for: portfolio.
+	
+	self assert: treeSummary makeReport equals: (String streamContents: [:aStream | aStream nextPutAll: 'Portfolio of Mine']).
+
+	
+	! !
+
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 12:06:25'!
+test16TreeSummaryReturnsCorrectStructureWithOneAnAccount
+
+	|portfolio treeSummary account|
+	"newLineTab:"
+	account := ReceptiveAccount named: 'Account of Mine'.
+	portfolio := Portfolio named: 'Portfolio of Mine'.
+	
+	portfolio add: account.
+	
+	treeSummary := TreeSummary for: portfolio.
+	
+	self assert: treeSummary makeReport equals: (String streamContents: [:aStream | aStream nextPutAll: 'Portfolio of Mine';
+																			newLineTab: 1;
+																			nextPutAll: 'Account of Mine']).
+
+	
+	! !
+
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 12:11:48'!
+test17TreeSummaryReturnsCorrectStructureWithSeveralAccountsAndPorfolios
+
+	|portfolio treeSummary account account2 portfolio2 account3 account4|
+
+	account := ReceptiveAccount named: 'Account of Mine'.
+	account2 := ReceptiveAccount named: 'Account of Hers'.
+	portfolio := Portfolio named: 'Portfolio of People'.
+	portfolio2 := Portfolio named: 'Portfolio of Other People'.
+	account3 := ReceptiveAccount named: 'Account of Him'.
+	account4 :=  ReceptiveAccount named: 'Account of Them'.
+	portfolio add: account.
+	portfolio add: account2.
+	portfolio2 add: account3.
+	portfolio add: portfolio2.
+	portfolio add: account4.
+	
+	treeSummary := TreeSummary for: portfolio.
+	
+	self assert: treeSummary makeReport equals: (String streamContents: [:aStream | aStream nextPutAll: 'Portfolio of People';
+																			newLineTab: 1;
+																			nextPutAll: 'Account of Mine';
+																			newLineTab: 1;
+																			nextPutAll: 'Account of Hers';
+																			newLineTab: 1;
+																			nextPutAll: 'Portfolio of Other People';
+																			newLineTab: 2;
+																			nextPutAll: 'Account of Him';
+																			newLineTab: 1;
+																			nextPutAll: 'Account of Them']).
+
+	
+	! !
+
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 12:37:58'!
+test18PortfolioSummaryOfEmptyPorfolio
+
+	|portfolio portfolioSummary|
+
+	portfolio := Portfolio named: 'Portfolio of People'.
+	
+	portfolioSummary := PortfolioSummary for: portfolio.
+	
+	self assert: portfolioSummary makeReport equals: (String streamContents: [:aStream | aStream nextPutAll: 'Portfolio of People';
+																			newLineTab: 1;
+																			nextPutAll: 'Balance = 0']).! !
+
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 13:55:19'!
+test19PortfolioSummaryOfPortfolioWithTwoAccounts
+
+	|portfolio portfolioSummary account1 account2 accountSummary1 accountSummary2|
+
+	portfolio := Portfolio named: 'Portfolio of People'.
+	
+	
+	
+	account1 := ReceptiveAccount named: 'Account of Her'.
+	account2 := ReceptiveAccount named: 'Account of Him'.
+	
+	accountSummary1 := AccountSummary for: account1.
+	accountSummary2 := AccountSummary for: account2.
+	
+	Transfer from: account1 to: account2 amount: 50.
+	portfolio add: account1.
+	portfolio add: account2.	
+	
+	portfolioSummary := PortfolioSummary for: portfolio.
+	
+	self assert: portfolioSummary makeReport equals: (String streamContents: [:aStream | aStream nextPutAll: 'Portfolio of People';
+																			newLineTab: 1;
+																			nextPutAll: 'Account of Her';
+																			newLineTab: 2;
+																			nextPutAll: (accountSummary1 makeReport);
+																			newLineTab: 1;
+																			nextPutAll: 'Account of Him';
+																			newLineTab: 2;
+																			nextPutAll: accountSummary2 makeReport;
+																			newLineTab: 1;
+																			nextPutAll: 'Balance = 0']).! !
+
+!ReportTest methodsFor: 'tests' stamp: 'Chiro 10/25/2021 13:55:40'!
+test20PortfolioSummaryOfPortfolioWithOneAccountAndOnePortfolio
+
+	|portfolio portfolio1 portfolioSummary account1 account2 account3 accountSummary1 accountSummary2|
+
+	portfolio := Portfolio named: 'Portfolio of People'.
+	portfolio1 := Portfolio named: 'Portfolio of Other People'.
+	
+	
+	account1 := ReceptiveAccount named: 'Account of Her'.
+	account2 := ReceptiveAccount named: 'Account of Him'.
+	account3 := ReceptiveAccount named: 'Account of Them'.
+	
+	accountSummary1 := AccountSummary for: account2.
+	accountSummary2 := AccountSummary for: account3.
+	
+	Transfer from: account1 to: account2 amount: 50.
+	Transfer from: account3 to: account2 amount: 50.
+	portfolio add: account2.
+	portfolio1 add: account3.
+	portfolio add: portfolio1.
+	
+	portfolioSummary := PortfolioSummary for: portfolio.
+	
+	self assert: portfolioSummary makeReport equals: (String streamContents: [:aStream | aStream nextPutAll: 'Portfolio of People';
+																			newLineTab: 1;
+																			nextPutAll: 'Account of Him';
+																			newLineTab: 2;
+																			nextPutAll: accountSummary1 makeReport;
+																			newLineTab: 1;
+																			nextPutAll: 'Portfolio of Other People';
+																			newLineTab: 2;
+																			nextPutAll: 'Account of Them';
+																			newLineTab: 3;
+																			nextPutAll: accountSummary2 makeReport;
+																			newLineTab: 2;
+																			nextPutAll: 'Balance = -50';
+																			newLineTab: 1;
+																			nextPutAll: 'Balance = 50']).! !
+
 
 !classDefinition: #TransferTest category: 'Portfolio 2'!
 TestCase subclass: #TransferTest
@@ -510,7 +678,7 @@ TestCase subclass: #TransferTest
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 21:20:40'!
+!TransferTest methodsFor: 'tests' stamp: 'AF 10/18/2021 21:20:40'!
 test01CanNotTransferAZeroAmount
 
 	|sender receiver|
@@ -522,7 +690,7 @@ test01CanNotTransferAZeroAmount
 		raise: Error
 		withExceptionDo: [: anError | anError messageText = Transfer amountCanNotBeLessOrEqualToZeroErrorDescription]! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 20:39:06'!
+!TransferTest methodsFor: 'tests' stamp: 'AF 10/18/2021 20:39:06'!
 test02TransferReflectsCorrectlyOnBothPartiesBalances
 
 	|sender receiver|
@@ -535,7 +703,7 @@ test02TransferReflectsCorrectlyOnBothPartiesBalances
 	self assert: (sender balance = -50 and: [receiver balance = 50]).
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 21:06:52'!
+!TransferTest methodsFor: 'tests' stamp: 'AF 10/18/2021 21:06:52'!
 test03SenderAndReceiverCanNotBeTheSame
 
 	|sender receiver|
@@ -550,7 +718,7 @@ test03SenderAndReceiverCanNotBeTheSame
 	
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/18/2021 21:31:46'!
+!TransferTest methodsFor: 'tests' stamp: 'AF 10/18/2021 21:31:46'!
 test04CanNotTranferANegativeAmount
 
 
@@ -566,7 +734,7 @@ test04CanNotTranferANegativeAmount
 	
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:27:19'!
+!TransferTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:27:19'!
 test07SenderHasTheWithdrawalRegisteredAfterTranfer
 
 
@@ -584,7 +752,7 @@ test07SenderHasTheWithdrawalRegisteredAfterTranfer
 	
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:29:27'!
+!TransferTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:29:27'!
 test08ReceiverHasTheDepositRegisteredAfterTransfer
 
 
@@ -602,7 +770,7 @@ test08ReceiverHasTheDepositRegisteredAfterTransfer
 	
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:29:27'!
+!TransferTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:29:27'!
 test09ReceiversTransactionKnowsSendersTransaction
 
 
@@ -622,7 +790,7 @@ test09ReceiversTransactionKnowsSendersTransaction
 	
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:29:27'!
+!TransferTest methodsFor: 'tests' stamp: 'AF 10/22/2021 18:29:27'!
 test10SendersTransactionKnowsReceiversTransaction
 
 
@@ -645,7 +813,7 @@ test10SendersTransactionKnowsReceiversTransaction
 
 !classDefinition: #Account category: 'Portfolio 2'!
 Object subclass: #Account
-	instanceVariableNames: ''
+	instanceVariableNames: 'name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
@@ -688,6 +856,15 @@ addedTo: aPortfolio
 
 	self subclassResponsibility ! !
 
+
+!Account methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 10:05:04'!
+addName: aString 
+	name := aString.! !
+
+!Account methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 10:00:32'!
+isNamed
+	^name.! !
+
 
 !classDefinition: #Portfolio category: 'Portfolio 2'!
 Account subclass: #Portfolio
@@ -720,6 +897,11 @@ add: accountToAdd
 	accountToAdd addedTo: self 
 	! !
 
+!Portfolio methodsFor: 'accounts management' stamp: 'AF 10/22/2021 19:14:12'!
+affectReport: aReport
+
+	accounts do: [:anAccount | anAccount affectReport: aReport]! !
+
 !Portfolio methodsFor: 'accounts management' stamp: 'HAW 5/25/2019 12:17:31'!
 rootParents
 	
@@ -737,11 +919,6 @@ initialize
 	accounts := OrderedCollection new.
 	parents := OrderedCollection new.! !
 
-
-!Portfolio methodsFor: 'balance' stamp: 'AF 10/22/2021 19:14:12'!
-affectReport: aReport
-
-	accounts do: [:anAccount | anAccount affectReport: aReport]! !
 
 !Portfolio methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:19:36'!
 balance
@@ -805,6 +982,18 @@ signalCanNotAddAccount
 	
 	self error: self class canNotAddAccountErrorMessage! !
 
+
+!Portfolio methodsFor: 'category-name' stamp: 'Chiro 10/25/2021 14:40:25'!
+affectPortfolioSummaryReport: aReport withTabs: aInteger
+	aReport applyNamedPortfolio: self isNamed withTabs: aInteger.
+	accounts do: [:anAccount | anAccount affectPortfolioSummaryReport: aReport withTabs: aInteger + 1].
+	aReport applyBalance: self withTabs: aInteger + 1.! !
+
+!Portfolio methodsFor: 'category-name' stamp: 'Chiro 10/25/2021 14:38:37'!
+affectTreeReport: aReport withTabs: aInteger
+	aReport applyNamedPortfolio: self isNamed withTabs: aInteger.
+	accounts do: [:anAccount | anAccount affectTreeReport: aReport withTabs: aInteger + 1]! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Portfolio class' category: 'Portfolio 2'!
@@ -815,6 +1004,10 @@ Portfolio class
 canNotAddAccountErrorMessage
 	
 	^'Can not add repeated account to a portfolio'! !
+
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 10:01:09'!
+named: aString 
+	^self new addName: aString; yourself.! !
 
 !Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:18:21'!
 with: anAccount
@@ -893,6 +1086,26 @@ isComposedBy: anAccount
 addedTo: aPortfolio 
 	
 	! !
+
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 13:43:48'!
+affectPortfolioSummaryReport: aReport withTabs: anInteger
+
+	aReport applyNamedAccount: self withTabs: anInteger.! !
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 14:38:47'!
+affectTreeReport: aReport withTabs: anInteger
+	aReport applyNamedPortfolio: self isNamed withTabs: anInteger.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ReceptiveAccount class' category: 'Portfolio 2'!
+ReceptiveAccount class
+	instanceVariableNames: ''!
+
+!ReceptiveAccount class methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 10:01:16'!
+named: aString 
+	^self new addName: aString; yourself.! !
 
 
 !classDefinition: #AccountTransaction category: 'Portfolio 2'!
@@ -1133,10 +1346,10 @@ Object subclass: #Report
 	poolDictionaries: ''
 	category: 'Portfolio 2'!
 
-!Report methodsFor: 'initialization' stamp: 'AF 10/22/2021 19:05:40'!
+!Report methodsFor: 'initialization' stamp: 'Chiro 10/25/2021 12:27:22'!
 for: anAccount
 
-	^self subclassResponsibility .! !
+	account := anAccount.! !
 
 
 !Report methodsFor: 'execution' stamp: 'AF 10/22/2021 19:37:34'!
@@ -1152,10 +1365,9 @@ makeReport
 ! !
 
 
-!Report methodsFor: 'result preparation' stamp: 'AF 10/22/2021 19:38:05'!
+!Report methodsFor: 'result preparation' stamp: 'Chiro 10/25/2021 10:11:43'!
 finalizeResult
 
-	^self subclassResponsibility 
 ! !
 
 !Report methodsFor: 'result preparation' stamp: 'AF 10/22/2021 19:37:51'!
@@ -1238,11 +1450,6 @@ finalizeResult
 		
 	result := result contents.! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 16:18:55'!
-for: anAccount
-
-	account := 	anAccount .! !
-
 !AccountSummary methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:33:18'!
 initializeResult
 
@@ -1287,16 +1494,84 @@ applyWithdrawOfValue: aWithdrawValue
 !TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:34:23'!
 finalizeResult! !
 
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 18:36:03'!
-for: anAccount
-
-	account := anAccount.
-	! !
-
 !TransferNet methodsFor: 'as yet unclassified' stamp: 'AF 10/22/2021 19:34:04'!
 initializeResult
 
 	result := 0! !
+
+
+!classDefinition: #TreeSummary category: 'Portfolio 2'!
+Report subclass: #TreeSummary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!TreeSummary methodsFor: 'category-name' stamp: 'Chiro 10/25/2021 10:10:54'!
+initializeResult
+
+	result := String new writeStream! !
+
+!TreeSummary methodsFor: 'category-name' stamp: 'Chiro 10/25/2021 12:04:36'!
+makeReport
+	self initializeResult.
+	
+	account affectTreeReport: self withTabs: 0.
+
+	self finalizeResult.
+	
+	^result.
+! !
+
+
+!TreeSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 14:55:39'!
+applyNamedPortfolio: aName withTabs: anInteger
+	result newLineTab: anInteger when: (anInteger ~= 0).
+	result nextPutAll: aName.
+	! !
+
+!TreeSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 12:31:10'!
+finalizeResult
+
+	result := result contents.! !
+
+
+!classDefinition: #PortfolioSummary category: 'Portfolio 2'!
+TreeSummary subclass: #PortfolioSummary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio 2'!
+
+!PortfolioSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 12:35:13'!
+applyBalance: anAccount withTabs: aInteger
+
+	^ result newLineTab: aInteger; nextPutAll: 'Balance = ';
+		  nextPutAll: anAccount balance asString! !
+
+!PortfolioSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 14:39:58'!
+applyNamedAccount: anAccount withTabs: aInteger
+	
+	|accountSummary|
+	
+	
+	self applyNamedPortfolio: (anAccount isNamed) withTabs: aInteger.
+
+
+	accountSummary := AccountSummary for: anAccount.
+	result newLineTab: aInteger + 1;
+	nextPutAll: accountSummary makeReport.! !
+
+!PortfolioSummary methodsFor: 'as yet unclassified' stamp: 'Chiro 10/25/2021 13:34:39'!
+makeReport
+	self initializeResult.
+	
+	account affectPortfolioSummaryReport: self withTabs: 0.
+
+	self finalizeResult.
+	
+	^result.
+! !
 
 
 !classDefinition: #Transfer category: 'Portfolio 2'!
