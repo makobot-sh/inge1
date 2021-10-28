@@ -8878,3 +8878,23 @@ PASSED!
 ----SNAPSHOT----(27 October 2021 20:13:58) CuisUniversity-4913.image priorSource: 18966227!
 
 ----SNAPSHOT----(27 October 2021 20:15:18) CuisUniversity-4913.image priorSource: 18969407!
+!MarsRover methodsFor: 'heading' stamp: 'Chiro 10/28/2021 16:36:39'!
+updateAllHeadingTrackers
+
+	^ headingChangesTrackers do: [:aTracker | aTracker updateHeading: head copy]! !
+!MarsRover methodsFor: 'heading' stamp: 'Chiro 10/28/2021 16:36:39' prior: 50915275!
+changeHeadTo: newHeading
+
+	head := newHeading.
+	self updateAllHeadingTrackers.! !
+!MarsRover methodsFor: 'moving' stamp: 'Chiro 10/28/2021 16:37:06'!
+UpdateAllPositionTrackers
+
+	^ positionChangesTrackers do: [:aTracker | aTracker updatePosition: position copy]! !
+!MarsRover methodsFor: 'moving' stamp: 'Chiro 10/28/2021 16:37:06' prior: 50915348!
+movePositionWith: anOffset
+
+	position := position + anOffset.
+	self UpdateAllPositionTrackers.! !
+
+----SNAPSHOT----(28 October 2021 16:37:40) CuisUniversity-4913.image priorSource: 18661997!

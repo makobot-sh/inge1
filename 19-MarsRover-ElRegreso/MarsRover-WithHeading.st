@@ -470,11 +470,11 @@ initializeAt: aPosition heading: aHeadingType
 	! !
 
 
-!MarsRover methodsFor: 'heading' stamp: 'AF 10/27/2021 19:53:26'!
+!MarsRover methodsFor: 'heading' stamp: 'Chiro 10/28/2021 16:36:39'!
 changeHeadTo: newHeading
 
 	head := newHeading.
-	headingChangesTrackers do: [:aTracker | aTracker updateHeading: head copy].! !
+	self updateAllHeadingTrackers.! !
 
 !MarsRover methodsFor: 'heading' stamp: 'AF 10/26/2021 16:15:31'!
 headEast
@@ -511,6 +511,11 @@ rotateRight
 
 	head rotateRight! !
 
+!MarsRover methodsFor: 'heading' stamp: 'Chiro 10/28/2021 16:36:39'!
+updateAllHeadingTrackers
+
+	^ headingChangesTrackers do: [:aTracker | aTracker updateHeading: head copy]! !
+
 
 !MarsRover methodsFor: 'testing' stamp: 'AF 10/25/2021 20:37:59'!
 isAt: aPosition heading: aHeadingType
@@ -538,6 +543,11 @@ isRotateRightCommand: aCommand
 	^aCommand = $r! !
 
 
+!MarsRover methodsFor: 'moving' stamp: 'Chiro 10/28/2021 16:37:06'!
+UpdateAllPositionTrackers
+
+	^ positionChangesTrackers do: [:aTracker | aTracker updatePosition: position copy]! !
+
 !MarsRover methodsFor: 'moving' stamp: 'AF 10/25/2021 20:38:32'!
 moveBackward
 
@@ -559,11 +569,11 @@ moveNorth
 	self movePositionWith: 0@1.
 ! !
 
-!MarsRover methodsFor: 'moving' stamp: 'AF 10/27/2021 19:53:14'!
+!MarsRover methodsFor: 'moving' stamp: 'Chiro 10/28/2021 16:37:06'!
 movePositionWith: anOffset
 
 	position := position + anOffset.
-	positionChangesTrackers do: [:aTracker | aTracker updatePosition: position copy].! !
+	self UpdateAllPositionTrackers.! !
 
 !MarsRover methodsFor: 'moving' stamp: 'AF 10/26/2021 16:11:00'!
 moveSouth
