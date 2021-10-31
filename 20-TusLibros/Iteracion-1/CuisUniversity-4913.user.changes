@@ -1,0 +1,1943 @@
+
+
+----QUIT----(13 October 2021 15:20:10) CuisUniversity-4913.image priorSource: 14638157!
+
+----STARTUP---- (13 October 2021 15:20:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-4913.image!
+
+
+----QUIT----(13 October 2021 15:20:10) CuisUniversity-4913.image priorSource: 18661767!
+
+----STARTUP---- (13 October 2021 15:21:02) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-4913.image!
+
+
+----QUIT----(13 October 2021 15:21:02) CuisUniversity-4913.image priorSource: 18661997!
+
+----QUIT----(13 October 2021 15:26:07) CuisUniversity-4913.image priorSource: 14638157!
+
+----STARTUP---- (13 October 2021 15:26:08) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-4913.image!
+
+
+----QUIT----(13 October 2021 15:26:08) CuisUniversity-4913.image priorSource: 18661767!
+
+----STARTUP---- (28 October 2021 21:00:50) as /home/usuario/Downloads/UBA/INGE I/Cuis/linux64/CuisUniversity-4913.image!
+
+
+Object subclass: #Cart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'Chiro 10/28/2021 21:03:12'!
+Object subclass: #Cart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+TestCase subclass: #CartTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartTests category: 'TusLibros' stamp: 'Chiro 10/28/2021 21:03:51'!
+TestCase subclass: #CartTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CartTests methodsFor: 'nil' stamp: 'Chiro 10/28/2021 21:11:36'!
+test01
+	|cart |
+	cart := Cart new.
+	self assert: cart xxxx isEmpty! !
+
+!testRun: #CartTests #test01 stamp: 'Chiro 10/28/2021 21:11:49'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:12:18'!
+xxxx
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:12:54' prior: 50914872!
+xxxx
+	^OrderedCollection new.! !
+
+!testRun: #CartTests #test01 stamp: 'Chiro 10/28/2021 21:12:56'!
+PASSED!
+
+!testRun: #CartTests #test01 stamp: 'Chiro 10/28/2021 21:12:56'!
+PASSED!
+!CartTests methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:17:29'!
+test02
+	|cart |
+	cart := Cart new.
+	
+	cart addBook: 'xxxx'.
+	self assert: cart xxxx equals: (OrderedCollection with: 'xxxx').! !
+
+!testRun: #CartTests #test02 stamp: 'Chiro 10/28/2021 21:17:32'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:17:52'!
+addBook: aString 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:18:54' prior: 50914894!
+addBook: aString 
+	| contents |
+	contents add: aString.! !
+
+Object subclass: #Cart
+	instanceVariableNames: 'contents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:19:29' prior: 50914899!
+addBook: aString 
+! !
+
+Object subclass: #Cart
+	instanceVariableNames: 'contents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'Chiro 10/28/2021 21:19:37'!
+Object subclass: #Cart
+	instanceVariableNames: 'contents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:19:47' prior: 50914908!
+addBook: aString 
+	contents add: aString
+	! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:19:57' prior: 50914876!
+xxxx
+	^contents.! !
+
+!testRun: #CartTests #test01 stamp: 'Chiro 10/28/2021 21:20:04'!
+ERROR!
+
+!testRun: #CartTests #test02 stamp: 'Chiro 10/28/2021 21:20:04'!
+ERROR!
+!Cart methodsFor: 'nil' stamp: 'Chiro 10/28/2021 21:21:11' overrides: 16896425!
+initialize
+	contents := OrderedCollection new.! !
+
+!testRun: #CartTests #test01 stamp: 'Chiro 10/28/2021 21:21:28'!
+PASSED!
+
+!testRun: #CartTests #test02 stamp: 'Chiro 10/28/2021 21:21:28'!
+PASSED!
+!CartTests methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:22:05' prior: 50914885!
+test02
+	|cart |
+	cart := Cart new.
+	
+	cart addBook: 'xxxx'.
+	self assert: cart xxxx equals: 'xxxx'.! !
+!CartTests methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:17:29' prior: 50914946!
+test02
+	|cart |
+	cart := Cart new.
+	
+	cart addBook: 'xxxx'.
+	self assert: cart xxxx equals: (OrderedCollection with: 'xxxx').! !
+!CartTests methodsFor: 'tests' stamp: 'Chiro 10/28/2021 21:29:51'!
+test03
+	|cart |
+	cart := Cart new.
+	
+	cart addBook: 'xxxx'.
+	cart checkout.
+	self assert: cart xxxx equals: (OrderedCollection new).! !
+
+!testRun: #CartTests #test03 stamp: 'Chiro 10/28/2021 21:29:55'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:30:10'!
+checkout
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:30:45' prior: 50914969!
+checkout
+	contents empty.! !
+
+!testRun: #CartTests #test03 stamp: 'Chiro 10/28/2021 21:30:49'!
+ERROR!
+
+----End fileIn of /home/usuario/Downloads/UBA/INGE I/Cuis/linux64/Packages/TerseGuide.pck.st----!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/28/2021 21:32:04' prior: 50914974!
+checkout
+	contents removeAll.! !
+
+!testRun: #CartTests #test01 stamp: 'Chiro 10/28/2021 21:32:05'!
+PASSED!
+
+!testRun: #CartTests #test02 stamp: 'Chiro 10/28/2021 21:32:05'!
+PASSED!
+
+!testRun: #CartTests #test03 stamp: 'Chiro 10/28/2021 21:32:05'!
+PASSED!
+
+!testRun: #CartTests #test03 stamp: 'Chiro 10/28/2021 21:34:09'!
+PASSED!
+
+!testRun: #CartTests #test01 stamp: 'Chiro 10/28/2021 21:34:09'!
+PASSED!
+
+!testRun: #CartTests #test02 stamp: 'Chiro 10/28/2021 21:34:09'!
+PASSED!
+
+!testRun: #CartTests #test03 stamp: 'Chiro 10/28/2021 21:34:09'!
+PASSED!
+
+----STARTUP---- (31 October 2021 11:06:34) as /home/usuario/Downloads/UBA/INGE I/Cuis/linux64/CuisUniversity-4913.image!
+
+
+Object subclass: #NameOfSubclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #NameOfSubclass category: 'TusLibros' stamp: 'Chiro 10/31/2021 11:11:18'!
+Object subclass: #NameOfSubclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+TestCase subclass: #TusLibrosTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #TusLibrosTest category: 'TusLibros' stamp: 'Chiro 10/31/2021 11:23:09'!
+TestCase subclass: #TusLibrosTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRenamed: #TusLibrosTest as: #CartTest stamp: 'Chiro 10/31/2021 11:23:43'!
+Smalltalk renameClassNamed: #TusLibrosTest as: #CartTest!
+
+!classRenamed: #NameOfSubclass as: #Cart stamp: 'Chiro 10/31/2021 11:24:52'!
+Smalltalk renameClassNamed: #NameOfSubclass as: #Cart!
+!CartTest methodsFor: 'nil' stamp: 'Chiro 10/31/2021 11:28:46'!
+test01
+	| cart |
+	cart := Cart with: OrderedCollection new.
+	
+	self assert: (OrderedCollection new) equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test01 stamp: 'Chiro 10/31/2021 11:28:52'!
+ERROR!
+!Cart class methodsFor: 'instance creation' stamp: 'Chiro 10/31/2021 11:29:09'!
+with: anOrderedCollection 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWith: anOrderedCollection ! !
+!Cart class methodsFor: 'instance creation' stamp: 'Chiro 10/31/2021 11:29:54' prior: 50914884!
+with: aCatalogue 
+	
+	^self new initializeWith: aCatalogue ! !
+
+!testRun: #CartTest #test01 stamp: 'Chiro 10/31/2021 11:29:57'!
+ERROR!
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'Chiro 10/31/2021 11:30:02'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalogue'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'initialization' stamp: 'Chiro 10/31/2021 11:30:02'!
+initializeWith: aCatalogue 
+	self shouldBeImplemented.
+	catalogue := aCatalogue.! !
+!Cart methodsFor: 'initialization' stamp: 'Chiro 10/31/2021 11:30:11' prior: 50914907!
+initializeWith: aCatalogue 
+
+	catalogue := aCatalogue.! !
+
+!testRun: #CartTest #test01 stamp: 'Chiro 10/31/2021 11:30:13'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:30:21'!
+listBooks
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:30:32' prior: 50914920!
+listBooks
+	^OrderedCollection new.! !
+
+!testRun: #CartTest #test01 stamp: 'Chiro 10/31/2021 11:30:33'!
+PASSED!
+
+!testRun: #CartTest #test01 stamp: 'Chiro 10/31/2021 11:30:33'!
+PASSED!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:31:55'!
+test01EmptyCartListsNoBooks
+
+	| cart |
+	cart := Cart with: OrderedCollection new.
+	
+	self assert: (OrderedCollection new) equals: cart listBooks.
+	
+	! !
+
+!methodRemoval: CartTest #test01 stamp: 'Chiro 10/31/2021 11:31:58'!
+test01
+	| cart |
+	cart := Cart with: OrderedCollection new.
+	
+	self assert: (OrderedCollection new) equals: cart listBooks.
+	
+	!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:36:28'!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart |
+	cart := Cart with: OrderedCollection with: 'Book1'.
+	
+	cart add: 'Book1'.
+	
+	self assert: (OrderedCollection with: 'Book1') equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:36:30'!
+ERROR!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:36:46' prior: 50914948!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Book1').
+	
+	cart add: 'Book1'.
+	
+	self assert: (OrderedCollection with: 'Book1') equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:36:47'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:36:52'!
+add: aString 
+	self shouldBeImplemented.! !
+
+!classDefinition: #Cart category: 'TusLibros' stamp: 'Chiro 10/31/2021 11:37:37'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalogue contents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:37:32' prior: 50914975!
+add: aBook 
+	contents add: aBook.! !
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:37:40'!
+ERROR!
+!Cart methodsFor: 'initialization' stamp: 'Chiro 10/31/2021 11:38:02' prior: 50914913!
+initializeWith: aCatalogue 
+
+	catalogue := aCatalogue.
+	contents := OrderedCollection new.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 11:38:03'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:38:03'!
+FAILURE!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:38:03'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:38:25' prior: 50914925!
+listBooks
+	^contents.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 11:38:26'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:38:26'!
+PASSED!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:40:48'!
+test03WhenOneInvalidBookIsAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Book1').
+	
+	cart add: 'Book1'.
+	
+	self assert: (OrderedCollection with: 'Book1') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:42:02' prior: 50915022!
+test03WhenOneInvalidBookIsAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!').
+	
+	cart add: 'JoJos Bizarre Adventure'.
+	
+	self assert: (OrderedCollection with: 'Book1') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:47:11' prior: 50915032!
+test03WhenOneInvalidBookIsAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!').
+	
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure'. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+
+	! !
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 11:47:13'!
+FAILURE!
+!Cart class methodsFor: 'nil' stamp: 'Chiro 10/31/2021 11:48:38'!
+cannotAddInvalidBookErrorDescription
+	^'This book is not present in the catalogue'! !
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 11:49:08'!
+FAILURE!
+
+----End fileIn of /home/usuario/Downloads/UBA/INGE I/Cuis/linux64/Packages/TerseGuide.pck.st----!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:51:34' prior: 50914987!
+add: aBook
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.].
+	
+	contents add: aBook.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 11:51:35'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:51:35'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 11:51:35'!
+PASSED!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 11:56:32' prior: 50917995!
+add: aBook
+	(catalogue first = aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.].
+	
+	contents add: aBook.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 11:56:34'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:56:34'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 11:56:34'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 11:56:34'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 11:56:34'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 11:56:34'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 11:59:26'!
+test04
+
+	| cart bookList |
+	bookList := (OrderedCollection with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure').
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: bookList equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test04 stamp: 'Chiro 10/31/2021 11:59:30'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:00:01' prior: 50918013!
+add: aBook
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.].
+	
+	contents add: aBook.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 12:00:03'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 12:00:03'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 12:00:03'!
+PASSED!
+
+!testRun: #CartTest #test04 stamp: 'Chiro 10/31/2021 12:00:03'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:01:16'!
+test04AddMultipleValidBooks
+
+	| cart bookList |
+	bookList := (OrderedCollection with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure').
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: bookList equals: cart listBooks.
+	
+	! !
+
+!methodRemoval: CartTest #test04 stamp: 'Chiro 10/31/2021 12:01:17'!
+test04
+
+	| cart bookList |
+	bookList := (OrderedCollection with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure').
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: bookList equals: cart listBooks.
+	
+	!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:34:35'!
+test05
+
+	| cart bookList |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	cart add: 'Haikyuu!!' XXXX: 2.
+	self assert:  (OrderedCollection with: 'Haikyuu!!' with: 'Haikyuu!!') equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test05 stamp: 'Chiro 10/31/2021 12:34:38'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:34:44'!
+add: aString XXXX: aSmallInteger 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:37:09' prior: 50918107!
+add: aBook XXXX: amountOfCopys 
+	|i|
+	i := 0.
+	(i < amountOfCopys) whileTrue:[
+		contents add: 		aBook.
+		i := i + 1.
+	].! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 12:37:11'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 12:37:11'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 12:37:11'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleValidBooks stamp: 'Chiro 10/31/2021 12:37:11'!
+PASSED!
+
+!testRun: #CartTest #test05 stamp: 'Chiro 10/31/2021 12:37:11'!
+ERROR!
+
+!testRun: #CartTest #test05 stamp: 'Chiro 10/31/2021 12:37:11'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:37:29' prior: 50918112!
+add: aBook XXXX: amountOfCopys 
+	|i|
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		contents add: 		aBook.
+		i := i + 1.
+	].! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 12:37:30'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 12:37:30'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 12:37:30'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleValidBooks stamp: 'Chiro 10/31/2021 12:37:30'!
+PASSED!
+
+!testRun: #CartTest #test05 stamp: 'Chiro 10/31/2021 12:37:30'!
+PASSED!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:38:41' prior: 50918137!
+add: aBook XXXX: amountOfCopys 
+	|i|
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:41:10'!
+test06
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'Haikyuu!!' XXXX: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:42:51' prior: 50918160!
+add: aBook XXXX: amountOfCopys 
+	|i|
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		contents add: aBook.
+		i := i + 1.
+	].! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:43:04'!
+test07
+	"
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'Haikyuu!!' XXXX: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	"
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:46:29' prior: 50918166!
+test06
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure!!' XXXX: 100. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:46:45' prior: 50918196!
+test06
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure!!' XXXX: 100. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+	
+	! !
+
+!testRun: #CartTest #test06 stamp: 'Chiro 10/31/2021 12:46:46'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:47:01' prior: 50918178!
+add: aBook XXXX: amountOfCopys 
+	|i|
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 12:47:02'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 12:47:02'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 12:47:02'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleValidBooks stamp: 'Chiro 10/31/2021 12:47:02'!
+PASSED!
+
+!testRun: #CartTest #test05 stamp: 'Chiro 10/31/2021 12:47:02'!
+PASSED!
+
+!testRun: #CartTest #test06 stamp: 'Chiro 10/31/2021 12:47:02'!
+PASSED!
+
+!testRun: #CartTest #test07 stamp: 'Chiro 10/31/2021 12:47:02'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:47:10' prior: 50918184!
+test07
+	
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'Haikyuu!!' XXXX: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	! !
+
+!testRun: #CartTest #test07 stamp: 'Chiro 10/31/2021 12:47:14'!
+FAILURE!
+!Cart class methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:47:46'!
+cannotAddInvalidNumberErrorDescription
+	^'We cant add that amount of copys, sorry not sorry'! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:48:27' prior: 50918223!
+add: aBook XXXX: amountOfCopys 
+	
+	|i|
+	(amountOfCopys <= 0) ifTrue:[].
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:48:47' prior: 50918270!
+add: aBook XXXX: amountOfCopys 
+	
+	|i|
+	(amountOfCopys <= 0) ifTrue:[self error: self class cannotAddInvalidBookErrorDescription.].
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 12:49:03' prior: 50918278!
+add: aBook XXXX: amountOfCopys 
+	
+	|i|
+	(amountOfCopys <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 12:49:04'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 12:49:04'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 12:49:04'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleValidBooks stamp: 'Chiro 10/31/2021 12:49:04'!
+PASSED!
+
+!testRun: #CartTest #test05 stamp: 'Chiro 10/31/2021 12:49:04'!
+PASSED!
+
+!testRun: #CartTest #test06 stamp: 'Chiro 10/31/2021 12:49:04'!
+PASSED!
+
+!testRun: #CartTest #test07 stamp: 'Chiro 10/31/2021 12:49:04'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 12:54:36'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 12:54:36'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 12:54:36'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleValidBooks stamp: 'Chiro 10/31/2021 12:54:36'!
+PASSED!
+
+!testRun: #CartTest #test05 stamp: 'Chiro 10/31/2021 12:54:36'!
+PASSED!
+
+!testRun: #CartTest #test06 stamp: 'Chiro 10/31/2021 12:54:36'!
+PASSED!
+
+!testRun: #CartTest #test07 stamp: 'Chiro 10/31/2021 12:54:36'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:55:03'!
+test04AddMultipleDifferentValidBooks
+
+	| cart bookList |
+	bookList := (OrderedCollection with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure').
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: bookList equals: cart listBooks.
+	
+	! !
+
+!methodRemoval: CartTest #test04AddMultipleValidBooks stamp: 'Chiro 10/31/2021 12:55:03'!
+test04AddMultipleValidBooks
+
+	| cart bookList |
+	bookList := (OrderedCollection with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure').
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: bookList equals: cart listBooks.
+	
+	!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:55:06' prior: 50918337!
+test04AddMultipleDifferentValidBooks
+
+	| cart bookList |
+	bookList := (OrderedCollection with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure').
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: bookList equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:55:25'!
+test05AddMultipleCopysOfSameValidBook
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	cart add: 'Haikyuu!!' XXXX: 2.
+	self assert:  (OrderedCollection with: 'Haikyuu!!' with: 'Haikyuu!!') equals: cart listBooks.
+	
+	! !
+
+!methodRemoval: CartTest #test05 stamp: 'Chiro 10/31/2021 12:55:29'!
+test05
+
+	| cart bookList |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	cart add: 'Haikyuu!!' XXXX: 2.
+	self assert:  (OrderedCollection with: 'Haikyuu!!' with: 'Haikyuu!!') equals: cart listBooks.
+	
+	!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:55:55'!
+test06WhenMultipleBooksAreInvalidThenThrowError
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure!!' XXXX: 100. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+	
+	! !
+
+!methodRemoval: CartTest #test06 stamp: 'Chiro 10/31/2021 12:55:55'!
+test06
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure!!' XXXX: 100. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+	
+	!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:56:41'!
+test06WhenMultipleInvalidBooksAreAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure!!' XXXX: 100. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+	
+	! !
+
+!methodRemoval: CartTest #test06WhenMultipleBooksAreInvalidThenThrowError stamp: 'Chiro 10/31/2021 12:56:41'!
+test06WhenMultipleBooksAreInvalidThenThrowError
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure!!' XXXX: 100. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+	
+	!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:57:03'!
+test07WhenInvalidAmountOfCopysAreAddedThenThrowError
+	
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'Haikyuu!!' XXXX: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	! !
+
+!methodRemoval: CartTest #test07 stamp: 'Chiro 10/31/2021 12:57:03'!
+test07
+	
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'Haikyuu!!' XXXX: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 12:57:20'!
+test07WhenInvalidAmountOfCopiesAreAddedThenThrowError
+	
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'Haikyuu!!' XXXX: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	! !
+
+!methodRemoval: CartTest #test07WhenInvalidAmountOfCopysAreAddedThenThrowError stamp: 'Chiro 10/31/2021 12:57:20'!
+test07WhenInvalidAmountOfCopysAreAddedThenThrowError
+	
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'Haikyuu!!' XXXX: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:02:03'!
+add: aBook withAmount: amountOfCopys 
+	
+	|i|
+	(amountOfCopys <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].! !
+
+!methodRemoval: Cart #add:XXXX: stamp: 'Chiro 10/31/2021 13:02:03'!
+add: aBook XXXX: amountOfCopys 
+	
+	|i|
+	(amountOfCopys <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	i := 0.
+	[i < amountOfCopys] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:02:23' prior: 50918493!
+add: aBook withAmount: Copies
+	
+	|i|
+	(Copies <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	i := 0.
+	[i < Copies] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:02:49' prior: 50918512!
+add: aBook withAmount: aSmallInteger
+	
+	|i|
+	(aSmallInteger <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	i := 0.
+	[i < aSmallInteger] whileTrue:[
+		self add: aBook.
+		i := i + 1.
+	].! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:07:46' prior: 50914934!
+test01EmptyCartListsNoBooks
+
+	| cart |
+	cart := Cart with: Dictionary new.
+	
+	self assert: (OrderedCollection new) equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:08:33' prior: 50918532!
+test01EmptyCartListsNoBooks
+
+	| cart |
+	cart := Set new.
+	
+	self assert: (OrderedCollection new) equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:09:02' prior: 50914962!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart |
+	cart := Set with: 'Book1'.
+	
+	cart add: 'Book1'.
+	
+	self assert: (OrderedCollection with: 'Book1') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:09:58' prior: 50915043!
+test03WhenOneInvalidBookIsAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure'. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:10:19' prior: 50918361!
+test04AddMultipleDifferentValidBooks
+
+	| cart bookList |
+	bookList := (Set with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure').
+	
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: bookList equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:10:57' prior: 50918569!
+test04AddMultipleDifferentValidBooks
+
+	| cart bookList |
+	bookList := (Set with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure').
+	
+	
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: (OrderedCollection with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:11:08' prior: 50918373!
+test05AddMultipleCopysOfSameValidBook
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!')..
+	
+	cart add: 'Haikyuu!!' XXXX: 2.
+	self assert:  (OrderedCollection with: 'Haikyuu!!' with: 'Haikyuu!!') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:11:10' prior: 50918595!
+test05AddMultipleCopysOfSameValidBook
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	cart add: 'Haikyuu!!' XXXX: 2.
+	self assert:  (OrderedCollection with: 'Haikyuu!!' with: 'Haikyuu!!') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:11:31' prior: 50918416!
+test06WhenMultipleInvalidBooksAreAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure!!' withAmount: 100. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:11:37' prior: 50918466!
+test07WhenInvalidAmountOfCopiesAreAddedThenThrowError
+	
+	| cart |
+	cart := Cart with: (OrderedCollection with: 'Haikyuu!!')..
+	
+	self
+	should: [ cart add: 'Haikyuu!!' withAmount: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:11:52' prior: 50918605!
+test05AddMultipleCopysOfSameValidBook
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	cart add: 'Haikyuu!!' withAmount: 2.
+	self assert:  (OrderedCollection with: 'Haikyuu!!' with: 'Haikyuu!!') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:12:09' prior: 50918615!
+test06WhenMultipleInvalidBooksAreAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	self
+	should: [ cart add: 'JoJos Bizarre Adventure!!' withAmount: 100. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:12:21' prior: 50918629!
+test07WhenInvalidAmountOfCopiesAreAddedThenThrowError
+	
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	self
+	should: [ cart add: 'Haikyuu!!' withAmount: -5. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidNumberErrorDescription equals: anError messageText.]
+	
+	! !
+!Cart methodsFor: 'initialization' stamp: 'Chiro 10/31/2021 13:13:00' prior: 50914995!
+initializeWith: aCatalogue 
+
+	catalogue := aCatalogue.
+	contents := Set new.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:13:22'!
+ERROR!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:13:22'!
+ERROR!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:13:22'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:13:22'!
+FAILURE!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:13:22'!
+FAILURE!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:13:22'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:13:22'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:13:37'!
+ERROR!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:13:57' prior: 50918540!
+test01EmptyCartListsNoBooks
+
+	| cart |
+	cart := Cart new.
+	
+	self assert: (OrderedCollection new) equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:13:58'!
+FAILURE!
+!Cart methodsFor: 'initialization' stamp: 'Chiro 10/31/2021 13:14:24' prior: 50918678!
+initializeWith: aCatalogue 
+
+	catalogue := aCatalogue.
+	contents := OrderedCollection new.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:14:25'!
+FAILURE!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:14:25'!
+ERROR!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:14:25'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:14:25'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:14:25'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:14:25'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:14:25'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:14:29'!
+FAILURE!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:14:35'!
+FAILURE!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:15:33'!
+FAILURE!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:15:33'!
+ERROR!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:15:33'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:15:33'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:15:33'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:15:33'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:15:33'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:15:36'!
+FAILURE!
+
+----SNAPSHOT----(31 October 2021 13:15:44) CuisUniversity-4913.image priorSource: 18661997!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:15:49'!
+FAILURE!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:15:49'!
+ERROR!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:15:49'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:15:49'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:15:49'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:15:49'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:15:49'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:15:51'!
+FAILURE!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:16:18' prior: 50918711!
+test01EmptyCartListsNoBooks
+
+	| cart |
+	cart := Cart with: Set new.
+	
+	self assert: (OrderedCollection new) equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:16:19'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:16:19'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:16:19'!
+ERROR!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:16:19'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:16:19'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:16:19'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:16:19'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:16:19'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:16:19'!
+ERROR!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:16:35' prior: 50918547!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart |
+	cart := cart with: (Set with: 'Book1').
+	
+	cart add: 'Book1'.
+	
+	self assert: (OrderedCollection with: 'Book1') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:16:41' prior: 50918852!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart |
+	cart := Cart with: (Set with: 'Book1').
+	
+	cart add: 'Book1'.
+	
+	self assert: (OrderedCollection with: 'Book1') equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:16:41'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:16:41'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:16:41'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:16:41'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:16:41'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:16:41'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:16:41'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:16:41'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:17:07'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:17:07'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:17:07'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:17:07'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:17:07'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:17:07'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:17:07'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:17:07'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:17:42' prior: 50918814!
+test01EmptyCartListsNoBooks
+
+	| cart |
+	cart := Cart with: Set new.
+	
+	self assert: (Dictionary new) equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:19:03' prior: 50918862!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart cartContent |
+	cart := Cart with: (Set with: 'Book1').
+	cartContent := Dictionary new.
+	cartContent add: 'Book1' -> 1.
+	
+	cart add: 'Book1'.
+	
+	self assert: (OrderedCollection with: 'Book1') equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:19:11' prior: 50918933!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart cartContent |
+	cart := Cart with: (Set with: 'Book1').
+	cartContent := Dictionary new.
+	cartContent add: 'Book1' -> 1.
+	
+	cart add: 'Book1'.
+	
+	self assert: cartContent equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:22:49' prior: 50918581!
+test04AddMultipleDifferentValidBooks
+
+	| bookList cart cartContent |
+	bookList := Set with: 'Haikyuu!!' with: 'JoJos Bizarre Adventure'.
+	
+	cartContent := Dictionary new.
+	cartContent add: 'Haikyuu!!' -> 1; add: 'JoJos Bizarre Adventure' -> 1.
+	
+	cart := Cart with: bookList.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'JoJos Bizarre Adventure'.
+	self assert: cartContent equals: cart listBooks.
+	
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:23:19' prior: 50918642!
+test05AddMultipleCopysOfSameValidBook
+
+	| cart cartContent|
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	cartContent := Dictionary new.
+	cartContent add: 'Haikyuu!!' -> 2.
+	
+	cart add: 'Haikyuu!!' withAmount: 2.
+	self assert:  cartContent equals: cart listBooks.
+	
+	! !
+!Cart methodsFor: 'initialization' stamp: 'Chiro 10/31/2021 13:23:42' prior: 50918721!
+initializeWith: aCatalogue 
+
+	catalogue := aCatalogue.
+	contents := Dictionary new.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:24:34' prior: 50918522!
+add: aBook withAmount: anAmount
+	
+	(anAmount <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	contents add: aBook -> anAmount.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:24:45' prior: 50918054!
+add: aBook
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.].
+	
+	contents add: aBook -> 1.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:24:47'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:24:47'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:24:47'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:24:47'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:24:47'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:24:47'!
+FAILURE!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:24:47'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:24:47'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:25:32' prior: 50918989!
+add: aBook withAmount: anAmount
+	
+	(anAmount <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.].
+	contents add: aBook -> anAmount.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:25:33'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:25:33'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:25:33'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:25:33'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:25:33'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:25:33'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:25:33'!
+PASSED!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:25:49' prior: 50918997!
+add: aBook
+	contents add: aBook -> 1.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:26:00' prior: 50919069!
+add: aBook
+	self add: aBook withAmount: 1.! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:26:01'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:26:01'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:26:01'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:26:01'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:26:01'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:26:01'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:26:01'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:27:58'!
+test08
+
+	| cart cartContent|
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	cartContent := Dictionary new.
+	cartContent add: 'Haikyuu!!' -> 6.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'Haikyuu!!' withAmount: 2.
+	cart add: 'Haikyuu!!' withAmount: 3.
+	
+	self assert:  cartContent equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test08 stamp: 'Chiro 10/31/2021 13:28:00'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:34:46' prior: 50919033!
+add: aBook withAmount: anAmount
+	
+	| newAmount |
+	(anAmount <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.].
+	newAmount := anAmount + contents at: aBook ifAbsent: [ contents add: aBook -> anAmount].
+	contents at: aBook put: newAmount.
+	! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:35:09' prior: 50919117!
+add: aBook withAmount: anAmount
+	
+	| newAmount |
+	(anAmount <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.].
+	newAmount := anAmount + contents at: aBook ifAbsent: [ ^contents add: aBook -> anAmount].
+	contents at: aBook put: newAmount.
+	! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:35:10'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:35:10'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:35:10'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:35:10'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:35:10'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:35:10'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:35:10'!
+PASSED!
+
+!testRun: #CartTest #test08 stamp: 'Chiro 10/31/2021 13:35:10'!
+PASSED!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:35:24' prior: 50919132!
+add: aBook withAmount: anAmount
+	
+	| newAmount |
+	(anAmount <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.].
+	
+	newAmount := anAmount + contents at: aBook ifAbsent: [ ^contents add: aBook -> anAmount].
+	contents at: aBook put: newAmount.
+	! !
+
+----SNAPSHOT----(31 October 2021 13:35:27) CuisUniversity-4913.image priorSource: 18788254!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:38:06'!
+checkCanAdd: aBook with: anAmount
+
+	(anAmount <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:38:06' prior: 50919173!
+add: aBook withAmount: anAmount
+	
+	| newAmount |
+	self checkCanAdd: aBook with: anAmount.
+	
+	newAmount := anAmount + contents at: aBook ifAbsent: [ ^contents add: aBook -> anAmount].
+	contents at: aBook put: newAmount.
+	! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:38:16'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:38:16'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:38:16'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:38:16'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:38:16'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:38:16'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:38:16'!
+PASSED!
+
+!testRun: #CartTest #test08 stamp: 'Chiro 10/31/2021 13:38:16'!
+PASSED!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:39:03'!
+assertCanAdd: aBook with: anAmount
+
+	(anAmount <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:39:03' prior: 50919201!
+add: aBook withAmount: anAmount
+	
+	| newAmount |
+	self assertCanAdd: aBook with: anAmount.
+	
+	newAmount := anAmount + contents at: aBook ifAbsent: [ ^contents add: aBook -> anAmount].
+	contents at: aBook put: newAmount.
+	! !
+
+!methodRemoval: Cart #checkCanAdd:with: stamp: 'Chiro 10/31/2021 13:39:03'!
+checkCanAdd: aBook with: anAmount
+
+	(anAmount <= 0) ifTrue:[self error: self class cannotAddInvalidNumberErrorDescription.].
+	(catalogue includes: aBook) ifFalse: [self error: self class cannotAddInvalidBookErrorDescription.]!
+
+----SNAPSHOT----(31 October 2021 13:39:14) CuisUniversity-4913.image priorSource: 18801174!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:44:13'!
+test08WhenAddingABookMultipleTimesInBatchesThenReturnsCorrectAmount
+
+	| cart cartContent|
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	cartContent := Dictionary new.
+	cartContent add: 'Haikyuu!!' -> 6.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'Haikyuu!!' withAmount: 2.
+	cart add: 'Haikyuu!!' withAmount: 3.
+	
+	self assert:  cartContent equals: cart listBooks.
+	
+	! !
+
+!methodRemoval: CartTest #test08 stamp: 'Chiro 10/31/2021 13:44:16'!
+test08
+
+	| cart cartContent|
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	cartContent := Dictionary new.
+	cartContent add: 'Haikyuu!!' -> 6.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'Haikyuu!!' withAmount: 2.
+	cart add: 'Haikyuu!!' withAmount: 3.
+	
+	self assert:  cartContent equals: cart listBooks.
+	
+	!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:44:26'!
+test08WhenAddingABookMultipleTimesInBatchesThenListsCorrectAmount
+
+	| cart cartContent|
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	cartContent := Dictionary new.
+	cartContent add: 'Haikyuu!!' -> 6.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'Haikyuu!!' withAmount: 2.
+	cart add: 'Haikyuu!!' withAmount: 3.
+	
+	self assert:  cartContent equals: cart listBooks.
+	
+	! !
+
+!methodRemoval: CartTest #test08WhenAddingABookMultipleTimesInBatchesThenReturnsCorrectAmount stamp: 'Chiro 10/31/2021 13:44:26'!
+test08WhenAddingABookMultipleTimesInBatchesThenReturnsCorrectAmount
+
+	| cart cartContent|
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	cartContent := Dictionary new.
+	cartContent add: 'Haikyuu!!' -> 6.
+	
+	cart add: 'Haikyuu!!'.
+	cart add: 'Haikyuu!!' withAmount: 2.
+	cart add: 'Haikyuu!!' withAmount: 3.
+	
+	self assert:  cartContent equals: cart listBooks.
+	
+	!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:45:00' prior: 50918945!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart cartContent |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	cartContent := Dictionary new.
+	cartContent add: 'Book1' -> 1.
+	
+	cart add: 'Book1'.
+	
+	self assert: cartContent equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:45:02'!
+ERROR!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:45:08' prior: 50919326!
+test02WhenOneValidBookIsAddedThenListBooksReturnsIt
+
+	| cart cartContent |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	cartContent := Dictionary new.
+	cartContent add: 'Haikyuu!!' -> 1.
+	
+	cart add: 'Haikyuu!!'.
+	
+	self assert: cartContent equals: cart listBooks.
+	
+	! !
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+
+!testRun: #CartTest #test08WhenAddingABookMultipleTimesInBatchesThenListsCorrectAmount stamp: 'Chiro 10/31/2021 13:45:09'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:47:32'!
+m1: cart
+
+	^ self
+	should: [ cart add: 'JoJos Bizarre Adventure'. ]
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:47:32' prior: 50918556!
+test03WhenOneInvalidBookIsAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	
+	self m1: cart
+
+	! !
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:48:10' prior: 50919384!
+m1: aClosure
+
+	^ self
+	should: aClosure 
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]! !
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:48:12'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:48:12'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:48:12'!
+FAILURE!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:48:12'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:48:12'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:48:12'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:48:12'!
+PASSED!
+
+!testRun: #CartTest #test08WhenAddingABookMultipleTimesInBatchesThenListsCorrectAmount stamp: 'Chiro 10/31/2021 13:48:12'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:48:12'!
+FAILURE!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:48:50' prior: 50919394!
+test03WhenOneInvalidBookIsAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	
+	self m1: [cart add: 'JoJos Bizarre Adventure'.] 
+
+	! !
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+
+!testRun: #CartTest #test08WhenAddingABookMultipleTimesInBatchesThenListsCorrectAmount stamp: 'Chiro 10/31/2021 13:48:51'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:49:21' prior: 50918652!
+test06WhenMultipleInvalidBooksAreAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	 
+	self m1: [ cart add: 'JoJos Bizarre Adventure!!' withAmount: 100. ].
+	! !
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+
+!testRun: #CartTest #test01EmptyCartListsNoBooks stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+
+!testRun: #CartTest #test02WhenOneValidBookIsAddedThenListBooksReturnsIt stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+
+!testRun: #CartTest #test03WhenOneInvalidBookIsAddedThenThrowError stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+
+!testRun: #CartTest #test04AddMultipleDifferentValidBooks stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+
+!testRun: #CartTest #test05AddMultipleCopysOfSameValidBook stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+
+!testRun: #CartTest #test06WhenMultipleInvalidBooksAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+
+!testRun: #CartTest #test07WhenInvalidAmountOfCopiesAreAddedThenThrowError stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+
+!testRun: #CartTest #test08WhenAddingABookMultipleTimesInBatchesThenListsCorrectAmount stamp: 'Chiro 10/31/2021 13:49:23'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'Chiro 10/31/2021 13:50:02'!
+assertAddingNoInvalidBooks: aClosure
+
+	^ self
+	should: aClosure 
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:50:02' prior: 50919481!
+test06WhenMultipleInvalidBooksAreAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	 
+	self assertAddingNoInvalidBooks: [ cart add: 'JoJos Bizarre Adventure!!' withAmount: 100. ].
+	! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Chiro 10/31/2021 13:50:02' prior: 50919441!
+test03WhenOneInvalidBookIsAddedThenThrowError
+
+	| cart |
+	cart := Cart with: (Set with: 'Haikyuu!!').
+	
+	
+	self assertAddingNoInvalidBooks: [cart add: 'JoJos Bizarre Adventure'.] 
+
+	! !
+
+!methodRemoval: CartTest #m1: stamp: 'Chiro 10/31/2021 13:50:02'!
+m1: aClosure
+
+	^ self
+	should: aClosure 
+ 		raise: Error
+ 		withExceptionDo: [ :anError |
+			self assert: Cart cannotAddInvalidBookErrorDescription equals: anError messageText.]!
+
+----SNAPSHOT----(31 October 2021 13:51:43) CuisUniversity-4913.image priorSource: 18803728!
+
+!classRemoval: #TerseGuideTopic stamp: 'Chiro 10/31/2021 13:51:49'!
+Object subclass: #TerseGuideTopic
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerseGuide'!
+
+!classRemoval: #TerseGuideWindow stamp: 'Chiro 10/31/2021 13:51:49'!
+WorkspaceWindow subclass: #TerseGuideWindow
+	instanceVariableNames: 'textModelM list1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerseGuide'!
+
+!classRemoval: #TerseGuideHelp stamp: 'Chiro 10/31/2021 13:51:50'!
+Workspace subclass: #TerseGuideHelp
+	instanceVariableNames: 'topics topicListIndex selectedTopic topicList window textPane'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerseGuide'!
