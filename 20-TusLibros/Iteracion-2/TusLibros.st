@@ -218,7 +218,7 @@ test03CheckoutWithExpiredCardThrowsError
 	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier expiredCreditCardErrorDescription.	
 ! !
 
-!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 10:50:52'!
+!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 14:21:57'!
 test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
 
 	| cart cashier creditCard |
@@ -235,7 +235,7 @@ test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
 	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier notEnoughFundsInCreditCardErrorMessage.	
 ! !
 
-!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 10:52:09'!
+!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 14:22:30'!
 test05CheckoutFailsIfCreditCardIsRobbed
 
 	| cart cashier creditCard |
@@ -399,7 +399,7 @@ invalidQuantityErrorMessage
 
 !classDefinition: #Cashier category: 'TusLibros'!
 Object subclass: #Cashier
-	instanceVariableNames: 'catalog date cart creditCard merchantProcessor errorMap'
+	instanceVariableNames: 'catalog date cart creditCard merchantProcessor errorMessageMap'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -414,23 +414,23 @@ assertIsNotExpired: aCreditCard
 
 	date monthOfYear > aCreditCard expirationDate ifTrue: [^ self error: Cashier expiredCreditCardErrorDescription ].! !
 
-!Cashier methodsFor: 'asserting' stamp: 'AF 11/2/2021 20:24:44'!
+!Cashier methodsFor: 'asserting' stamp: 'MK 11/4/2021 14:45:02'!
 checkTransactionStatus: transactionStatus
 
-	^ (errorMap at: transactionStatus ifAbsent:[]) value! !
+	^ (errorMessageMap at: transactionStatus ifAbsent:[]) value! !
 
 
-!Cashier methodsFor: 'initialization' stamp: 'MK 11/4/2021 10:50:19'!
-initializeWith: aCart and: aCreditCard on: aDate
+!Cashier methodsFor: 'initialization' stamp: 'MK 11/4/2021 14:45:02'!
+initializeWith: aCart and: aCreditCard on: aDate chargingTo: aMPInterface 
 	cart _ aCart.
 	
 	creditCard _ aCreditCard.
 	
 	date _ aDate.
 	
-	merchantProcessor  _ MPTestInterface new.
+	merchantProcessor  _ aMPInterface.
 	
-	errorMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+	errorMessageMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
 						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
 					             	yourself.! !
 
@@ -465,9 +465,9 @@ checkout
 Cashier class
 	instanceVariableNames: ''!
 
-!Cashier class methodsFor: 'initialization' stamp: 'AF 11/2/2021 17:19:10'!
+!Cashier class methodsFor: 'initialization' stamp: 'MK 11/4/2021 14:43:35'!
 withCart: aCart andCreditCard: aCreditCard onDate: aDate
-	^ self basicNew initializeWith: aCart and: aCreditCard on: aDate.! !
+	^ self basicNew initializeWith: aCart and: aCreditCard on: aDate chargingTo: MPTestInterface new.! !
 
 
 !Cashier class methodsFor: 'error messages' stamp: 'MK 11/1/2021 19:50:41'!
@@ -521,20 +521,20 @@ withNumber: aCreditCardNumber andExpiration: aGregorianMonthOfYear
 	^ self new initializeWith: aCreditCardNumber and: aGregorianMonthOfYear.! !
 
 
-!classDefinition: #MPTestInterface category: 'TusLibros'!
-Object subclass: #MPTestInterface
+!classDefinition: #MerchantProcessorInterface category: 'TusLibros'!
+Object subclass: #MerchantProcessorInterface
 	instanceVariableNames: 'invalidCreditCards'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!MPTestInterface methodsFor: 'initialization' stamp: 'AF 11/2/2021 19:46:00'!
+!MerchantProcessorInterface methodsFor: 'initialization' stamp: 'AF 11/2/2021 19:46:00'!
 initialize
 
 	invalidCreditCards _ (Dictionary new) add: 789 -> 'robbed'; add: 456 -> 'noFunds';yourself.! !
 
 
-!MPTestInterface methodsFor: 'charge' stamp: 'AF 11/2/2021 19:46:33'!
+!MerchantProcessorInterface methodsFor: 'charge' stamp: 'AF 11/2/2021 19:46:33'!
 charge: aTransactionAmount on: aCreditCard 
 	
 	|result|
@@ -546,18 +546,26 @@ charge: aTransactionAmount on: aCreditCard
 	
 	! !
 
+
+!classDefinition: #MPTestInterface category: 'TusLibros'!
+MerchantProcessorInterface subclass: #MPTestInterface
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'MPTestInterface class' category: 'TusLibros'!
 MPTestInterface class
 	instanceVariableNames: ''!
 
-!MPTestInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 10:50:09'!
+!MPTestInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:21:27'!
 noFundsCardNumber
 
 	^ 456.! !
 
-!MPTestInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 10:52:09'!
+!MPTestInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:21:35'!
 robbedCardNumber
 
 	^ 789.! !

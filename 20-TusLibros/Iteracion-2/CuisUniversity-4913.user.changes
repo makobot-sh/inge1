@@ -28556,3 +28556,511 @@ stolenCardNumber
 ----SNAPSHOT----(4 November 2021 11:09:02) CuisUniversity-4913.image priorSource: 19258088!
 
 ----SNAPSHOT----(4 November 2021 11:11:08) CuisUniversity-4913.image priorSource: 19278682!
+
+----STARTUP---- (4 November 2021 14:09:40) as D:\001.Maca\2c2021\inge1\newqa1\CuisUniversity-4913.image!
+
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:10:10'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:10:10'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:10:10'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:10:10'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:10:10'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test09TotalOfCartWithOneBookIsItsPrice stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test10TotalOfCartWithTwoOfSameBookIsItsPriceMultipliedByTwo stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test11TotalOfCartWithTwoDifferentBooksIsCorrect stamp: 'MK 11/4/2021 14:10:14'!
+PASSED!
+
+!testRun: #CartTest #test12CannotCreateCartWithCatalogWithInvalidPrices stamp: 'MK 11/4/2021 14:10:15'!
+PASSED!
+
+!classRenamed: #MPTestInterface as: #MPtInterface stamp: 'MK 11/4/2021 14:19:29'!
+Smalltalk renameClassNamed: #MPTestInterface as: #MPtInterface!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:19:30' prior: 50934056!
+test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPtInterface noFundsCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier notEnoughFundsInCreditCardErrorMessage.	
+! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:19:30' prior: 50934041!
+initializeWith: aCart and: aCreditCard on: aDate
+	cart _ aCart.
+	
+	creditCard _ aCreditCard.
+	
+	date _ aDate.
+	
+	merchantProcessor  _ MPtInterface new.
+	
+	errorMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
+					             	yourself.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:19:30' prior: 50934091!
+test05CheckoutFailsIfCreditCardIsRobbed
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPtInterface robbedCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier robbedCardErrorMessage.	
+! !
+
+!classRenamed: #MPtInterface as: #MerchantProcessorInterface stamp: 'MK 11/4/2021 14:20:08'!
+Smalltalk renameClassNamed: #MPtInterface as: #MerchantProcessorInterface!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:20:08' prior: 50934180!
+test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MerchantProcessorInterface noFundsCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier notEnoughFundsInCreditCardErrorMessage.	
+! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:20:08' prior: 50934196!
+initializeWith: aCart and: aCreditCard on: aDate
+	cart _ aCart.
+	
+	creditCard _ aCreditCard.
+	
+	date _ aDate.
+	
+	merchantProcessor  _ MerchantProcessorInterface new.
+	
+	errorMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
+					             	yourself.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:20:08' prior: 50934211!
+test05CheckoutFailsIfCreditCardIsRobbed
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MerchantProcessorInterface robbedCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier robbedCardErrorMessage.	
+! !
+
+MerchantProcessorInterface subclass: #MPTestInterface
+	instanceVariableNames: 'invalidCreditCards'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+MerchantProcessorInterface subclass: #MPTestInterface
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #MPTestInterface category: 'TusLibros' stamp: 'MK 11/4/2021 14:20:52'!
+MerchantProcessorInterface subclass: #MPTestInterface
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!MPTestInterface class methodsFor: 'nil' stamp: 'MK 11/4/2021 14:21:27' overrides: 50934032!
+noFundsCardNumber
+
+	^ 456.! !
+!MPTestInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:21:35' overrides: 50934087!
+robbedCardNumber
+
+	^ 789.! !
+
+!methodRemoval: MerchantProcessorInterface class #robbedCardNumber stamp: 'MK 11/4/2021 14:21:46'!
+robbedCardNumber
+
+	^ 789.!
+
+!methodRemoval: MerchantProcessorInterface class #noFundsCardNumber stamp: 'MK 11/4/2021 14:21:48'!
+noFundsCardNumber
+
+	^ 456.!
+!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 14:21:57' prior: 50934232!
+test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPTestInterface noFundsCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier notEnoughFundsInCreditCardErrorMessage.	
+! !
+!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 14:22:30' prior: 50934265!
+test05CheckoutFailsIfCreditCardIsRobbed
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPTestInterface robbedCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier robbedCardErrorMessage.	
+! !
+!Cashier methodsFor: 'initialization' stamp: 'MK 11/4/2021 14:43:35'!
+initializeWith: aCart and: aCreditCard on: aDate chargingTo: aMPInterface 
+	cart _ aCart.
+	
+	creditCard _ aCreditCard.
+	
+	date _ aDate.
+	
+	merchantProcessor  _ MerchantProcessorInterface new.
+	
+	errorMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
+					             	yourself.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:43:35' prior: 50933933!
+withCart: aCart andCreditCard: aCreditCard onDate: aDate
+	^ self basicNew initializeWith: aCart and: aCreditCard on: aDate chargingTo: MPTestInterface new.! !
+
+!methodRemoval: Cashier #initializeWith:and:on: stamp: 'MK 11/4/2021 14:43:35'!
+initializeWith: aCart and: aCreditCard on: aDate
+	cart _ aCart.
+	
+	creditCard _ aCreditCard.
+	
+	date _ aDate.
+	
+	merchantProcessor  _ MerchantProcessorInterface new.
+	
+	errorMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
+					             	yourself.!
+!Cashier methodsFor: 'initialization' stamp: 'MK 11/4/2021 14:44:04' prior: 50934347!
+initializeWith: aCart and: aCreditCard on: aDate chargingTo: aMPInterface 
+	cart _ aCart.
+	
+	creditCard _ aCreditCard.
+	
+	date _ aDate.
+	
+	merchantProcessor  _ aMPInterface.
+	
+	errorMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
+					             	yourself.! !
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:44:07'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:44:07'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:44:07'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:44:07'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:44:07'!
+PASSED!
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'MK 11/4/2021 14:44:51'!
+Object subclass: #Cashier
+	instanceVariableNames: 'catalog date cart creditCard merchantProcessor errorCodeMap'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:44:51' prior: 50934387!
+initializeWith: aCart and: aCreditCard on: aDate chargingTo: aMPInterface 
+	cart _ aCart.
+	
+	creditCard _ aCreditCard.
+	
+	date _ aDate.
+	
+	merchantProcessor  _ aMPInterface.
+	
+	errorCodeMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
+					             	yourself.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:44:51' prior: 50933887!
+checkTransactionStatus: transactionStatus
+
+	^ (errorCodeMap at: transactionStatus ifAbsent:[]) value! !
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'MK 11/4/2021 14:45:01'!
+Object subclass: #Cashier
+	instanceVariableNames: 'catalog date cart creditCard merchantProcessor errorMessageMap'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:45:02' prior: 50934428!
+initializeWith: aCart and: aCreditCard on: aDate chargingTo: aMPInterface 
+	cart _ aCart.
+	
+	creditCard _ aCreditCard.
+	
+	date _ aDate.
+	
+	merchantProcessor  _ aMPInterface.
+	
+	errorMessageMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
+					             	yourself.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 14:45:02' prior: 50934444!
+checkTransactionStatus: transactionStatus
+
+	^ (errorMessageMap at: transactionStatus ifAbsent:[]) value! !
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:45:27'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:45:28'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:45:28'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:45:28'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:45:28'!
+PASSED!
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:45:29'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:45:29'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:45:29'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:45:29'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:45:29'!
+PASSED!
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:45:32'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:45:33'!
+PASSED!
+
+----SNAPSHOT----(4 November 2021 14:45:42) CuisUniversity-4913.image priorSource: 19278775!
+
+----SNAPSHOT----(4 November 2021 14:45:55) CuisUniversity-4913.image priorSource: 19292181!
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:45:58'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:45:58'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:45:58'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:45:58'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:45:58'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'MK 11/4/2021 14:46:02'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test09TotalOfCartWithOneBookIsItsPrice stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test10TotalOfCartWithTwoOfSameBookIsItsPriceMultipliedByTwo stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test11TotalOfCartWithTwoDifferentBooksIsCorrect stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CartTest #test12CannotCreateCartWithCatalogWithInvalidPrices stamp: 'MK 11/4/2021 14:46:03'!
+PASSED!
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:46:05'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:46:05'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:46:06'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:46:06'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:46:06'!
+PASSED!
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:47:57'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:47:58'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:47:58'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:47:58'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:47:58'!
+PASSED!
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 14:48:01'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 14:48:01'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 14:48:01'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 14:48:01'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 14:48:01'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'MK 11/4/2021 14:48:04'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'MK 11/4/2021 14:48:04'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'MK 11/4/2021 14:48:04'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'MK 11/4/2021 14:48:04'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'MK 11/4/2021 14:48:04'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'MK 11/4/2021 14:48:05'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'MK 11/4/2021 14:48:05'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'MK 11/4/2021 14:48:05'!
+PASSED!
+
+!testRun: #CartTest #test09TotalOfCartWithOneBookIsItsPrice stamp: 'MK 11/4/2021 14:48:05'!
+PASSED!
+
+!testRun: #CartTest #test10TotalOfCartWithTwoOfSameBookIsItsPriceMultipliedByTwo stamp: 'MK 11/4/2021 14:48:05'!
+PASSED!
+
+!testRun: #CartTest #test11TotalOfCartWithTwoDifferentBooksIsCorrect stamp: 'MK 11/4/2021 14:48:05'!
+PASSED!
+
+!testRun: #CartTest #test12CannotCreateCartWithCatalogWithInvalidPrices stamp: 'MK 11/4/2021 14:48:05'!
+PASSED!
+
+----SNAPSHOT----(4 November 2021 14:48:14) CuisUniversity-4913.image priorSource: 19292274!
