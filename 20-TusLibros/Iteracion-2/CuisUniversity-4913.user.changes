@@ -28431,3 +28431,128 @@ initializeWith: aCart and: aCreditCard on: aDate
 					             	yourself.! !
 
 ----SNAPSHOT----(2 November 2021 20:26:25) CuisUniversity-4913.image priorSource: 18768185!
+
+----STARTUP---- (4 November 2021 10:45:13) as D:\001.Maca\2c2021\inge1\newqa1\CuisUniversity-4913.image!
+
+
+!classRemoval: #CreditCard stamp: 'MK 11/4/2021 10:45:19'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'card expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'MK 11/4/2021 10:45:19'!
+Object subclass: #Cashier
+	instanceVariableNames: 'catalog date'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cart stamp: 'MK 11/4/2021 10:45:19'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CashierTest stamp: 'MK 11/4/2021 10:45:20'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CartTest stamp: 'MK 11/4/2021 10:45:20'!
+TestCase subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\newqa1\TusLibros.st----!
+!MPInterface class methodsFor: 'nil' stamp: 'MK 11/4/2021 10:49:55'!
+stolenCardNumber
+
+	^ 789.! !
+!MPInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 10:50:09'!
+noFundsCardNumber
+
+	^ 456.! !
+
+!classRenamed: #MPInterface as: #MPTestInterface stamp: 'MK 11/4/2021 10:50:19'!
+Smalltalk renameClassNamed: #MPInterface as: #MPTestInterface!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 10:50:19' prior: 50933893!
+initializeWith: aCart and: aCreditCard on: aDate
+	cart _ aCart.
+	
+	creditCard _ aCreditCard.
+	
+	date _ aDate.
+	
+	merchantProcessor  _ MPTestInterface new.
+	
+	errorMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
+						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
+					             	yourself.! !
+!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 10:50:52' prior: 50933699!
+test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPTestInterface noFundsCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier notEnoughFundsInCreditCardErrorMessage.	
+! !
+!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 10:51:56' prior: 50933714!
+test05CheckoutFailsIfCreditCardIsRobbed
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPTestInterface stolenCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier robbedCardErrorMessage.	
+! !
+!MPTestInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 10:52:09'!
+robbedCardNumber
+
+	^ 789.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 10:52:09' prior: 50934072!
+test05CheckoutFailsIfCreditCardIsRobbed
+
+	| cart cashier creditCard |
+	
+	cart _ self createCart.
+	
+	cart add: self itemSellByTheStore.
+	
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPTestInterface robbedCardNumber.
+	
+	cashier _ self createCashierFor: cart and: creditCard.
+	
+
+	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier robbedCardErrorMessage.	
+! !
+
+!methodRemoval: MPTestInterface class #stolenCardNumber stamp: 'MK 11/4/2021 10:52:09'!
+stolenCardNumber
+
+	^ 789.!
+
+----SNAPSHOT----(4 November 2021 11:09:02) CuisUniversity-4913.image priorSource: 19258088!
+
+----SNAPSHOT----(4 November 2021 11:11:08) CuisUniversity-4913.image priorSource: 19278682!

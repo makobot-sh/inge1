@@ -218,7 +218,7 @@ test03CheckoutWithExpiredCardThrowsError
 	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier expiredCreditCardErrorDescription.	
 ! !
 
-!CashierTest methodsFor: 'tests' stamp: 'AF 11/2/2021 20:21:30'!
+!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 10:50:52'!
 test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
 
 	| cart cashier creditCard |
@@ -227,7 +227,7 @@ test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
 	
 	cart add: self itemSellByTheStore.
 	
-	creditCard _ self createNonExpiredCreditCardWithNumber: 456 .
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPTestInterface noFundsCardNumber.
 	
 	cashier _ self createCashierFor: cart and: creditCard.
 	
@@ -235,7 +235,7 @@ test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds
 	self assertCheckoutFromCashier: cashier ThrowsErrorWithMessage: Cashier notEnoughFundsInCreditCardErrorMessage.	
 ! !
 
-!CashierTest methodsFor: 'tests' stamp: 'AF 11/2/2021 20:20:48'!
+!CashierTest methodsFor: 'tests' stamp: 'MK 11/4/2021 10:52:09'!
 test05CheckoutFailsIfCreditCardIsRobbed
 
 	| cart cashier creditCard |
@@ -244,7 +244,7 @@ test05CheckoutFailsIfCreditCardIsRobbed
 	
 	cart add: self itemSellByTheStore.
 	
-	creditCard _ self createNonExpiredCreditCardWithNumber: 789 .
+	creditCard _ self createNonExpiredCreditCardWithNumber: MPTestInterface robbedCardNumber.
 	
 	cashier _ self createCashierFor: cart and: creditCard.
 	
@@ -420,7 +420,7 @@ checkTransactionStatus: transactionStatus
 	^ (errorMap at: transactionStatus ifAbsent:[]) value! !
 
 
-!Cashier methodsFor: 'initialization' stamp: 'AF 11/2/2021 20:26:08'!
+!Cashier methodsFor: 'initialization' stamp: 'MK 11/4/2021 10:50:19'!
 initializeWith: aCart and: aCreditCard on: aDate
 	cart _ aCart.
 	
@@ -428,7 +428,7 @@ initializeWith: aCart and: aCreditCard on: aDate
 	
 	date _ aDate.
 	
-	merchantProcessor  _ MPInterface new.
+	merchantProcessor  _ MPTestInterface new.
 	
 	errorMap _ (Dictionary new) add: 'robbed' -> [self error: self class robbedCardErrorMessage]; 
 						      add: 'noFunds' -> [self error: self class notEnoughFundsInCreditCardErrorMessage];
@@ -521,20 +521,20 @@ withNumber: aCreditCardNumber andExpiration: aGregorianMonthOfYear
 	^ self new initializeWith: aCreditCardNumber and: aGregorianMonthOfYear.! !
 
 
-!classDefinition: #MPInterface category: 'TusLibros'!
-Object subclass: #MPInterface
+!classDefinition: #MPTestInterface category: 'TusLibros'!
+Object subclass: #MPTestInterface
 	instanceVariableNames: 'invalidCreditCards'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!MPInterface methodsFor: 'initialization' stamp: 'AF 11/2/2021 19:46:00'!
+!MPTestInterface methodsFor: 'initialization' stamp: 'AF 11/2/2021 19:46:00'!
 initialize
 
 	invalidCreditCards _ (Dictionary new) add: 789 -> 'robbed'; add: 456 -> 'noFunds';yourself.! !
 
 
-!MPInterface methodsFor: 'charge' stamp: 'AF 11/2/2021 19:46:33'!
+!MPTestInterface methodsFor: 'charge' stamp: 'AF 11/2/2021 19:46:33'!
 charge: aTransactionAmount on: aCreditCard 
 	
 	|result|
@@ -545,3 +545,19 @@ charge: aTransactionAmount on: aCreditCard
 	
 	
 	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MPTestInterface class' category: 'TusLibros'!
+MPTestInterface class
+	instanceVariableNames: ''!
+
+!MPTestInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 10:50:09'!
+noFundsCardNumber
+
+	^ 456.! !
+
+!MPTestInterface class methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 10:52:09'!
+robbedCardNumber
+
+	^ 789.! !
