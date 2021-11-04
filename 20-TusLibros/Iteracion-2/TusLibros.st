@@ -523,18 +523,34 @@ withNumber: aCreditCardNumber andExpiration: aGregorianMonthOfYear
 
 !classDefinition: #MerchantProcessorInterface category: 'TusLibros'!
 Object subclass: #MerchantProcessorInterface
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!MerchantProcessorInterface methodsFor: 'initialization' stamp: 'MK 11/4/2021 15:01:02'!
+initialize
+
+	self subclassResponsibility.! !
+
+
+!MerchantProcessorInterface methodsFor: 'charge' stamp: 'MK 11/4/2021 15:01:32'!
+charge: aTransactionAmount on: aCreditCard 
+	
+	self subclassResponsibility.
+	
+	
+	! !
+
+
+!classDefinition: #MPTestInterface category: 'TusLibros'!
+MerchantProcessorInterface subclass: #MPTestInterface
 	instanceVariableNames: 'invalidCreditCards'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!MerchantProcessorInterface methodsFor: 'initialization' stamp: 'AF 11/2/2021 19:46:00'!
-initialize
-
-	invalidCreditCards _ (Dictionary new) add: 789 -> 'robbed'; add: 456 -> 'noFunds';yourself.! !
-
-
-!MerchantProcessorInterface methodsFor: 'charge' stamp: 'AF 11/2/2021 19:46:33'!
+!MPTestInterface methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 15:01:22'!
 charge: aTransactionAmount on: aCreditCard 
 	
 	|result|
@@ -546,13 +562,9 @@ charge: aTransactionAmount on: aCreditCard
 	
 	! !
 
-
-!classDefinition: #MPTestInterface category: 'TusLibros'!
-MerchantProcessorInterface subclass: #MPTestInterface
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
+!MPTestInterface methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 15:01:13'!
+initialize
+	invalidCreditCards _ (Dictionary new) add: 789 -> 'robbed'; add: 456 -> 'noFunds';yourself.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 

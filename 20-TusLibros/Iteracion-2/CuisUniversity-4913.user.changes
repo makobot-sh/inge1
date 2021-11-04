@@ -29064,3 +29064,74 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(4 November 2021 14:48:14) CuisUniversity-4913.image priorSource: 19292274!
+
+----STARTUP---- (4 November 2021 15:00:00) as D:\001.Maca\2c2021\inge1\newqa1\CuisUniversity-4913.image!
+
+!MerchantProcessorInterface methodsFor: 'initialization' stamp: 'MK 11/4/2021 15:01:02' prior: 50934013 overrides: 16896425!
+initialize
+
+	self subclassResponsibility.! !
+!MPTestInterface methodsFor: 'no messages' stamp: 'MK 11/4/2021 15:01:13' overrides: 50934691!
+initialize
+	invalidCreditCards _ (Dictionary new) add: 789 -> 'robbed'; add: 456 -> 'noFunds';yourself.! !
+!MPTestInterface methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 15:01:22' overrides: 50934019!
+charge: aTransactionAmount on: aCreditCard 
+	
+	|result|
+		
+	result _ invalidCreditCards at: aCreditCard number ifAbsent: ['OK'].
+	
+	^result.
+	
+	
+	! !
+!MerchantProcessorInterface methodsFor: 'charge' stamp: 'MK 11/4/2021 15:01:32' prior: 50934019!
+charge: aTransactionAmount on: aCreditCard 
+	
+	self subclassResponsibility.
+	
+	
+	! !
+
+Object subclass: #MerchantProcessorInterface
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #MerchantProcessorInterface category: 'TusLibros' stamp: 'MK 11/4/2021 15:01:40'!
+Object subclass: #MerchantProcessorInterface
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+MerchantProcessorInterface subclass: #MPTestInterface
+	instanceVariableNames: 'invalidCreditCards'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #MPTestInterface category: 'TusLibros' stamp: 'MK 11/4/2021 15:01:44'!
+MerchantProcessorInterface subclass: #MPTestInterface
+	instanceVariableNames: 'invalidCreditCards'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CashierTest #test01CheckoutOfEmptyCartThrowsError stamp: 'MK 11/4/2021 15:01:53'!
+PASSED!
+
+!testRun: #CashierTest #test02ValidCheckoutReturnsCorrectTicket stamp: 'MK 11/4/2021 15:01:53'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutWithExpiredCardThrowsError stamp: 'MK 11/4/2021 15:01:53'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutFailsIfCreditCardDoesNotHaveEnoughFunds stamp: 'MK 11/4/2021 15:01:53'!
+PASSED!
+
+!testRun: #CashierTest #test05CheckoutFailsIfCreditCardIsRobbed stamp: 'MK 11/4/2021 15:01:53'!
+PASSED!
+
+----SNAPSHOT----(4 November 2021 15:02:08) CuisUniversity-4913.image priorSource: 19297029!
