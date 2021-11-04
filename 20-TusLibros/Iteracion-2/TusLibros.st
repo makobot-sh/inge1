@@ -550,7 +550,12 @@ MerchantProcessorInterface subclass: #MPTestInterface
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!MPTestInterface methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 15:01:22'!
+!MPTestInterface methodsFor: 'initialization' stamp: 'MK 11/4/2021 15:01:13'!
+initialize
+	invalidCreditCards _ (Dictionary new) add: 789 -> 'robbed'; add: 456 -> 'noFunds';yourself.! !
+
+
+!MPTestInterface methodsFor: 'charge' stamp: 'MK 11/4/2021 15:01:22'!
 charge: aTransactionAmount on: aCreditCard 
 	
 	|result|
@@ -561,10 +566,6 @@ charge: aTransactionAmount on: aCreditCard
 	
 	
 	! !
-
-!MPTestInterface methodsFor: 'as yet unclassified' stamp: 'MK 11/4/2021 15:01:13'!
-initialize
-	invalidCreditCards _ (Dictionary new) add: 789 -> 'robbed'; add: 456 -> 'noFunds';yourself.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
