@@ -270,7 +270,7 @@ setUp
 	
 	defaultCatalog := testObjectsFactory defaultCatalog.! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:55:03'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:12'!
 test01CannotCreateCartWithInvalidCredentials
 
 	| interface invalidUser password |
@@ -285,7 +285,7 @@ test01CannotCreateCartWithInvalidCredentials
 	
 	self should: [interface createCartFor: invalidUser with: password]
 		raise: Error
-		withMessageText: 'Invalid credentials'
+		withMessageText: Interface invalidCredentialsErrorMessage.
 ! !
 
 !InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:54:59'!
@@ -306,7 +306,7 @@ test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart
 	
 	self assert: cartContents isEmpty.! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:54:55'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
 test03AddingBookToInvalidIdCartThrowsError
 
 	| interface cartId book |
@@ -319,7 +319,7 @@ test03AddingBookToInvalidIdCartThrowsError
 	book := testObjectsFactory itemSellByTheStore.
 	self should: [interface add: 1 of: book to: cartId.]
 		raise: Error
-		withMessageText: 'Invalid cart id'
+		withMessageText: Interface invalidCartIdErrorMessage.
 	
 	! !
 
@@ -403,7 +403,7 @@ test07AddingABookToOneCartDoesNotAffectTheOtherCart
 	cart2Contents := interface listCart: cartId2.	
 	self assert: cart1Contents ~= cart2Contents.! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:54:35'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
 test08ListingInvalidCartIdThrowsError
 
 	| interface |
@@ -414,9 +414,9 @@ test08ListingInvalidCartIdThrowsError
 
 	self should: [interface listCart: 0]
 		raise: Error
-		withMessageText: 'Invalid cart id' ! !
+		withMessageText: Interface invalidCartIdErrorMessage ! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:55:31'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
 test09CheckOutOfAInvalidIdCartThrowError
 
 	| interface cartId creditCard |
@@ -428,7 +428,7 @@ test09CheckOutOfAInvalidIdCartThrowError
 	cartId := 1.
 	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
 		raise: Error
-		withMessageText: 'Invalid cart id'
+		withMessageText: Interface invalidCartIdErrorMessage
 	
 	! !
 
@@ -671,11 +671,11 @@ Object subclass: #Interface
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/7/2021 15:45:19'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
 add: anAmount of: aBook to: aCartId
 
 	
-	^(activeCarts at: aCartId ifAbsent:[self error: 'Invalid cart id']) add: anAmount of: aBook.! !
+	^(activeCarts at: aCartId ifAbsent:[self error: Interface invalidCartIdErrorMessage ]) add: anAmount of: aBook.! !
 
 !Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:42:31'!
 authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor   
@@ -699,22 +699,22 @@ authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: a
 	
 	! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:51:51'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
 checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate  
 	
 	|cart cashier|
-	cart := activeCarts at: aCartId ifAbsent:[^self error: 'Invalid cart id'].
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
 	
 	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: aDate  registeringOn: saleBook.
 	cashier checkOut.
 	^saleBook copy
 	! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/7/2021 15:42:02'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:12'!
 createCartFor: aUser with: aPassword
 
 	| cartId |
-	(authenticator authenticateUser: aUser with: aPassword) ifFalse: [self error: 'Invalid credentials'].
+	(authenticator authenticateUser: aUser with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
 	
 	cartId := nextId .
 	nextId := cartId + 1.
@@ -723,10 +723,10 @@ createCartFor: aUser with: aPassword
 	
 	^cartId.! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/7/2021 15:51:15'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
 listCart: aCartId 
 	
-	^(activeCarts at: aCartId ifAbsent: [self error: 'Invalid cart id']) contents.! !
+	^(activeCarts at: aCartId ifAbsent: [self error: Interface invalidCartIdErrorMessage ]) contents.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -738,6 +738,14 @@ Interface class
 authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor      
 	
 	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor .! !
+
+!Interface class methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:03'!
+invalidCartIdErrorMessage
+	^ 'Invalid cart id'! !
+
+!Interface class methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:12'!
+invalidCredentialsErrorMessage
+	^ 'Invalid credentials'! !
 
 
 !classDefinition: #Sale category: 'TusLibros'!

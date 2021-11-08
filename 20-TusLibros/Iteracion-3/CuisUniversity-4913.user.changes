@@ -3712,3 +3712,433 @@ test10
 	!
 
 ----SNAPSHOT----(7 November 2021 16:56:19) CuisUniversity-4913.image priorSource: 18661997!
+
+----STARTUP---- (8 November 2021 14:35:38) as D:\001.Maca\2c2021\inge1\newqa1\CuisUniversity-4913.image!
+
+
+!classRemoval: #MPTestInterface stamp: 'MK 11/8/2021 14:42:26'!
+MerchantProcessorInterface subclass: #MPTestInterface
+	instanceVariableNames: 'invalidCreditCards'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #MerchantProcessorInterface stamp: 'MK 11/8/2021 14:42:28'!
+Object subclass: #MerchantProcessorInterface
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CreditCard stamp: 'MK 11/8/2021 14:42:28'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'number expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'MK 11/8/2021 14:42:29'!
+Object subclass: #Cashier
+	instanceVariableNames: 'catalog date cart creditCard merchantProcessor errorMessageMap'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cart stamp: 'MK 11/8/2021 14:42:30'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CashierTest stamp: 'MK 11/8/2021 14:42:31'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CartTest stamp: 'MK 11/8/2021 14:42:31'!
+TestCase subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\newqa1\TusLibros.st----!
+!Interface class methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:42:18'!
+InvalidCredentialsErrorMessage
+	^ 'Invalid credentials'! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:42:28' prior: 50935098!
+test01CannotCreateCartWithInvalidCredentials
+
+	| interface invalidUser password |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	shouldAuthenticate := false.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	
+	self should: [interface createCartFor: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface InvalidCredentialsErrorMessage.
+! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'MK 11/8/2021 15:42:29'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'MK 11/8/2021 15:42:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'MK 11/8/2021 15:42:31'!
+PASSED!
+!Interface class methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:42:58'!
+InvalidCartIdErrorMessage
+	^ 'Invalid cart id'! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'MK 11/8/2021 15:43:00'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'MK 11/8/2021 15:43:01'!
+PASSED!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:43:18' prior: 50935132!
+test03AddingBookToInvalidIdCartThrowsError
+
+	| interface cartId book |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	
+	cartId := 1.
+	book := testObjectsFactory itemSellByTheStore.
+	self should: [interface add: 1 of: book to: cartId.]
+		raise: Error
+		withMessageText: Interface InvalidCartIdErrorMessage 
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:43:20' prior: 50935781!
+test03AddingBookToInvalidIdCartThrowsError
+
+	| interface cartId book |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	
+	cartId := 1.
+	book := testObjectsFactory itemSellByTheStore.
+	self should: [interface add: 1 of: book to: cartId.]
+		raise: Error
+		withMessageText: Interface InvalidCartIdErrorMessage.
+	
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:43:35' prior: 50935515!
+add: anAmount of: aBook to: aCartId
+
+	
+	^(activeCarts at: aCartId ifAbsent:[self error: Interface InvalidCartIdErrorMessage ]) add: anAmount of: aBook.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:44:03' prior: 50935535!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate  
+	
+	|cart cashier|
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface InvalidCartIdErrorMessage ].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: aDate  registeringOn: saleBook.
+	cashier checkOut.
+	^saleBook copy
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:44:50' prior: 50935548!
+createCartFor: aUser with: aPassword
+
+	| cartId |
+	(authenticator authenticateUser: aUser with: aPassword) ifFalse: [self error: Interface InvalidCredentialsErrorMessage].
+	
+	cartId := nextId .
+	nextId := cartId + 1.
+	
+	activeCarts add: cartId -> (Cart acceptingItemsOf: catalog).
+	
+	^cartId.! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'MK 11/8/2021 15:44:52'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'MK 11/8/2021 15:44:53'!
+PASSED!
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:45:03' prior: 50935560!
+listCart: aCartId 
+	
+	^(activeCarts at: aCartId ifAbsent: [self error: Interface InvalidCartIdErrorMessage ]) contents.! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'MK 11/8/2021 15:45:05'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'MK 11/8/2021 15:45:05'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'MK 11/8/2021 15:45:05'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'MK 11/8/2021 15:45:05'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'MK 11/8/2021 15:45:06'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'MK 11/8/2021 15:45:06'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'MK 11/8/2021 15:45:06'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'MK 11/8/2021 15:45:06'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'MK 11/8/2021 15:45:06'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'MK 11/8/2021 15:45:06'!
+PASSED!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:45:28' prior: 50935232!
+test08ListingInvalidCartIdThrowsError
+
+	| interface |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+
+	self should: [interface listCart: 0]
+		raise: Error
+		withMessageText: Interface InvalidCartIdErrorMessage ! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:45:44' prior: 50935244!
+test09CheckOutOfAInvalidIdCartThrowError
+
+	| interface cartId creditCard |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	cartId := 1.
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface InvalidCartIdErrorMessage
+	
+	! !
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'MK 11/8/2021 15:45:49'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'MK 11/8/2021 15:45:52'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'MK 11/8/2021 15:45:52'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'MK 11/8/2021 15:45:52'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'MK 11/8/2021 15:45:52'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'MK 11/8/2021 15:45:52'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'MK 11/8/2021 15:45:52'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'MK 11/8/2021 15:45:52'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'MK 11/8/2021 15:45:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'MK 11/8/2021 15:45:53'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'MK 11/8/2021 15:45:53'!
+PASSED!
+!Interface class methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:03'!
+invalidCartIdErrorMessage
+	^ 'Invalid cart id'! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04' prior: 50935941!
+test09CheckOutOfAInvalidIdCartThrowError
+
+	| interface cartId creditCard |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	cartId := 1.
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04' prior: 50935797!
+test03AddingBookToInvalidIdCartThrowsError
+
+	| interface cartId book |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	
+	cartId := 1.
+	book := testObjectsFactory itemSellByTheStore.
+	self should: [interface add: 1 of: book to: cartId.]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage.
+	
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04' prior: 50935821!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate  
+	
+	|cart cashier|
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: aDate  registeringOn: saleBook.
+	cashier checkOut.
+	^saleBook copy
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04' prior: 50935813!
+add: anAmount of: aBook to: aCartId
+
+	
+	^(activeCarts at: aCartId ifAbsent:[self error: Interface invalidCartIdErrorMessage ]) add: anAmount of: aBook.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04' prior: 50935928!
+test08ListingInvalidCartIdThrowsError
+
+	| interface |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+
+	self should: [interface listCart: 0]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage ! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04' prior: 50935884!
+listCart: aCartId 
+	
+	^(activeCarts at: aCartId ifAbsent: [self error: Interface invalidCartIdErrorMessage ]) contents.! !
+
+!methodRemoval: Interface class #InvalidCartIdErrorMessage stamp: 'MK 11/8/2021 15:46:04'!
+InvalidCartIdErrorMessage
+	^ 'Invalid cart id'!
+!Interface class methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:12'!
+invalidCredentialsErrorMessage
+	^ 'Invalid credentials'! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:12' prior: 50935835!
+createCartFor: aUser with: aPassword
+
+	| cartId |
+	(authenticator authenticateUser: aUser with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+	
+	cartId := nextId .
+	nextId := cartId + 1.
+	
+	activeCarts add: cartId -> (Cart acceptingItemsOf: catalog).
+	
+	^cartId.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:12' prior: 50935683!
+test01CannotCreateCartWithInvalidCredentials
+
+	| interface invalidUser password |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	shouldAuthenticate := false.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	
+	self should: [interface createCartFor: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+! !
+
+!methodRemoval: Interface class #InvalidCredentialsErrorMessage stamp: 'MK 11/8/2021 15:46:12'!
+InvalidCredentialsErrorMessage
+	^ 'Invalid credentials'!
+
+----SNAPSHOT----(8 November 2021 15:46:20) CuisUniversity-4913.image priorSource: 19299652!
