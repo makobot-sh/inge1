@@ -10543,3 +10543,4529 @@ PASSED!
 FAILURE!
 
 ----SNAPSHOT----(11 November 2021 14:04:53) CuisUniversity-4913.image priorSource: 18715246!
+
+----STARTUP---- (11 November 2021 14:14:28) as C:\Users\ferra\Desktop\CUIS SmallTalk\windows64\CuisUniversity-4913.image!
+
+
+----End fileIn of D:\Apuntes\Inge 1\Repos\Repo de entregas\20-TusLibros\Iteracion-3\TusLibros.st----!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:14:46'!
+FAILURE!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 14:14:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:14:46'!
+FAILURE!
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:19:51' prior: 50923704!
+history
+
+	^bagBooks! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:20:39' prior: 50923708!
+initializeWith: aBagOfBooks and: aPrice
+
+	bagBooks := aBagOfBooks. 
+	totalSpent := aPrice.! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:20:43' prior: 50923714!
+totalSpent
+
+	^totalSpent ! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:20:58' prior: 50924173!
+totalSpent
+
+	^totalSpent copy! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:21:02' prior: 50924162!
+history
+
+	^bagBooks copy! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:21:04'!
+FAILURE!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 14:21:04'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:21:04'!
+FAILURE!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:22:58' prior: 50923464!
+test16
+
+	|creditCard interface cartId book aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	aSalesBook := interface listPurchases.
+	
+	
+	
+	self assert: ClientPurchases equals: aSalesBook.
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:23:55' prior: 50924250!
+test16
+
+	|creditCard interface cartId book aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	aSalesBook := interface listPurchases.
+	
+	
+	
+	self assert: (ClientPurchases history: Bag new total: (testObjectsFactory itemSellByTheStorePrice)) equals: aSalesBook.
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:26:02' prior: 50924269!
+test16
+
+	|interface cartId aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	cartId := interface createCartFor: 'user' with: 'password'.
+	
+	aSalesBook := interface listPurchases.
+	
+	
+	
+	self assert: (ClientPurchases history: Bag new total: (testObjectsFactory itemSellByTheStorePrice)) equals: aSalesBook.
+	! !
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:26:22'!
+FAILURE!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:26:49' prior: 50923910!
+listPurchases
+
+	^clientPurchases.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:28:26' prior: 50923838!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	activeCarts := Dictionary new.
+	
+	cartsLastUsedTime  := Dictionary new.
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	clientPurchases  := ClientPurchases history: Bag new total: 0 
+! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:28:39' prior: 50924290!
+test16
+
+	|interface cartId aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	cartId := interface createCartFor: 'user' with: 'password'.
+	
+	aSalesBook := interface listPurchases.
+	
+	
+	
+	self assert: (ClientPurchases history: Bag new total: 0) equals: aSalesBook.
+	! !
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:28:45'!
+FAILURE!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:29:05'!
+FAILURE!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:30:27' prior: 50924331!
+test16
+
+	|interface cartId aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	cartId := interface createCartFor: 'user' with: 'password'.
+	
+	aSalesBook := interface listPurchases.
+	
+	
+	
+	self assert: (ClientPurchases history: Bag new total: 0) equals: aSalesBook.
+	! !
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:30:28'!
+FAILURE!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:31:39' prior: 50924352!
+test16
+
+	|interface cartId aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	cartId := interface createCartFor: 'user' with: 'password'.
+	
+	aSalesBook := interface listPurchases.
+	
+	
+	self assert: Bag new equals: aSalesBook history. 
+	self assert: 0 equals: aSalesBook totalSpent.
+	
+! !
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 14:31:44'!
+PASSED!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:32:37'!
+listPurchases: aClientId
+
+	^clientPurchases.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:32:37' prior: 50923482!
+test17
+
+	|creditCard interface cartId book aSalesBook trueClock bag clientPurchases|
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	aSalesBook := interface listPurchases: clientId.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	clientPurchases := ClientPurchases history: bag total: (testObjectsFactory itemSellByTheStorePrice).
+	
+	self assert: (clientPurchases history) equals: aSalesBook history. 
+	self assert: (clientPurchases totalSpent) equals: aSalesBook totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:32:37' prior: 50924370!
+test16
+
+	|interface cartId aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	cartId := interface createCartFor: 'user' with: 'password'.
+	
+	aSalesBook := interface listPurchases: clientId.
+	
+	
+	self assert: Bag new equals: aSalesBook history. 
+	self assert: 0 equals: aSalesBook totalSpent.
+	
+! !
+
+!methodRemoval: Interface #listPurchases stamp: 'AF 11/11/2021 14:32:37'!
+listPurchases
+
+	^clientPurchases.!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:33:19'!
+listPurchases: aClientId withPassword: aPassword 
+
+	^clientPurchases.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:33:19' prior: 50924454!
+test17
+
+	|creditCard interface cartId book aSalesBook trueClock bag clientPurchases|
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	aSalesBook := interface listPurchases: clientId withPassword: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	clientPurchases := ClientPurchases history: bag total: (testObjectsFactory itemSellByTheStorePrice).
+	
+	self assert: (clientPurchases history) equals: aSalesBook history. 
+	self assert: (clientPurchases totalSpent) equals: aSalesBook totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:33:19' prior: 50924486!
+test16
+
+	|interface cartId aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	cartId := interface createCartFor: 'user' with: 'password'.
+	
+	aSalesBook := interface listPurchases: clientId withPassword: password.
+	
+	
+	self assert: Bag new equals: aSalesBook history. 
+	self assert: 0 equals: aSalesBook totalSpent.
+	
+! !
+
+!methodRemoval: Interface #listPurchases: stamp: 'AF 11/11/2021 14:33:19'!
+listPurchases: aClientId
+
+	^clientPurchases.!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:35:32' prior: 50924545!
+test16
+
+	|interface cartId aClientPurchases trueClock clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	cartId := interface createCartFor: 'user' with: 'password'.
+	
+	aClientPurchases := interface listPurchases: clientId withPassword: password.
+	
+	
+	self assert: Bag new equals: aClientPurchases history. 
+	self assert: 0 equals: aClientPurchases totalSpent.
+	
+! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:36:07' prior: 50924566!
+test16
+
+	|interface aClientPurchases trueClock clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	aClientPurchases := interface listPurchases: clientId withPassword: password.
+	
+	
+	self assert: Bag new equals: aClientPurchases history. 
+	self assert: 0 equals: aClientPurchases totalSpent.
+	
+! !
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 14:36:46'!
+PASSED!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:36:58' prior: 50924585!
+test16
+
+	|interface clientPurchases trueClock clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientPurchases := interface listPurchases: clientId withPassword: password.
+	
+	
+	self assert: Bag new equals: clientPurchases history. 
+	self assert: 0 equals: clientPurchases totalSpent.
+	
+! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:37:28' prior: 50924665!
+test16
+
+	|interface clientPurchases trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientPurchases := interface listPurchases: 'user' withPassword: 'password'.
+	
+	
+	self assert: Bag new equals: clientPurchases history. 
+	self assert: 0 equals: clientPurchases totalSpent.
+	
+! !
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 14:37:35'!
+PASSED!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:40:06' prior: 50924512!
+test17
+
+	|creditCard interface cartId book aSalesBook trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'.
+	
+	password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	aSalesBook := interface listPurchases: clientId withPassword: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+
+	
+	self assert: bag equals: aSalesBook history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: aSalesBook totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:40:22' prior: 50924760!
+test17
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'.
+	
+	password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	clientPurchases := interface listPurchases: clientId withPassword: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+
+	
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:40:39' prior: 50924791!
+test17
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'.
+	
+	password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	clientPurchases := interface listPurchases: clientId withPassword: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+
+	
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:40:43' prior: 50924823!
+test17
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'.
+	
+	password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	clientPurchases := interface listPurchases: clientId withPassword: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 14:40:43'!
+PASSED!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:42:13'!
+test18
+
+	| interface invalidUser password trueClock |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory trueClock.
+	shouldAuthenticate := false.
+	interface := self createInterfaceWithClock: trueClock .
+	
+	self should: [interface listPurchases: invalidUser withPassword: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+! !
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 14:42:14'!
+FAILURE!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:42:53' prior: 50924506!
+listPurchases: aClientId withPassword: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^clientPurchases.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:43:07' prior: 50923886!
+createCartFor: aClientId with: aPassword
+
+	| cartId |
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+	
+	cartId := nextId .
+	nextId := cartId + 1.
+	
+	activeCarts add: cartId -> (Cart acceptingItemsOf: catalog).
+	cartsLastUsedTime add: cartId -> clock currentTime.
+	
+	^cartId.! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 14:43:19'!
+PASSED!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:43:40'!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^clientPurchases.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:43:40' prior: 50924855!
+test17
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'.
+	
+	password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	clientPurchases := interface listPurchasesOf: clientId with: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:43:40' prior: 50924681!
+test16
+
+	|interface clientPurchases trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientPurchases := interface listPurchasesOf: 'user' with: 'password'.
+	
+	
+	self assert: Bag new equals: clientPurchases history. 
+	self assert: 0 equals: clientPurchases totalSpent.
+	
+! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:43:40' prior: 50924949!
+test18
+
+	| interface invalidUser password trueClock |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory trueClock.
+	shouldAuthenticate := false.
+	interface := self createInterfaceWithClock: trueClock .
+	
+	self should: [interface listPurchasesOf: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+! !
+
+!methodRemoval: Interface #listPurchases:withPassword: stamp: 'AF 11/11/2021 14:43:40'!
+listPurchases: aClientId withPassword: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^clientPurchases.!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:53:03'!
+test19
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	clientId2 := 'user'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:54:45' prior: 50925137!
+test19
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	
+	interface add: 1 of: book to: cartId.
+	
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	clientId2 := 'user'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	! !
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 14:54:45'!
+FAILURE!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 14:57:24' prior: 50925055!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^clientPurchases .! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:01:28' prior: 50925220!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^clientPurchases at: aClientId ifAbsent: [clientPurchases at: aClientId -> (ClientPurchases history: Bag new total: 0)].! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:01:31'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:01:31'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:01:31'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:01:31'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:01:57' prior: 50925230!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^clientPurchases at: aClientId ifAbsent: [^clientPurchases at: aClientId -> (ClientPurchases history: Bag new total: 0)].! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:01:58'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:01:58'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:01:58'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:01:58'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:03:07' prior: 50924314!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	activeCarts := Dictionary new.
+	
+	cartsLastUsedTime  := Dictionary new.
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	clientPurchases  := Dictionary new.
+! !
+
+!classDefinition: #Interface category: 'TusLibros' stamp: 'AF 11/11/2021 15:03:15'!
+Object subclass: #Interface
+	instanceVariableNames: 'authenticator activeCarts catalog nextId merchantProcessor saleBook clock cartsLastUsedTime clientPurchasesByClientId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:03:15' prior: 50925308!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^clientPurchasesByClientId at: aClientId ifAbsent: [^clientPurchasesByClientId at: aClientId -> (ClientPurchases history: Bag new total: 0)].! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:03:15' prior: 50923867!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate  
+
+	|cart cashier|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
+	cashier checkOut.
+	clientPurchasesByClientId := ClientPurchases history: (cart contents) total: (saleBook last).
+	
+	^saleBook
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:03:15' prior: 50925386!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	activeCarts := Dictionary new.
+	
+	cartsLastUsedTime  := Dictionary new.
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	clientPurchasesByClientId  := Dictionary new.
+! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:03:39'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:03:39'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:03:39'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:03:39'!
+ERROR!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:03:44'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:05:09' prior: 50925426!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate  
+
+	|cart cashier|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
+	cashier checkOut.
+	clientPurchasesByClientId := ClientPurchases history: (cart contents) total: (saleBook last).
+	
+	^saleBook
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:06:36' prior: 50925530!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate 
+
+	|cart cashier|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
+	cashier checkOut.
+	clientPurchasesByClientId := ClientPurchases history: (cart contents) total: (saleBook last).
+	
+	^saleBook
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:07:19'!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
+	cashier checkOut.
+	clientPurchasesByClientId := ClientPurchases history: (cart contents) total: (saleBook last).
+	
+	^saleBook
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:07:19' prior: 50925177!
+test19
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	
+	interface add: 1 of: book to: cartId.
+	
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId.
+	
+	clientId2 := 'user'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:07:19' prior: 50925065!
+test17
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'.
+	
+	password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId.
+	
+	clientPurchases := interface listPurchasesOf: clientId with: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:07:19' prior: 50923306!
+test09CheckOutOfAInvalidIdCartThrowError
+
+	| interface cartId creditCard trueClock |
+	
+	self setUp.
+	
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock .
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	cartId := 1.
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:07:19' prior: 50923324!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook first
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:07:19' prior: 50923368!
+test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes
+
+	|creditCard interface cartId book falseClock|
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	falseClock := testObjectsFactory falseClock.
+	interface := self createInterfaceWithClock: falseClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	falseClock addTime: (Duration minutes: 30).
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+
+!methodRemoval: Interface #checkOutCartWith:creditCard:onDate: stamp: 'AF 11/11/2021 15:07:19'!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate 
+
+	|cart cashier|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
+	cashier checkOut.
+	clientPurchasesByClientId := ClientPurchases history: (cart contents) total: (saleBook last).
+	
+	^saleBook
+	!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:07:30' prior: 50925569!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
+	cashier checkOut.
+	
+	clientPurchasesByClientId := ClientPurchases history: (cart contents) total: (saleBook last).
+	
+	^saleBook
+	! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:07:30'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:07:30'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:07:30'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:07:30'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:10:35' prior: 50925751!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
+	cashier checkOut.
+	clientPurchases := clientPurchasesByClientId at: aClientId ifAbsent: [clientPurchasesByClientId at: aClientId -> (ClientPurchases history: Bag new total: 0) ]
+	 
+	
+	^saleBook
+	! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:10:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:10:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:10:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:10:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:10:40'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:10:50' prior: 50925837!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
+	cashier checkOut.
+	clientPurchases := clientPurchasesByClientId at: aClientId ifAbsent: [clientPurchasesByClientId at: aClientId -> (ClientPurchases history: Bag new total: 0) ].
+	 
+	
+	^saleBook
+	! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:10:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:10:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:10:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:10:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:10:51'!
+ERROR!
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:12:10'!
+addPurchase: aPurchase
+	bagBooks := aPurchase contents. 
+	totalSpent := aPurchase value.! !
+!Cashier methodsFor: 'checkout' stamp: 'AF 11/11/2021 15:15:02' prior: 50923625!
+checkOut
+
+	self calculateTotal.
+	self debitTotal.
+	self registerSale.
+	
+	^ total! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:17:06' prior: 50925925!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := clientPurchasesByClientId at: aClientId ifAbsent: [clientPurchasesByClientId at: aClientId -> (ClientPurchases history: Bag new total: 0) ].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+!Cashier methodsFor: 'initialization' stamp: 'AF 11/11/2021 15:17:39' prior: 50923631!
+initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aClientPurchases
+	
+	cart := aCart.
+	creditCard := aCreditCard.
+	merchantProcessor := aMerchantProcessor.
+	salesBook := aClientPurchases! !
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'AF 11/11/2021 15:17:59'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart clientPurchases merchantProcessor creditCard total'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:18:00' prior: 50923621!
+registerSale
+
+	clientPurchases add: total! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:18:00' prior: 50926048!
+initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aClientPurchases
+	
+	cart := aCart.
+	creditCard := aCreditCard.
+	merchantProcessor := aMerchantProcessor.
+	clientPurchases := aClientPurchases! !
+
+!classDefinition: #Interface category: 'TusLibros' stamp: 'AF 11/11/2021 15:18:47'!
+Object subclass: #Interface
+	instanceVariableNames: 'authenticator activeCarts catalog nextId merchantProcessor saleBook clock cartsLastUsedTime salesBookByClientId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:18:47' prior: 50925446!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	activeCarts := Dictionary new.
+	
+	cartsLastUsedTime  := Dictionary new.
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	salesBookByClientId  := Dictionary new.
+! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:18:47' prior: 50925413!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^salesBookByClientId at: aClientId ifAbsent: [^salesBookByClientId at: aClientId -> (ClientPurchases history: Bag new total: 0)].! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:18:47' prior: 50926025!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId at: aClientId -> (ClientPurchases history: Bag new total: 0) ].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:18:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:18:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:18:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:18:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:18:51'!
+ERROR!
+!Cashier methodsFor: 'checkout - private' stamp: 'AF 11/11/2021 15:20:06' prior: 50926067!
+registerSale
+
+	clientPurchases add: cart contents andTotalPaid: total.! !
+
+!methodRemoval: ClientPurchases #addPurchase: stamp: 'AF 11/11/2021 15:20:42'!
+addPurchase: aPurchase
+	bagBooks := aPurchase contents. 
+	totalSpent := aPurchase value.!
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:22:39'!
+add: aCollectionOfItems andTotalPaid: anAmount
+
+	! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:22:58' prior: 50924166!
+initializeWith: aCollectionOfBooks and: aPrice
+
+	bagBooks := aCollectionOfBooks. 
+	totalSpent := aPrice.! !
+
+!classDefinition: #ClientPurchases category: 'TusLibros' stamp: 'AF 11/11/2021 15:23:24'!
+Object subclass: #ClientPurchases
+	instanceVariableNames: 'itemsBought totalSpent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:23:24' prior: 50926226!
+initializeWith: aCollectionOfBooks and: aPrice
+
+	itemsBought := aCollectionOfBooks. 
+	totalSpent := aPrice.! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:23:24' prior: 50924183!
+history
+
+	^itemsBought copy! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:24:16' prior: 50926221!
+add: aCollectionOfItems andTotalPaid: anAmount
+
+	itemsBought add: aCollectionOfItems contents.
+	
+	totalSpent := totalSpent + anAmount.
+
+	! !
+!Cashier methodsFor: 'checkout - private' stamp: 'AF 11/11/2021 15:27:31' prior: 50923616!
+debitTotal
+
+	merchantProcessor debit: total from: creditCard.
+	
+	! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:27:45' prior: 50926253!
+add: aCollectionOfItems andTotalPaid: anAmount
+
+	itemsBought addAll: aCollectionOfItems.
+	
+	totalSpent := totalSpent + anAmount.
+
+	! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:27:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:27:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:27:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:27:51'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:27:51'!
+ERROR!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:28:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:28:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:28:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:28:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:28:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:28:17'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:29:05' prior: 50926122!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [clientPurchases := salesBookByClientId at: aClientId -> (ClientPurchases history: Bag new total: 0) ].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:29:17'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:29:17'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:29:17'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:29:17'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:29:17'!
+ERROR!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:29:19'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:29:43' prior: 50926408!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [clientPurchases := salesBookByClientId add: aClientId -> (ClientPurchases history: Bag new total: 0) ].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:29:54' prior: 50926109!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^salesBookByClientId at: aClientId ifAbsent: [^salesBookByClientId add: aClientId -> (ClientPurchases history: Bag new total: 0)].! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:29:55'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:29:55'!
+ERROR!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:29:55'!
+ERROR!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:29:55'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:29:55'!
+ERROR!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:29:57'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:30:55' prior: 50926500!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases history: Bag new total: 0).
+													clientPurchases := salesBookByClientId at: aClientId].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:31:27' prior: 50926524!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases history: Bag new total: 0).
+									    ^salesBookByClientId at: aClientId].! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:31:28'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:31:28'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:31:28'!
+FAILURE!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:31:31'!
+ERROR!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:34:05' prior: 50925681!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook trueClock clientId |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	clientId := 'user'.
+	
+	cartId := interface createCartFor: clientId with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook history first
+	! !
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:34:06'!
+ERROR!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:34:20'!
+ERROR!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:35:24' prior: 50926714!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook trueClock clientId |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	clientId := 'user'.
+	
+	cartId := interface createCartFor: clientId with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook totalSpent .
+	! !
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:35:25'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:35:25'!
+FAILURE!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:35:25'!
+FAILURE!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:36:09'!
+FAILURE!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:43:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:43:07'!
+FAILURE!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:43:07'!
+FAILURE!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:43:56' prior: 50925589!
+test19
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	
+	interface add: 1 of: book to: cartId.
+	
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId1.
+	
+	clientId2 := 'user'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	! !
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:43:57'!
+FAILURE!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:44:20' prior: 50926914!
+test19
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	
+	interface add: 1 of: book to: cartId.
+	
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId1.
+	
+	clientId2 := 'user2'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	! !
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 15:44:20'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 15:44:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test16 stamp: 'AF 11/11/2021 15:44:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test17 stamp: 'AF 11/11/2021 15:44:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test18 stamp: 'AF 11/11/2021 15:44:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test19 stamp: 'AF 11/11/2021 15:44:21'!
+PASSED!
+
+----SNAPSHOT----(11 November 2021 15:45:44) CuisUniversity-4913.image priorSource: 18918555!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:47:29'!
+test16WhenClientHasNotBoughtThenClientPurchasesReturnsNoPurchases
+
+	|interface clientPurchases trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientPurchases := interface listPurchasesOf: 'user' with: 'password'.
+	
+	
+	self assert: Bag new equals: clientPurchases history. 
+	self assert: 0 equals: clientPurchases totalSpent.
+	
+! !
+
+!methodRemoval: InterfaceTest #test16 stamp: 'AF 11/11/2021 15:47:29'!
+test16
+
+	|interface clientPurchases trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientPurchases := interface listPurchasesOf: 'user' with: 'password'.
+	
+	
+	self assert: Bag new equals: clientPurchases history. 
+	self assert: 0 equals: clientPurchases totalSpent.
+	
+!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:48:46' prior: 50925630!
+test17
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'. password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId.
+	
+	clientPurchases := interface listPurchasesOf: clientId with: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:50:02'!
+test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'. password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId.
+	
+	clientPurchases := interface listPurchasesOf: clientId with: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+
+!methodRemoval: InterfaceTest #test17 stamp: 'AF 11/11/2021 15:50:02'!
+test17
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'. password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId.
+	
+	clientPurchases := interface listPurchasesOf: clientId with: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:50:32'!
+test18CannotListPurchasesForInvalidClientCredentials
+
+	| interface invalidUser password trueClock |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory trueClock.
+	shouldAuthenticate := false.
+	interface := self createInterfaceWithClock: trueClock .
+	
+	self should: [interface listPurchasesOf: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+! !
+
+!methodRemoval: InterfaceTest #test18 stamp: 'AF 11/11/2021 15:50:32'!
+test18
+
+	| interface invalidUser password trueClock |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory trueClock.
+	shouldAuthenticate := false.
+	interface := self createInterfaceWithClock: trueClock .
+	
+	self should: [interface listPurchasesOf: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:50:49'!
+test18CannotListPurchasesWithInvalidCredentials
+
+	| interface invalidUser password trueClock |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory trueClock.
+	shouldAuthenticate := false.
+	interface := self createInterfaceWithClock: trueClock .
+	
+	self should: [interface listPurchasesOf: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+! !
+
+!methodRemoval: InterfaceTest #test18CannotListPurchasesForInvalidClientCredentials stamp: 'AF 11/11/2021 15:50:49'!
+test18CannotListPurchasesForInvalidClientCredentials
+
+	| interface invalidUser password trueClock |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory trueClock.
+	shouldAuthenticate := false.
+	interface := self createInterfaceWithClock: trueClock .
+	
+	self should: [interface listPurchasesOf: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:52:52'!
+test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	
+	interface add: 1 of: book to: cartId.
+	
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId1.
+	
+	clientId2 := 'user2'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	! !
+
+!methodRemoval: InterfaceTest #test19 stamp: 'AF 11/11/2021 15:52:52'!
+test19
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	
+	interface add: 1 of: book to: cartId.
+	
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today clientId: clientId1.
+	
+	clientId2 := 'user2'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:56:01' prior: 50926093!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	activeCarts := Dictionary new.
+	cartsLastUsedTime  := Dictionary new.
+	salesBookByClientId  := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	
+! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 15:57:02' prior: 50927347!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	activeCarts := Dictionary new.
+	cartsLastUsedTime  := Dictionary new.
+	
+	salesBookByClientId  := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	
+! !
+
+Object subclass: #CartSession
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartSession category: 'TusLibros' stamp: 'AF 11/11/2021 15:59:18'!
+Object subclass: #CartSession
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Object subclass: #CartSession
+	instanceVariableNames: 'cart lastTimeUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartSession category: 'TusLibros' stamp: 'AF 11/11/2021 15:59:35'!
+Object subclass: #CartSession
+	instanceVariableNames: 'cart lastTimeUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CartSession methodsFor: 'nil' stamp: 'AF 11/11/2021 16:00:13'!
+cart
+
+	^cart.! !
+!CartSession methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:00:34'!
+lastTimeUsed
+
+	^lastTimeUsed .! !
+!CartSession methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:01:09'!
+initializeWith: aCart On: aDateAndTime! !
+!CartSession class methodsFor: 'no messages' stamp: 'AF 11/11/2021 16:01:51'!
+with: aCart on: aDateAndTime
+
+	^self basicNew initializeWith: aCart On: aDateAndTime .! !
+!ClientPurchases class methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:02:31' prior: 50923726!
+history: aBagOfBooks total: aPrice
+	^self basicNew initializeWith: aBagOfBooks.! !
+!ClientPurchases class methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:02:41'!
+history: aBagOfBooks 
+	^self basicNew initializeWith: aBagOfBooks.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:02:41' prior: 50926606!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases history: Bag new ).
+													clientPurchases := salesBookByClientId at: aClientId].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:02:41' prior: 50926631!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases history: Bag new ).
+									    ^salesBookByClientId at: aClientId].! !
+
+!methodRemoval: ClientPurchases class #history:total: stamp: 'AF 11/11/2021 16:02:41'!
+history: aBagOfBooks total: aPrice
+	^self basicNew initializeWith: aBagOfBooks.!
+!ClientPurchases class methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:03:16' prior: 50927426!
+history: aBagOfBooks 
+	! !
+
+!methodRemoval: ClientPurchases class #history: stamp: 'AF 11/11/2021 16:03:20'!
+history: aBagOfBooks 
+	!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:03:31' prior: 50927432!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases new ).
+													clientPurchases := salesBookByClientId at: aClientId].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:03:40' prior: 50927457!
+listPurchasesOf: aClientId with: aPassword 
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+
+	^salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases new ).
+									    ^salesBookByClientId at: aClientId].! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:04:03' prior: 50926241!
+initializeWith: aCollectionOfBooks and: aPrice
+
+	itemsBought := Bag new. 
+	totalSpent := 0.! !
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:04:08'!
+initializeWith: aCollectionOfBooks 
+
+	itemsBought := Bag new. 
+	totalSpent := 0.! !
+
+!methodRemoval: ClientPurchases #initializeWith:and: stamp: 'AF 11/11/2021 16:04:08'!
+initializeWith: aCollectionOfBooks and: aPrice
+
+	itemsBought := Bag new. 
+	totalSpent := 0.!
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:04:17'!
+initializeWith 
+
+	itemsBought := Bag new. 
+	totalSpent := 0.! !
+
+!methodRemoval: ClientPurchases #initializeWith: stamp: 'AF 11/11/2021 16:04:17'!
+initializeWith: aCollectionOfBooks 
+
+	itemsBought := Bag new. 
+	totalSpent := 0.!
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:04:33' overrides: 16896425!
+initialize 
+
+	itemsBought := Bag new. 
+	totalSpent := 0.! !
+
+!methodRemoval: ClientPurchases #initializeWith stamp: 'AF 11/11/2021 16:04:33'!
+initializeWith 
+
+	itemsBought := Bag new. 
+	totalSpent := 0.!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test16WhenClientHasNotBoughtThenClientPurchasesReturnsNoPurchases stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test18CannotListPurchasesWithInvalidCredentials stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases stamp: 'AF 11/11/2021 16:04:40'!
+PASSED!
+
+!classDefinition: #Interface category: 'TusLibros' stamp: 'AF 11/11/2021 16:05:44'!
+Object subclass: #Interface
+	instanceVariableNames: 'authenticator activeCarts catalog nextId merchantProcessor saleBook clock cartsLastUsedTime salesBookByClientId cartSessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:05:42' prior: 50927363!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	cartSessions := Dictionary new.
+
+	activeCarts := Dictionary new.
+	cartsLastUsedTime  := Dictionary new.
+	
+	salesBookByClientId  := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	
+! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:07:33' prior: 50924978!
+createCartFor: aClientId with: aPassword
+
+	| cartId cartSession |
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+	
+	cartId := nextId .
+	nextId := cartId + 1.
+	cartSession := CartSession with: (Cart acceptingItemsOf: catalog) on: clock currentTime .
+	cartSessions add: cartId -> cartSession .
+	
+	^cartId.! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 16:07:37'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 16:07:37'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 16:07:37'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 16:07:37'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 16:07:37'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:07:37'!
+FAILURE!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 16:07:37'!
+FAILURE!
+
+!testRun: #InterfaceTest #test16WhenClientHasNotBoughtThenClientPurchasesReturnsNoPurchases stamp: 'AF 11/11/2021 16:07:37'!
+PASSED!
+
+!testRun: #InterfaceTest #test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+
+!testRun: #InterfaceTest #test18CannotListPurchasesWithInvalidCredentials stamp: 'AF 11/11/2021 16:07:37'!
+PASSED!
+
+!testRun: #InterfaceTest #test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases stamp: 'AF 11/11/2021 16:07:37'!
+ERROR!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:08:16' prior: 50923900!
+listCart: aCartId
+
+	|cart|
+
+	cart := (cartSessions at: aCartId ifAbsent: [self error: Interface invalidCartIdErrorMessage ]) cart.
+	
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	^cart contents.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:09:35' prior: 50923853!
+checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId
+
+	(Duration minutes: 30) < (clock currentTime - ((cartSessions at: aCartId) lastTimeUsed)) ifTrue: [cartSessions removeKey: aCartId.
+																			      self error: Interface expiredCartErrorMessage].
+	
+
+	cartsLastUsedTime at: aCartId put: clock currentTime.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:10:16' prior: 50927759!
+checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId
+
+	(Duration minutes: 30) < (clock currentTime - ((cartSessions at: aCartId) lastTimeUsed)) ifTrue: [cartSessions removeKey: aCartId.
+																			      self error: Interface expiredCartErrorMessage].
+	
+
+	(cartSessions at: aCartId) usedAt: clock currentTime.! !
+!CartSession methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:10:49'!
+usedAt: aDateAndTime
+
+	lastTimeUsed := aDateAndTime .! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:11:39' prior: 50927485!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := (cartSessions at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ]) cart.
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases new ).
+													clientPurchases := salesBookByClientId at: aClientId].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:09'!
+checkOutCartWith: aCartId creditCard: aCreditCard clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := (cartSessions at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ]) cart.
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases new ).
+													clientPurchases := salesBookByClientId at: aClientId].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:09' prior: 50925662!
+test09CheckOutOfAInvalidIdCartThrowError
+
+	| interface cartId creditCard trueClock |
+	
+	self setUp.
+	
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock .
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	cartId := 1.
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard clientId: clientId]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:09' prior: 50927264!
+test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	
+	interface add: 1 of: book to: cartId.
+	
+	interface checkOutCartWith: cartId creditCard: creditCard clientId: clientId1.
+	
+	clientId2 := 'user2'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:09' prior: 50925706!
+test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes
+
+	|creditCard interface cartId book falseClock|
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	falseClock := testObjectsFactory falseClock.
+	interface := self createInterfaceWithClock: falseClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	falseClock addTime: (Duration minutes: 30).
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard clientId: clientId]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:09' prior: 50927131!
+test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'. password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard clientId: clientId.
+	
+	clientPurchases := interface listPurchasesOf: clientId with: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:09' prior: 50926747!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook trueClock clientId |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	clientId := 'user'.
+	
+	cartId := interface createCartFor: clientId with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard clientId: clientId.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook totalSpent .
+	! !
+
+!methodRemoval: Interface #checkOutCartWith:creditCard:onDate:clientId: stamp: 'AF 11/11/2021 16:12:09'!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := (cartSessions at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ]) cart.
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases new ).
+													clientPurchases := salesBookByClientId at: aClientId].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:35'!
+checkOutCartWith: aCartId creditCard: aCreditCard forClientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := (cartSessions at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ]) cart.
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases new ).
+													clientPurchases := salesBookByClientId at: aClientId].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:35' prior: 50927839!
+test09CheckOutOfAInvalidIdCartThrowError
+
+	| interface cartId creditCard trueClock |
+	
+	self setUp.
+	
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock .
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	cartId := 1.
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard forClientId: clientId]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:35' prior: 50927857!
+test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases
+
+	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	
+	book := testObjectsFactory itemSellByTheStore.
+	
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	trueClock := testObjectsFactory trueClock.
+	
+	interface := self createInterfaceWithClock: trueClock.
+	
+	
+	
+	clientId1 := 'user'. password1 := 'password'.
+	
+	cartId := interface createCartFor: clientId1 with: password1.
+	
+	
+	interface add: 1 of: book to: cartId.
+	
+	interface checkOutCartWith: cartId creditCard: creditCard forClientId: clientId1.
+	
+	clientId2 := 'user2'. password2 := 'password'.
+	
+	clientPurchases1 := interface listPurchasesOf: clientId1 with: password1.
+	clientPurchases2 := interface listPurchasesOf: clientId2 with: password2.
+	
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases1 history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases1 totalSpent.
+	
+	self assert: Bag new equals: clientPurchases2 history. 
+	self assert: 0 equals: clientPurchases2 totalSpent.
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:35' prior: 50927899!
+test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes
+
+	|creditCard interface cartId book falseClock|
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	falseClock := testObjectsFactory falseClock.
+	interface := self createInterfaceWithClock: falseClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	falseClock addTime: (Duration minutes: 30).
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard forClientId: clientId]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:35' prior: 50927924!
+test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt
+
+	|creditCard interface cartId book clientPurchases trueClock bag clientId password |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	
+	clientId := 'user'. password := 'password'.
+	
+	cartId := interface createCartFor: clientId with: password.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard forClientId: clientId.
+	
+	clientPurchases := interface listPurchasesOf: clientId with: password.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	self assert: bag equals: clientPurchases history. 
+	self assert: testObjectsFactory itemSellByTheStorePrice equals: clientPurchases totalSpent.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:12:35' prior: 50927957!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook trueClock clientId |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+	clientId := 'user'.
+	
+	cartId := interface createCartFor: clientId with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard forClientId: clientId.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook totalSpent .
+	! !
+
+!methodRemoval: Interface #checkOutCartWith:creditCard:clientId: stamp: 'AF 11/11/2021 16:12:35'!
+checkOutCartWith: aCartId creditCard: aCreditCard clientId: aClientId  
+
+	|cart cashier clientPurchases|
+	
+	cart := (cartSessions at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ]) cart.
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	clientPurchases := salesBookByClientId at: aClientId ifAbsent: [salesBookByClientId add: aClientId -> (ClientPurchases new ).
+													clientPurchases := salesBookByClientId at: aClientId].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: clientPurchases .
+	cashier checkOut. 	
+	^clientPurchases.
+	!
+
+----SNAPSHOT----(11 November 2021 16:12:39) CuisUniversity-4913.image priorSource: 19053254!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:13:05' prior: 50923827!
+add: anAmount of: aBook to: aCartId
+
+	|cart|
+	
+	cart := (cartSessions at: aCartId ifAbsent:[self error: Interface invalidCartIdErrorMessage ]) cart.
+	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
+	
+	cart add: anAmount of: aBook.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:13:37' prior: 50927643!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	cartSessions := Dictionary new.
+
+	cartsLastUsedTime  := Dictionary new.
+	
+	salesBookByClientId  := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	
+! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:13:56' prior: 50928211!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	cartSessions := Dictionary new.
+	
+	salesBookByClientId  := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	saleBook := OrderedCollection new.
+	clock := aClock.
+	
+	
+! !
+
+Object subclass: #Interface
+	instanceVariableNames: 'authenticator catalog nextId merchantProcessor saleBook clock salesBookByClientId cartSessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Interface category: 'TusLibros' stamp: 'AF 11/11/2021 16:14:17'!
+Object subclass: #Interface
+	instanceVariableNames: 'authenticator catalog nextId merchantProcessor saleBook clock salesBookByClientId cartSessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:14:28' prior: 50928228!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	cartSessions := Dictionary new.
+	
+	salesBookByClientId  := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	clock := aClock.
+	
+	
+! !
+
+Object subclass: #Interface
+	instanceVariableNames: 'authenticator catalog nextId merchantProcessor clock salesBookByClientId cartSessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Interface category: 'TusLibros' stamp: 'AF 11/11/2021 16:14:34'!
+Object subclass: #Interface
+	instanceVariableNames: 'authenticator catalog nextId merchantProcessor clock salesBookByClientId cartSessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Interface category: 'TusLibros' stamp: 'AF 11/11/2021 16:14:55'!
+Object subclass: #Interface
+	instanceVariableNames: 'authenticator catalog nextCartId merchantProcessor clock salesBookByClientId cartSessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:14:55' prior: 50927661!
+createCartFor: aClientId with: aPassword
+
+	| cartId cartSession |
+
+	(authenticator authenticateUser: aClientId with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+	
+	cartId := nextCartId .
+	nextCartId := cartId + 1.
+	cartSession := CartSession with: (Cart acceptingItemsOf: catalog) on: clock currentTime .
+	cartSessions add: cartId -> cartSession .
+	
+	^cartId.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:14:55' prior: 50928260!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock   
+
+	authenticator := anAuthenticator .
+	catalog := aCatalog .
+	cartSessions := Dictionary new.
+	
+	salesBookByClientId  := Dictionary new.
+	
+	nextCartId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	clock := aClock.
+	
+	
+! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 16:15:26'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 16:15:26'!
+ERROR!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 16:15:26'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 16:15:26'!
+ERROR!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 16:15:26'!
+ERROR!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 16:15:26'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 16:15:26'!
+ERROR!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 16:15:26'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 16:15:26'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 16:15:26'!
+ERROR!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:15:26'!
+FAILURE!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:15:27'!
+ERROR!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:15:27'!
+ERROR!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 16:15:27'!
+ERROR!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 16:15:27'!
+FAILURE!
+
+!testRun: #InterfaceTest #test16WhenClientHasNotBoughtThenClientPurchasesReturnsNoPurchases stamp: 'AF 11/11/2021 16:15:27'!
+PASSED!
+
+!testRun: #InterfaceTest #test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt stamp: 'AF 11/11/2021 16:15:27'!
+ERROR!
+
+!testRun: #InterfaceTest #test18CannotListPurchasesWithInvalidCredentials stamp: 'AF 11/11/2021 16:15:27'!
+PASSED!
+
+!testRun: #InterfaceTest #test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases stamp: 'AF 11/11/2021 16:15:27'!
+ERROR!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 16:15:35'!
+ERROR!
+!CartSession methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 16:17:06' prior: 50927409!
+initializeWith: aCart On: aDateAndTime
+
+	cart := aCart.
+	lastTimeUsed  := aDateAndTime.! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test16WhenClientHasNotBoughtThenClientPurchasesReturnsNoPurchases stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test18CannotListPurchasesWithInvalidCredentials stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!testRun: #InterfaceTest #test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases stamp: 'AF 11/11/2021 16:17:10'!
+PASSED!
+
+!classRemoval: #Sale stamp: 'AF 11/11/2021 16:19:15'!
+Object subclass: #Sale
+	instanceVariableNames: 'total'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test16WhenClientHasNotBoughtThenClientPurchasesReturnsNoPurchases stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test18CannotListPurchasesWithInvalidCredentials stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases stamp: 'AF 11/11/2021 16:19:18'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'AF 11/11/2021 16:19:22'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'AF 11/11/2021 16:19:22'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'AF 11/11/2021 16:19:22'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'AF 11/11/2021 16:19:22'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'AF 11/11/2021 16:19:22'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'AF 11/11/2021 16:19:22'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'AF 11/11/2021 16:19:22'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'AF 11/11/2021 16:19:22'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:19:24'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:19:24'!
+ERROR!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:19:24'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:19:24'!
+ERROR!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:19:24'!
+ERROR!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:19:24'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:19:51'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:19:51'!
+ERROR!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:19:51'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:19:51'!
+ERROR!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:19:51'!
+ERROR!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:19:51'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:19:53'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:20:56' prior: 50922994!
+test02CalculatedTotalIsCorrect
+
+	| cart cashier |
+	
+	cart := testObjectsFactory createCart.
+	cart add: 2 of: testObjectsFactory itemSellByTheStore.
+	
+	cashier :=  Cashier
+		toCheckout: cart 
+		charging: testObjectsFactory notExpiredCreditCard 
+		throught: self
+		on: testObjectsFactory today 
+		registeringOn: Bag new.
+		
+	self assert: cashier checkOut = (testObjectsFactory itemSellByTheStorePrice * 2)! !
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:20:58'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:21:15' prior: 50928629!
+test02CalculatedTotalIsCorrect
+
+	| cart cashier |
+	
+	cart := testObjectsFactory createCart.
+	cart add: 2 of: testObjectsFactory itemSellByTheStore.
+	
+	cashier :=  Cashier
+		toCheckout: cart 
+		charging: testObjectsFactory notExpiredCreditCard 
+		throught: self
+		on: testObjectsFactory today 
+		registeringOn: ClientPurchases new.
+		
+	self assert: cashier checkOut = (testObjectsFactory itemSellByTheStorePrice * 2)! !
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:21:18'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:21:18'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:21:18'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:21:18'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:21:18'!
+ERROR!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:21:18'!
+ERROR!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:21:18'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:21:29' prior: 50923031!
+test04CheckoutRegistersASale
+
+	| cart cashier salesBook total |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	salesBook := OrderedCollection new.
+ 
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: testObjectsFactory notExpiredCreditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: ClientPurchases new.
+		
+	total := cashier checkOut.
+					
+	self assert: salesBook size = 1.
+	self assert: salesBook first = total.! !
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:21:45' prior: 50923049!
+test05CashierChargesCreditCardUsingMerchantProcessor
+
+	| cart cashier salesBook total creditCard debitedAmout debitedCreditCard  |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	salesBook := OrderedCollection new.
+ 
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: creditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: ClientPurchases new.
+		
+	debitBehavior := [ :anAmount :aCreditCard | 
+		debitedAmout := anAmount.
+		debitedCreditCard := aCreditCard ].
+	total := cashier checkOut.
+					
+	self assert: debitedCreditCard = creditCard.
+	self assert: debitedAmout = total.! !
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:21:54' prior: 50928706!
+test05CashierChargesCreditCardUsingMerchantProcessor
+
+	| cart cashier total creditCard debitedAmout debitedCreditCard  |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+ 
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: creditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: ClientPurchases new.
+		
+	debitBehavior := [ :anAmount :aCreditCard | 
+		debitedAmout := anAmount.
+		debitedCreditCard := aCreditCard ].
+	total := cashier checkOut.
+					
+	self assert: debitedCreditCard = creditCard.
+	self assert: debitedAmout = total.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:22:00'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:22:00'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:22:00'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:22:00'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:22:00'!
+FAILURE!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:22:00'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:22:00'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:22:21' prior: 50928687!
+test04CheckoutRegistersASale
+
+	| cart cashier salesBook total |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	salesBook := ClientPurchases new.
+ 
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: testObjectsFactory notExpiredCreditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: ClientPurchases new.
+		
+	total := cashier checkOut.
+					
+	self assert: salesBook size = 1.
+	self assert: salesBook first = total.! !
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:22:56' prior: 50928779!
+test04CheckoutRegistersASale
+
+	| cart cashier salesBook total |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	salesBook := ClientPurchases new.
+ 
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: testObjectsFactory notExpiredCreditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: salesBook.
+		
+	total := cashier checkOut.
+					
+	self assert: salesBook history size = 1.
+	self assert: salesBook totalSpent = total.! !
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:22:56'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:22:59'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:22:59'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:22:59'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:22:59'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:22:59'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:22:59'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:23:44' prior: 50923010!
+test03CanNotCheckoutWithAnExpiredCreditCart
+
+	| cart salesBook |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	salesBook := ClientPurchases new.
+	
+	self
+		should: [ Cashier 
+				toCheckout: cart 
+				charging: testObjectsFactory expiredCreditCard 
+				throught: self
+				on: testObjectsFactory today
+				registeringOn: salesBook ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError | 
+			self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage.
+			self assert: salesBook history isEmpty ]! !
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:23:47'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:23:47'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:23:47'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:23:47'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:23:47'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:23:47'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:23:47'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:24:11' prior: 50922976!
+test01CanNotCheckoutAnEmptyCart
+
+	| salesBook |
+	
+	salesBook := ClientPurchases new.
+	self 
+		should: [ Cashier 
+			toCheckout: testObjectsFactory createCart 
+			charging: testObjectsFactory notExpiredCreditCard 
+			throught: self
+			on: testObjectsFactory today
+			registeringOn:  salesBook ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier cartCanNotBeEmptyErrorMessage.
+			self assert: salesBook history isEmpty ]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:24:12'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:24:12'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:24:12'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:24:12'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:24:12'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:24:12'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:24:12'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:24:45' prior: 50928798!
+test04CheckoutRegistersASale
+
+	| cart cashier salesBook total |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	salesBook := ClientPurchases new.
+ 
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: testObjectsFactory notExpiredCreditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: salesBook.
+		
+	total := cashier checkOut.
+	
+	self assert: salesBook history size = 1.
+	self assert: salesBook totalSpent = total.! !
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:24:47'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:24:47'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:24:47'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:24:47'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:24:47'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:24:47'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:24:47'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:25:55' prior: 50923074!
+test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
+
+	| cart cashier salesBook creditCard |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	salesBook := ClientPurchases new.
+ 	debitBehavior := [ :anAmount :aCreditCard | self error: Cashier creditCardHasNoCreditErrorMessage].
+	
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: creditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: salesBook.
+		
+	self 
+		should: [cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier creditCardHasNoCreditErrorMessage.
+			self assert: salesBook isEmpty ]! !
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:25:57'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:26:06' prior: 50928969!
+test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
+
+	| cart cashier salesBook creditCard |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	salesBook := ClientPurchases new.
+ 	debitBehavior := [ :anAmount :aCreditCard | self error: Cashier creditCardHasNoCreditErrorMessage].
+	
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: creditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: salesBook.
+		
+	self 
+		should: [cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier creditCardHasNoCreditErrorMessage.
+			self assert: salesBook history isEmpty ]! !
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:26:07'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'AF 11/11/2021 16:26:07'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'AF 11/11/2021 16:26:07'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'AF 11/11/2021 16:26:07'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'AF 11/11/2021 16:26:07'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'AF 11/11/2021 16:26:07'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'AF 11/11/2021 16:26:07'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'AF 11/11/2021 16:26:18'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'AF 11/11/2021 16:26:18'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'AF 11/11/2021 16:26:18'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'AF 11/11/2021 16:26:18'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'AF 11/11/2021 16:26:18'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'AF 11/11/2021 16:26:18'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'AF 11/11/2021 16:26:18'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'AF 11/11/2021 16:26:18'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test11WhenAddingBookCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test12WhenDoingCheckoutCartExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test13WhenListingCartItExpiresIfWasntUsedFor30Minutes stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test14CreatingASecondCartDoesNotResetPreviousCartTimer stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test16WhenClientHasNotBoughtThenClientPurchasesReturnsNoPurchases stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test17WhenClientHasMadeAPurchaseThenListPurchasesReturnsIt stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test18CannotListPurchasesWithInvalidCredentials stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+!testRun: #InterfaceTest #test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases stamp: 'AF 11/11/2021 16:26:21'!
+PASSED!
+
+----SNAPSHOT----(11 November 2021 16:26:35) CuisUniversity-4913.image priorSource: 19089455!
+
+----SNAPSHOT----(11 November 2021 16:26:46) CuisUniversity-4913.image priorSource: 19119925!
