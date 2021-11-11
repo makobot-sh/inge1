@@ -270,50 +270,53 @@ setUp
 	
 	defaultCatalog := testObjectsFactory defaultCatalog.! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:12'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:49:32'!
 test01CannotCreateCartWithInvalidCredentials
 
-	| interface invalidUser password |
+	| interface invalidUser password trueClock |
 	
 	self setUp.
 	
 	invalidUser := 'notValid'.
 	password := 'password'.
 	
+	trueClock := testObjectsFactory falseClock.
 	shouldAuthenticate := false.
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 	
 	self should: [interface createCartFor: invalidUser with: password]
 		raise: Error
 		withMessageText: Interface invalidCredentialsErrorMessage.
 ! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:54:59'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:49:24'!
 test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart
 
-	| interface validUser password cartId cartContents |
+	| interface validUser password cartId cartContents trueClock |
 	
 	self setUp.
 	
 	validUser := 'valid'.
 	password := 'password'.
 	
+	trueClock := testObjectsFactory falseClock.
 	shouldAuthenticate := true.
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 	
 	cartId := interface createCartFor: validUser with: password.
 	cartContents := interface listCart: cartId.
 	
 	self assert: cartContents isEmpty.! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:49:02'!
 test03AddingBookToInvalidIdCartThrowsError
 
-	| interface cartId book |
+	| interface cartId book trueClock |
 	
 	self setUp.
 	
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 	
 	cartId := 1.
 	book := testObjectsFactory itemSellByTheStore.
@@ -323,15 +326,16 @@ test03AddingBookToInvalidIdCartThrowsError
 	
 	! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:54:51'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:48:52'!
 test04AddingBookToValidIdCartAddsBookToCorrespondingCart
 
-	| interface cartId book cartContents |
+	| interface cartId book cartContents trueClock |
 	
 	self setUp.
 	
 	shouldAuthenticate := true.
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 		
 	cartId := interface createCartFor: 'user' with: 'password'.
 	book := testObjectsFactory itemSellByTheStore.
@@ -342,15 +346,16 @@ test04AddingBookToValidIdCartAddsBookToCorrespondingCart
 	self assert: (cartContents includes: book)
 	! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:54:47'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:48:42'!
 test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount
 
-	| interface cartId book cartContents |
+	| interface cartId book cartContents trueClock |
 	
 	self setUp.
 	
 	shouldAuthenticate := true.
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 		
 	cartId := interface createCartFor: 'user' with: 'password'.
 	book := testObjectsFactory itemSellByTheStore.
@@ -361,10 +366,10 @@ test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount
 	self assert: 2 equals: (cartContents occurrencesOf: book)
 	! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:54:42'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:48:31'!
 test06CreatingMoreThanOneCartAssingsDifferentIdsForEach
 
-	| interface validUser password cartId1 cartId2 anotherValidUser |
+	| interface validUser password cartId1 cartId2 anotherValidUser trueClock |
 	
 	self setUp.
 	
@@ -372,18 +377,19 @@ test06CreatingMoreThanOneCartAssingsDifferentIdsForEach
 	anotherValidUser := 'valid2'.
 	password := 'password'.
 	
+	trueClock := testObjectsFactory falseClock.
 	shouldAuthenticate := true.
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 	
 	cartId1 := interface createCartFor: validUser with: password.
 	cartId2 := interface createCartFor: anotherValidUser with: password.
 	
 	self assert: cartId1 ~= cartId2! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:54:39'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:48:07'!
 test07AddingABookToOneCartDoesNotAffectTheOtherCart
 
-	| interface validUser password cartId1 cartId2 anotherValidUser book cart1Contents cart2Contents |
+	| interface validUser password cartId1 cartId2 anotherValidUser book cart1Contents cart2Contents trueClock |
 	
 	self setUp.
 	validUser := 'valid'.
@@ -391,8 +397,8 @@ test07AddingABookToOneCartDoesNotAffectTheOtherCart
 	password := 'password'.
 	book := testObjectsFactory itemSellByTheStore .
 	shouldAuthenticate := true.
-	
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 	
 	cartId1 := interface createCartFor: validUser with: password.
 	cartId2 := interface createCartFor: anotherValidUser with: password.
@@ -403,27 +409,29 @@ test07AddingABookToOneCartDoesNotAffectTheOtherCart
 	cart2Contents := interface listCart: cartId2.	
 	self assert: cart1Contents ~= cart2Contents.! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:47:58'!
 test08ListingInvalidCartIdThrowsError
 
-	| interface |
+	| interface trueClock |
 	
 	self setUp.
 	
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 
 	self should: [interface listCart: 0]
 		raise: Error
 		withMessageText: Interface invalidCartIdErrorMessage ! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'MK 11/8/2021 15:46:04'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:47:39'!
 test09CheckOutOfAInvalidIdCartThrowError
 
-	| interface cartId creditCard |
+	| interface cartId creditCard trueClock |
 	
 	self setUp.
 	
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self .
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
 	creditCard := testObjectsFactory notExpiredCreditCard.
 	cartId := 1.
 	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
@@ -432,15 +440,16 @@ test09CheckOutOfAInvalidIdCartThrowError
 	
 	! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:55:53'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:47:15'!
 test10CheckOutOfValidIdCartRegisterSale
 
-	|creditCard interface cartId book aSalesBook |
+	|creditCard interface cartId book aSalesBook trueClock |
 	
 	self setUp.
 	
 	shouldAuthenticate := true.
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self.
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: testObjectsFactory trueClock.
 		
 	cartId := interface createCartFor: 'user' with: 'password'.
 	book := testObjectsFactory itemSellByTheStore.
@@ -452,22 +461,23 @@ test10CheckOutOfValidIdCartRegisterSale
 	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook first total
 	! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:43:12'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:31:24'!
 test11
 
-	|creditCard interface cartId book |
+	|creditCard interface cartId book falseClock|
 	
 	self setUp.
 	
 	shouldAuthenticate := true.
-	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self.
+	falseClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: falseClock.
 		
 	cartId := interface createCartFor: 'user' with: 'password'.
 	book := testObjectsFactory itemSellByTheStore.
 	creditCard := testObjectsFactory notExpiredCreditCard.
 	
 	interface add: 1 of: book to: cartId.
-	interface addMinuteBy: 31.
+	falseClock addTime: (Duration minutes: 31).
 	
 	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
 		raise: Error
@@ -664,13 +674,13 @@ Object subclass: #Clock
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:34:17'!
+!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:40:51'!
 addTime: aTime
 	addedTime := aTime! !
 
-!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:33:54'!
+!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:42:41'!
 currentTime
-	^DateAndTime new + addedTime.! !
+	^DateAndTime now + addedTime.! !
 
 !Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:48:03'!
 expirationTime
@@ -680,9 +690,9 @@ expirationTime
 giveTime
 	^time.! !
 
-!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:44:37'!
-initialize: aTime
-	time := aTime.
+!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:44:11'!
+initialize
+	time := DateAndTime now.
 	addedTime := Duration minutes: 0! !
 
 !Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:32:47'!
@@ -695,10 +705,10 @@ setTime: aTime
 Clock class
 	instanceVariableNames: ''!
 
-!Clock class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:45:16'!
-initialTime: aTime 
+!Clock class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:43:46'!
+initialTime 
 	
-	^self new initialize: aTime.! !
+	^self basicNew initialize.! !
 
 
 !classDefinition: #CreditCard category: 'TusLibros'!
@@ -738,19 +748,15 @@ Object subclass: #Interface
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:39:39'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04'!
 add: anAmount of: aBook to: aCartId
 
-	self checkExperationTimeAndRefresh.
+	self checkExpirationTimeAndRefresh.
 	
 	^(activeCarts at: aCartId ifAbsent:[self error: Interface invalidCartIdErrorMessage ]) add: anAmount of: aBook.! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:42:13'!
-addMinuteBy: aMinute
-	clock addTime: (Duration minutes: aMinute)! !
-
-!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:37:50'!
-authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor   
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock    
 
 	authenticator := anAuthenticator .
 	
@@ -764,25 +770,25 @@ authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: a
 	
 	saleBook := OrderedCollection new.
 	
-	clock := Clock initialTime: DateAndTime new.
+	clock := aClock.
 	
 	
 	
 	
 	! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:39:39'!
-checkExperationTimeAndRefresh
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04'!
+checkExpirationTimeAndRefresh
 
 	(clock expirationTime) ifTrue: [self error: Interface expiredCartErrorMessage].
-	clock setTime: DateAndTime new! !
+	clock setTime: DateAndTime now! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:40:49'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04'!
 checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate  
 	
 	|cart cashier|
 	
-	self checkExperationTimeAndRefresh.
+	self checkExpirationTimeAndRefresh.
 	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
 	
 	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: aDate  registeringOn: saleBook.
@@ -790,11 +796,11 @@ checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate
 	^saleBook copy
 	! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:40:56'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04'!
 createCartFor: aUser with: aPassword
 
 	| cartId |
-	self checkExperationTimeAndRefresh.
+	self checkExpirationTimeAndRefresh.
 	(authenticator authenticateUser: aUser with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
 	
 	cartId := nextId .
@@ -804,10 +810,10 @@ createCartFor: aUser with: aPassword
 	
 	^cartId.! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:41:01'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04'!
 listCart: aCartId 
 	
-	self checkExperationTimeAndRefresh.
+	self checkExpirationTimeAndRefresh.
 	^(activeCarts at: aCartId ifAbsent: [self error: Interface invalidCartIdErrorMessage ]) contents.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -816,10 +822,10 @@ listCart: aCartId
 Interface class
 	instanceVariableNames: ''!
 
-!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/7/2021 16:52:46'!
-authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor      
+!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:40:29'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock       
 	
-	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor .! !
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock .! !
 
 !Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 00:40:17'!
 expiredCartErrorMessage
@@ -922,3 +928,12 @@ initialize
 today
 	
 	^ today! !
+
+
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:44:39'!
+falseClock
+	^Clock initialTime.! !
+
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:46:26'!
+trueClock
+	^Clock initialTime.! !

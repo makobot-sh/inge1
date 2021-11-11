@@ -5058,3 +5058,1535 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(11 November 2021 00:49:44) CuisUniversity-4913.image priorSource: 18661997!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:20:40' prior: 50915906!
+test11
+
+	|creditCard interface cartId book |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface addMinuteBy: 30.
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:20:41'!
+FAILURE!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:21:01' prior: 50916237!
+test11
+
+	|creditCard interface cartId book |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface addMinuteBy: 31.
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:21:02'!
+PASSED!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:21:06' prior: 50916262!
+test11
+
+	|creditCard interface cartId book |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface addMinuteBy: 30.
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+!StoreTestObjectsFactory methodsFor: 'nil' stamp: 'Chiro 11/11/2021 08:26:58'!
+falseClock
+	Clock initialTime: DateAndTime new.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:27:41' prior: 50916374!
+test11
+
+	|creditCard interface cartId book |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: (testObjectsFactory falseClock).
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface addMinuteBy: 30.
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: aClock       
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor .! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: aClock    
+
+	authenticator := anAuthenticator .
+	
+	catalog := aCatalog .
+	
+	activeCarts := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	
+	saleBook := OrderedCollection new.
+	
+	clock := Clock initialTime: DateAndTime new.
+	
+	
+	
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915291!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook first total
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915235!
+test07AddingABookToOneCartDoesNotAffectTheOtherCart
+
+	| interface validUser password cartId1 cartId2 anotherValidUser book cart1Contents cart2Contents |
+	
+	self setUp.
+	validUser := 'valid'.
+	anotherValidUser := 'valid2'.
+	password := 'password'.
+	book := testObjectsFactory itemSellByTheStore .
+	shouldAuthenticate := true.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+	
+	cartId1 := interface createCartFor: validUser with: password.
+	cartId2 := interface createCartFor: anotherValidUser with: password.
+	
+	interface add: 1 of: book to: cartId1.
+	
+	cart1Contents := interface listCart: cartId1.
+	cart2Contents := interface listCart: cartId2.	
+	self assert: cart1Contents ~= cart2Contents.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915127!
+test01CannotCreateCartWithInvalidCredentials
+
+	| interface invalidUser password |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	shouldAuthenticate := false.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+	
+	self should: [interface createCartFor: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915274!
+test09CheckOutOfAInvalidIdCartThrowError
+
+	| interface cartId creditCard |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	cartId := 1.
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915144!
+test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart
+
+	| interface validUser password cartId cartContents |
+	
+	self setUp.
+	
+	validUser := 'valid'.
+	password := 'password'.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+	
+	cartId := interface createCartFor: validUser with: password.
+	cartContents := interface listCart: cartId.
+	
+	self assert: cartContents isEmpty.! !
+!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915607!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor      
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: Clock .! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915262!
+test08ListingInvalidCartIdThrowsError
+
+	| interface |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+
+	self should: [interface listCart: 0]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage ! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915162!
+test03AddingBookToInvalidIdCartThrowsError
+
+	| interface cartId book |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+	
+	cartId := 1.
+	book := testObjectsFactory itemSellByTheStore.
+	self should: [interface add: 1 of: book to: cartId.]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915177!
+test04AddingBookToValidIdCartAddsBookToCorrespondingCart
+
+	| interface cartId book cartContents |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	interface add: 1 of: book to: cartId.
+	
+	cartContents := interface listCart: cartId.
+	
+	self assert: (cartContents includes: book)
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915215!
+test06CreatingMoreThanOneCartAssingsDifferentIdsForEach
+
+	| interface validUser password cartId1 cartId2 anotherValidUser |
+	
+	self setUp.
+	
+	validUser := 'valid'.
+	anotherValidUser := 'valid2'.
+	password := 'password'.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+	
+	cartId1 := interface createCartFor: validUser with: password.
+	cartId2 := interface createCartFor: anotherValidUser with: password.
+	
+	self assert: cartId1 ~= cartId2! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50915196!
+test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount
+
+	| interface cartId book cartContents |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andAClock: Clock .
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	interface add: 2 of: book to: cartId.
+	
+	cartContents := interface listCart: cartId.
+	
+	self assert: 2 equals: (cartContents occurrencesOf: book)
+	! !
+!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:14' prior: 50916425!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: aClock       
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: Clock .! !
+
+!methodRemoval: Interface class #authenticatingWith:andCatalog:andMerchantProcessor: stamp: 'Chiro 11/11/2021 08:28:14'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor      
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: Clock .!
+
+!methodRemoval: Interface #authenticatingWith:andCatalog:andMerchantProcessor: stamp: 'Chiro 11/11/2021 08:28:14'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor   
+
+	authenticator := anAuthenticator .
+	
+	catalog := aCatalog .
+	
+	activeCarts := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	
+	saleBook := OrderedCollection new.
+	
+	clock := Clock initialTime: DateAndTime new.
+	
+	
+	
+	
+	!
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:22' prior: 50916436!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: aClock    
+
+	authenticator := anAuthenticator .
+	
+	catalog := aCatalog .
+	
+	activeCarts := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	
+	saleBook := OrderedCollection new.
+	
+	clock := aClock.
+	
+	
+	
+	
+	! !
+!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock       
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: Clock .! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock    
+
+	authenticator := anAuthenticator .
+	
+	catalog := aCatalog .
+	
+	activeCarts := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	
+	saleBook := OrderedCollection new.
+	
+	clock := aClock.
+	
+	
+	
+	
+	! !
+!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916660!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: aClock       
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: Clock .! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916599!
+test04AddingBookToValidIdCartAddsBookToCorrespondingCart
+
+	| interface cartId book cartContents |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	interface add: 1 of: book to: cartId.
+	
+	cartContents := interface listCart: cartId.
+	
+	self assert: (cartContents includes: book)
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916640!
+test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount
+
+	| interface cartId book cartContents |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	interface add: 2 of: book to: cartId.
+	
+	cartContents := interface listCart: cartId.
+	
+	self assert: 2 equals: (cartContents occurrencesOf: book)
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916583!
+test03AddingBookToInvalidIdCartThrowsError
+
+	| interface cartId book |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+	
+	cartId := 1.
+	book := testObjectsFactory itemSellByTheStore.
+	self should: [interface add: 1 of: book to: cartId.]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916540!
+test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart
+
+	| interface validUser password cartId cartContents |
+	
+	self setUp.
+	
+	validUser := 'valid'.
+	password := 'password'.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+	
+	cartId := interface createCartFor: validUser with: password.
+	cartContents := interface listCart: cartId.
+	
+	self assert: cartContents isEmpty.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916522!
+test09CheckOutOfAInvalidIdCartThrowError
+
+	| interface cartId creditCard |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	cartId := 1.
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916451!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook first total
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916476!
+test07AddingABookToOneCartDoesNotAffectTheOtherCart
+
+	| interface validUser password cartId1 cartId2 anotherValidUser book cart1Contents cart2Contents |
+	
+	self setUp.
+	validUser := 'valid'.
+	anotherValidUser := 'valid2'.
+	password := 'password'.
+	book := testObjectsFactory itemSellByTheStore .
+	shouldAuthenticate := true.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+	
+	cartId1 := interface createCartFor: validUser with: password.
+	cartId2 := interface createCartFor: anotherValidUser with: password.
+	
+	interface add: 1 of: book to: cartId1.
+	
+	cart1Contents := interface listCart: cartId1.
+	cart2Contents := interface listCart: cartId2.	
+	self assert: cart1Contents ~= cart2Contents.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916570!
+test08ListingInvalidCartIdThrowsError
+
+	| interface |
+	
+	self setUp.
+	
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+
+	self should: [interface listCart: 0]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage ! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916504!
+test01CannotCreateCartWithInvalidCredentials
+
+	| interface invalidUser password |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	shouldAuthenticate := false.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+	
+	self should: [interface createCartFor: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916619!
+test06CreatingMoreThanOneCartAssingsDifferentIdsForEach
+
+	| interface validUser password cartId1 cartId2 anotherValidUser |
+	
+	self setUp.
+	
+	validUser := 'valid'.
+	anotherValidUser := 'valid2'.
+	password := 'password'.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: Clock .
+	
+	cartId1 := interface createCartFor: validUser with: password.
+	cartId2 := interface createCartFor: anotherValidUser with: password.
+	
+	self assert: cartId1 ~= cartId2! !
+!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:28:45' prior: 50916712!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock       
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: Clock .! !
+
+!methodRemoval: Interface class #authenticatingWith:andCatalog:andMerchantProcessor:andAClock: stamp: 'Chiro 11/11/2021 08:28:45'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: aClock       
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: Clock .!
+
+!methodRemoval: Interface #authenticatingWith:andCatalog:andMerchantProcessor:andAClock: stamp: 'Chiro 11/11/2021 08:28:45'!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andAClock: aClock    
+
+	authenticator := anAuthenticator .
+	
+	catalog := aCatalog .
+	
+	activeCarts := Dictionary new.
+	
+	nextId := 1.
+	
+	merchantProcessor  := aMerchantProcessor.
+	
+	saleBook := OrderedCollection new.
+	
+	clock := aClock.
+	
+	
+	
+	
+	!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:29:48' prior: 50916401!
+test11
+
+	|creditCard interface cartId book falseClock|
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	falseClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: falseClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	falseClock addTime: 31.
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:29:49'!
+ERROR!
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:30:19' prior: 50916396!
+falseClock
+	^Clock initialTime: DateAndTime new.! !
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:30:24'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:30:40'!
+ERROR!
+!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:31:03' prior: 50915755!
+addTime: aTime
+	addedTime := Duration minutes: aTime! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:31:24' prior: 50916987!
+test11
+
+	|creditCard interface cartId book falseClock|
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	falseClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: falseClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	falseClock addTime: (Duration minutes: 31).
+	
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface expiredCartErrorMessage
+
+	! !
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:31:25'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:35:01'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:35:27'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:35:27'!
+ERROR!
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:37:09' prior: 50917015!
+falseClock
+	^Clock initialTime: DateAndTime now.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:37:22' prior: 50915818!
+checkExperationTimeAndRefresh
+
+	(clock expirationTime) ifTrue: [self error: Interface expiredCartErrorMessage].
+	clock setTime: DateAndTime now! !
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:37:34'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:37:34'!
+ERROR!
+!Clock class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:38:10' prior: 50915939!
+initialTime: aTime 
+	
+	^self basicNew initialize: aTime.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Chiro 11/11/2021 08:38:13'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'Chiro 11/11/2021 08:38:13'!
+FAILURE!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'Chiro 11/11/2021 08:38:13'!
+ERROR!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'Chiro 11/11/2021 08:38:13'!
+FAILURE!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'Chiro 11/11/2021 08:38:13'!
+ERROR!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'Chiro 11/11/2021 08:38:13'!
+ERROR!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'Chiro 11/11/2021 08:38:13'!
+ERROR!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'Chiro 11/11/2021 08:38:13'!
+ERROR!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'Chiro 11/11/2021 08:38:13'!
+FAILURE!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'Chiro 11/11/2021 08:38:13'!
+FAILURE!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:38:13'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:38:13'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:38:17'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:39:48'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:39:48'!
+ERROR!
+!Interface class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:40:29' prior: 50916948!
+authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock       
+	
+	^self basicNew authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: aMerchantProcessor andClock: aClock .! !
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:40:34'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:40:34'!
+ERROR!
+!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:40:51' prior: 50917025!
+addTime: aTime
+	addedTime := aTime! !
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:40:52'!
+FAILURE!
+!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:42:41' prior: 50915751!
+currentTime
+	^DateAndTime now + addedTime.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'Chiro 11/11/2021 08:42:42'!
+FAILURE!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'Chiro 11/11/2021 08:42:42'!
+ERROR!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'Chiro 11/11/2021 08:42:42'!
+FAILURE!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'Chiro 11/11/2021 08:42:42'!
+ERROR!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'Chiro 11/11/2021 08:42:42'!
+ERROR!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'Chiro 11/11/2021 08:42:42'!
+ERROR!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'Chiro 11/11/2021 08:42:42'!
+ERROR!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'Chiro 11/11/2021 08:42:42'!
+FAILURE!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'Chiro 11/11/2021 08:42:42'!
+FAILURE!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:42:42'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:42:42'!
+PASSED!
+!Clock class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:43:46'!
+initialTime 
+	
+	^self basicNew initialize.! !
+
+!methodRemoval: Clock class #initialTime: stamp: 'Chiro 11/11/2021 08:43:50'!
+initialTime: aTime 
+	
+	^self basicNew initialize: aTime.!
+!Clock methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:44:11' overrides: 16896425!
+initialize
+	time := DateAndTime now.
+	addedTime := Duration minutes: 0! !
+
+!methodRemoval: Clock #initialize: stamp: 'Chiro 11/11/2021 08:44:13'!
+initialize: aTime
+	time := aTime.
+	addedTime := Duration minutes: 0!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Chiro 11/11/2021 08:44:15'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'Chiro 11/11/2021 08:44:15'!
+FAILURE!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'Chiro 11/11/2021 08:44:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'Chiro 11/11/2021 08:44:15'!
+FAILURE!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'Chiro 11/11/2021 08:44:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'Chiro 11/11/2021 08:44:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'Chiro 11/11/2021 08:44:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'Chiro 11/11/2021 08:44:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'Chiro 11/11/2021 08:44:15'!
+FAILURE!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'Chiro 11/11/2021 08:44:15'!
+FAILURE!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:44:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:44:15'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:44:18'!
+ERROR!
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:44:39' prior: 50917066!
+falseClock
+	^Clock initialTime.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'Chiro 11/11/2021 08:44:40'!
+FAILURE!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'Chiro 11/11/2021 08:44:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'Chiro 11/11/2021 08:44:40'!
+FAILURE!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'Chiro 11/11/2021 08:44:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'Chiro 11/11/2021 08:44:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'Chiro 11/11/2021 08:44:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'Chiro 11/11/2021 08:44:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'Chiro 11/11/2021 08:44:40'!
+FAILURE!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'Chiro 11/11/2021 08:44:40'!
+FAILURE!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:44:40'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:44:40'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:44:49'!
+ERROR!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'Chiro 11/11/2021 08:45:07'!
+FAILURE!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'Chiro 11/11/2021 08:45:07'!
+ERROR!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'Chiro 11/11/2021 08:45:07'!
+FAILURE!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'Chiro 11/11/2021 08:45:07'!
+ERROR!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'Chiro 11/11/2021 08:45:07'!
+ERROR!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'Chiro 11/11/2021 08:45:07'!
+ERROR!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'Chiro 11/11/2021 08:45:07'!
+ERROR!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'Chiro 11/11/2021 08:45:07'!
+FAILURE!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'Chiro 11/11/2021 08:45:07'!
+FAILURE!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:45:07'!
+ERROR!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:45:07'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:45:11'!
+ERROR!
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:46:26'!
+trueClock
+	^Clock initialTime.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:46:48' prior: 50916843!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: testObjectsFactory falseClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook first total
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:47:15' prior: 50917596!
+test10CheckOutOfValidIdCartRegisterSale
+
+	|creditCard interface cartId book aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: testObjectsFactory trueClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook first total
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:47:39' prior: 50916825!
+test09CheckOutOfAInvalidIdCartThrowError
+
+	| interface cartId creditCard trueClock |
+	
+	self setUp.
+	
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	cartId := 1.
+	self should: [interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:47:58' prior: 50916896!
+test08ListingInvalidCartIdThrowsError
+
+	| interface trueClock |
+	
+	self setUp.
+	
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+
+	self should: [interface listCart: 0]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage ! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:48:07' prior: 50916868!
+test07AddingABookToOneCartDoesNotAffectTheOtherCart
+
+	| interface validUser password cartId1 cartId2 anotherValidUser book cart1Contents cart2Contents trueClock |
+	
+	self setUp.
+	validUser := 'valid'.
+	anotherValidUser := 'valid2'.
+	password := 'password'.
+	book := testObjectsFactory itemSellByTheStore .
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+	
+	cartId1 := interface createCartFor: validUser with: password.
+	cartId2 := interface createCartFor: anotherValidUser with: password.
+	
+	interface add: 1 of: book to: cartId1.
+	
+	cart1Contents := interface listCart: cartId1.
+	cart2Contents := interface listCart: cartId2.	
+	self assert: cart1Contents ~= cart2Contents.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:48:31' prior: 50916927!
+test06CreatingMoreThanOneCartAssingsDifferentIdsForEach
+
+	| interface validUser password cartId1 cartId2 anotherValidUser trueClock |
+	
+	self setUp.
+	
+	validUser := 'valid'.
+	anotherValidUser := 'valid2'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory falseClock.
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+	
+	cartId1 := interface createCartFor: validUser with: password.
+	cartId2 := interface createCartFor: anotherValidUser with: password.
+	
+	self assert: cartId1 ~= cartId2! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:48:42' prior: 50916770!
+test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount
+
+	| interface cartId book cartContents trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	interface add: 2 of: book to: cartId.
+	
+	cartContents := interface listCart: cartId.
+	
+	self assert: 2 equals: (cartContents occurrencesOf: book)
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:48:52' prior: 50916750!
+test04AddingBookToValidIdCartAddsBookToCorrespondingCart
+
+	| interface cartId book cartContents trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	interface add: 1 of: book to: cartId.
+	
+	cartContents := interface listCart: cartId.
+	
+	self assert: (cartContents includes: book)
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:49:02' prior: 50916790!
+test03AddingBookToInvalidIdCartThrowsError
+
+	| interface cartId book trueClock |
+	
+	self setUp.
+	
+	trueClock := testObjectsFactory falseClock.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+	
+	cartId := 1.
+	book := testObjectsFactory itemSellByTheStore.
+	self should: [interface add: 1 of: book to: cartId.]
+		raise: Error
+		withMessageText: Interface invalidCartIdErrorMessage.
+	
+	! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:49:11' prior: 50916806!
+test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart
+
+	| interface validUser password cartId cartContents trueClock |
+	
+	self setUp.
+	
+	validUser := 'valid'.
+	password := 'password'.
+	
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+	
+	cartId := interface createCartFor: validUser with: password.
+	cartContents := interface listCart: cartId.
+	
+	self assert: cartContents isEmpty.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:49:24' prior: 50917798!
+test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart
+
+	| interface validUser password cartId cartContents trueClock |
+	
+	self setUp.
+	
+	validUser := 'valid'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory falseClock.
+	shouldAuthenticate := true.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+	
+	cartId := interface createCartFor: validUser with: password.
+	cartContents := interface listCart: cartId.
+	
+	self assert: cartContents isEmpty.! !
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:49:32' prior: 50916909!
+test01CannotCreateCartWithInvalidCredentials
+
+	| interface invalidUser password trueClock |
+	
+	self setUp.
+	
+	invalidUser := 'notValid'.
+	password := 'password'.
+	
+	trueClock := testObjectsFactory falseClock.
+	shouldAuthenticate := false.
+	interface := Interface authenticatingWith: self andCatalog: defaultCatalog andMerchantProcessor: self andClock: trueClock .
+	
+	self should: [interface createCartFor: invalidUser with: password]
+		raise: Error
+		withMessageText: Interface invalidCredentialsErrorMessage.
+! !
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test01CannotCreateCartWithInvalidCredentials stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test02CreateCartWithValidCredentialsReturnsIdOfAnEmptyCart stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test03AddingBookToInvalidIdCartThrowsError stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test04AddingBookToValidIdCartAddsBookToCorrespondingCart stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test05AddingMultipleCopiesOfTheSameBookAddsTheRightAmount stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test06CreatingMoreThanOneCartAssingsDifferentIdsForEach stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test07AddingABookToOneCartDoesNotAffectTheOtherCart stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test08ListingInvalidCartIdThrowsError stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test09CheckOutOfAInvalidIdCartThrowError stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test10CheckOutOfValidIdCartRegisterSale stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+
+!testRun: #InterfaceTest #test11 stamp: 'Chiro 11/11/2021 08:49:34'!
+PASSED!
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04'!
+checkExpirationTimeAndRefresh
+
+	(clock expirationTime) ifTrue: [self error: Interface expiredCartErrorMessage].
+	clock setTime: DateAndTime now! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04' prior: 50915840!
+checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate  
+	
+	|cart cashier|
+	
+	self checkExpirationTimeAndRefresh.
+	cart := activeCarts at: aCartId ifAbsent:[^self error: Interface invalidCartIdErrorMessage ].
+	
+	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: aDate  registeringOn: saleBook.
+	cashier checkOut.
+	^saleBook copy
+	! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04' prior: 50915826!
+add: anAmount of: aBook to: aCartId
+
+	self checkExpirationTimeAndRefresh.
+	
+	^(activeCarts at: aCartId ifAbsent:[self error: Interface invalidCartIdErrorMessage ]) add: anAmount of: aBook.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04' prior: 50915869!
+listCart: aCartId 
+	
+	self checkExpirationTimeAndRefresh.
+	^(activeCarts at: aCartId ifAbsent: [self error: Interface invalidCartIdErrorMessage ]) contents.! !
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 08:50:04' prior: 50915855!
+createCartFor: aUser with: aPassword
+
+	| cartId |
+	self checkExpirationTimeAndRefresh.
+	(authenticator authenticateUser: aUser with: aPassword) ifFalse: [self error: Interface invalidCredentialsErrorMessage].
+	
+	cartId := nextId .
+	nextId := cartId + 1.
+	
+	activeCarts add: cartId -> (Cart acceptingItemsOf: catalog).
+	
+	^cartId.! !
+
+!methodRemoval: Interface #checkExperationTimeAndRefresh stamp: 'Chiro 11/11/2021 08:50:04'!
+checkExperationTimeAndRefresh
+
+	(clock expirationTime) ifTrue: [self error: Interface expiredCartErrorMessage].
+	clock setTime: DateAndTime now!
+
+!methodRemoval: Interface #addMinuteBy: stamp: 'Chiro 11/11/2021 08:50:58'!
+addMinuteBy: aMinute
+	clock addTime: (Duration minutes: aMinute)!
+
+----SNAPSHOT----(11 November 2021 08:52:06) CuisUniversity-4913.image priorSource: 18706638!
