@@ -161,7 +161,7 @@ test03CanNotCheckoutWithAnExpiredCreditCart
 			self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage.
 			self assert: salesBook isEmpty ]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 19:04'!
+!CashierTest methodsFor: 'tests' stamp: 'Chiro 11/11/2021 14:02:45'!
 test04CheckoutRegistersASale
 
 	| cart cashier salesBook total |
@@ -180,7 +180,7 @@ test04CheckoutRegistersASale
 	total := cashier checkOut.
 					
 	self assert: salesBook size = 1.
-	self assert: salesBook first total = total.! !
+	self assert: salesBook first = total.! !
 
 !CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 19:00'!
 test05CashierChargesCreditCardUsingMerchantProcessor
@@ -445,7 +445,7 @@ test09CheckOutOfAInvalidIdCartThrowError
 	
 	! !
 
-!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 09:01:54'!
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 14:02:32'!
 test10CheckOutOfValidIdCartRegisterSale
 
 	|creditCard interface cartId book aSalesBook trueClock |
@@ -463,7 +463,7 @@ test10CheckOutOfValidIdCartRegisterSale
 	interface add: 1 of: book to: cartId.
 	aSalesBook := interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
 	
-	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook first total
+	self assert: (testObjectsFactory itemSellByTheStorePrice) equals: aSalesBook first
 	! !
 
 !InterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 09:59:30'!
@@ -582,6 +582,56 @@ test15CheckThatExpiredCartNoLongerExistsAfterTryingToUseIt
 							 ] 
 	! !
 
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 13:06:15'!
+test16
+
+	|creditCard interface cartId book aSalesBook trueClock |
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	aSalesBook := interface listPurchases.
+	
+	self assert: '' equals: aSalesBook.
+	! !
+
+!InterfaceTest methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 13:42:24'!
+test17
+
+	|creditCard interface cartId book aSalesBook trueClock bag clientPurchases|
+	
+	self setUp.
+	
+	shouldAuthenticate := true.
+	trueClock := testObjectsFactory trueClock.
+	interface := self createInterfaceWithClock: trueClock.
+		
+	cartId := interface createCartFor: 'user' with: 'password'.
+	book := testObjectsFactory itemSellByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	
+	interface add: 1 of: book to: cartId.
+	interface checkOutCartWith: cartId creditCard: creditCard onDate: testObjectsFactory today.
+	
+	aSalesBook := interface listPurchases.
+	 
+	bag := Bag new.
+	bag add: testObjectsFactory itemSellByTheStore.
+	
+	clientPurchases := ClientPurchases history: bag total: (testObjectsFactory itemSellByTheStorePrice).
+	
+	self assert: (clientPurchases history) equals: aSalesBook history. 
+	self assert: (clientPurchases totalSpent) equals: aSalesBook totalSpent.
+	
+	! !
+
 
 !classDefinition: #Cart category: 'TusLibros'!
 Object subclass: #Cart
@@ -612,11 +662,11 @@ assertIsValidQuantity: aQuantity
 	aQuantity strictlyPositive ifFalse: [ self error: self invalidQuantityErrorMessage ]! !
 
 
-!Cart methodsFor: 'initialization' stamp: 'HernanWilkinson 6/17/2013 17:48'!
+!Cart methodsFor: 'initialization' stamp: 'Chiro 11/11/2021 13:46:06'!
 initializeAcceptingItemsOf: aCatalog
 
 	catalog := aCatalog.
-	items := OrderedCollection new.! !
+	items := Bag new.! !
 
 
 !Cart methodsFor: 'queries' stamp: 'HernanWilkinson 6/17/2013 17:45'!
@@ -686,22 +736,16 @@ calculateTotal
 	total := cart total.
 	! !
 
-!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/17/2013 19:07'!
-createSale
-
-	^ Sale of: total
-! !
-
 !Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/17/2013 19:06'!
 debitTotal
 
 	merchantProcessor debit: total from: creditCard.
 	! !
 
-!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/17/2013 19:06'!
+!Cashier methodsFor: 'checkout - private' stamp: 'Chiro 11/11/2021 13:57:41'!
 registerSale
 
-	salesBook add: self createSale! !
+	salesBook add: total! !
 
 
 !Cashier methodsFor: 'checkout' stamp: 'HernanWilkinson 6/17/2013 19:06'!
@@ -762,6 +806,37 @@ cartCanNotBeEmptyErrorMessage
 creditCardHasNoCreditErrorMessage
 	
 	^'Credit card has no credit'! !
+
+
+!classDefinition: #ClientPurchases category: 'TusLibros'!
+Object subclass: #ClientPurchases
+	instanceVariableNames: 'bagBooks totalSpent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 13:40:35'!
+history
+	^bagBooks! !
+
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 13:38:04'!
+initializeWith: aBagOfBooks and: aPrice
+	bagBooks := aBagOfBooks. 
+	totalSpent := aPrice.! !
+
+!ClientPurchases methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 13:40:52'!
+totalSpent
+	^totalSpent ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ClientPurchases class' category: 'TusLibros'!
+ClientPurchases class
+	instanceVariableNames: ''!
+
+!ClientPurchases class methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 13:37:09'!
+history: aBagOfBooks total: aPrice
+	^self basicNew initializeWith: aBagOfBooks and: aPrice.! !
 
 
 !classDefinition: #Clock category: 'TusLibros'!
@@ -829,7 +904,7 @@ expiringOn: aMonth
 
 !classDefinition: #Interface category: 'TusLibros'!
 Object subclass: #Interface
-	instanceVariableNames: 'authenticator activeCarts catalog nextId merchantProcessor saleBook clock cartsLastUsedTime'
+	instanceVariableNames: 'authenticator activeCarts catalog nextId merchantProcessor saleBook clock cartsLastUsedTime clientPurchases'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -859,8 +934,9 @@ authenticatingWith: anAuthenticator andCatalog: aCatalog andMerchantProcessor: a
 	clock := aClock.
 ! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 09:56:39'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 13:00:16'!
 checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId
+
 	(Duration minutes: 30) < (clock currentTime - (cartsLastUsedTime at: aCartId)) ifTrue: [activeCarts removeKey: aCartId.
 																		cartsLastUsedTime removeKey: aCartId.
 																		self error: Interface expiredCartErrorMessage].
@@ -868,7 +944,7 @@ checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId
 
 	cartsLastUsedTime at: aCartId put: clock currentTime.! !
 
-!Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 09:40:58'!
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 14:01:31'!
 checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate  
 
 	|cart cashier|
@@ -878,7 +954,9 @@ checkOutCartWith: aCartId creditCard: aCreditCard onDate: aDate
 	
 	cashier := Cashier toCheckout: cart charging: aCreditCard throught: merchantProcessor on: clock currentTime  registeringOn: saleBook.
 	cashier checkOut.
-	^saleBook copy
+	clientPurchases := ClientPurchases history: (cart contents) total: (saleBook last).
+	
+	^saleBook
 	! !
 
 !Interface methodsFor: 'as yet unclassified' stamp: 'AF 11/11/2021 09:16:59'!
@@ -906,6 +984,10 @@ listCart: aCartId
 	self checkExpirationTimeForCartIdAndRefreshIfNotExpired: aCartId.
 	
 	^cart contents.! !
+
+!Interface methodsFor: 'as yet unclassified' stamp: 'Chiro 11/11/2021 13:49:17'!
+listPurchases
+	^clientPurchases.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
