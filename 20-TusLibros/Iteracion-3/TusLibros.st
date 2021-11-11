@@ -247,7 +247,7 @@ debit: anAmount from: aCreditCard
 
 !classDefinition: #InterfaceTest category: 'TusLibros'!
 TestCase subclass: #InterfaceTest
-	instanceVariableNames: 'testObjectsFactory shouldAuthenticate defaultCatalog'
+	instanceVariableNames: 'testObjectsFactory shouldAuthenticate'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -655,7 +655,7 @@ test18CannotListPurchasesWithInvalidCredentials
 		withMessageText: Interface invalidCredentialsErrorMessage.
 ! !
 
-!InterfaceTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:49:57'!
+!InterfaceTest methodsFor: 'tests' stamp: 'AF 11/11/2021 16:53:08'!
 test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases
 
 	|creditCard interface cartId book clientPurchases1 trueClock bag clientId1 password1 clientId2 clientPurchases2 password2 |
@@ -671,8 +671,6 @@ test19ListingPurchasesOfDifferentClientsReturnsTheCorrespondingPurchases
 	trueClock := testObjectsFactory trueClock.
 	
 	interface := self createInterfaceWithClock: trueClock.
-	
-	
 	
 	clientId1 := 'user'. password1 := 'password'.
 	
