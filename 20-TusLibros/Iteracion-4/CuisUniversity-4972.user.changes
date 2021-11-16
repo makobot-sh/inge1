@@ -1,0 +1,1093 @@
+
+
+----QUIT----(13 November 2021 20:18:32) CuisUniversity-4972.image priorSource: 14896235!
+
+----STARTUP---- (13 November 2021 20:18:33) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-4972.image!
+
+
+----QUIT----(13 November 2021 20:18:33) CuisUniversity-4972.image priorSource: 18974023!
+
+----STARTUP---- (15 November 2021 19:27:09) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+CodePackage subclass: #ColorExtrasPackage
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Color-Extras'!
+
+!classDefinition: #ColorExtrasPackage category: 'Color-Extras' stamp: 'Install-Color-Extras 11/15/2021 19:27:43'!
+CodePackage subclass: #ColorExtrasPackage
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Color-Extras'!
+
+ColorExtrasPackage class
+	instanceVariableNames: ''!
+
+!classDefinition: 'ColorExtrasPackage class' category: 'Color-Extras' stamp: 'Install-Color-Extras 11/15/2021 19:27:43'!
+ColorExtrasPackage class
+	instanceVariableNames: ''!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\Features\Color-Extras.pck.st----!
+
+CodePackage subclass: #MorphicMisc1Package
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Morphic-Misc1'!
+
+!classDefinition: #MorphicMisc1Package category: 'Morphic-Misc1' stamp: 'Install-Morphic-Misc1 11/15/2021 19:27:44'!
+CodePackage subclass: #MorphicMisc1Package
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Morphic-Misc1'!
+!MorphicMisc1Package commentStamp: '<historical>' prior: 0!
+My purpose in life is to check that any base image methods overridden have not been updated.
+See #MorphMisc1Package class>>prePackageInstall!
+
+MorphicMisc1Package class
+	instanceVariableNames: ''!
+
+!classDefinition: 'MorphicMisc1Package class' category: 'Morphic-Misc1' stamp: 'Install-Morphic-Misc1 11/15/2021 19:27:44'!
+MorphicMisc1Package class
+	instanceVariableNames: ''!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\Morphic\Morphic-Misc1\Morphic-Misc1.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\Morphic\Morphic-Widgets-Extras.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\System\Collections-CompactArrays.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\Features\Compression.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\Features\Sound.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\Features\Cryptography-DigitalSignatures.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\Features\Identities-UUID.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\Packages\System\Network-Kernel.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\it4\WebClient.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\it4\WordsClientDemo.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\it4\StringsServicesServer.st----!
+
+----SNAPSHOT----(15 November 2021 19:46:20) CuisUniversity-4972.image priorSource: 18974255!
+
+----STARTUP---- (15 November 2021 19:46:36) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+StringsServicesRestInterface listeningOn: 8080.!
+
+|server|!
+
+server := StringsServicesRestInterface listeningOn: 8080.!
+
+server startListening.!
+
+server startListening.!
+
+server stopListening.!
+
+server stopListening. !
+
+server destroy.!
+
+server destroy. !
+
+server destroy. !
+
+----SNAPSHOT----(15 November 2021 19:57:03) CuisUniversity-4972.image priorSource: 20470678!
+
+server destroy. !
+
+----SNAPSHOT----(15 November 2021 19:57:14) CuisUniversity-4972.image priorSource: 20471153!
+
+----STARTUP---- (15 November 2021 19:57:37) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+|server|!
+
+server := StringsServicesRestInterface listeningOn: 8080.!
+
+server startListening.!
+
+server startListening.!
+
+server stopListening.!
+
+server stopListening.!
+
+server destroy.!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qa3\it4\TusLibros-80.st----!
+
+----SNAPSHOT----(15 November 2021 20:17:18) CuisUniversity-4972.image priorSource: 20471266!
+
+server := WordsClientWindow open.!
+
+server := WordsClientWindow allInstances .!
+
+server := WordsClientWindow allInstances .!
+
+|server window|!
+
+server := StringsServicesRestInterface listeningOn: 8080.!
+
+server startListening.!
+
+window := WordsClientWindow open.!
+
+window destroy!
+
+server destroy !
+
+Object subclass: #TusLibrosServer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 20:39:44'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+TestCase subclass: #TusLibrosServerTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classDefinition: #TusLibrosServerTest category: 'TusLibros-Tests' stamp: 'MP 11/15/2021 20:40:30'!
+TestCase subclass: #TusLibrosServerTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+!TusLibrosServerTest methodsFor: 'no messages' stamp: 'MP 11/15/2021 20:48:07'!
+test01
+
+	|server|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	WebRequest new initializeFromUrl: 'http://localhost:8080/'! !
+
+----SNAPSHOT----(15 November 2021 20:50:55) CuisUniversity-4972.image priorSource: 20524931!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 20:50:57' prior: 50973092!
+test01
+
+	|server req|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	req _ WebRequest new initializeFromUrl: 'http://localhost:8080/'.
+	req ! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:00:13' prior: 50973103!
+test01
+
+	|server req|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	req _ WebRequest new initializeFromUrl: 'http://localhost:8080/ping'.
+	req ! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:02:24' prior: 50973112!
+test01
+
+	|server req|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	req _ WebClient httpGet: 'http://localhost:8080/ping'.
+	req send! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:02:55' prior: 50973121!
+test01
+
+	|server req|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	req _ WebClient httpGet: 'http://localhost:8080/ping'.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:03:49' prior: 50973130!
+test01
+
+	|server req client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	req _ client httpGet: 'http://localhost:8080/ping'.
+	
+	client close.! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:10:31' prior: 50973139!
+test01
+
+	|server req client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	req _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	self assert: req = 0.! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:10:43' prior: 50973149!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	self assert: resp = 0.! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:11:09' prior: 50973161!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	self assert: resp = '0|000'.! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:11:14' prior: 50973173!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	self assert: resp = '0|0000'.! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:11:16'!
+ERROR!
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:11:58'!
+listeningOn: aSmallInteger 
+	self shouldBeImplemented.! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:12:12'!
+ERROR!
+!TusLibrosServer class methodsFor: 'error handling' stamp: 'MP 11/15/2021 21:12:19' overrides: 16881409!
+error: aString 
+	self shouldBeImplemented.! !
+
+!methodRemoval: TusLibrosServer class #error: stamp: 'MP 11/15/2021 21:12:40'!
+error: aString 
+	self shouldBeImplemented.!
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:12:47' prior: 50973199!
+listeningOn: aPort
+	! !
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:13:08' prior: 50973216!
+listeningOn: aPortNumber
+
+	^self new initializeWith: aPortNumber.! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:17:53'!
+ERROR!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:17:53'!
+ERROR!
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:18:04'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'portNumber'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:18:04'!
+initializeWith: aPortNumber 
+	self shouldBeImplemented.
+	portNumber := aPortNumber.! !
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:22:46'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'portNumber port'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:22:49'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'portNumber port webServer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:22:41' prior: 50973239!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:22:58'!
+ERROR!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:22:59'!
+ERROR!
+
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'port webServer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:23:43'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'port webServer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:23:48'!
+ERROR!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:23:48'!
+ERROR!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:24:03' prior: 50973261!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:24:04'!
+ERROR!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:24:04'!
+ERROR!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:24:40'!
+startListening
+	
+	webServer startListener.
+
+	^'Listening on port: ', port asString.
+	! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:24:59'!
+stopListening
+	
+	webServer stopListener.
+	
+	^'Stopped listening from port: ', port asString! !
+
+!methodRemoval: TusLibrosServer #startListening stamp: 'MP 11/15/2021 21:25:07'!
+startListening
+	
+	webServer startListener.
+
+	^'Listening on port: ', port asString.
+	!
+
+!methodRemoval: TusLibrosServer #stopListening stamp: 'MP 11/15/2021 21:25:09'!
+stopListening
+	
+	webServer stopListener.
+	
+	^'Stopped listening from port: ', port asString!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:25:18' prior: 50973296!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:25:34'!
+destroy
+	
+	webServer ifNotNil:[webServer destroy].! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:26:28' prior: 50973185!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: resp = '0|0000'.
+	! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:26:30'!
+ERROR!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:26:38' prior: 50973354!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: resp = '0|0000'.
+	! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:26:39'!
+FAILURE!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:27:11' prior: 50973369!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:27:21' prior: 50973336!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('o|0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:27:23' prior: 50973396!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('0|0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:27:24'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:27:24'!
+FAILURE!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:27:43' prior: 50973384!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp content.
+	! !
+
+----STARTUP---- (15 November 2021 21:30:08) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 20:50:57' prior: 50973092!
+test01
+
+	|server req|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	req _ WebRequest new initializeFromUrl: 'http://localhost:8080/'.
+	req ! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:00:13' prior: 50973445!
+test01
+
+	|server req|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	req _ WebRequest new initializeFromUrl: 'http://localhost:8080/ping'.
+	req ! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:02:24' prior: 50973454!
+test01
+
+	|server req|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	req _ WebClient httpGet: 'http://localhost:8080/ping'.
+	req send! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:02:55' prior: 50973463!
+test01
+
+	|server req|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	req _ WebClient httpGet: 'http://localhost:8080/ping'.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:03:49' prior: 50973472!
+test01
+
+	|server req client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	req _ client httpGet: 'http://localhost:8080/ping'.
+	
+	client close.! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:10:31' prior: 50973481!
+test01
+
+	|server req client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	req _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	self assert: req = 0.! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:10:43' prior: 50973491!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	self assert: resp = 0.! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:11:09' prior: 50973503!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	self assert: resp = '0|000'.! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:11:14' prior: 50973515!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	self assert: resp = '0|0000'.! !
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:11:58'!
+listeningOn: aSmallInteger 
+	self shouldBeImplemented.! !
+!TusLibrosServer class methodsFor: 'error handling' stamp: 'MP 11/15/2021 21:12:19' overrides: 16881409!
+error: aString 
+	self shouldBeImplemented.! !
+
+!methodRemoval: TusLibrosServer class #error: stamp: 'MP 11/15/2021 21:30:19'!
+error: aString 
+	self shouldBeImplemented.!
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:12:47' prior: 50973539!
+listeningOn: aPort
+	! !
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:13:08' prior: 50973554!
+listeningOn: aPortNumber
+
+	^self new initializeWith: aPortNumber.! !
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:30:19'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'portNumber'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:18:04'!
+initializeWith: aPortNumber 
+	self shouldBeImplemented.
+	portNumber := aPortNumber.! !
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:30:19'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'portNumber port'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:30:19'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'portNumber port webServer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:22:41' prior: 50973572!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	! !
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:30:20'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'port webServer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/15/2021 21:30:20'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'port webServer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:24:03' prior: 50973594!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:24:40'!
+startListening
+	
+	webServer startListener.
+
+	^'Listening on port: ', port asString.
+	! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:24:59'!
+stopListening
+	
+	webServer stopListener.
+	
+	^'Stopped listening from port: ', port asString! !
+
+!methodRemoval: TusLibrosServer #startListening stamp: 'MP 11/15/2021 21:30:20'!
+startListening
+	
+	webServer startListener.
+
+	^'Listening on port: ', port asString.
+	!
+
+!methodRemoval: TusLibrosServer #stopListening stamp: 'MP 11/15/2021 21:30:20'!
+stopListening
+	
+	webServer stopListener.
+	
+	^'Stopped listening from port: ', port asString!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:25:18' prior: 50973622!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:25:34'!
+destroy
+	
+	webServer ifNotNil:[webServer destroy].! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:26:28' prior: 50973527!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	server startListening.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: resp = '0|0000'.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:26:38' prior: 50973675!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: resp = '0|0000'.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:27:11' prior: 50973688!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:27:21' prior: 50973657!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('o|0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:27:23' prior: 50973712!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[.
+		request send200Response: ('0|0000')
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:27:43' prior: 50973700!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp content.
+	! !
+
+----SNAPSHOT----(15 November 2021 21:30:47) CuisUniversity-4972.image priorSource: 20526361!
+
+----STARTUP---- (15 November 2021 21:31:44) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+|server client resp|!
+
+server _ StringsServicesRestInterface listeningOn: 8080.!
+
+server startListening.!
+
+client _ WebClient new.!
+
+resp _ client httpGet: 'http://localhost:8080/quote'.!
+
+client close.!
+
+server destroy.!
+
+resp.!
+
+resp.!
+
+resp content.!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:36:13' prior: 50973726!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[
+		request send200Response: ('0|0000').
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:37:34' prior: 50973766!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:37:50' prior: 50973780!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: anError messageText ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:38:22' prior: 50973794!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: anError messageText ]].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:38:24'!
+PASSED!
+
+----SNAPSHOT----(15 November 2021 21:38:31) CuisUniversity-4972.image priorSource: 20547221!
+
+----STARTUP---- (15 November 2021 21:39:06) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:39:28' prior: 50973559!
+listeningOn: aPortNumber
+
+	^self basic new initializeWith: aPortNumber.! !
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:39:35' prior: 50973831!
+listeningOn: aPortNumber
+
+	^self basicNew initializeWith: aPortNumber.! !
+
+----SNAPSHOT----(15 November 2021 21:39:37) CuisUniversity-4972.image priorSource: 20549521!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:39:40'!
+PASSED!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:40:12' prior: 50973740!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: '0|0001' equals: resp content.
+	! !
+
+----SNAPSHOT----(15 November 2021 21:40:36) CuisUniversity-4972.image priorSource: 20550121!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:40:38'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/15/2021 21:40:39'!
+FAILURE!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:40:46' prior: 50973849!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp content.
+	! !
+
+----SNAPSHOT----(15 November 2021 21:40:49) CuisUniversity-4972.image priorSource: 20550709!
+
+----STARTUP---- (15 November 2021 21:41:24) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:43:17' prior: 50973808!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',anError messageText ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:43:23' prior: 50973887!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+----SNAPSHOT----(15 November 2021 21:48:59) CuisUniversity-4972.image priorSource: 20551349!
