@@ -507,7 +507,7 @@ of: aCollectionOfLineItems
 
 !classDefinition: #TusLibrosServer category: 'TusLibros-Model'!
 Object subclass: #TusLibrosServer
-	instanceVariableNames: 'port webServer'
+	instanceVariableNames: 'port webServer systemFacade'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Model'!
@@ -517,20 +517,30 @@ destroy
 	
 	webServer ifNotNil:[webServer destroy].! !
 
-!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:43:23'!
-initializeWith: aPortNumber 
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:37:13'!
+initializeWith: aPortNumber and: aSystemFacade    
 	
 	port := aPortNumber.
+	systemFacade := aSystemFacade.
 	
 	webServer := WebServer new listenOn: port.
 	
 	webServer addService: '/createCart' action:[:request | 
 		[
-		request send200Response: '0|0000'.
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
 		 ] 
 		on: Error 
 		do: [ :anError |
-			request send400Response: '1|',(anError messageText) ]].
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifFalse: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] .
+			request send200Response: '0|0000' asString .
+		]
+	].
 	
 	webServer startListener.
 ! !
@@ -541,11 +551,15 @@ initializeWith: aPortNumber
 TusLibrosServer class
 	instanceVariableNames: ''!
 
-!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:39:35'!
-listeningOn: aPortNumber
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:53:46'!
+listeningOn: aPortNumber communicateWith: aSystemFacade 
 
-	^self basicNew initializeWith: aPortNumber.! !
+	^self basicNew initializeWith: aPortNumber and: aSystemFacade .! !
 
+
+!TusLibrosServer class methodsFor: 'error handling' stamp: 'MP 11/17/2021 15:58:49'!
+invalidUserOrPasswordErrorDescription
+	^ 'INVALID_USERNAME_OR_PASSWORD'! !
 
 
 !classDefinition: #TusLibrosSystemFacade category: 'TusLibros-Model'!

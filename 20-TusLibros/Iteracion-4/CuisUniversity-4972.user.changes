@@ -1091,3 +1091,1234 @@ initializeWith: aPortNumber
 ! !
 
 ----SNAPSHOT----(15 November 2021 21:48:59) CuisUniversity-4972.image priorSource: 20551349!
+
+----STARTUP---- (17 November 2021 15:28:31) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:29:20' prior: 50973869!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	self halt.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp content.
+	! !
+
+----STARTUP---- (17 November 2021 15:30:08) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:30:24' prior: 50973869!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self halt.
+	self assert: '0|0000' equals: resp content.
+	! !
+
+self content!
+
+----STARTUP---- (17 November 2021 15:31:07) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+	self halt.!
+
+	self halt.!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:31:21' prior: 50973869!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	self halt.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp content.
+	! !
+
+self content.!
+
+self content.!
+
+self content.!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:32:22' prior: 50973954!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp content.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:33:24' prior: 50973968!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/17/2021 15:33:38'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/17/2021 15:33:38'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/17/2021 15:33:42'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test01 stamp: 'MP 11/17/2021 15:33:42'!
+PASSED!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:35:40'!
+test01CreateCartForValidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+
+!methodRemoval: TusLibrosServerTest #test01 stamp: 'MP 11/17/2021 15:35:40'!
+test01
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:40:22'!
+test02CreateCartForInvalidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:40:46' prior: 50974002!
+test01CreateCartForValidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=password') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:44:14' prior: 50974026!
+test02CreateCartForInvalidCredentials
+
+	|server resp client|
+	
+	
+	
+	server _ TusLibrosServer listeningOn: 8080 toInterface: self mockInterface.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:44:21' prior: 50974054!
+test02CreateCartForInvalidCredentials
+
+	|server resp client|
+	
+	self setup.
+	
+	server _ TusLibrosServer listeningOn: 8080 toInterface: self mockInterface.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:46:09' prior: 50974069!
+test02CreateCartForInvalidCredentials
+
+	|server resp client interface|
+	
+	server _ TusLibrosServer listeningOn: 8080 toInterface: self mockInterface.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:46:16' prior: 50974084!
+test02CreateCartForInvalidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 toInterface: self mockInterface.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+
+!classDefinition: #TusLibrosServerTest category: 'TusLibros-Tests' stamp: 'MP 11/17/2021 15:46:53'!
+TestCase subclass: #TusLibrosServerTest
+	instanceVariableNames: 'testObjectsFactory clock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classDefinition: #TusLibrosServerTest category: 'TusLibros-Tests' stamp: 'MP 11/17/2021 15:46:55'!
+TestCase subclass: #TusLibrosServerTest
+	instanceVariableNames: 'testObjectsFactory clock systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:46:51' overrides: 16927572!
+setUp
+	
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: self createSalesBook
+		debitingThrought: self merchantProcessor
+		measuringTimeWith: clock
+! !
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:47:47'!
+validUser
+
+	^'validUser'! !
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:47:55'!
+avalidUserPassword
+
+	^'validUserPassword'! !
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:07'!
+avalidUsersAndPasswords
+
+	^Dictionary new
+		at: self validUser put: self validUserPassword;
+		yourself! !
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:17'!
+validUsersAndPasswords
+
+	^Dictionary new
+		at: self validUser put: self validUserPassword;
+		yourself! !
+
+!methodRemoval: TusLibrosServerTest #avalidUsersAndPasswords stamp: 'MP 11/17/2021 15:48:17'!
+avalidUsersAndPasswords
+
+	^Dictionary new
+		at: self validUser put: self validUserPassword;
+		yourself!
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:21'!
+validUserPassword
+
+	^'validUserPassword'! !
+
+!methodRemoval: TusLibrosServerTest #avalidUserPassword stamp: 'MP 11/17/2021 15:48:21'!
+avalidUserPassword
+
+	^'validUserPassword'!
+!TusLibrosServerTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:48:58'!
+createSalesBook
+
+	^OrderedCollection new! !
+!TusLibrosServerTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:49:07'!
+merchantProcessor
+
+	^self! !
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 15:49:51' prior: 50974099!
+test02CreateCartForInvalidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 15:50:48'!
+initializeWith: aPortNumber communicateWith: aSystemFacade  
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:50:48' prior: 50973837!
+listeningOn: aPortNumber
+
+	^self basicNew initializeWith: aPortNumber communicateWith: systemFacade.! !
+
+!methodRemoval: TusLibrosServer #initializeWith: stamp: 'MP 11/17/2021 15:50:48'!
+initializeWith: aPortNumber 
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 15:51:34'!
+initializeWith: aPortNumber   
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:51:34' prior: 50974218!
+listeningOn: aPortNumber
+
+	^self basicNew initializeWith: aPortNumber .! !
+
+!methodRemoval: TusLibrosServer #initializeWith:communicateWith: stamp: 'MP 11/17/2021 15:51:34'!
+initializeWith: aPortNumber communicateWith: aSystemFacade  
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+!
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:52:04'!
+listeningOn: aPortNumber communicateWith: aSystemFacade 
+
+	^self basicNew initializeWith: aPortNumber .! !
+
+!methodRemoval: TusLibrosServer class #listeningOn: stamp: 'MP 11/17/2021 15:52:04'!
+listeningOn: aPortNumber
+
+	^self basicNew initializeWith: aPortNumber .!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 15:52:33' prior: 50974040!
+test01CreateCartForValidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade .
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=password') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 15:52:34' prior: 50974283!
+test01CreateCartForValidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=password') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 15:53:32'!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:53:33' prior: 50974271!
+listeningOn: aPortNumber communicateWith: aSystemFacade 
+
+	^self basicNew initializeWith: aPortNumber and: systemFacade .! !
+
+!methodRemoval: TusLibrosServer #initializeWith: stamp: 'MP 11/17/2021 15:53:33'!
+initializeWith: aPortNumber   
+	
+	port := aPortNumber.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+!
+!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:53:46' prior: 50974326!
+listeningOn: aPortNumber communicateWith: aSystemFacade 
+
+	^self basicNew initializeWith: aPortNumber and: aSystemFacade .! !
+
+!classDefinition: #TusLibrosServer category: 'TusLibros-Model' stamp: 'MP 11/17/2021 15:54:07'!
+Object subclass: #TusLibrosServer
+	instanceVariableNames: 'port webServer systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 15:54:06' prior: 50974311!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+		request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 15:56:53' prior: 50974363!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user password |
+			user := (request fields at:'clientId').
+			password := (request fields at:'password').
+			systemFacade does: user authenticatesWith: password.
+			request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 15:56:59' prior: 50974378!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+			systemFacade does: user authenticatesWith: psw.
+			request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 15:57:06'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 15:57:07'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 15:57:07'!
+PASSED!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 15:57:16' prior: 50974189!
+test02CreateCartForInvalidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	
+	client close.
+	server destroy.
+	self assert: '1|INVALID_PASSWORD' equals: resp.
+	! !
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 15:57:17'!
+FAILURE!
+!TusLibrosServer class methodsFor: 'error handling' stamp: 'MP 11/17/2021 15:58:49'!
+invalidUserOrPasswordErrorDescription
+	^ 'INVALID_USERNAME_OR_PASSWORD'! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 15:59:36' prior: 50974399!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+			systemFacade does: user authenticatesWith: psw.
+			request send200Response: '0|0000'.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:03:05' prior: 50974453!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw. 
+			request send200Response: '0|',cartId.
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:03:07'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 16:03:07'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:03:16'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:03:55' prior: 50974473!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw. 
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:03:56'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 16:03:56'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:04:02'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:11:48' prior: 50974505!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			self halt. 
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+			self halt. !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:12:14'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:12:22' prior: 50974537!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:12:24'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:14:09' prior: 50974563!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			self halt.
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:14:14'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:14:23'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:17:01' prior: 50974588!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			self halt.
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			anError messageText = TusLibrosSystemFacade invalidUserOrPasswordErrorDescription ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )].
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:17:05'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 16:17:05'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:17:08'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:17:34' prior: 50974617!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			anError messageText = TusLibrosSystemFacade invalidUserOrPasswordErrorDescription ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )].
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:19:28' prior: 50974655!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = TusLibrosSystemFacade invalidUserOrPasswordErrorDescription) ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )].
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:21:09' prior: 50974682!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = TusLibrosSystemFacade invalidUserOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )].
+			request send400Response: '1|',(anError messageText) ]].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:22:06' prior: 50974709!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = TusLibrosSystemFacade invalidUserOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )] ifFalse: [
+			request send400Response: '1|',(anError messageText) ]
+		]
+	].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:22:08'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 16:22:08'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:22:10'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:22:29' prior: 50974737!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = TusLibrosSystemFacade invalidUserOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:22:31'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 16:22:31'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:22:33'!
+FAILURE!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances do: [:i | i destroy].!
+
+TusLibrosServer allInstances .!
+
+TusLibrosServer allInstances .!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances do: [:i | i delete ].!
+
+TusLibrosServer allInstances.!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:26:40'!
+FAILURE!
+
+TusLibrosServer allInstances.!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 16:27:14' prior: 50974297!
+test01CreateCartForValidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=password') content.
+	
+	client close.
+	server destroy.
+	server delete.
+	self assert: '0|0000' equals: resp.
+	! !
+
+TusLibrosServer allInstances do: [:i | i delete ].!
+
+TusLibrosServer allInstances do: [:i | i delete ].!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances do: [:i | i delete ].!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances do: [:i | i delete].!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances.!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:30:34' prior: 50974776!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:31:09' prior: 50974874!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )] 
+				ifFalse: [request send400Response: '1|',anError].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:31:10'!
+ERROR!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/17/2021 16:31:11'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:31:13'!
+ERROR!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 16:31:21' prior: 50974836!
+test01CreateCartForValidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=password') content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances do: [:i | i delete].!
+
+TusLibrosServer allInstances.!
+
+WebServer allInstances.!
+
+WebServer allInstances do: [:i | i destroy].!
+
+WebServer allInstances.!
+
+WebServer allInstances do: [:i | i delete].!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:33:08'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:34:04' prior: 50974899!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription )] .
+		]
+	].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:34:08'!
+FAILURE!
+
+----SNAPSHOT----(17 November 2021 16:34:12) CuisUniversity-4972.image priorSource: 20552423!
+
+TusLibrosServer allInstances do: [:i | i delete].!
+
+WebServer allInstances.!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:34:28'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:35:23' prior: 50974965!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] .
+		]
+	].
+	
+	webServer startListener.
+! !
+
+WebServer allInstances.!
+
+WebServer allInstances do: [:i | i destroy].!
+
+WebServer allInstances.!
+
+WebServer allInstances.!
+
+WebServer allInstances.!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:36:52' prior: 50975003!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifFalse: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] .
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:37:13' prior: 50975033!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifFalse: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] .
+			request send200Response: '0|0000' asString .
+		]
+	].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:37:15'!
+FAILURE!
+
+----SNAPSHOT----(17 November 2021 16:37:42) CuisUniversity-4972.image priorSource: 20586959!
+
+----STARTUP---- (17 November 2021 16:37:56) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/17/2021 16:38:18'!
+FAILURE!
+
+WebServer allInstances.!
+
+WebServer allInstances.!
+
+TusLibrosServer allInstances.!
+
+WebServer allInstances do: [:i | i stopListening ].!
+
+----SNAPSHOT----(17 November 2021 16:45:13) CuisUniversity-4972.image priorSource: 20589983!

@@ -254,24 +254,81 @@ debit: anAmount from: aCreditCard
 
 !classDefinition: #TusLibrosServerTest category: 'TusLibros-Tests'!
 TestCase subclass: #TusLibrosServerTest
-	instanceVariableNames: 'testObjectsFactory'
+	instanceVariableNames: 'testObjectsFactory clock systemFacade'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Tests'!
 
-!TusLibrosServerTest methodsFor: 'as yet unclassified' stamp: 'MP 11/15/2021 21:40:46'!
-test01
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:47:47'!
+validUser
+
+	^'validUser'! !
+
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:21'!
+validUserPassword
+
+	^'validUserPassword'! !
+
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:17'!
+validUsersAndPasswords
+
+	^Dictionary new
+		at: self validUser put: self validUserPassword;
+		yourself! !
+
+
+!TusLibrosServerTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:48:58'!
+createSalesBook
+
+	^OrderedCollection new! !
+
+!TusLibrosServerTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:49:07'!
+merchantProcessor
+
+	^self! !
+
+!TusLibrosServerTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:46:51'!
+setUp
+	
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: self createSalesBook
+		debitingThrought: self merchantProcessor
+		measuringTimeWith: clock
+! !
+
+
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 16:31:21'!
+test01CreateCartForValidCredentials
 
 	|server resp client|
 	
-	server _ TusLibrosServer listeningOn: 8080.
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	resp _ client httpGet: 'http://localhost:8080/createCart?clientId=cliente&password=psw'.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=password') content.
 	
 	client close.
 	server destroy.
-	self assert: '0|0000' equals: resp content.
+	self assert: '0|0000' equals: resp.
+	! !
+
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 15:57:16'!
+test02CreateCartForInvalidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	
+	client close.
+	server destroy.
+	self assert: '1|INVALID_PASSWORD' equals: resp.
 	! !
 
 
