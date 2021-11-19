@@ -407,6 +407,37 @@ test04
 	self assert: ((responseExpected at: 'cartContents') at: book) equals: ((responseDecoded at: 'cartContents') at: book) .
 	! !
 
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:09:45'!
+test05
+
+	|server client cartId book response responseDecoded responseExpected|
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', testObjectsFactory notExpiredMonthOfYear asString,
+			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+
 
 !classDefinition: #TusLibrosSystemFacadeTest category: 'TusLibros-Tests'!
 TestCase subclass: #TusLibrosSystemFacadeTest
