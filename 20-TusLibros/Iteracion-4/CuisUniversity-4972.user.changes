@@ -10334,3 +10334,724 @@ FAILURE!
 FAILURE!
 
 ----SNAPSHOT----(19 November 2021 19:19:39) CuisUniversity-4972.image priorSource: 20901412!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 19:22:05' prior: 50984898!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user password cartId |
+			user := (request fields at:'clientId').
+			password := (request fields at:'password').
+				
+			cartId := systemFacade createCartFor: user authenticatedWith: password.
+						
+			request send200Response: (self jsonResponseForCreateCart: cartId).
+		 ] 
+		on: Error 
+		do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
+	].
+	
+	webServer addService: '/addToCart' action:[:request | 
+		[
+			| book bookAmount cartId |
+			cartId := (request fields at:'cartId').
+			book := (request fields at:'bookIsbn').
+			bookAmount := (request fields at:'bookQuantity').		
+			
+			systemFacade add: bookAmount asNumber of: book toCartIdentifiedAs: cartId asNumber.
+
+			request send200Response: self jsonSuccessfulResponse.
+		 ] 
+		on: Error 
+		do: [ :anError | request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/listCart' action:[:request | 
+		[
+			| cartId cartContents cartContentsDictionary |
+			cartId := (request fields at:'cartId').	
+			
+			cartContents _ systemFacade listCartIdentifiedAs: cartId asNumber.
+			cartContentsDictionary _ self convertToDictionary: cartContents.
+
+			request send200Response: (self jsonResponseForListCart: cartContentsDictionary).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/checkOutCart' action:[:request | 
+		[
+			| cartId cardNumber cardExpirationDate cardOwner|
+			cartId := (request fields at:'cartId') asNumber.	
+			cardNumber := (request fields at:'ccn') .	
+			cardExpirationDate := (request fields at:'cced') asMonth.	
+			cardOwner := (request fields at:'cco') .	
+			
+			systemFacade checkOutCartIdentifiedAs: cartId withCreditCardNumbered: cardNumber  ownedBy: cardOwner expiringOn: cardExpirationDate .
+			
+			request send200Response: (self jsonSuccessfulResponse).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+	webServer startListener.
+! !
+!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'AF 11/19/2021 19:22:36' prior: 50975463!
+checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
+
+	self halt.
+
+	self
+		withCartSessionIdentifiedAs: aCartId
+		do: [ :cartSession | cartSession
+			checkOutCartWithCreditCardNumbered: aCreditCartNumber
+			ownedBy: anOwner
+			expiringOn: anExpirationMonthOfYear ]
+! !
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test01CreateCartForValidCredentials stamp: 'AF 11/19/2021 19:22:40'!
+PASSED!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test02CreateCartForInvalidCredentials stamp: 'AF 11/19/2021 19:22:40'!
+PASSED!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test03 stamp: 'AF 11/19/2021 19:22:40'!
+PASSED!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test04 stamp: 'AF 11/19/2021 19:22:40'!
+PASSED!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 19:22:40'!
+FAILURE!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 19:22:40'!
+FAILURE!
+!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'AF 11/19/2021 19:22:56' prior: 50985070!
+checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
+
+	self
+		withCartSessionIdentifiedAs: aCartId
+		do: [ :cartSession | cartSession
+			checkOutCartWithCreditCardNumbered: aCreditCartNumber
+			ownedBy: anOwner
+			expiringOn: anExpirationMonthOfYear ]
+! !
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test01CreateCartForValidCredentials stamp: 'AF 11/19/2021 19:23:15'!
+PASSED!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test02CreateCartForInvalidCredentials stamp: 'AF 11/19/2021 19:23:15'!
+PASSED!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test03 stamp: 'AF 11/19/2021 19:23:15'!
+PASSED!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test04 stamp: 'AF 11/19/2021 19:23:15'!
+PASSED!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 19:23:15'!
+FAILURE!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 19:23:15'!
+FAILURE!
+
+----SNAPSHOT----(19 November 2021 19:23:21) CuisUniversity-4972.image priorSource: 20906892!
+
+TusLibrosRestAPIInterface allInstances. 
+TusLibrosRestAPIInterface allInstancesDo: [:anInstance | anInstance destroy].!
+
+TusLibrosRestAPIInterface allInstancesDo: [:anInstance | anInstance destroy].!
+
+TusLibrosRestAPIInterface allInstancesDo: [:anInstance | anInstance destroy].!
+
+TusLibrosRestAPIInterface allInstancesDo: [:anInstance | anInstance destroy].!
+
+TusLibrosRestAPIInterface allInstancesDo: [:anInstance | anInstance destroy].!
+
+----SNAPSHOT----(19 November 2021 19:24:53) CuisUniversity-4972.image priorSource: 20911499!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 19:25:07' prior: 50984995!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user password cartId |
+			user := (request fields at:'clientId').
+			password := (request fields at:'password').
+				
+			cartId := systemFacade createCartFor: user authenticatedWith: password.
+						
+			request send200Response: (self jsonResponseForCreateCart: cartId).
+		 ] 
+		on: Error 
+		do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
+	].
+	
+	webServer addService: '/addToCart' action:[:request | 
+		[
+			| book bookAmount cartId |
+			cartId := (request fields at:'cartId').
+			book := (request fields at:'bookIsbn').
+			bookAmount := (request fields at:'bookQuantity').		
+			
+			systemFacade add: bookAmount asNumber of: book toCartIdentifiedAs: cartId asNumber.
+
+			request send200Response: self jsonSuccessfulResponse.
+		 ] 
+		on: Error 
+		do: [ :anError | request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/listCart' action:[:request | 
+		[
+			| cartId cartContents cartContentsDictionary |
+			cartId := (request fields at:'cartId').	
+			
+			cartContents _ systemFacade listCartIdentifiedAs: cartId asNumber.
+			cartContentsDictionary _ self convertToDictionary: cartContents.
+
+			request send200Response: (self jsonResponseForListCart: cartContentsDictionary).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/checkOutCart' action:[:request | 
+		[
+			| cartId cardNumber cardExpirationDate cardOwner|
+			cartId := (request fields at:'cartId') asNumber.	
+			cardNumber := (request fields at:'ccn') .	
+			cardExpirationDate := (request fields at:'cced') asMonth.	
+			cardOwner := (request fields at:'cco') .	
+			
+			self halt.
+			
+			systemFacade checkOutCartIdentifiedAs: cartId withCreditCardNumbered: cardNumber  ownedBy: cardOwner expiringOn: cardExpirationDate .
+			
+			request send200Response: (self jsonSuccessfulResponse).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 19:25:14'!
+FAILURE!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 19:25:14'!
+FAILURE!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:47:55' prior: 50984566!
+test05
+
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName, '%20',testObjectsFactory notExpiredMonthOfYear yearNumber.
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:48:38' prior: 50985237!
+test05
+
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName,'%20',testObjectsFactory notExpiredMonthOfYear yearNumber.
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 19:48:53'!
+ERROR!
+
+TusLibrosRestAPIInterface allInstances. 
+TusLibrosRestAPIInterface allInstancesDo: [:anInstance | anInstance destroy].
+!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:49:14' prior: 50985282!
+test05
+
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName,'%20',testObjectsFactory notExpiredMonthOfYear yearNumber asString.
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+
+----STARTUP---- (19 November 2021 19:50:15) as C:\Users\ferra\Desktop\windows64\windows64\CuisUniversity-4972.image!
+
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 19:25:07' prior: 50984995!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user password cartId |
+			user := (request fields at:'clientId').
+			password := (request fields at:'password').
+				
+			cartId := systemFacade createCartFor: user authenticatedWith: password.
+						
+			request send200Response: (self jsonResponseForCreateCart: cartId).
+		 ] 
+		on: Error 
+		do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
+	].
+	
+	webServer addService: '/addToCart' action:[:request | 
+		[
+			| book bookAmount cartId |
+			cartId := (request fields at:'cartId').
+			book := (request fields at:'bookIsbn').
+			bookAmount := (request fields at:'bookQuantity').		
+			
+			systemFacade add: bookAmount asNumber of: book toCartIdentifiedAs: cartId asNumber.
+
+			request send200Response: self jsonSuccessfulResponse.
+		 ] 
+		on: Error 
+		do: [ :anError | request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/listCart' action:[:request | 
+		[
+			| cartId cartContents cartContentsDictionary |
+			cartId := (request fields at:'cartId').	
+			
+			cartContents _ systemFacade listCartIdentifiedAs: cartId asNumber.
+			cartContentsDictionary _ self convertToDictionary: cartContents.
+
+			request send200Response: (self jsonResponseForListCart: cartContentsDictionary).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/checkOutCart' action:[:request | 
+		[
+			| cartId cardNumber cardExpirationDate cardOwner|
+			cartId := (request fields at:'cartId') asNumber.	
+			cardNumber := (request fields at:'ccn') .	
+			cardExpirationDate := (request fields at:'cced') asMonth.	
+			cardOwner := (request fields at:'cco') .	
+			
+			self halt.
+			
+			systemFacade checkOutCartIdentifiedAs: cartId withCreditCardNumbered: cardNumber  ownedBy: cardOwner expiringOn: cardExpirationDate .
+			
+			request send200Response: (self jsonSuccessfulResponse).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+	webServer startListener.
+! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:47:55' prior: 50984566!
+test05
+
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName, '%20',testObjectsFactory notExpiredMonthOfYear yearNumber.
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:48:38' prior: 50985458!
+test05
+
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName,'%20',testObjectsFactory notExpiredMonthOfYear yearNumber.
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:49:14' prior: 50985503!
+test05
+
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName,'%20',testObjectsFactory notExpiredMonthOfYear yearNumber asString.
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 19:51:01' prior: 50985383!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user password cartId |
+			user := (request fields at:'clientId').
+			password := (request fields at:'password').
+				
+			cartId := systemFacade createCartFor: user authenticatedWith: password.
+						
+			request send200Response: (self jsonResponseForCreateCart: cartId).
+		 ] 
+		on: Error 
+		do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
+	].
+	
+	webServer addService: '/addToCart' action:[:request | 
+		[
+			| book bookAmount cartId |
+			cartId := (request fields at:'cartId').
+			book := (request fields at:'bookIsbn').
+			bookAmount := (request fields at:'bookQuantity').		
+			
+			systemFacade add: bookAmount asNumber of: book toCartIdentifiedAs: cartId asNumber.
+
+			request send200Response: self jsonSuccessfulResponse.
+		 ] 
+		on: Error 
+		do: [ :anError | request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/listCart' action:[:request | 
+		[
+			| cartId cartContents cartContentsDictionary |
+			cartId := (request fields at:'cartId').	
+			
+			cartContents _ systemFacade listCartIdentifiedAs: cartId asNumber.
+			cartContentsDictionary _ self convertToDictionary: cartContents.
+
+			request send200Response: (self jsonResponseForListCart: cartContentsDictionary).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/checkOutCart' action:[:request | 
+		[
+			| cartId cardNumber cardExpirationDate cardOwner|
+			cartId := (request fields at:'cartId') asNumber.	
+			cardNumber := (request fields at:'ccn').	
+			cardExpirationDate := (request fields at:'cced') asMonth.	
+			cardOwner := (request fields at:'cco').	
+			
+			self halt.
+			
+			systemFacade checkOutCartIdentifiedAs: cartId withCreditCardNumbered: cardNumber  ownedBy: cardOwner expiringOn: cardExpirationDate .
+			
+			request send200Response: (self jsonSuccessfulResponse).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+	webServer startListener.
+! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:54:06' prior: 50985548!
+test05
+
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName,'%20',testObjectsFactory notExpiredMonthOfYear yearNumber asString.
+	
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:59:00' prior: 50985668!
+test05
+
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded creditCardOwnerHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName,'%20',testObjectsFactory notExpiredMonthOfYear yearNumber asString.
+	
+	creditCardOwnerHttpEncoded _ 'Juan%20Perez'.
+	
+	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', creditCardOwnerHttpEncoded).
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	! !
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 19:59:55'!
+ERROR!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 20:00:11'!
+ERROR!
+
+TusLibrosRestAPIInterface allInstances. 
+TusLibrosRestAPIInterface allInstancesDo: [:anInstance | anInstance destroy].!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 20:00:40' prior: 50985593!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user password cartId |
+			user := (request fields at:'clientId').
+			password := (request fields at:'password').
+				
+			cartId := systemFacade createCartFor: user authenticatedWith: password.
+						
+			request send200Response: (self jsonResponseForCreateCart: cartId).
+		 ] 
+		on: Error 
+		do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
+	].
+	
+	webServer addService: '/addToCart' action:[:request | 
+		[
+			| book bookAmount cartId |
+			cartId := (request fields at:'cartId').
+			book := (request fields at:'bookIsbn').
+			bookAmount := (request fields at:'bookQuantity').		
+			
+			systemFacade add: bookAmount asNumber of: book toCartIdentifiedAs: cartId asNumber.
+
+			request send200Response: self jsonSuccessfulResponse.
+		 ] 
+		on: Error 
+		do: [ :anError | request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/listCart' action:[:request | 
+		[
+			| cartId cartContents cartContentsDictionary |
+			cartId := (request fields at:'cartId').	
+			
+			cartContents _ systemFacade listCartIdentifiedAs: cartId asNumber.
+			cartContentsDictionary _ self convertToDictionary: cartContents.
+
+			request send200Response: (self jsonResponseForListCart: cartContentsDictionary).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+
+	webServer addService: '/checkOutCart' action:[:request | 
+		[
+			| cartId cardNumber cardExpirationDate cardOwner|
+			cartId := (request fields at:'cartId') asNumber.	
+			cardNumber := (request fields at:'ccn').	
+			cardExpirationDate := (request fields at:'cced') asMonth.	
+			cardOwner := (request fields at:'cco').	
+			
+			systemFacade checkOutCartIdentifiedAs: cartId withCreditCardNumbered: cardNumber  ownedBy: cardOwner expiringOn: cardExpirationDate .
+			
+			request send200Response: (self jsonSuccessfulResponse).
+		 ] 
+		on: Error 
+		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
+	].
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 20:01:03'!
+FAILURE!
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 20:01:03'!
+FAILURE!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'setup' stamp: 'AF 11/19/2021 20:02:30'!
+debit: anAmount from: aCreditCard
+! !
+
+!testRun: #TusLibrosRestAPIInterfaceTest #test05 stamp: 'AF 11/19/2021 20:02:38'!
+PASSED!
+
+----SNAPSHOT----(19 November 2021 20:02:45) CuisUniversity-4972.image priorSource: 20912034!
+
+----SNAPSHOT----(19 November 2021 20:02:52) CuisUniversity-4972.image priorSource: 20934592!
+
+----SNAPSHOT----(19 November 2021 20:03:36) CuisUniversity-4972.image priorSource: 20934686!

@@ -287,6 +287,10 @@ createSalesBook
 
 	^OrderedCollection new! !
 
+!TusLibrosRestAPIInterfaceTest methodsFor: 'setup' stamp: 'AF 11/19/2021 20:02:30'!
+debit: anAmount from: aCreditCard
+! !
+
 !TusLibrosRestAPIInterfaceTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:49:07'!
 merchantProcessor
 
@@ -407,10 +411,10 @@ test04
 	self assert: ((responseExpected at: 'cartContents') at: book) equals: ((responseDecoded at: 'cartContents') at: book) .
 	! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:09:45'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:59:00'!
 test05
 
-	|server client cartId book response responseDecoded responseExpected|
+	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded creditCardOwnerHttpEncoded |
 	self setUp.
 	book _ testObjectsFactory itemSellByTheStore.
 	
@@ -424,10 +428,14 @@ test05
 
 	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
 	
+	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName,'%20',testObjectsFactory notExpiredMonthOfYear yearNumber asString.
+	
+	creditCardOwnerHttpEncoded _ 'Juan%20Perez'.
+	
 	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
 			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
-			    										  '&cced=', testObjectsFactory notExpiredMonthOfYear asString,
-			    										   '&cco=', testObjectsFactory notExpiredCreditCardOwner).
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', creditCardOwnerHttpEncoded).
 	responseDecoded _ self decodeJsonMapFrom: response.
 
 	client close.

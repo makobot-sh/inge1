@@ -528,7 +528,7 @@ destroy
 	webServer ifNotNil:[webServer destroy].
 ! !
 
-!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 19:19:29'!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 20:00:40'!
 initializeWith: aPortNumber and: aSystemFacade    
 	
 	port := aPortNumber.
@@ -583,11 +583,9 @@ initializeWith: aPortNumber and: aSystemFacade
 		[
 			| cartId cardNumber cardExpirationDate cardOwner|
 			cartId := (request fields at:'cartId') asNumber.	
-			cardNumber := (request fields at:'ccn') .	
+			cardNumber := (request fields at:'ccn').	
 			cardExpirationDate := (request fields at:'cced') asMonth.	
-			cardOwner := (request fields at:'cco') .	
-			
-			self halt.
+			cardOwner := (request fields at:'cco').	
 			
 			systemFacade checkOutCartIdentifiedAs: cartId withCreditCardNumbered: cardNumber  ownedBy: cardOwner expiringOn: cardExpirationDate .
 			
@@ -743,7 +741,7 @@ add: anAmount of: aBook toCartIdentifiedAs: aCartId
 
 	self withCartSessionIdentifiedAs: aCartId do: [ :cartSession | cartSession addToCart: anAmount of: aBook ]! !
 
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'HernanWilkinson 6/17/2015 20:47'!
+!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'AF 11/19/2021 19:22:56'!
 checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
 
 	self
