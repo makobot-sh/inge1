@@ -259,6 +259,11 @@ TestCase subclass: #TusLibrosServerTest
 	poolDictionaries: ''
 	category: 'TusLibros-Tests'!
 
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/18/2021 17:53:50'!
+invalidPassword
+
+	^'invalidPassword'! !
+
 !TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:47:47'!
 validUser
 
@@ -301,34 +306,36 @@ setUp
 ! !
 
 
-!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 16:31:21'!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 17:49:47'!
 test01CreateCartForValidCredentials
 
-	|server resp client|
+	|server resp client respText |
 	
 	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=password') content.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	respText _ resp content.
 	
 	client close.
 	server destroy.
-	self assert: '0|0000' equals: resp.
+	self assert: '0|1' equals: respText.
 	! !
 
-!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/17/2021 15:57:16'!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 18:30:20'!
 test02CreateCartForInvalidCredentials
 
-	|server resp client|
+	|server resp client respText |
 	
 	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=client&password=invalidPassword') content.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self invalidPassword ).
+	respText _ resp content.
 	
 	client close.
 	server destroy.
-	self assert: '1|INVALID_PASSWORD' equals: resp.
+	self assert: '1|',TusLibrosServer invalidUserOrPasswordErrorDescription = respText.
 	! !
 
 

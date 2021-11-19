@@ -517,7 +517,7 @@ destroy
 	
 	webServer ifNotNil:[webServer destroy].! !
 
-!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/17/2021 16:37:13'!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:29:30'!
 initializeWith: aPortNumber and: aSystemFacade    
 	
 	port := aPortNumber.
@@ -536,9 +536,9 @@ initializeWith: aPortNumber and: aSystemFacade
 		 ] 
 		on: Error 
 		do: [ :anError |
-			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
-				ifFalse: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] .
-			request send200Response: '0|0000' asString .
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send500Response: anError messageText	].
 		]
 	].
 	

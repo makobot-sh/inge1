@@ -2322,3 +2322,788 @@ TusLibrosServer allInstances.!
 WebServer allInstances do: [:i | i stopListening ].!
 
 ----SNAPSHOT----(17 November 2021 16:45:13) CuisUniversity-4972.image priorSource: 20589983!
+
+----STARTUP---- (18 November 2021 17:40:49) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+TusLibrosServer allInstances.!
+
+WebServer allInstances. !
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 17:43:52' prior: 50974936!
+test01CreateCartForValidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ) content.
+	
+	client close.
+	server destroy.
+	self assert: '0|0000' equals: resp.
+	! !
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 17:44:39' prior: 50974429!
+test02CreateCartForInvalidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword,'BAD') content.
+	
+	client close.
+	server destroy.
+	self assert: '1|INVALID_PASSWORD' equals: resp.
+	! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 17:46:34'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 17:47:27'!
+FAILURE!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 17:47:35' prior: 50975110!
+test01CreateCartForValidCredentials
+
+	|server resp client|
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ) content.
+	
+	client close.
+	server destroy.
+	self assert: '0|1' equals: resp.
+	! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 17:47:36'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 17:47:36'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 17:47:36'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 17:47:36'!
+FAILURE!
+
+self content!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 17:49:47' prior: 50975147!
+test01CreateCartForValidCredentials
+
+	|server resp client respText |
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	respText _ resp content.
+	
+	client close.
+	server destroy.
+	self assert: '0|1' equals: respText.
+	! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 17:49:53'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 17:49:53'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 17:49:53'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 17:49:53'!
+FAILURE!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 17:50:45' prior: 50975125!
+test02CreateCartForInvalidCredentials
+
+	|server resp client respText |
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword,'BAD').
+	respText _ resp content.
+	
+	client close.
+	server destroy.
+	self assert: '1|INVALID_PASSWORD' equals: respText.
+	! !
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 17:50:48'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 17:53:14' prior: 50975058!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifFalse: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] .
+			request send400Response: 'Error' asString .
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/18/2021 17:53:50'!
+invalidPassword
+
+	^'invalidPassword'! !
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 17:54:04' prior: 50975206!
+test02CreateCartForInvalidCredentials
+
+	|server resp client respText |
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self invalidPassword ).
+	respText _ resp content.
+	
+	client close.
+	server destroy.
+	self assert: '1|INVALID_PASSWORD' equals: respText.
+	! !
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 17:54:05'!
+FAILURE!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances.!
+
+TusLibrosServer allInstances.!
+
+----SNAPSHOT----(18 November 2021 17:56:11) CuisUniversity-4972.image priorSource: 20590431!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 17:59:39' prior: 50975226!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifFalse: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] .
+			request send400Response: 'Error'.
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:01:44' prior: 50975285!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: 'Unknown error: ', anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:01:56'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:01:57'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:01:57'!
+FAILURE!
+
+----SNAPSHOT----(18 November 2021 18:02:17) CuisUniversity-4972.image priorSource: 20596175!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:02:24' prior: 50975312!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+			self halt.
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: 'Unknown error: ', anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:03:11'!
+ERROR!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:03:56'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:04:37'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:05:22'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:06:42'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:07:25'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:07:44' prior: 50975353!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+			self halt.
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade signalInvalidUserAndOrPassword) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: 'Unknown error: ', anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+----SNAPSHOT----(18 November 2021 18:08:14) CuisUniversity-4972.image priorSource: 20598367!
+
+----STARTUP---- (18 November 2021 18:09:37) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:10:17'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:10:41'!
+FAILURE!
+
+TusLibrosServer allInstances.!
+
+----STARTUP---- (18 November 2021 18:11:27) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:12:15'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:12:30'!
+FAILURE!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances.!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:13:03'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:13:48'!
+ERROR!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:14:16'!
+FAILURE!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:15:01' prior: 50975402!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+			self halt.
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: 'Unknown error: ', anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:15:13'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:15:15'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:15:17'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:15:17'!
+PASSED!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:15:27' prior: 50975469!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: 'Unknown error: ', anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:16:59'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:17:30'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:17:44'!
+FAILURE!
+
+self content!
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+TusLibrosServer allInstances.!
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:20:44' prior: 50975514!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: anError messageText capitalized 	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:28:15' prior: 50975557!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: anError messageText capitalized 	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:28:20' prior: 50975586!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:28:27' prior: 50975615!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send500Response: anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+----STARTUP---- (18 November 2021 18:28:57) as D:\001.Maca\2c2021\inge1\qa3\CuisUniversity-4972.image!
+
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:15:01' prior: 50975402!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+			self halt.
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: 'Unknown error: ', anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:15:27' prior: 50975674!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: 'Unknown error: ', anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:20:44' prior: 50975703!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send400Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: anError messageText capitalized 	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:28:15' prior: 50975732!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: anError messageText capitalized 	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:28:20' prior: 50975761!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send400Response: anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:28:27' prior: 50975790!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			self halt.
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send500Response: anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:29:30' prior: 50975818!
+initializeWith: aPortNumber and: aSystemFacade    
+	
+	port := aPortNumber.
+	systemFacade := aSystemFacade.
+	
+	webServer := WebServer new listenOn: port.
+	
+	webServer addService: '/createCart' action:[:request | 
+		[
+			| user psw cartId |
+			user := (request fields at:'clientId').
+			psw := (request fields at:'password').
+						
+			cartId := systemFacade createCartFor: user authenticatedWith: psw.
+			request send200Response: '0|',cartId asString .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
+				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
+				ifFalse: [request send500Response: anError messageText	].
+		]
+	].
+	
+	webServer startListener.
+! !
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:29:39'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:29:39'!
+FAILURE!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:29:39'!
+FAILURE!
+!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 18:30:20' prior: 50975258!
+test02CreateCartForInvalidCredentials
+
+	|server resp client respText |
+	
+	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self invalidPassword ).
+	respText _ resp content.
+	
+	client close.
+	server destroy.
+	self assert: '1|',TusLibrosServer invalidUserOrPasswordErrorDescription = respText.
+	! !
+
+TusLibrosServer allInstances do: [:instance | instance destroy].!
+
+!testRun: #TusLibrosServerTest #test01CreateCartForValidCredentials stamp: 'MP 11/18/2021 18:30:35'!
+PASSED!
+
+!testRun: #TusLibrosServerTest #test02CreateCartForInvalidCredentials stamp: 'MP 11/18/2021 18:30:35'!
+PASSED!
+
+----SNAPSHOT----(18 November 2021 18:30:38) CuisUniversity-4972.image priorSource: 20600939!
+
+----SNAPSHOT----(18 November 2021 18:50:55) CuisUniversity-4972.image priorSource: 20616351!
+
+----SNAPSHOT----(18 November 2021 21:42:02) CuisUniversity-4972.image priorSource: 20616445!
