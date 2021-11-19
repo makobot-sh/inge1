@@ -505,19 +505,20 @@ of: aCollectionOfLineItems
 	^self new initializeOf: aCollectionOfLineItems ! !
 
 
-!classDefinition: #TusLibrosServer category: 'TusLibros-Model'!
-Object subclass: #TusLibrosServer
+!classDefinition: #TusLibrosRestAPIInterface category: 'TusLibros-Model'!
+Object subclass: #TusLibrosRestAPIInterface
 	instanceVariableNames: 'port webServer systemFacade'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Model'!
 
-!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/15/2021 21:25:34'!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 15:52:46'!
 destroy
 	
-	webServer ifNotNil:[webServer destroy].! !
+	webServer ifNotNil:[webServer destroy].
+! !
 
-!TusLibrosServer methodsFor: 'initialization' stamp: 'MP 11/18/2021 18:29:30'!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 17:24:00'!
 initializeWith: aPortNumber and: aSystemFacade    
 	
 	port := aPortNumber.
@@ -527,39 +528,83 @@ initializeWith: aPortNumber and: aSystemFacade
 	
 	webServer addService: '/createCart' action:[:request | 
 		[
-			| user psw cartId |
+			| user psw cartId response |
 			user := (request fields at:'clientId').
 			psw := (request fields at:'password').
-						
+				
 			cartId := systemFacade createCartFor: user authenticatedWith: psw.
-			request send200Response: '0|',cartId asString .
+			
+			response := (Dictionary new) add: 'status' -> 0; add: 'cartId' -> cartId; yourself.
+			request send200Response: (WebUtils jsonEncode: response) .
 		 ] 
 		on: Error 
 		do: [ :anError |
-			(anError messageText = systemFacade invalidUserAndOrPasswordErrorDescription ) 
-				ifTrue: [request send200Response: '1|',(TusLibrosServer invalidUserOrPasswordErrorDescription)] 
-				ifFalse: [request send500Response: anError messageText	].
+			|response|
+			response _ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 1; 
+													     add: 'errorDescription' -> anError messageText;
+													     yourself).
+			request send200Response: response.
 		]
 	].
 	
+	webServer addService: '/addToCart' action:[:request | 
+		[
+			| book bookAmount cartId response |
+			cartId := (request fields at:'cartId').
+			book := (request fields at:'bookIsbn').
+			bookAmount := (request fields at:'bookQuantity').		
+			
+			systemFacade add: bookAmount asNumber of: book toCartIdentifiedAs: cartId asNumber.
+			
+			response := (Dictionary new) add: 'status' -> 0; yourself.
+			request send200Response: (WebUtils jsonEncode: response) .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			|response|
+			response _ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 1; 
+													     add: 'errorDescription' -> anError messageText;
+													     yourself).
+			request send200Response: response .
+		]
+	].
+
+	webServer addService: '/listCart' action:[:request | 
+		[
+			| cartId cartContents cartContentsDictionary response |
+			cartId := (request fields at:'cartId').	
+			
+			cartContents _ systemFacade listCartIdentifiedAs: cartId asNumber.
+			cartContentsDictionary _ Dictionary new.
+			cartContents do:[:aBook | cartContentsDictionary add: aBook -> (cartContents occurrencesOf: aBook)] .
+			
+			response := (Dictionary new) add: 'status' -> 0; add: 'cartContents' -> cartContentsDictionary ; yourself.
+			
+			request send200Response: (WebUtils jsonEncode: response) .
+		 ] 
+		on: Error 
+		do: [ :anError |
+			|response|
+			response _ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 1; 
+													     add: 'errorDescription' -> anError messageText;
+													     yourself).
+			request send200Response: response .
+		]
+	].
 	webServer startListener.
 ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'TusLibrosServer class' category: 'TusLibros-Model'!
-TusLibrosServer class
+!classDefinition: 'TusLibrosRestAPIInterface class' category: 'TusLibros-Model'!
+TusLibrosRestAPIInterface class
 	instanceVariableNames: ''!
 
-!TusLibrosServer class methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:53:46'!
+!TusLibrosRestAPIInterface class methodsFor: 'as yet unclassified' stamp: 'MP 11/17/2021 15:53:46'!
 listeningOn: aPortNumber communicateWith: aSystemFacade 
 
 	^self basicNew initializeWith: aPortNumber and: aSystemFacade .! !
 
-
-!TusLibrosServer class methodsFor: 'error handling' stamp: 'MP 11/17/2021 15:58:49'!
-invalidUserOrPasswordErrorDescription
-	^ 'INVALID_USERNAME_OR_PASSWORD'! !
 
 
 !classDefinition: #TusLibrosSystemFacade category: 'TusLibros-Model'!

@@ -252,29 +252,29 @@ debit: anAmount from: aCreditCard
 	^debitBehavior value: anAmount value: aCreditCard ! !
 
 
-!classDefinition: #TusLibrosServerTest category: 'TusLibros-Tests'!
-TestCase subclass: #TusLibrosServerTest
+!classDefinition: #TusLibrosRestAPIInterfaceTest category: 'TusLibros-Tests'!
+TestCase subclass: #TusLibrosRestAPIInterfaceTest
 	instanceVariableNames: 'testObjectsFactory clock systemFacade'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Tests'!
 
-!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/18/2021 17:53:50'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/18/2021 17:53:50'!
 invalidPassword
 
 	^'invalidPassword'! !
 
-!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:47:47'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:47:47'!
 validUser
 
 	^'validUser'! !
 
-!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:21'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:21'!
 validUserPassword
 
 	^'validUserPassword'! !
 
-!TusLibrosServerTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:17'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:17'!
 validUsersAndPasswords
 
 	^Dictionary new
@@ -282,17 +282,17 @@ validUsersAndPasswords
 		yourself! !
 
 
-!TusLibrosServerTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:48:58'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:48:58'!
 createSalesBook
 
 	^OrderedCollection new! !
 
-!TusLibrosServerTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:49:07'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:49:07'!
 merchantProcessor
 
 	^self! !
 
-!TusLibrosServerTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:46:51'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'setup' stamp: 'MP 11/17/2021 15:46:51'!
 setUp
 	
 	testObjectsFactory := StoreTestObjectsFactory new.
@@ -306,36 +306,105 @@ setUp
 ! !
 
 
-!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 17:49:47'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 15:05:26'!
+decodeJsonMapFrom: resp
+
+	^ WebUtils jsonMapFrom: (resp content) readStream! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 16:04:04'!
 test01CreateCartForValidCredentials
 
-	|server resp client respText |
+	|server response client responseDecoded responseExpected|
 	
-	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	self setUp.
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
-	respText _ resp content.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
 	
 	client close.
 	server destroy.
-	self assert: '0|1' equals: respText.
-	! !
+	
+	responseExpected := (Dictionary new) add: 'status' -> 0; add: 'cartId' -> 1; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	self assert: (responseExpected at: 'cartId') equals: (responseDecoded at: 'cartId') .! !
 
-!TusLibrosServerTest methodsFor: 'tests' stamp: 'MP 11/18/2021 18:30:20'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 16:04:50'!
 test02CreateCartForInvalidCredentials
 
-	|server resp client respText |
+	|server response client responseDecoded responseExpected|
 	
-	server _ TusLibrosServer listeningOn: 8080 communicateWith: systemFacade.
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	resp _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self invalidPassword ).
-	respText _ resp content.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self invalidPassword).
+	responseDecoded _ self decodeJsonMapFrom: response.
 	
 	client close.
 	server destroy.
-	self assert: '1|',TusLibrosServer invalidUserOrPasswordErrorDescription = respText.
+	
+	responseExpected := Dictionary new add: 'status' -> 1; add: 'errorDescription' -> (systemFacade invalidUserAndOrPasswordErrorDescription); yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status').
+	self assert: (responseExpected at: 'errorDescription') equals: (responseDecoded at: 'errorDescription').
+	! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 16:03:44'!
+test03
+
+	|server client cartId response responseDecoded responseExpected|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ responseDecoded at: 'cartId'.
+	
+	response _ (client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId asString,'&bookIsbn=', testObjectsFactory itemSellByTheStore, '&bookQuantity=1').
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 17:10:56'!
+test04
+
+	|server client cartId book response responseDecoded responseExpected|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	response _ (client httpGet: 'http://localhost:8080/listCart?cartId=',cartId ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+
+	client close.
+	server destroy.
+	
+	responseExpected _ (Dictionary new) add: 'status' -> 0; add: 'cartContents' -> ((Dictionary new) add: book -> 1 ;yourself) ; yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	self assert: ((responseExpected at: 'cartContents') at: book) equals: ((responseDecoded at: 'cartContents') at: book) .
 	! !
 
 
