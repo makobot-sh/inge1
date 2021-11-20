@@ -335,7 +335,7 @@ test01CreateCartForValidCredentials
 	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
 	self assert: (responseExpected at: 'cartId') equals: (responseDecoded at: 'cartId') .! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 16:04:50'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 18:25:32'!
 test02CreateCartForInvalidCredentials
 
 	|server response client responseDecoded responseExpected|
@@ -486,6 +486,18 @@ test06listPurhcases
 encodeSpacesForUrl: aParameter
 	
 	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:28:09'!
+startTestServerAndGraphicInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.! !
 
 
 !classDefinition: #TusLibrosSystemFacadeTest category: 'TusLibros-Tests'!

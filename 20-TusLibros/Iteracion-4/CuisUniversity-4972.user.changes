@@ -11807,3 +11807,1170 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(20 November 2021 16:47:16) CuisUniversity-4972.image priorSource: 21113914!
+
+|server|
+server _ StringsServicesRestInterface listeningOn: 8080.
+WordsClientWindow open.!
+
+server destroy.!
+
+TusLibrosRestAPIInterface allInstances do: [:instance | instance destroy].!
+
+StringsServicesRestInterface allInstances do: [:i | i destroy]!
+
+Object subclass: #LoginWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classDefinition: #LoginWindow category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 17:03:07'!
+Object subclass: #LoginWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!WordsClientWindow methodsFor: 'GUI building' stamp: 'MP 11/20/2021 17:07:23' prior: 50970977!
+build1stColumn2ndRow
+	| firstColumnLayoutMorphOfSecondRow |
+	
+	wordsListMorph := PluggableListMorph model: self model listGetter: #words indexGetter: #wordsListIndex indexSetter: #wordsListIndex:.
+	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+		
+	firstColumnLayoutMorphOfSecondRow := LayoutMorph newColumn.
+	firstColumnLayoutMorphOfSecondRow separation: 5; 
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Results');
+	addMorph: wordsListMorph.
+	
+	"Dos opciones para jugar con los layouts... ¿Qué diferencia hay?"
+	firstColumnLayoutMorphOfSecondRow layoutSpec fixedWidth: 390.
+	"wordsListMorph layoutSpec proportionalWidth: 1.
+	wordsListMorph layoutSpec proportionalHeight: 1."
+		
+	^firstColumnLayoutMorphOfSecondRow.
+	! !
+
+|server|
+server _ StringsServicesRestInterface listeningOn: 8080.
+WordsClientWindow open.!
+
+server destroy.!
+
+StringsServicesRestInterface allInstances do: [:i | i destroy]!
+!LoginWindow class methodsFor: 'nil' stamp: 'MP 11/20/2021 17:34:15'!
+open
+	
+	^self new initializeWith: 'TusLibros login window'.! !
+
+Panel subclass: #LoginWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classDefinition: #LoginWindow category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 17:35:09'!
+Panel subclass: #LoginWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+Object subclass: #LoginWindowModel
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classDefinition: #LoginWindowModel category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 17:35:47'!
+Object subclass: #LoginWindowModel
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!LoginWindow methodsFor: 'nil' stamp: 'MP 11/20/2021 17:38:47'!
+initializeWith: aTitle
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: aTitle.
+	self model: (LoginWindowModel new).
+	self morphExtent: (self defaultExtent).
+	self buildMorphicWindow.
+	self openInWorld.
+			
+	self model when: #loginButtonPressed send: #authenticate to: self.
+	
+	"Investigar:
+	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:39:07' overrides: 50929028!
+defaultExtent
+
+	^ 1035@485
+	! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:39:52' overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 15;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow;
+	addMorph: self build4rdRow.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 17:45:40'!
+startTestServerAndGraphicInterface
+
+	|server client cartId |
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 17:45:59' prior: 50991600!
+startTestServerAndGraphicInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.! !
+
+!classDefinition: #LoginWindow category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 17:50:43'!
+Panel subclass: #LoginWindow
+	instanceVariableNames: 'userTextBoxMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:50:38'!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 300. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:51:04' prior: 50991590 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 15;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow.
+	"addMorph: self build2ndRow;
+	addMorph: self build3rdRow;
+	addMorph: self build4rdRow."! !
+
+!classDefinition: #LoginWindowModel category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 17:51:55'!
+Object subclass: #LoginWindowModel
+	instanceVariableNames: 'username'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!LoginWindowModel methodsFor: 'nil' stamp: 'MP 11/20/2021 17:51:54'!
+username
+	^ username.
+	! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:52:27'!
+username: aUsername
+	username _ aUsername.
+	^ true.
+	! !
+
+!classDefinition: #LoginWindowModel category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 17:53:40'!
+Object subclass: #LoginWindowModel
+	instanceVariableNames: 'username password'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:53:35' overrides: 16896425!
+initialize
+
+	username := ''.
+	password := '' "Dont do this at home kids".! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:54:35' prior: 50991625!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:55:06' prior: 50991689!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:55:19' prior: 50991710!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 150 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+
+LoginWindow open. !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:55:29' prior: 50991732!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:56:14'!
+build2ndRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #password textSetter: #password:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Password:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+
+!classDefinition: #LoginWindow category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 17:56:29'!
+Panel subclass: #LoginWindow
+	instanceVariableNames: 'userTextBoxMorph passwordTextBoxMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:56:28' prior: 50991776!
+build2ndRow
+	| firstRowLayoutMorph |
+	
+	passwordTextBoxMorph := TextModelMorph textProvider: self model textGetter: #password textSetter: #password:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Password:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:56:36' prior: 50991806!
+build2ndRow
+	| firstRowLayoutMorph |
+	
+	passwordTextBoxMorph := TextModelMorph textProvider: self model textGetter: #password textSetter: #password:. 
+	passwordTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | passwordTextBoxMorph innerTextMorph acceptContents ] .
+	passwordTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Password:');
+	addMorph: passwordTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:56:49'!
+password
+	^ password.
+	! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:57:15'!
+password: aPassword
+	password _ aPassword.
+	^ true.
+	! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:58:00' prior: 50991647 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 15;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow.
+	"addMorph: self build3rdRow;
+	addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:00:05'!
+build3rdRow
+	| sendRequestButtonMorph thirdRowLayoutMorph |
+	
+	sendRequestButtonMorph := PluggableButtonMorph model: self model stateGetter: nil action: #authenticate  label: 'login'.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+ 	addMorph: sendRequestButtonMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:00:13' prior: 50991828!
+build2ndRow
+	| secondRowLayoutMorph |
+	
+	passwordTextBoxMorph := TextModelMorph textProvider: self model textGetter: #password textSetter: #password:. 
+	passwordTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | passwordTextBoxMorph innerTextMorph acceptContents ] .
+	passwordTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	secondRowLayoutMorph := LayoutMorph newRow.
+	secondRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Password:');
+	addMorph: passwordTextBoxMorph.
+	
+	^secondRowLayoutMorph.! !
+
+!classDefinition: #LoginWindowModel category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 18:02:38'!
+Object subclass: #LoginWindowModel
+	instanceVariableNames: 'username password response'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:02:37'!
+authenticate
+	|client|
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	client close.! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:02:58'!
+response
+	^ response.
+	! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:03:31' prior: 50991915!
+authenticate
+	|client|
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	client close.
+	
+	self triggerEvent: #hola! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:04:56' prior: 50991928!
+authenticate
+	|client|
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:05:19' prior: 50991569!
+initializeWith: aTitle
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: aTitle.
+	self model: (LoginWindowModel new).
+	self morphExtent: (self defaultExtent).
+	self buildMorphicWindow.
+	self openInWorld.
+			
+	self model when: #authenticationResponse send: #login to: self.
+	
+	"Investigar:
+	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:05:39'!
+login
+! !
+
+LoginWindow open. !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:06:02' prior: 50991860 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 15;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:06:20' prior: 50991969 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 5;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:06:30' prior: 50991980 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 100;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:06:45' prior: 50991991 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 1;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:07:07' prior: 50991754!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 5;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:07:13' prior: 50992013!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:07:49' prior: 50992035!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 . 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:07:58' prior: 50992057!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:10:30' prior: 50992002 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 1;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:11:40' prior: 50992101 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	minimumExtent;
+	separation: 1;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:12:51' prior: 50992112 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	extent: #minimumExtent;
+	separation: 1;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:13:00' prior: 50992124 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	minimumExtent;
+	separation: 1;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:13:13' prior: 50992136 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	morphExtent: self minimumExtent;
+	separation: 1;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:13:38' prior: 50992147 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 1;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:13:55' prior: 50992079!
+build1stRow
+	| firstRowLayoutMorph |
+	
+	userTextBoxMorph := TextModelMorph textProvider: self model textGetter: #username textSetter: #username:. 
+	userTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | userTextBoxMorph innerTextMorph acceptContents ] .
+	userTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+	addMorph: (LabelMorph contents:'Username:');
+	addMorph: userTextBoxMorph.
+	
+	^firstRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:14:06' prior: 50991885!
+build2ndRow
+	| secondRowLayoutMorph |
+	
+	passwordTextBoxMorph := TextModelMorph textProvider: self model textGetter: #password textSetter: #password:. 
+	passwordTextBoxMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | passwordTextBoxMorph innerTextMorph acceptContents ] .
+	passwordTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 200 ; morphHeight: 20. 
+		
+	secondRowLayoutMorph := LayoutMorph newRow.
+	secondRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+	addMorph: (LabelMorph contents:'Password:');
+	addMorph: passwordTextBoxMorph.
+	
+	^secondRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:14:11' prior: 50991870!
+build3rdRow
+	| sendRequestButtonMorph thirdRowLayoutMorph |
+	
+	sendRequestButtonMorph := PluggableButtonMorph model: self model stateGetter: nil action: #authenticate  label: 'login'.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: sendRequestButtonMorph.
+	
+	^thirdRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:14:41' prior: 50992159 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 1;
+	axisEdgeWeight: 0;
+	morphExtent: self minimumExtent;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow.
+	"addMorph: self build4rdRow."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:15:18' prior: 50991949!
+initializeWith: aTitle
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: aTitle.
+	self model: (LoginWindowModel new).
+	self morphExtent: self minimumExtent.
+	self buildMorphicWindow.
+	self openInWorld.
+			
+	self model when: #authenticationResponse send: #login to: self.
+	
+	"Investigar:
+	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:15:38' prior: 50992244!
+initializeWith: aTitle
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: aTitle.
+	self model: (LoginWindowModel new).
+	self morphExtent: self defaultExtent .
+	self buildMorphicWindow.
+	self openInWorld.
+			
+	self model when: #authenticationResponse send: #login to: self.
+	
+	"Investigar:
+	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:15:38' prior: 50992260!
+initializeWith: aTitle
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: aTitle.
+	self model: (LoginWindowModel new).
+	self morphExtent: self defaultExtent.
+	self buildMorphicWindow.
+	self openInWorld.
+			
+	self model when: #authenticationResponse send: #login to: self.
+	
+	"Investigar:
+	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:16:20' prior: 50992215!
+build3rdRow
+	| errorMessageMorph thirdRowLayoutMorph |
+	
+	errorMessageMorph := PluggableButtonMorph model: self model stateGetter: nil action: #authenticate  label: 'login'.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:16:45' prior: 50992292!
+build3rdRow
+	| loginButtonMorph thirdRowLayoutMorph |
+	
+	loginButtonMorph := PluggableButtonMorph model: self model stateGetter: nil action: #authenticate  label: 'login'.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: loginButtonMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:16:50'!
+build4rdRow
+	| loginButtonMorph thirdRowLayoutMorph |
+	
+	loginButtonMorph := PluggableButtonMorph model: self model stateGetter: nil action: #authenticate  label: 'login'.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: loginButtonMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:16:56' prior: 50992322!
+build4rdRow
+	| errorMessageMorph thirdRowLayoutMorph |
+	
+	errorMessageMorph := PluggableButtonMorph model: self model stateGetter: nil action: #authenticate  label: 'login'.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+
+!classDefinition: #LoginWindow category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 18:20:48'!
+Panel subclass: #LoginWindow
+	instanceVariableNames: 'userTextBoxMorph passwordTextBoxMorph a'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:20:46' prior: 50992337!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	a := LabelMorph contents: ''.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: a.
+	
+	^thirdRowLayoutMorph.! !
+
+!classDefinition: #LoginWindow category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 18:20:56'!
+Panel subclass: #LoginWindow
+	instanceVariableNames: 'userTextBoxMorph passwordTextBoxMorph errorMessageMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:20:56' prior: 50992361!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: ''.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:22:37' prior: 50991964!
+login
+	errorMessageMorph contents: self model response.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 18:25:32' prior: 50989804!
+test02CreateCartForInvalidCredentials
+
+	|server response client responseDecoded responseExpected|
+	
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self invalidPassword).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	client close.
+	server destroy.
+	
+	responseExpected := Dictionary new add: 'status' -> 1; add: 'errorDescription' -> (systemFacade invalidUserAndOrPasswordErrorDescription); yourself.
+	
+	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status').
+	self assert: (responseExpected at: 'errorDescription') equals: (responseDecoded at: 'errorDescription').
+	! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:25:46' prior: 50991938!
+authenticate
+	|client notDecodedResponse|
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	response _ (WebUtils jsonMapFrom: (response content) readStream).
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:25:56' prior: 50992426!
+authenticate
+	|client notDecodedResponse|
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	response _ (WebUtils jsonMapFrom: (notDecodedResponse content) readStream).
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:26:01' prior: 50992440!
+authenticate
+	|client notDecodedResponse|
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	response _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:26:27' prior: 50992232 overrides: 50928932!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 1;
+	axisEdgeWeight: 0;
+	morphExtent: self minimumExtent;
+	addMorph: self build1stRow;
+	addMorph: self build2ndRow;
+	addMorph: self build3rdRow;
+	addMorph: self build4rdRow.! !
+
+LoginWindow open.!
+
+test startTestServerAndGraphicInterface.!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:28:09' prior: 50991609!
+startTestServerAndGraphicInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.! !
+
+|server test|
+test _ TusLibrosRestAPIInterfaceTest new.
+server _ test startTestServerAndGraphicInterface.!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:29:31' prior: 50991854!
+password: aPassword
+	password _ aPassword asString.
+	^ true.
+	! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:29:38' prior: 50991668!
+username: aUsername
+	username _ aUsername asString.
+	^ true.
+	! !
+
+LoginWindow open.!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:32:45' prior: 50992454!
+authenticate
+	|client notDecodedResponse|
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	response _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream asString.
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:33:25' prior: 50992507!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorMessage'.
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+
+LoginWindow open.!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:34:02' prior: 50992521!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription'.
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:34:53' prior: 50992381!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: ''.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	color: #red;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:34:58' prior: 50992553!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: ''.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:35:14' prior: 50992566!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: ''; color: #red.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:36:05' prior: 50992578!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: ''; color: Color red.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:37:14' prior: 50992591!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: ''; color: Color red.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:38:23' prior: 50992605!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: ''.
+	errorMessageMorph color: Color red.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:40:17' prior: 50992619!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: '' font: FontFamily defaultFamilyName emphasis: 'bold'.
+	errorMessageMorph color: Color red.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:40:45' prior: 50992633!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: '' font: FontFamily defaultFamilyName emphasis: AbstractFont boldCode.
+	errorMessageMorph color: Color red.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:42:24' prior: 50992648!
+build4rdRow
+	| thirdRowLayoutMorph |
+	
+	errorMessageMorph := LabelMorph contents: '' font: Preferences standardMenuFont emphasis: AbstractFont boldCode.
+	errorMessageMorph color: Color red.
+	
+	thirdRowLayoutMorph := LayoutMorph newRow.
+	thirdRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	morphExtent: self minimumExtent;
+ 	addMorph: errorMessageMorph.
+	
+	^thirdRowLayoutMorph.! !
+
+LoginWindow open.!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:43:14' prior: 50992537!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription' ifAbsent: [''].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:43:20' prior: 50992680!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription' ifAbsent: [response _ ''].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:43:30' prior: 50992696!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription' ifAbsent: [''].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:43:35' prior: 50992713!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription' ifAbsent: [].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:43:43' prior: 50992729!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription' ifAbsent: [''].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:44:10' prior: 50992745!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription' ifAbsent: [response _ 'Authentication successful'].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+
+LoginWindow open.!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:45:31' prior: 50992761!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription' ifAbsent: [''].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+
+LoginWindow open.!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:47:36' prior: 50992779!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	self halt.
+	response _ respDict at: 'errorDescription' ifAbsent: [''].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+
+LoginWindow open.!
+
+[''] value.!
+
+[test _ ''.] value.!
+
+[test _ 'hola'.] value. !
+
+test2 _ [test _ 'hola'.] value.!
+
+test2 = test.!
+
+test2 _ [test _ 'hola'. 'chau'] value.!
+
+test2 _ [test _ 'hola'. test2 _ 'chau'] value.!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:51:25' prior: 50992796!
+authenticate
+	|client notDecodedResponse respDict |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
+	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	response _ respDict at: 'errorDescription' ifAbsent: [''].
+	client close.
+	
+	self triggerEvent: #authenticationResponse! !
+
+[] value.!
+
+----SNAPSHOT----(20 November 2021 18:53:45) CuisUniversity-4972.image priorSource: 21114731!
+
+----SNAPSHOT----(20 November 2021 18:53:49) CuisUniversity-4972.image priorSource: 21157919!
