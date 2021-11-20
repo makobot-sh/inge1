@@ -411,7 +411,7 @@ test04
 	self assert: ((responseExpected at: 'cartContents') at: book) equals: ((responseDecoded at: 'cartContents') at: book) .
 	! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 19:59:00'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 16:15:05'!
 test05
 
 	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded creditCardOwnerHttpEncoded |
@@ -428,9 +428,9 @@ test05
 
 	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
 	
-	creditCardExpirationHttpEncoded _ testObjectsFactory notExpiredMonthOfYear monthName,'%20',testObjectsFactory notExpiredMonthOfYear yearNumber asString.
+	creditCardExpirationHttpEncoded _ self encodeSpacesForUrl: testObjectsFactory notExpiredMonthOfYear asString. 
 	
-	creditCardOwnerHttpEncoded _ 'Juan%20Perez'.
+	creditCardOwnerHttpEncoded _ self encodeSpacesForUrl: testObjectsFactory notExpiredCreditCardOwner.
 	
 	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
 			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
@@ -445,6 +445,47 @@ test05
 	
 	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
 	! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 16:45:36'!
+test06listPurhcases
+
+	|server client cartId book response responseDecoded creditCardExpirationHttpEncoded creditCardOwnerHttpEncoded |
+	self setUp.
+	book _ testObjectsFactory itemSellByTheStore.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	cartId _ (responseDecoded at: 'cartId') asString.
+
+	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=2'.
+	
+	creditCardExpirationHttpEncoded _ self encodeSpacesForUrl: testObjectsFactory notExpiredMonthOfYear asString. 
+	
+	creditCardOwnerHttpEncoded _ self encodeSpacesForUrl: testObjectsFactory notExpiredCreditCardOwner.
+	
+	client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
+			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
+			    										  '&cced=', creditCardExpirationHttpEncoded,
+			    										   '&cco=', creditCardOwnerHttpEncoded.
+
+	response _ (client httpGet: 'http://localhost:8080/listPurchases?clientId=',self validUser,'&password=',self validUserPassword ).
+
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	self assert: (testObjectsFactory itemSellByTheStorePrice * 2) equals: ((responseDecoded at: 'purchases') at: book)! !
+
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 16:10:28'!
+encodeSpacesForUrl: aParameter
+	
+	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
 
 
 !classDefinition: #TusLibrosSystemFacadeTest category: 'TusLibros-Tests'!

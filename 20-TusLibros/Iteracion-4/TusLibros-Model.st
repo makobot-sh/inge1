@@ -528,7 +528,7 @@ destroy
 	webServer ifNotNil:[webServer destroy].
 ! !
 
-!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 20:00:40'!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'MP 11/20/2021 16:34:50'!
 initializeWith: aPortNumber and: aSystemFacade    
 	
 	port := aPortNumber.
@@ -594,6 +594,21 @@ initializeWith: aPortNumber and: aSystemFacade
 		on: Error 
 		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
 	].
+	
+	webServer addService: '/listPurchases' action:[:request | 
+		[
+			| user password list |
+			user := (request fields at:'clientId').
+			password := (request fields at:'password').
+				
+			list := systemFacade listPurchasesOf: user authenticatingWith: password.
+						
+			request send200Response: (self jsonResponseForListPurchases: list).
+		 ] 
+		on: Error 
+		do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
+	].
+
 	webServer startListener.
 ! !
 
@@ -614,6 +629,11 @@ jsonResponseForListCart: cartContentsDictionary
 
 	^ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 0; add: 'cartContents' -> cartContentsDictionary ; yourself)! !
 
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'MP 11/20/2021 16:35:48'!
+jsonResponseForListPurchases: purchasesDictionary
+
+	^ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 0; add: 'purchases' -> purchasesDictionary ; yourself)! !
+
 !TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 18:54:56'!
 jsonSuccessfulResponse
 
@@ -629,7 +649,6 @@ TusLibrosRestAPIInterface class
 listeningOn: aPortNumber communicateWith: aSystemFacade 
 
 	^self basicNew initializeWith: aPortNumber and: aSystemFacade .! !
-
 
 
 !classDefinition: #TusLibrosSystemFacade category: 'TusLibros-Model'!
