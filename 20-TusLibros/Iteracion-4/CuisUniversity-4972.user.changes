@@ -15454,3 +15454,1059 @@ CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1
 
 
 CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:17:50'!
+buildCounterMorph
+! !
+
+|s|
+s _ String new.
+s setValue: '90'.
+s value.!
+
+!classDefinition: #ItemCounter category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 22:25:34'!
+Object subclass: #ItemCounter
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 22:25:28' prior: 50995470!
+buildCatalogTableItem: aName ownerExtent: anExtent 
+	
+	| itemMorph string |
+	
+	string _ String new.  
+	itemMorph := TextModelMorph textProvider: ItemCounter new textGetter: #value textSetter: #value:. 
+	itemMorph morphWidth: (anExtent x *0.25).
+	^ itemMorph! !
+!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 22:25:43' prior: 50995757!
+buildCatalogTableItem: aName ownerExtent: anExtent 
+	
+	| itemMorph |
+	
+	itemMorph := TextModelMorph textProvider: ItemCounter new textGetter: #value textSetter: #value:. 
+	itemMorph morphWidth: (anExtent x *0.25).
+	^ itemMorph! !
+
+!classDefinition: #ItemCounter category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 22:26:08'!
+Object subclass: #ItemCounter
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!ItemCounter methodsFor: 'no messages' stamp: 'MP 11/20/2021 22:26:07' overrides: 16896425!
+initialize
+	value _ 0! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:26:15' overrides: 16881508!
+value
+	^ value.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:30:29'!
+value: aValue
+	[
+		|num|
+		num _ aValue asNumber asInteger.
+		value _ num. 
+	] onError: [^ value].
+	^ value.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:31:15' prior: 50995794!
+value: aValue
+	[
+		|num|
+		num _ aValue asNumber asInteger.
+		value _ num. 
+	] on: Error do: [^ value].
+	^ value.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:31:26' prior: 50995801!
+value: aValue
+	[
+		|num|
+		num _ aValue asNumber asInteger.
+		value _ num. 
+	] on: Error do: [].
+	^ value.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:32:53' prior: 50995744!
+buildCounterMorph
+	| numberInputMorph |
+	numberInputMorph := TextModelMorph textProvider: ItemCounter new textGetter: #value textSetter: #value:.
+	 ! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:34:33' prior: 50995815!
+buildCounterMorph
+	| numberInputMorph counterMorph |
+	
+	numberInputMorph := TextModelMorph textProvider: ItemCounter new textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@50.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:34:40' prior: 50995823!
+buildCounterMorph
+	| numberInputMorph counterMorph |
+	
+	numberInputMorph := TextModelMorph textProvider: ItemCounter new textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@50.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:34:41' prior: 50995836!
+buildCounterMorph
+	| numberInputMorph counterMorph |
+	
+	numberInputMorph := TextModelMorph textProvider: ItemCounter new textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@50.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:36:49' prior: 50995850!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounter new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@50.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valUp  label: '^'.
+	arrowUp morphExtent: 50@25. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valDown  label: 'v'.
+	arrowDown morphExtent: 50@25.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:37:14'!
+valueUp
+	value _ value +1.
+	^ value.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:37:20'!
+valueDown
+	value _ value -1.
+	^ value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 21:31:06' prior: 50995768!
+buildCatalogTableItem: aName ownerExtent: anExtent 
+	
+	| itemMorph |
+	
+	itemMorph := LabelMorph contents: aName font: FontFamily defaultFamilyAndPointSize.
+	itemMorph morphWidth: (anExtent x *0.25).
+	^ itemMorph! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 22:39:13' prior: 50995588!
+buildCatalogItemMorphWithName: aBookName withISBN: anISBN withExtent: anExtent 
+
+	| itemMorph |
+	itemMorph := LayoutMorph newRow.
+	itemMorph separation: 1; 
+	morphWidth: anExtent x; 
+	axisEdgeWeight: 0.0;
+	addMorph: (self buildCatalogTableItem: aBookName ownerExtent: itemMorph morphExtent);
+	addMorph: (self buildCatalogTableItem: anISBN ownerExtent: itemMorph morphExtent);
+	addMorph: (self buildCounterMorph).
+
+	^ itemMorph.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:47:15' prior: 50995786 overrides: 16896425!
+initialize
+	value _ '0'! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:47:30' prior: 50995891!
+valueDown
+	value _ value asNumber asInteger -1.
+	^ value.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:47:39' prior: 50995941!
+valueDown
+	value _ (value asNumber asInteger -1) asString.
+	^ value.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:47:48' prior: 50995887!
+valueUp
+	value _ (value asNumber asInteger -1) asString..
+	^ value.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:47:49' prior: 50995952!
+valueUp
+	value _ (value asNumber asInteger -1) asString.
+	^ value.! !
+!ItemCounter methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:48:00' prior: 50995808!
+value: aValue
+	[
+		|num|
+		num _ aValue asNumber asInteger.
+		value _ num asString. 
+	] on: Error do: [].
+	^ value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+!classRenamed: #ItemCounter as: #ItemCounterModel stamp: 'MP 11/20/2021 22:48:24'!
+Smalltalk renameClassNamed: #ItemCounter as: #ItemCounterModel!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:48:24' prior: 50995864!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@50.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valUp  label: '^'.
+	arrowUp morphExtent: 50@25. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valDown  label: 'v'.
+	arrowDown morphExtent: 50@25.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:48:48' prior: 50995979!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:49:36' prior: 50996003!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20; axisEdgeWeight: 0.5.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:50:24' prior: 50996029!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:50:38' prior: 50996056!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valUp  label: 'hola'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valDown  label: 'chau'.
+	arrowDown morphExtent: 25@10.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:50:49' prior: 50996080!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:51:04' prior: 50996106!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+	
+	^ counterMorph.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:51:27' prior: 50996130!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:52:28' prior: 50996157!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:52:35' prior: 50996182!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:56:13' prior: 50995964!
+value: aValue
+	[
+		|num|
+		num _ aValue asNumber asInteger.
+		value _ num asString. 
+		self triggerEvent: #updateCounter.
+	] on: Error do: [].
+	^ value.! !
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:56:25' prior: 50996244!
+value: aValue
+	[
+		|num|
+		num _ aValue asNumber asInteger.
+		value _ num asString. 
+		self triggerEvent: #updateCounter with: self.
+	] on: Error do: [].
+	^ value.! !
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:56:48' prior: 50995946!
+valueDown
+	value _ (value asNumber asInteger -1) asString.
+	self triggerEvent: #updateCounter with: self.
+	^ value.! !
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:56:52' prior: 50995958!
+valueUp
+	value _ (value asNumber asInteger -1) asString.
+	self triggerEvent: #updateCounter with: self.
+	^ value.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:57:42' prior: 50996212!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter to: self.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:58:14' prior: 50996276!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter to: self with: counter.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 22:59:26' prior: 50996307!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter to: self with: numberInputMorph.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:03:07' prior: 50996338!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter to: self with: (OrderedCollection new with: numberInputMorph with: counter).
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:03:27' prior: 50996370!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter:and: to: self with: (OrderedCollection new with: numberInputMorph with: counter).
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:03:53'!
+updateCounter: aTextMorph and: aCounter
+	^ aTextMorph text: aCounter value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+----SNAPSHOT----(20 November 2021 23:04:15) CuisUniversity-4972.image priorSource: 21250693!
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:04:26' prior: 50996403!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter:and: to: self with: (OrderedCollection with: numberInputMorph with: counter).
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:06:27' prior: 50996447!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter:and: to: self with: (OrderedCollection with: numberInputMorph with: counter).
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:08:57' prior: 50996483!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph |
+	
+	counter _ ItemCounterModel new.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter:and: to: self withArguments: (Array with: numberInputMorph with: counter).
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+!classDefinition: #CatalogWindow category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 23:12:22'!
+Panel subclass: #CatalogWindow
+	instanceVariableNames: 'username password counters'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:12:19' prior: 50996516!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
+	
+	counterId _ counters size. 
+	counter _ ItemCounterModel newWith: counterId.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter:and: to: self withArguments: (Array with: numberInputMorph with: counter).
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!ItemCounterModel class methodsFor: 'no messages' stamp: 'MP 11/20/2021 23:12:48'!
+newWith: counterId
+	^ self new initializeWith: counterId.! !
+
+!classDefinition: #ItemCounterModel category: 'TusLibros-Graphics' stamp: 'MP 11/20/2021 23:13:04'!
+Object subclass: #ItemCounterModel
+	instanceVariableNames: 'value id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:13:03'!
+initializeWith: counterId
+	value _ '0'.
+	id _ counterId.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:14:03' prior: 50996560!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
+	
+	counterId _ counters size. 
+	counter _ ItemCounterModel newWith: counterId.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	counters add: numberInputMorph. 
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter:and: to: self withArguments: (Array with: numberInputMorph with: counter).
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:14:22' prior: 50993025!
+initializeWith: aTitle and: aUsername and: aPassword and: aCartID 
+	
+	username _ aUsername.
+	password _ aPassword.
+	counters _ OrderedCollection new.
+	
+	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: aTitle.
+	self model: (CatalogWindowModel new).
+	self morphExtent: self defaultExtent.
+	self buildMorphicWindow.
+	self openInWorld.
+			
+	"self model when: #authenticationResponse send: #login to: self."
+	
+	"Investigar:
+	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:14:50' prior: 50996613!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
+	
+	counterId _ counters size. 
+	counter _ ItemCounterModel newWith: counterId.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	counters add: numberInputMorph. 
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter:and: to: self with: counter.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:15:12' prior: 50996669!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
+	
+	counterId _ counters size. 
+	counter _ ItemCounterModel newWith: counterId.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	counters add: numberInputMorph. 
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter: to: self with: counter.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:15:30'!
+updateCounter: aCounter
+	^ counters at: aCounter .! !
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:15:50'!
+id
+	^ id! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:16:08' prior: 50996737!
+updateCounter: aCounter
+	^ counters at: aCounter id .! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:16:13' prior: 50996703!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
+	
+	counterId _ counters size +1. 
+	counter _ ItemCounterModel newWith: counterId.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	counters add: numberInputMorph. 
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter: to: self with: counter.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:16:31' prior: 50996746!
+updateCounter: aCounter
+	^ (counters at: aCounter id) text: aCounter value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:17:28' prior: 50996269!
+valueUp
+	value _ (value asNumber asInteger +1) asString.
+	self triggerEvent: #updateCounter with: self.
+	^ value.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:19:22' prior: 50996785!
+updateCounter: aCounter
+	^ (counters at: aCounter id) update: #ActualContents.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:27:39' prior: 50996801!
+updateCounter: aCounter
+	^ (counters at: aCounter id) contents: aCounter value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:30:50' prior: 50996809!
+updateCounter: aCounter
+	^ (counters at: aCounter id) editLabel: aCounter value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:31:39' prior: 50996817!
+updateCounter: aCounter
+
+	^ (counters at: aCounter id) editLabel: aCounter value.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:32:17' prior: 50996751!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
+	
+	counterId _ counters size +1. 
+	counter _ ItemCounterModel newWith: counterId.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	counters add: numberInputMorph. 
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter: to: self with: counter.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:32:36' prior: 50996826!
+updateCounter: aCounter
+
+	^ (counters at: aCounter id) innerTextMorph contents: aCounter value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:33:55' prior: 50996866!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	^ (counters at: aCounter id) innerTextMorph updateFromContents.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:34:50' prior: 50996875!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	^ (counters at: aCounter id) innerTextMorph updateFromTextComposition .! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:35:03' prior: 50996889!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	^ (counters at: aCounter id) innerTextMorph updateFromContents.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:35:14' prior: 50996900!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	self halt.
+	^ (counters at: aCounter id) innerTextMorph updateFromContents.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:35:46' prior: 50996911!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	^ aCounter value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:36:12' prior: 50996922!
+updateCounter: aCounter
+
+	^ (counters at: aCounter id) innerTextMorph contents: aCounter value.! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:36:36' prior: 50996932!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	^ (counters at: aCounter id) innerTextMorph updateFromContents .
+	! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+----SNAPSHOT----(20 November 2021 23:36:50) CuisUniversity-4972.image priorSource: 21273379!
+
+!methodRemoval: CatalogWindow #updateCounter:and: stamp: 'MP 11/20/2021 23:38:40'!
+updateCounter: aTextMorph and: aCounter
+	^ aTextMorph text: aCounter value.!
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:38:48' prior: 50996941!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	^ (counters at: aCounter id) innerTextMorph updateFromTextComposition.
+	! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:40:51' prior: 50996960!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph textComposition: aCounter value.
+	^ (counters at: aCounter id) innerTextMorph updateFromTextComposition .
+	! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:41:29' prior: 50996971!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	^ (counters at: aCounter id) innerTextMorph resetTextComposition; updateFromTextComposition .
+	! !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+CatalogWindow openWithUser: 'validUser' andPass: 'validUserPassword' andCart: '1' !
+
+----SNAPSHOT----(20 November 2021 23:43:16) CuisUniversity-4972.image priorSource: 21289625!

@@ -1,11 +1,11 @@
 !classDefinition: #CatalogWindow category: 'TusLibros-Graphics'!
 Panel subclass: #CatalogWindow
-	instanceVariableNames: 'username password'
+	instanceVariableNames: 'username password counters'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 21:34:32'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 22:39:13'!
 buildCatalogItemMorphWithName: aBookName withISBN: anISBN withExtent: anExtent 
 
 	| itemMorph |
@@ -14,7 +14,8 @@ buildCatalogItemMorphWithName: aBookName withISBN: anISBN withExtent: anExtent
 	morphWidth: anExtent x; 
 	axisEdgeWeight: 0.0;
 	addMorph: (self buildCatalogTableItem: aBookName ownerExtent: itemMorph morphExtent);
-	addMorph: (self buildCatalogTableItem: anISBN ownerExtent: itemMorph morphExtent).
+	addMorph: (self buildCatalogTableItem: anISBN ownerExtent: itemMorph morphExtent);
+	addMorph: (self buildCounterMorph).
 
 	^ itemMorph.! !
 
@@ -56,6 +57,46 @@ buildCatalogTableItem: aName ownerExtent: anExtent
 	itemMorph := LabelMorph contents: aName font: FontFamily defaultFamilyAndPointSize.
 	itemMorph morphWidth: (anExtent x *0.25).
 	^ itemMorph! !
+
+
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:32:17'!
+buildCounterMorph
+	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
+	
+	counterId _ counters size +1. 
+	counter _ ItemCounterModel newWith: counterId.
+	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph morphExtent: 50@20.
+	counters add: numberInputMorph. 
+	
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp morphExtent: 25@10. 
+	
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown morphExtent: 25@10.
+	
+	counter when: #updateCounter send: #updateCounter: to: self with: counter.
+	
+	arrowsMorph := LayoutMorph newColumn.
+	arrowsMorph separation: 0.001;
+	morphExtent: 25@20;
+	addMorph: arrowUp;
+	addMorph: arrowDown.
+		
+	counterMorph := LayoutMorph newRow. 
+	counterMorph separation: 0.1;
+	morphExtent: 100@50;
+	addMorph: numberInputMorph;
+	addMorph: arrowsMorph.
+	
+	^ counterMorph.! !
+
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:41:29'!
+updateCounter: aCounter
+
+	(counters at: aCounter id) innerTextMorph contents: aCounter value.
+	^ (counters at: aCounter id) innerTextMorph resetTextComposition; updateFromTextComposition .
+	! !
 
 
 !CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 20:04:14'!
@@ -114,11 +155,12 @@ defaultExtent
 	^ 1035@485
 	! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 19:42:01'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:14:22'!
 initializeWith: aTitle and: aUsername and: aPassword and: aCartID 
 	
 	username _ aUsername.
 	password _ aPassword.
+	counters _ OrderedCollection new.
 	
 	self titleMorph showButtonsNamed: #( close collapse ).
 	self setLabel: aTitle.
@@ -269,6 +311,63 @@ Object subclass: #CatalogWindowModel
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
+
+
+!classDefinition: #ItemCounterModel category: 'TusLibros-Graphics'!
+Object subclass: #ItemCounterModel
+	instanceVariableNames: 'value id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:15:50'!
+id
+	^ id! !
+
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:47:15'!
+initialize
+	value _ '0'! !
+
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:13:03'!
+initializeWith: counterId
+	value _ '0'.
+	id _ counterId.! !
+
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:26:15'!
+value
+	^ value.! !
+
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:56:25'!
+value: aValue
+	[
+		|num|
+		num _ aValue asNumber asInteger.
+		value _ num asString. 
+		self triggerEvent: #updateCounter with: self.
+	] on: Error do: [].
+	^ value.! !
+
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:56:48'!
+valueDown
+	value _ (value asNumber asInteger -1) asString.
+	self triggerEvent: #updateCounter with: self.
+	^ value.! !
+
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:17:28'!
+valueUp
+	value _ (value asNumber asInteger +1) asString.
+	self triggerEvent: #updateCounter with: self.
+	^ value.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ItemCounterModel class' category: 'TusLibros-Graphics'!
+ItemCounterModel class
+	instanceVariableNames: ''!
+
+!ItemCounterModel class methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:12:48'!
+newWith: counterId
+	^ self new initializeWith: counterId.! !
 
 
 !classDefinition: #LoginWindowModel category: 'TusLibros-Graphics'!
