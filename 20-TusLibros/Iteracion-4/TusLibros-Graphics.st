@@ -5,8 +5,8 @@ Panel subclass: #CatalogWindow
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 22:39:13'!
-buildCatalogItemMorphWithName: aBookName withISBN: anISBN withExtent: anExtent 
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 11:45:39'!
+buildCatalogItemRowWithName: aBookName withISBN: anISBN withExtent: anExtent 
 
 	| itemMorph |
 	itemMorph := LayoutMorph newRow.
@@ -17,9 +17,11 @@ buildCatalogItemMorphWithName: aBookName withISBN: anISBN withExtent: anExtent
 	addMorph: (self buildCatalogTableItem: anISBN ownerExtent: itemMorph morphExtent);
 	addMorph: (self buildCounterMorph).
 
+	"TO DO: falta agregar boton para agregar al carrito"
+
 	^ itemMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 21:35:36'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 11:35:52'!
 buildCatalogListHeaderWithExtent: anExtent
 	
 	| catalogMorph |
@@ -31,25 +33,25 @@ buildCatalogListHeaderWithExtent: anExtent
 	addMorph: (self buildCatalogTableItem: 'ISBN' ownerExtent: anExtent).
 	^ catalogMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 21:35:55'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 11:45:03'!
 buildCatalogMorph
 	
-	| catalogMorph p |
+	| catalogMorph scrollMorph |
 	
 	catalogMorph := LayoutMorph newColumn.
-	p := PluggableScrollPane new.
-	p morphExtent: (self defaultExtent x*0.6)@(self defaultExtent y * 0.60);
+	scrollMorph := PluggableScrollPane new.
+	scrollMorph morphExtent: (self defaultExtent x*0.6)@(self defaultExtent y * 0.60);
 	scroller: catalogMorph.
 	
 	catalogMorph separation: 1; 
 	morphExtent: catalogMorph morphExtent;
 	axisEdgeWeight: 0.0.
-	catalogMorph addMorph: (self buildCatalogListHeaderWithExtent: p morphExtent).
-	20 timesRepeat: [catalogMorph addMorph: (self buildCatalogItemMorphWithName: 'test' withISBN: 'ISBN' withExtent: p morphExtent).].
+	catalogMorph addMorph: (self buildCatalogListHeaderWithExtent: scrollMorph morphExtent).
+	20 timesRepeat: [catalogMorph addMorph: (self buildCatalogItemRowWithName: 'test' withISBN: 'ISBN' withExtent: scrollMorph morphExtent).].
 	
-	^ p.! !
+	^ scrollMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'MP 11/20/2021 21:31:06'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 11:38:07'!
 buildCatalogTableItem: aName ownerExtent: anExtent 
 	
 	| itemMorph |
@@ -59,20 +61,21 @@ buildCatalogTableItem: aName ownerExtent: anExtent
 	^ itemMorph! !
 
 
-!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:32:17'!
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'AF 11/27/2021 12:02:11'!
 buildCounterMorph
 	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
 	
 	counterId _ counters size +1. 
 	counter _ ItemCounterModel newWith: counterId.
 	numberInputMorph := TextModelMorph textProvider: counter textGetter: #value textSetter: #value:.
+	numberInputMorph innerTextMorph setProperty: #keyStroke: toValue: [ :key | numberInputMorph innerTextMorph acceptContents ] .
 	numberInputMorph morphExtent: 50@20.
 	counters add: numberInputMorph. 
 	
-	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: '^'.
+	arrowUp := PluggableButtonMorph model: counter stateGetter: nil action: #valueUp  label: (Character arrowUp asString).
 	arrowUp morphExtent: 25@10. 
 	
-	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: 'v'.
+	arrowDown := PluggableButtonMorph model: counter stateGetter: nil action: #valueDown  label: (Character arrowDown asString) .
 	arrowDown morphExtent: 25@10.
 	
 	counter when: #updateCounter send: #updateCounter: to: self with: counter.
@@ -91,19 +94,24 @@ buildCounterMorph
 	
 	^ counterMorph.! !
 
-!CatalogWindow methodsFor: 'auxiliary' stamp: 'MP 11/20/2021 23:41:29'!
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'AF 11/27/2021 12:35:52'!
 updateCounter: aCounter
+	
+	| textMorph |
+	textMorph _ (counters at: aCounter id) innerTextMorph.
+	textMorph contents: aCounter value.
+	textMorph hasUnacceptedEdits: true.
+	textMorph acceptContents.
+	textMorph resetTextComposition; updateFromTextComposition.
+! !
 
-	(counters at: aCounter id) innerTextMorph contents: aCounter value.
-	^ (counters at: aCounter id) innerTextMorph resetTextComposition; updateFromTextComposition .
-	! !
 
-
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 20:04:14'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:54'!
 buildCartListMorph
+
 	^ self shouldBeImplemented.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 20:57:14'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:49'!
 buildMorphicWindow
 		
 	self layoutMorph beColumn;
@@ -113,8 +121,9 @@ buildMorphicWindow
 	addMorph: self buildShopHeader;
 	addMorph: self buildShopBody.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 20:59:00'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:31'!
 buildShopBody
+
 	| bodyLayoutMorph catalogMorph cartListMorph |
 		
 	catalogMorph := self buildCatalogMorph.
@@ -129,8 +138,9 @@ buildShopBody
 	
 	^bodyLayoutMorph.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 21:00:17'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:19'!
 buildShopHeader
+
 	| firstRowLayoutMorph headerButtonsMorph |
 		
 	headerButtonsMorph := LayoutMorph newRow.
@@ -149,13 +159,13 @@ buildShopHeader
 	
 	^firstRowLayoutMorph.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 19:58:33'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:11'!
 defaultExtent
 
 	^ 1035@485
 	! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:14:22'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:03'!
 initializeWith: aTitle and: aUsername and: aPassword and: aCartID 
 	
 	username _ aUsername.
@@ -193,7 +203,7 @@ Panel subclass: #LoginWindow
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:13:55'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:25:14'!
 build1stRow
 	| firstRowLayoutMorph |
 	
@@ -204,13 +214,26 @@ build1stRow
 	firstRowLayoutMorph := LayoutMorph newRow.
 	firstRowLayoutMorph separation: 25;
 	axisEdgeWeight: 0.5;
-	morphExtent: self minimumExtent;
+	morphExtent: 475@1;
 	addMorph: (LabelMorph contents:'Username:');
 	addMorph: userTextBoxMorph.
 	
 	^firstRowLayoutMorph.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:14:06'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:25:45'!
+build1stRow1rstColumn
+	| firstRowsFirstColumn |
+		
+	firstRowsFirstColumn := LayoutMorph newColumn .
+	firstRowsFirstColumn separation: 1;
+	axisEdgeWeight: 0;
+	morphExtent: self minimumExtent;
+	addMorph: self build1stRow ;
+	addMorph: self build2ndRow .
+	
+	^firstRowsFirstColumn.! !
+
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:25:07'!
 build2ndRow
 	| secondRowLayoutMorph |
 	
@@ -221,13 +244,13 @@ build2ndRow
 	secondRowLayoutMorph := LayoutMorph newRow.
 	secondRowLayoutMorph separation: 25;
 	axisEdgeWeight: 0.5;
-	morphExtent: self minimumExtent;
-	addMorph: (LabelMorph contents:'Password:');
+	morphExtent: 475@1;
+	addMorph: (LabelMorph contents:'Password: ');
 	addMorph: passwordTextBoxMorph.
 	
 	^secondRowLayoutMorph.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 19:17:15'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 11:34:35'!
 build3rdRow
 	| loginButtonMorph thirdRowLayoutMorph |
 	
@@ -241,7 +264,7 @@ build3rdRow
 	
 	^thirdRowLayoutMorph.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 21:23:14'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 11:34:40'!
 build4rdRow
 	| thirdRowLayoutMorph |
 	
@@ -256,25 +279,26 @@ build4rdRow
 	
 	^thirdRowLayoutMorph.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:26:27'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:26:42'!
 buildMorphicWindow
 		
 	self layoutMorph beColumn;
 	separation: 1;
 	axisEdgeWeight: 0;
-	morphExtent: self minimumExtent;
-	addMorph: self build1stRow;
-	addMorph: self build2ndRow;
+	morphExtent: self defaultExtent ;
+	addMorph: self build1stRow1rstColumn ;
+	"addMorph: self build1stRow;
+	addMorph: self build2ndRow;"
 	addMorph: self build3rdRow;
 	addMorph: self build4rdRow.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:39:07'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:22:41'!
 defaultExtent
 
-	^ 1035@485
+	^ 475@485
 	! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:15:38'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 11:34:52'!
 initializeWith: aTitle
 
 	self titleMorph showButtonsNamed: #( close collapse ).
@@ -289,7 +313,7 @@ initializeWith: aTitle
 	"Investigar:
 	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:22:37'!
+!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 11:34:56'!
 login
 	errorMessageMorph contents: self model response.! !
 
@@ -299,7 +323,7 @@ login
 LoginWindow class
 	instanceVariableNames: ''!
 
-!LoginWindow class methodsFor: 'instance creation' stamp: 'MP 11/20/2021 19:10:19'!
+!LoginWindow class methodsFor: 'instance creation' stamp: 'AF 11/27/2021 13:05:38'!
 open
 	
 	^self new initializeWith: 'TusLibros - login'.! !
@@ -320,44 +344,47 @@ Object subclass: #ItemCounterModel
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:15:50'!
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:41:42'!
 id
+
 	^ id! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:47:15'!
-initialize
-	value _ '0'! !
-
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:13:03'!
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:41:35'!
 initializeWith: counterId
+
 	value _ '0'.
 	id _ counterId.! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:26:15'!
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:41:50'!
 value
+
 	^ value.! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:56:25'!
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 12:24:09'!
 value: aValue
 	[
 		|num|
 		num _ aValue asNumber asInteger.
 		value _ num asString. 
-		self triggerEvent: #updateCounter with: self.
-	] on: Error do: [].
-	^ value.! !
+	] on: Error do: [].! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 22:56:48'!
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 12:23:31'!
 valueDown
-	value _ (value asNumber asInteger -1) asString.
-	self triggerEvent: #updateCounter with: self.
-	^ value.! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:17:28'!
+	|newValue|
+
+	newValue _ self value asNumber asInteger -1.
+	newValue >= 0 ifTrue: [self value: newValue asString.
+					    self triggerEvent: #updateCounter with: self].
+	
+! !
+
+!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 12:23:38'!
 valueUp
-	value _ (value asNumber asInteger +1) asString.
+
+	self value: (self value asNumber asInteger +1) asString.
 	self triggerEvent: #updateCounter with: self.
-	^ value.! !
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -377,8 +404,9 @@ Object subclass: #LoginWindowModel
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 19:56:08'!
+!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 11:34:06'!
 authenticate
+
 	|client notDecodedResponse respDict |
 	client _ WebClient new.
 	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).

@@ -487,7 +487,7 @@ encodeSpacesForUrl: aParameter
 	
 	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 18:28:09'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:14:56'!
 startTestServerAndGraphicInterface
 
 	|server|
