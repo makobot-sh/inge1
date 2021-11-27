@@ -177,7 +177,7 @@ cartContent
 
 	^cart content! !
 
-!CartSession methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2015 20:35'!
+!CartSession methodsFor: 'cart' stamp: 'AF 11/27/2021 14:20:35'!
 checkOutCartWithCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
 
 	^(Cashier
@@ -247,7 +247,7 @@ totalOf: anItem quantity: aQuantity
 	^(cart catalog at: anItem) * aQuantity  ! !
 
 
-!Cashier methodsFor: 'checkout' stamp: 'HernanWilkinson 6/22/2013 12:28'!
+!Cashier methodsFor: 'checkout' stamp: 'AF 11/27/2021 14:23:18'!
 checkOut
 
 	self createTicket.
@@ -385,7 +385,7 @@ total
 	^ total! !
 
 
-!LineItem methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:18'!
+!LineItem methodsFor: 'initialization' stamp: 'AF 11/27/2021 13:57:01'!
 initializeOf: anItem quantity: aQuantity total: aTotal
 
 	item := anItem.
@@ -528,7 +528,7 @@ destroy
 	webServer ifNotNil:[webServer destroy].
 ! !
 
-!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'MP 11/20/2021 16:34:50'!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/27/2021 14:00:31'!
 initializeWith: aPortNumber and: aSystemFacade    
 	
 	port := aPortNumber.
@@ -745,7 +745,7 @@ sessionDuration
 
 	^30 minutes! !
 
-!TusLibrosSystemFacade methodsFor: 'cart session management' stamp: 'HernanWilkinson 6/17/2015 20:50'!
+!TusLibrosSystemFacade methodsFor: 'cart session management' stamp: 'AF 11/27/2021 14:02:19'!
 withCartSessionIdentifiedAs: aCartId do: aBlock
 
 	| cartSession |
@@ -760,10 +760,10 @@ add: anAmount of: aBook toCartIdentifiedAs: aCartId
 
 	self withCartSessionIdentifiedAs: aCartId do: [ :cartSession | cartSession addToCart: anAmount of: aBook ]! !
 
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'AF 11/19/2021 19:22:56'!
+!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'AF 11/27/2021 14:04:53'!
 checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
 
-	self
+	^self
 		withCartSessionIdentifiedAs: aCartId
 		do: [ :cartSession | cartSession
 			checkOutCartWithCreditCardNumbered: aCreditCartNumber
@@ -771,7 +771,7 @@ checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber owne
 			expiringOn: anExpirationMonthOfYear ]
 ! !
 
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'HernanWilkinson 6/17/2015 20:52'!
+!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'AF 11/27/2021 13:49:17'!
 createCartFor: aUser authenticatedWith: aPassword
 
 	^ self if: aUser authenticatesWith: aPassword do: [ | cartId cartSession |
@@ -787,7 +787,7 @@ listCartIdentifiedAs: aCartId
 
 	^ self withCartSessionIdentifiedAs: aCartId do: [ :cartSession | cartSession cartContent ]! !
 
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'HAW 11/26/2018 20:33:49'!
+!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'AF 11/27/2021 13:49:53'!
 listPurchasesOf: aUser authenticatingWith: aPassword
 
 	^self if: aUser authenticatesWith: aPassword do: [ | sales |
@@ -810,7 +810,7 @@ salesBook
 	^ salesBook! !
 
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'HernanWilkinson 6/17/2015 20:56'!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'AF 11/27/2021 13:50:04'!
 list: aSale on: salesOrderedByBook
 
 	"Esto es un indicio de que por ahi conviene empezar a pensar en modelar un SaleBook - Hernan"
