@@ -5,12 +5,26 @@ Panel subclass: #CatalogWindow
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 11:45:39'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 16:27:23'!
+buildCatalogColumn
+
+	| bodyLayoutMorph   |
+
+	bodyLayoutMorph := LayoutMorph newColumn.
+	bodyLayoutMorph separation: 1@1;
+	axisEdgeWeight: 0.0;
+	morphExtent: (self defaultExtent x * 0.5)@(self defaultExtent y * 0.70) ;
+	addMorph: (self buildCatalogMorphWith: bodyLayoutMorph morphExtent).
+
+	
+	^bodyLayoutMorph.! !
+
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 16:15:00'!
 buildCatalogItemRowWithName: aBookName withISBN: anISBN withExtent: anExtent 
 
 	| itemMorph |
 	itemMorph := LayoutMorph newRow.
-	itemMorph separation: 1; 
+	itemMorph separation: 1@1; 
 	morphWidth: anExtent x; 
 	axisEdgeWeight: 0.0;
 	addMorph: (self buildCatalogTableItem: aBookName ownerExtent: itemMorph morphExtent);
@@ -21,47 +35,46 @@ buildCatalogItemRowWithName: aBookName withISBN: anISBN withExtent: anExtent
 
 	^ itemMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 11:35:52'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 16:15:09'!
 buildCatalogListHeaderWithExtent: anExtent
 	
 	| catalogMorph |
 	
 	catalogMorph := LayoutMorph newRow.
-	catalogMorph separation: 1; 
+	catalogMorph separation: 1@1; 
 	axisEdgeWeight: 0.0;
 	addMorph: (self buildCatalogTableItem: 'Book name' ownerExtent: anExtent);
 	addMorph: (self buildCatalogTableItem: 'ISBN' ownerExtent: anExtent).
 	^ catalogMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 11:45:03'!
-buildCatalogMorph
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 16:26:24'!
+buildCatalogMorphWith: anExtent
 	
 	| catalogMorph scrollMorph |
 	
 	catalogMorph := LayoutMorph newColumn.
 	scrollMorph := PluggableScrollPane new.
-	scrollMorph morphExtent: (self defaultExtent x*0.6)@(self defaultExtent y * 0.60);
+	scrollMorph morphExtent: anExtent;
 	scroller: catalogMorph.
 	
-	catalogMorph separation: 1; 
-	morphExtent: catalogMorph morphExtent;
+	catalogMorph separation: 1@1; 
 	axisEdgeWeight: 0.0.
 	catalogMorph addMorph: (self buildCatalogListHeaderWithExtent: scrollMorph morphExtent).
 	20 timesRepeat: [catalogMorph addMorph: (self buildCatalogItemRowWithName: 'test' withISBN: 'ISBN' withExtent: scrollMorph morphExtent).].
 	
 	^ scrollMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 11:38:07'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 15:24:27'!
 buildCatalogTableItem: aName ownerExtent: anExtent 
 	
 	| itemMorph |
 	
 	itemMorph := LabelMorph contents: aName font: FontFamily defaultFamilyAndPointSize.
-	itemMorph morphWidth: (anExtent x *0.25).
+	itemMorph morphWidth: (anExtent x *0.33).
 	^ itemMorph! !
 
 
-!CatalogWindow methodsFor: 'auxiliary' stamp: 'AF 11/27/2021 12:02:11'!
+!CatalogWindow methodsFor: 'auxiliary' stamp: 'AF 11/27/2021 15:33:46'!
 buildCounterMorph
 	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
 	
@@ -87,7 +100,7 @@ buildCounterMorph
 	addMorph: arrowDown.
 		
 	counterMorph := LayoutMorph newRow. 
-	counterMorph separation: 0.1;
+	counterMorph separation: 0.001;
 	morphExtent: 100@50;
 	addMorph: numberInputMorph;
 	addMorph: arrowsMorph.
@@ -106,63 +119,92 @@ updateCounter: aCounter
 ! !
 
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:54'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 15:52:55'!
+buildCartListColumn
+
+	| bodyLayoutMorph cartListMorph  |
+		
+	cartListMorph := self buildCartListMorph.
+
+	bodyLayoutMorph := LayoutMorph newColumn.
+	bodyLayoutMorph separation: 1@1;
+	axisEdgeWeight: 0.0;
+	morphExtent: (self defaultExtent x * 0.4)@(self defaultExtent y * 0.70) ;
+	addMorph: cartListMorph .
+
+	
+	^bodyLayoutMorph.! !
+
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 15:54:43'!
 buildCartListMorph
 
-	^ self shouldBeImplemented.! !
+	| cartListMorph scrollMorph |
+	
+	cartListMorph := LayoutMorph newColumn.
+	scrollMorph := PluggableScrollPane new.
+	scrollMorph morphExtent: (self defaultExtent x *  0.4)@(self defaultExtent y * 0.7);
+	scroller: cartListMorph.
+	
+	cartListMorph separation: 1@1; 
+	axisEdgeWeight: 0.0.
+	cartListMorph addMorph: (self buildCatalogListHeaderWithExtent: scrollMorph morphExtent).
+	20 timesRepeat: [cartListMorph addMorph: (self buildCatalogItemRowWithName: 'test' withISBN: 'ISBN' withExtent: scrollMorph morphExtent).].
+	
+	^ scrollMorph.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:49'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 16:21:12'!
 buildMorphicWindow
 		
 	self layoutMorph beColumn;
-	separation: 25;
+	separation: 1@1;
 	axisEdgeWeight: 0.0;
 	morphExtent: self defaultExtent;
 	addMorph: self buildShopHeader;
 	addMorph: self buildShopBody.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:31'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 15:50:23'!
 buildShopBody
 
-	| bodyLayoutMorph catalogMorph cartListMorph |
+	| bodyLayoutMorph catalogColumn cartListColumn |
 		
-	catalogMorph := self buildCatalogMorph.
-	"cartListMorph := self buildCartListMorph."
+	catalogColumn := self buildCatalogColumn.
+	cartListColumn := self buildCartListColumn.
 		
 	bodyLayoutMorph := LayoutMorph newRow.
-	bodyLayoutMorph separation: 1;
+	bodyLayoutMorph separation: 1@1;
 	axisEdgeWeight: 0.0;
 	morphExtent: (self defaultExtent x)@(self defaultExtent y * 0.70) ;
-	addMorph: catalogMorph.
-	"addMorph: cartListMorph."
+	addMorph: catalogColumn;
+	addMorph: cartListColumn.
 	
 	^bodyLayoutMorph.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:19'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 16:16:34'!
 buildShopHeader
 
 	| firstRowLayoutMorph headerButtonsMorph |
 		
 	headerButtonsMorph := LayoutMorph newRow.
-	headerButtonsMorph separation: 25;
+	headerButtonsMorph separation: 25@1;
 	axisEdgeWeight: 1.0;
-	morphExtent: (self defaultExtent x*0.6)@(self defaultExtent y * 0.1) ;
+	morphExtent: (self defaultExtent x * 0.5)@5;
 	addMorph: (LabelMorph contents: 'Purchase history');
 	addMorph: (LabelMorph contents: 'Checkout').
-		
+	
+	
 	firstRowLayoutMorph := LayoutMorph newRow.
-	firstRowLayoutMorph separation: 1;
+	firstRowLayoutMorph separation: 25@1;
 	axisEdgeWeight: 0.0;
-	morphExtent: (self defaultExtent x)@(self defaultExtent y * 0.1) ;
-	addMorph: (LabelMorph contents:'Welcome, ',username,'!!');
+	morphExtent: (self defaultExtent x)@1;
+	addMorph:  (LabelMorph contents:'Welcome, ',username,'!!');
 	addMorph: headerButtonsMorph.
 	
 	^firstRowLayoutMorph.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:11'!
+!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 15:59:34'!
 defaultExtent
 
-	^ 1035@485
+	^ 1535@685
 	! !
 
 !CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:43:03'!
