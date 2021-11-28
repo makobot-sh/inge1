@@ -259,20 +259,20 @@ TestCase subclass: #TusLibrosRestAPIInterfaceTest
 	poolDictionaries: ''
 	category: 'TusLibros-Tests'!
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/18/2021 17:53:50'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:02:36'!
 invalidPassword
 
-	^'invalidPassword'! !
+	^'notAdmin'! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:47:47'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:02:21'!
 validUser
 
-	^'validUser'! !
+	^'admin'! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:21'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:02:25'!
 validUserPassword
 
-	^'validUserPassword'! !
+	^'admin'! !
 
 !TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:17'!
 validUsersAndPasswords
@@ -675,25 +675,25 @@ invalidPassword
 
 	^'invalidPassword'! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 22:30'!
+!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:04:02'!
 invalidUser
 
-	^'invalidUser'! !
+	^'notAdmin'! !
 
 !TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 23:50'!
 validBook
 
 	^testObjectsFactory itemSellByTheStore ! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 22:27'!
+!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:03:48'!
 validUser
 
-	^'validUser'! !
+	^'admin'! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 22:28'!
+!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:03:52'!
 validUserPassword
 
-	^'validUserPassword'! !
+	^'admin'! !
 
 !TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 22:43'!
 validUsersAndPasswords
@@ -942,12 +942,20 @@ createCart
 
 	^Cart acceptingItemsOf: self defaultCatalog! !
 
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'HernanWilkinson 6/22/2013 00:16'!
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'AF 11/27/2021 20:37:03'!
 defaultCatalog
 
 	^ Dictionary new
 		at: self itemSellByTheStore put: self itemSellByTheStorePrice;
 		at: self anotherItemSellByTheStore put: self anotherItemSellByTheStorePrice;
+		
+		add: '00000000' -> 'Moby Dick';
+		add: '00000001' -> 'Winnie Pooh';
+		add: '00000002' -> 'Haikyuu!!!!';
+		add: '00000003' -> 'Eragon';
+		add: '00000004' -> 'The Shining';
+		add: '00000005' -> 'Eldest';
+		add: '00000006' -> 'Legado';
 		yourself ! !
 
 
