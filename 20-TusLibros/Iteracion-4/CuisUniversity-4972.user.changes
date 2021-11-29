@@ -32259,3 +32259,571 @@ initializeFor: aUsername and: aPassword
 ----SNAPSHOT----(28 November 2021 22:31:28) CuisUniversity-4972.image priorSource: 21462856!
 
 ----SNAPSHOT----(28 November 2021 22:36:31) CuisUniversity-4972.image priorSource: 21462950!
+
+----STARTUP---- (29 November 2021 00:12:17) as D:\001.Maca\2c2021\inge1\qaGraphic\CuisUniversity-4972.image!
+
+
+!classRemoval: #LoginWindowModel stamp: 'MK 11/29/2021 00:12:28'!
+Object subclass: #LoginWindowModel
+	instanceVariableNames: 'username password response'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #ItemCounterModel stamp: 'MK 11/29/2021 00:12:28'!
+Object subclass: #ItemCounterModel
+	instanceVariableNames: 'value id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #CatalogWindowModel stamp: 'MK 11/29/2021 00:12:29'!
+Object subclass: #CatalogWindowModel
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #LoginWindow stamp: 'MK 11/29/2021 00:12:29'!
+Panel subclass: #LoginWindow
+	instanceVariableNames: 'userTextBoxMorph passwordTextBoxMorph errorMessageMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #ErrorWindow stamp: 'MK 11/29/2021 00:12:29'!
+Panel subclass: #ErrorWindow
+	instanceVariableNames: 'errors name dictionaryOfErrors'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #CatalogWindow stamp: 'MK 11/29/2021 00:12:30'!
+Panel subclass: #CatalogWindow
+	instanceVariableNames: 'username password counters'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #StoreTestObjectsFactory stamp: 'MK 11/29/2021 00:12:34'!
+Object subclass: #StoreTestObjectsFactory
+	instanceVariableNames: 'today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #ManualClock stamp: 'MK 11/29/2021 00:12:35'!
+Clock subclass: #ManualClock
+	instanceVariableNames: 'now'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #TusLibrosSystemFacadeTest stamp: 'MK 11/29/2021 00:12:35'!
+TestCase subclass: #TusLibrosSystemFacadeTest
+	instanceVariableNames: 'testObjectsFactory clock systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #TusLibrosRestAPIInterfaceTest stamp: 'MK 11/29/2021 00:12:36'!
+TestCase subclass: #TusLibrosRestAPIInterfaceTest
+	instanceVariableNames: 'testObjectsFactory clock systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #CashierTest stamp: 'MK 11/29/2021 00:12:36'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #CartTest stamp: 'MK 11/29/2021 00:12:36'!
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #TusLibrosSystemFacade stamp: 'MK 11/29/2021 00:12:40'!
+Object subclass: #TusLibrosSystemFacade
+	instanceVariableNames: 'validUsersAndPasswords catalog lastId merchantProcessor salesBook clock cartSessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #TusLibrosRestAPIInterface stamp: 'MK 11/29/2021 00:12:41'!
+Object subclass: #TusLibrosRestAPIInterface
+	instanceVariableNames: 'port webServer systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Ticket stamp: 'MK 11/29/2021 00:12:41'!
+Object subclass: #Ticket
+	instanceVariableNames: 'lineItems'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Sale stamp: 'MK 11/29/2021 00:12:42'!
+Object subclass: #Sale
+	instanceVariableNames: 'customer ticket'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #MerchantProcessor stamp: 'MK 11/29/2021 00:12:42'!
+Object subclass: #MerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #LineItem stamp: 'MK 11/29/2021 00:12:42'!
+Object subclass: #LineItem
+	instanceVariableNames: 'item quantity total'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #CreditCard stamp: 'MK 11/29/2021 00:12:43'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Clock stamp: 'MK 11/29/2021 00:12:43'!
+Object subclass: #Clock
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Cashier stamp: 'MK 11/29/2021 00:12:44'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook merchantProcessor creditCard owner ticket'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #CartSession stamp: 'MK 11/29/2021 00:12:44'!
+Object subclass: #CartSession
+	instanceVariableNames: 'owner cart lastUsedTime systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Cart stamp: 'MK 11/29/2021 00:12:45'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qaGraphic\TusLibros-Model.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qaGraphic\TusLibros-Tests.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\qaGraphic\TusLibros-Graphics.st----!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphic interface tests' stamp: 'MK 11/29/2021 00:15:26'!
+startTestServerAndLogicInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.! !
+
+!methodRemoval: TusLibrosRestAPIInterfaceTest #startTestServerAndGraphicInterface stamp: 'MK 11/29/2021 00:15:26'!
+startTestServerAndGraphicInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphic interface tests' stamp: 'MK 11/29/2021 00:15:31'!
+startTestServerAndLoginInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.! !
+
+!methodRemoval: TusLibrosRestAPIInterfaceTest #startTestServerAndLogicInterface stamp: 'MK 11/29/2021 00:15:31'!
+startTestServerAndLogicInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphic interface tests' stamp: 'MK 11/29/2021 00:15:42'!
+startTestServerAndShopInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphic interface tests' stamp: 'MK 11/29/2021 00:20:16' prior: 50979699!
+startTestServerAndShopInterface
+
+	|server cart |
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	cart _ systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	CatalogWindow openWithUser: self validUser andPass: self validUserPassword andCart: cart.
+	
+	^ server.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MK 11/29/2021 00:21:57'!
+advanceTime: aDuration
+
+	systemFacade advanceTime: aDuration.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MK 11/29/2021 00:24:08'!
+advanceTimeAndExpireSession
+
+	systemFacade advanceTime: systemFacade sessionDuration + 1 minutes.! !
+
+!methodRemoval: TusLibrosRestAPIInterfaceTest #advanceTime: stamp: 'MK 11/29/2021 00:24:12'!
+advanceTime: aDuration
+
+	systemFacade advanceTime: aDuration.!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.
+test advanceTimeAndExpireSession.!
+
+!classRemoval: #PurchaseHistoryWindowModel stamp: 'MK 11/29/2021 00:24:51'!
+Object subclass: #PurchaseHistoryWindowModel
+	instanceVariableNames: 'username password purchases errorMessage'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #LoginWindowModel stamp: 'MK 11/29/2021 00:24:52'!
+Object subclass: #LoginWindowModel
+	instanceVariableNames: 'username password response'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #ItemCounterModel stamp: 'MK 11/29/2021 00:24:52'!
+Object subclass: #ItemCounterModel
+	instanceVariableNames: 'value id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #CheckoutWindowModel stamp: 'MK 11/29/2021 00:24:53'!
+Object subclass: #CheckoutWindowModel
+	instanceVariableNames: 'ticket username password'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #CatalogWindowModel stamp: 'MK 11/29/2021 00:24:53'!
+Object subclass: #CatalogWindowModel
+	instanceVariableNames: 'username password cartId catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #PurchaseHistoryWindow stamp: 'MK 11/29/2021 00:24:54'!
+Panel subclass: #PurchaseHistoryWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #LoginWindow stamp: 'MK 11/29/2021 00:24:54'!
+Panel subclass: #LoginWindow
+	instanceVariableNames: 'userTextBoxMorph passwordTextBoxMorph errorMessageMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #ErrorWindow stamp: 'MK 11/29/2021 00:24:54'!
+Panel subclass: #ErrorWindow
+	instanceVariableNames: 'dictionaryOfErrors'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #CheckoutWindow stamp: 'MK 11/29/2021 00:24:55'!
+Panel subclass: #CheckoutWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!classRemoval: #CatalogWindow stamp: 'MK 11/29/2021 00:24:55'!
+Panel subclass: #CatalogWindow
+	instanceVariableNames: 'counterTextMorphs cartListMorph counterModels cartItemsQuantityMorphs'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\repoEntrega\20-TusLibros\Iteracion-4\TusLibros-Graphics.st----!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.
+test advanceTimeAndExpireSession.!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphic interface tests' stamp: 'MK 11/29/2021 00:25:33' prior: 50979709!
+startTestServerAndShopInterface
+
+	|server cart |
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	cart _ systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	CatalogWindow openWithUser: self validUser andPass: self validUserPassword andCart: cart.
+	
+	^ server.! !
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.
+test advanceTimeAndExpireSession.!
+
+----SNAPSHOT----(29 November 2021 00:26:30) CuisUniversity-4972.image priorSource: 20616037!
+
+TusLibrosRestAPIInterface allInstancesDo: [:i | i destroy.].!
+
+TusLibrosRestAPIInterface allInstancesDo: [:i | i destroy.].!
+
+----SNAPSHOT----(29 November 2021 00:26:41) CuisUniversity-4972.image priorSource: 20787518!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.
+test advanceTimeAndExpireSession.!
+
+TusLibrosRestAPIInterface allInstances!
+
+CatalogWindow openWithUser: 'maca' andPass: 'maca' andCart: '1'!
+
+----STARTUP---- (29 November 2021 00:30:52) as D:\001.Maca\2c2021\inge1\QAGraphic2\CuisUniversity-4972.image!
+
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\Packages\System\Collections-CompactArrays.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\Packages\Features\Compression.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\Packages\Features\Sound.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\Packages\Features\Cryptography-DigitalSignatures.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\Packages\Features\Identities-UUID.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\Packages\System\Network-Kernel.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\cosasInstalar\WebClient.pck.st----!
+
+CodePackage subclass: #ColorExtrasPackage
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Color-Extras'!
+
+!classDefinition: #ColorExtrasPackage category: 'Color-Extras' stamp: 'Install-Color-Extras 11/29/2021 00:31:55'!
+CodePackage subclass: #ColorExtrasPackage
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Color-Extras'!
+
+ColorExtrasPackage class
+	instanceVariableNames: ''!
+
+!classDefinition: 'ColorExtrasPackage class' category: 'Color-Extras' stamp: 'Install-Color-Extras 11/29/2021 00:31:55'!
+ColorExtrasPackage class
+	instanceVariableNames: ''!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\Packages\Features\Color-Extras.pck.st----!
+
+CodePackage subclass: #MorphicMisc1Package
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Morphic-Misc1'!
+
+!classDefinition: #MorphicMisc1Package category: 'Morphic-Misc1' stamp: 'Install-Morphic-Misc1 11/29/2021 00:31:57'!
+CodePackage subclass: #MorphicMisc1Package
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Morphic-Misc1'!
+!MorphicMisc1Package commentStamp: '<historical>' prior: 0!
+My purpose in life is to check that any base image methods overridden have not been updated.
+See #MorphMisc1Package class>>prePackageInstall!
+
+MorphicMisc1Package class
+	instanceVariableNames: ''!
+
+!classDefinition: 'MorphicMisc1Package class' category: 'Morphic-Misc1' stamp: 'Install-Morphic-Misc1 11/29/2021 00:31:57'!
+MorphicMisc1Package class
+	instanceVariableNames: ''!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\cosasInstalar\Morphic-Misc1.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\cosasInstalar\Morphic-Widgets-Extras.pck.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\cosasInstalar\TusLibros-Model.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\cosasInstalar\TusLibros-Tests.st----!
+
+----End fileIn of D:\001.Maca\2c2021\inge1\QAGraphic2\cosasInstalar\TusLibros-Graphics.st----!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:34:43'!
+startTestServerAndLoginInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.! !
+
+!methodRemoval: TusLibrosRestAPIInterfaceTest #startTestServerAndGraphicInterface stamp: 'MK 11/29/2021 00:34:43'!
+startTestServerAndGraphicInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndLoginInterface.!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:35:37'!
+startTestServerAndShopInterface
+
+	|server|
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	LoginWindow open.
+	
+	^ server.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:36:39' prior: 50974552!
+startTestServerAndShopInterface
+
+	|server cart |
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	cart _ systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword 
+	
+	CatalogWindow openWithUser: self validUser andPass: self validUserPassword andCart: cart.
+	
+	^ server.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:36:59' prior: 50974562!
+startTestServerAndShopInterface
+
+	|server cart |
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	cart _ systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	CatalogWindow openWithUser: self validUser andPass: self validUserPassword andCart: cart.
+	
+	^ server.! !
+!TusLibrosRestAPIInterfaceTest methodsFor: 'encoding' stamp: 'MK 11/29/2021 00:37:34'!
+advanceTimeToExpireSession
+
+	clock advanceTime: systemFacade sessionDuration + 1 minutes! !
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndLoginInterface.
+test advanceTimeToExpireSession.!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.
+test advanceTimeToExpireSession.!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.
+!
+
+TusLibrosRestAPIInterface allInstancesDo: [:i | i destroy.].!
+
+TusLibrosRestAPIInterface allInstancesDo: [:i | i destroy.].!
+
+----SNAPSHOT----(29 November 2021 00:40:09) CuisUniversity-4972.image priorSource: 18974255!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.!
+
+CatalogWindow openWithUser: self validUser andPass: self validUserPassword andCart: '1'.!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:41:47' prior: 50974577!
+startTestServerAndShopInterface
+
+	|server cart |
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	cart _ systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	CatalogWindow openWithUser: self validUser andPass: self validUserPassword andCart: cart.
+
+	^ server.! !
+
+CatalogWindow openWithUser: 'admin' andPass: 'admin' andCart: '1'.!
+
+
+TusLibrosRestAPIInterface allInstancesDo: [:i | i destroy.].!
+
+----SNAPSHOT----(29 November 2021 00:53:17) CuisUniversity-4972.image priorSource: 20574734!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.
+test advanceTimeToExpireSession.!
+
+TusLibrosRestAPIInterface allInstancesDo: [:i | i destroy.].!
+
+| test |
+test _ TusLibrosRestAPIInterfaceTest new.
+test startTestServerAndShopInterface.
+test advanceTimeToExpireSession.!
+
+----SNAPSHOT----(29 November 2021 01:09:24) CuisUniversity-4972.image priorSource: 20575619!

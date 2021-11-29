@@ -502,13 +502,8 @@ test07fetchCatalog
 	self assert: (testObjectsFactory defaultCatalog ) equals: (responseDecoded at: 'catalog')! !
 
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 16:10:28'!
-encodeSpacesForUrl: aParameter
-	
-	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
-
-!TusLibrosRestAPIInterfaceTest methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:14:56'!
-startTestServerAndGraphicInterface
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:34:43'!
+startTestServerAndLoginInterface
 
 	|server|
 	self setUp.
@@ -518,6 +513,31 @@ startTestServerAndGraphicInterface
 	LoginWindow open.
 	
 	^ server.! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:41:47'!
+startTestServerAndShopInterface
+
+	|server cart |
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	cart _ systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	CatalogWindow openWithUser: self validUser andPass: self validUserPassword andCart: cart.
+
+	^ server.! !
+
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'encoding' stamp: 'MP 11/20/2021 16:10:28'!
+encodeSpacesForUrl: aParameter
+	
+	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
+
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'time' stamp: 'MK 11/29/2021 00:37:34'!
+advanceTimeToExpireSession
+
+	clock advanceTime: systemFacade sessionDuration + 1 minutes! !
 
 
 !classDefinition: #TusLibrosSystemFacadeTest category: 'TusLibros-Tests'!
