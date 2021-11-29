@@ -16,7 +16,7 @@ invalidQuantityErrorMessage
 	^self class invalidQuantityErrorMessage ! !
 
 
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/22/2013 14:17'!
+!Cart methodsFor: 'assertions' stamp: 'AF 11/28/2021 16:10:48'!
 assertIsValidItem: anItem
 
 	(catalog includesKey: anItem) ifFalse: [ self signalInvalidItem ]! !
@@ -82,7 +82,7 @@ add: anItem
 
 	^ self add: 1 of: anItem ! !
 
-!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/22/2013 12:31'!
+!Cart methodsFor: 'adding' stamp: 'AF 11/28/2021 16:10:28'!
 add: aQuantity of: anItem
 
 	self assertIsValidQuantity: aQuantity.
@@ -512,8 +512,17 @@ Object subclass: #TusLibrosRestAPIInterface
 	poolDictionaries: ''
 	category: 'TusLibros-Model'!
 
-!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 17:52:01'!
-convertToDictionary: aBag
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/28/2021 13:04:45'!
+addServiceWithInternalErrorHandling: aService action: aBlock	
+	
+	
+	webServer addService: aService action:[:request | 		[aBlock value: request] on: Error 
+												      do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
+									  ].
+	! !
+
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/28/2021 17:39:48'!
+convertBagToDictionary: aBag
 	
 	|cartContentsDictionary|
 
@@ -522,13 +531,23 @@ convertToDictionary: aBag
 	
 	^cartContentsDictionary.! !
 
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/28/2021 17:41:46'!
+convertTicketToDictionary: aTicket
+	
+	|ticketDictionary|
+
+	ticketDictionary _ Dictionary new.
+	aTicket lineItemsDo: [:aLineItem | ticketDictionary add: aLineItem item -> aLineItem total].
+	
+	^ticketDictionary ! !
+
 !TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 15:52:46'!
 destroy
 	
 	webServer ifNotNil:[webServer destroy].
 ! !
 
-!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/27/2021 14:00:31'!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/28/2021 17:42:37'!
 initializeWith: aPortNumber and: aSystemFacade    
 	
 	port := aPortNumber.
@@ -536,8 +555,9 @@ initializeWith: aPortNumber and: aSystemFacade
 	
 	webServer := WebServer new listenOn: port.
 	
-	webServer addService: '/createCart' action:[:request | 
-		[
+	self addServiceWithInternalErrorHandling: '/createCart' 
+  	      action:[:request | 
+			
 			| user password cartId |
 			user := (request fields at:'clientId').
 			password := (request fields at:'password').
@@ -545,58 +565,49 @@ initializeWith: aPortNumber and: aSystemFacade
 			cartId := systemFacade createCartFor: user authenticatedWith: password.
 						
 			request send200Response: (self jsonResponseForCreateCart: cartId).
-		 ] 
-		on: Error 
-		do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
-	].
-	
-	webServer addService: '/addToCart' action:[:request | 
-		[
-			| book bookAmount cartId |
-			cartId := (request fields at:'cartId').
-			book := (request fields at:'bookIsbn').
-			bookAmount := (request fields at:'bookQuantity').		
+			].
+		
+	self addServiceWithInternalErrorHandling: '/addToCart' 
+	      action: 	[:request |
+		  	  | book bookAmount cartId |
+			  cartId := (request fields at:'cartId').
+			  book := (request fields at:'bookIsbn').
+			  bookAmount := (request fields at:'bookQuantity').		
 			
-			systemFacade add: bookAmount asNumber of: book toCartIdentifiedAs: cartId asNumber.
+			  systemFacade add: bookAmount asNumber of: book toCartIdentifiedAs: cartId asNumber.
 
-			request send200Response: self jsonSuccessfulResponse.
-		 ] 
-		on: Error 
-		do: [ :anError | request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
-	].
+  			  request send200Response: self jsonSuccessfulResponse.
+		         ].
 
-	webServer addService: '/listCart' action:[:request | 
-		[
-			| cartId cartContents cartContentsDictionary |
-			cartId := (request fields at:'cartId').	
+	self addServiceWithInternalErrorHandling: '/listCart' 
+	       action:[:request | 
+			 | cartId cartContents cartContentsDictionary |
+			 cartId := (request fields at:'cartId').	
 			
-			cartContents _ systemFacade listCartIdentifiedAs: cartId asNumber.
-			cartContentsDictionary _ self convertToDictionary: cartContents.
+			 cartContents _ systemFacade listCartIdentifiedAs: cartId asNumber.
+			 cartContentsDictionary _ self convertBagToDictionary: cartContents.
 
-			request send200Response: (self jsonResponseForListCart: cartContentsDictionary).
-		 ] 
-		on: Error 
-		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
-	].
+			 request send200Response: (self jsonResponseForListCart: cartContentsDictionary).
 
-	webServer addService: '/checkOutCart' action:[:request | 
-		[
-			| cartId cardNumber cardExpirationDate cardOwner|
+			 ].
+
+	self addServiceWithInternalErrorHandling: '/checkOutCart' 
+	      action:[:request | 
+		
+			| cartId cardNumber cardExpirationDate cardOwner ticket |
 			cartId := (request fields at:'cartId') asNumber.	
 			cardNumber := (request fields at:'ccn').	
 			cardExpirationDate := (request fields at:'cced') asMonth.	
 			cardOwner := (request fields at:'cco').	
 			
-			systemFacade checkOutCartIdentifiedAs: cartId withCreditCardNumbered: cardNumber  ownedBy: cardOwner expiringOn: cardExpirationDate .
+			ticket _ systemFacade checkOutCartIdentifiedAs: cartId withCreditCardNumbered: cardNumber  ownedBy: cardOwner expiringOn: cardExpirationDate .
 			
-			request send200Response: (self jsonSuccessfulResponse).
-		 ] 
-		on: Error 
-		do: [ :anError |			request send200Response: (self jsonErrorResponseBasedOn: anError) .		]
-	].
+			request send200Response: (self jsonResponseForCheckOutCart: (self convertTicketToDictionary: ticket)).
+		       ] .
+
 	
-	webServer addService: '/listPurchases' action:[:request | 
-		[
+	self addServiceWithInternalErrorHandling: '/listPurchases'
+	      action:[:request | 
 			| user password list |
 			user := (request fields at:'clientId').
 			password := (request fields at:'password').
@@ -604,10 +615,16 @@ initializeWith: aPortNumber and: aSystemFacade
 			list := systemFacade listPurchasesOf: user authenticatingWith: password.
 						
 			request send200Response: (self jsonResponseForListPurchases: list).
-		 ] 
-		on: Error 
-		do: [ :anError |			 request send200Response: (self jsonErrorResponseBasedOn: anError).]
-	].
+			].
+
+	self addServiceWithInternalErrorHandling: '/fetchCatalog' 
+	      action:[:request | 
+			| catalog |
+				
+			catalog := systemFacade fetchCatalog .
+						
+			request send200Response: (self jsonResponseForFetchCatalog: catalog).
+			].
 
 	webServer startListener.
 ! !
@@ -619,19 +636,30 @@ jsonErrorResponseBasedOn: anError
 									   add: 'errorDescription' -> anError messageText;
 									   yourself)! !
 
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/28/2021 17:43:12'!
+jsonResponseForCheckOutCart: aDictionaryTicket
+
+	^ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 0; add: 'ticket' -> aDictionaryTicket ; yourself)! !
+
 !TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 18:02:32'!
 jsonResponseForCreateCart: cartId
 
 	^ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 0; add: 'cartId' -> cartId; yourself)! !
 
-!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 18:06:30'!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/28/2021 12:33:12'!
+jsonResponseForFetchCatalog: catalogDictionary
+
+	^ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 0; add: 'catalog' -> catalogDictionary ; yourself)! !
+
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/28/2021 21:30:05'!
 jsonResponseForListCart: cartContentsDictionary
 
+	cartContentsDictionary ifEmpty: [ cartContentsDictionary add: '' -> 0].
 	^ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 0; add: 'cartContents' -> cartContentsDictionary ; yourself)! !
 
-!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'MP 11/20/2021 16:35:48'!
+!TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/28/2021 21:29:52'!
 jsonResponseForListPurchases: purchasesDictionary
-
+	purchasesDictionary ifEmpty: [ purchasesDictionary add: '' -> 0].
 	^ WebUtils jsonEncode: ((Dictionary new) add: 'status' -> 0; add: 'purchases' -> purchasesDictionary ; yourself)! !
 
 !TusLibrosRestAPIInterface methodsFor: 'initialization' stamp: 'AF 11/19/2021 18:54:56'!
@@ -700,7 +728,7 @@ today
 	^clock today! !
 
 
-!TusLibrosSystemFacade methodsFor: 'authentication' stamp: 'HernanWilkinson 6/23/2013 12:18'!
+!TusLibrosSystemFacade methodsFor: 'authentication' stamp: 'AF 11/28/2021 12:52:48'!
 does: aUser authenticatesWith: aPassword
 
 	"Recordar que esto es solo un ejemplo. No se deben guardar passwords en un sistema de verdad sino un
@@ -711,7 +739,7 @@ does: aUser authenticatesWith: aPassword
 	storedPassword := validUsersAndPasswords at: aUser ifAbsent: [ ^false ].
 	^aPassword = storedPassword ! !
 
-!TusLibrosSystemFacade methodsFor: 'authentication' stamp: 'HernanWilkinson 6/23/2013 12:18'!
+!TusLibrosSystemFacade methodsFor: 'authentication' stamp: 'AF 11/28/2021 12:52:52'!
 if: aUser authenticatesWith: aPassword do: aBlock
 
 	^ (self does: aUser authenticatesWith: aPassword)
@@ -781,6 +809,11 @@ createCartFor: aUser authenticatedWith: aPassword
 		cartSessions at: cartId put: cartSession.
 
 		cartId  ]! !
+
+!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'AF 11/28/2021 12:28:40'!
+fetchCatalog
+
+	^catalog.! !
 
 !TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'HernanWilkinson 6/17/2015 20:48'!
 listCartIdentifiedAs: aCartId
