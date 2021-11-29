@@ -315,7 +315,7 @@ decodeJsonMapFrom: resp
 
 	^ WebUtils jsonMapFrom: (resp content) readStream! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 16:04:04'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 12:54:07'!
 test01CreateCartForValidCredentials
 
 	|server response client responseDecoded responseExpected|
@@ -335,7 +335,7 @@ test01CreateCartForValidCredentials
 	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
 	self assert: (responseExpected at: 'cartId') equals: (responseDecoded at: 'cartId') .! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 18:25:32'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 12:54:15'!
 test02CreateCartForInvalidCredentials
 
 	|server response client responseDecoded responseExpected|
@@ -357,8 +357,8 @@ test02CreateCartForInvalidCredentials
 	self assert: (responseExpected at: 'errorDescription') equals: (responseDecoded at: 'errorDescription').
 	! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 16:03:44'!
-test03
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 17:50:31'!
+test03AddToCart
 
 	|server client cartId response responseDecoded responseExpected|
 	self setUp.
@@ -381,8 +381,8 @@ test03
 	
 	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 17:10:56'!
-test04
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 17:50:00'!
+test04ListCart
 
 	|server client cartId book response responseDecoded responseExpected|
 	self setUp.
@@ -411,8 +411,8 @@ test04
 	self assert: ((responseExpected at: 'cartContents') at: book) equals: ((responseDecoded at: 'cartContents') at: book) .
 	! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 16:15:05'!
-test05
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 17:49:37'!
+test05CheckOut
 
 	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded creditCardOwnerHttpEncoded |
 	self setUp.
@@ -441,12 +441,13 @@ test05
 	client close.
 	server destroy.
 	
-	responseExpected _ (Dictionary new) add: 'status' -> 0; yourself.
+	responseExpected _ (Dictionary new) add: 'status' -> 0; add: 'ticket' -> (Dictionary new add: book -> 10; yourself); yourself.
 	
 	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
+	self assert: (responseExpected at: 'ticket') equals: (responseDecoded at: 'ticket').
 	! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'MP 11/20/2021 16:45:36'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 17:49:28'!
 test06listPurhcases
 
 	|server client cartId book response responseDecoded creditCardExpirationHttpEncoded creditCardOwnerHttpEncoded |
@@ -480,6 +481,25 @@ test06listPurhcases
 	server destroy.
 	
 	self assert: (testObjectsFactory itemSellByTheStorePrice * 2) equals: ((responseDecoded at: 'purchases') at: book)! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 13:26:42'!
+test07fetchCatalog
+
+	|server client response responseDecoded |
+	self setUp.
+	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
+	
+	client _ WebClient new.
+	
+	response _ (client httpGet: 'http://localhost:8080/fetchCatalog' ).
+
+	responseDecoded _ self decodeJsonMapFrom: response.
+
+	client close.
+	server destroy.
+	
+	self assert: (testObjectsFactory defaultCatalog ) equals: (responseDecoded at: 'catalog')! !
 
 
 !TusLibrosRestAPIInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 16:10:28'!
@@ -685,7 +705,7 @@ validBook
 
 	^testObjectsFactory itemSellByTheStore ! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:03:48'!
+!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/28/2021 12:53:36'!
 validUser
 
 	^'admin'! !
@@ -942,20 +962,20 @@ createCart
 
 	^Cart acceptingItemsOf: self defaultCatalog! !
 
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'AF 11/27/2021 20:37:03'!
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'AF 11/28/2021 14:53:55'!
 defaultCatalog
 
 	^ Dictionary new
 		at: self itemSellByTheStore put: self itemSellByTheStorePrice;
 		at: self anotherItemSellByTheStore put: self anotherItemSellByTheStorePrice;
 		
-		add: '00000000' -> 'Moby Dick';
-		add: '00000001' -> 'Winnie Pooh';
-		add: '00000002' -> 'Haikyuu!!!!';
-		add: '00000003' -> 'Eragon';
-		add: '00000004' -> 'The Shining';
-		add: '00000005' -> 'Eldest';
-		add: '00000006' -> 'Legado';
+		add: 'Moby Dick' -> 1000;
+		add: 'Winnie The Pooh' -> 900;
+		add: 'Haikyuu!!!!' -> 450;
+		add: 'Eragon' -> 1200;
+		add: 'The Shining' -> 650;
+		"add: 'Eldest' -> 1250;"
+		add: 'Legado' -> 1100;
 		yourself ! !
 
 
