@@ -5,22 +5,7 @@ Panel subclass: #CatalogWindow
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/28/2021 16:34:33'!
-buildAddToCartRowWith: anExtent
-
-    | checkoutButton checkoutRow |
-    
-        checkoutButton := PluggableButtonMorph model: self stateGetter: nil action: #addToCart label: 'Add to cart'.
-
-        checkoutRow := LayoutMorph newRow.
-        checkoutRow separation: 25@0;
-        axisEdgeWeight: 1.0;
-        morphExtent: (anExtent x) @ (anExtent y * 0.2);
-        addMorph: checkoutButton.
-
-        ^checkoutRow.! !
-
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 17:45:16'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/29/2021 14:35:28'!
 buildCatalogColumn
 
   	| bodyLayoutMorph |
@@ -29,70 +14,97 @@ buildCatalogColumn
   	bodyLayoutMorph separation: 1@1;
   	axisEdgeWeight: 0.0;
   	morphExtent: (self defaultExtent x * 0.5)@(self defaultExtent y * 0.70) ;
+	addMorph: (self build2ColumnListHeaderWithExtent: bodyLayoutMorph morphExtent withLabels: 'Book Title' and: 'Price');
 	addMorph: (self buildCatalogMorphWith: bodyLayoutMorph morphExtent);
-	addMorph: (self buildAddToCartRowWith: bodyLayoutMorph morphExtent).
+	addMorph: (self buildButtonRowWith: bodyLayoutMorph morphExtent andAction: #addToCart andLabel: 'Add to cart' andModel: self).
 
     
     	^bodyLayoutMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/28/2021 14:48:02'!
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/29/2021 15:02:36'!
 buildCatalogItemRowWithName: aBookName withPrice: aPrice withExtent: anExtent 
 
 	| itemMorph |
 	itemMorph := LayoutMorph newRow.
-	itemMorph separation: 1@1; 
+	itemMorph separation: 0@0; 
 	morphWidth: anExtent x; 
 	axisEdgeWeight: 0.0;
-	addMorph: (self buildCatalogTableItem: aBookName ownerExtent: itemMorph morphExtent);
-	addMorph: (self buildCatalogTableItem: aPrice ownerExtent: itemMorph morphExtent);
+	addMorph: (self buildTableItem: aBookName ownerExtent: itemMorph morphExtent);
+	addMorph: (self buildTableItem: aPrice ownerExtent: itemMorph morphExtent);
 	addMorph: (self buildCounterMorph: aBookName).
 
-	"TO DO: falta agregar boton para agregar al carrito"
+
+	^ itemMorph.
+! !
+
+!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/29/2021 14:58:27'!
+buildCatalogMorphWith: anExtent
+	
+	| scrollMorph catalog |
+	
+	scrollMorph _ self buildScrollableListWith: anExtent.
+	
+	catalog _ self model catalog.
+	catalog keys do: [: aTitle | scrollMorph scroller addMorph: (self buildCatalogItemRowWithName: aTitle withPrice: (catalog at: aTitle) asString withExtent: scrollMorph morphExtent).].
+	
+	^ scrollMorph.
+	
+	! !
+
+
+!CatalogWindow methodsFor: 'cart' stamp: 'AF 11/29/2021 14:59:37'!
+buildCartItemRowWith: aQuantity of: aBookTitle withExtent: anExtent
+
+	| itemMorph quantityMorph |
+	itemMorph := LayoutMorph newRow.
+	itemMorph separation: 0@0; 
+	morphWidth: anExtent x; 
+	axisEdgeWeight: 0.0;
+	color: Color veryLightGray ;
+	addMorph: (self buildTableItem: aBookTitle ownerExtent: itemMorph morphExtent).
+	
+	
+	quantityMorph _ (self buildTableItem: aQuantity asString ownerExtent: itemMorph morphExtent).
+	
+	itemMorph addMorph: quantityMorph.
+	
+	cartItemsQuantityMorphs add: aBookTitle -> quantityMorph.
+	
 
 	^ itemMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/28/2021 14:44:33'!
-buildCatalogListHeaderWithExtent: anExtent
-	
-	| catalogMorph |
-	
-	catalogMorph := LayoutMorph newRow.
-	catalogMorph separation: 1@1; 
+!CatalogWindow methodsFor: 'cart' stamp: 'AF 11/29/2021 15:03:13'!
+buildCartListColumn
+
+	| cartListColumnMorph |
+		
+	cartListColumnMorph := LayoutMorph newColumn.
+	cartListColumnMorph separation: 1@1;
 	axisEdgeWeight: 0.0;
-	addMorph: (self buildCatalogTableItem: 'Book name' ownerExtent: anExtent);
-	addMorph: (self buildCatalogTableItem: 'Price' ownerExtent: anExtent).
-	^ catalogMorph.! !
+	morphExtent: (self defaultExtent x * 0.4)@(self defaultExtent y * 0.70).
+	
+	cartListMorph := (self buildCartListMorphWith: cartListColumnMorph morphExtent).
+	
+	cartListColumnMorph addMorph: cartListMorph;
+	addMorph: (self buildButtonRowWith: cartListColumnMorph morphExtent andAction: #checkOut andLabel: 'Checkout' andModel: self model).
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/28/2021 14:47:14'!
-buildCatalogMorphWith: anExtent
 	
-	| catalogMorph scrollMorph catalog |
-	
-	catalogMorph := LayoutMorph newColumn.
-	scrollMorph := PluggableScrollPane new.
-	scrollMorph morphExtent: anExtent;
-	scroller: catalogMorph.
-	
-	catalogMorph separation: 1@1; 
-	axisEdgeWeight: 0.0.
-	catalogMorph addMorph: (self buildCatalogListHeaderWithExtent: scrollMorph morphExtent).
-	
-	catalog _ self model catalog.
-	catalog keys do: [: aTitle | catalogMorph addMorph: (self buildCatalogItemRowWithName: aTitle withPrice: (catalog at: aTitle) asString withExtent: scrollMorph morphExtent).].
-	
-	^ scrollMorph.! !
+	^cartListColumnMorph.! !
 
-!CatalogWindow methodsFor: 'catalog' stamp: 'AF 11/27/2021 17:51:38'!
-buildCatalogTableItem: aName ownerExtent: anExtent 
+!CatalogWindow methodsFor: 'cart' stamp: 'AF 11/29/2021 14:57:42'!
+buildCartListMorphWith: anExtent
+
+	| scrollMorph |
 	
-	| itemMorph |
+	scrollMorph _ self buildScrollableListWith: anExtent.
+
+	scrollMorph scroller addMorph: (self build2ColumnListHeaderWithExtent: scrollMorph morphExtent withLabels: 'Book Title' and: 'Quantity' ).
 	
-	itemMorph := LabelMorph contents: aName font: FontFamily defaultFamilyAndPointSize.
-	itemMorph morphWidth: (anExtent x *0.3).
-	^ itemMorph! !
+	^ scrollMorph.
+! !
 
 
-!CatalogWindow methodsFor: 'auxiliary' stamp: 'AF 11/28/2021 16:50:07'!
+!CatalogWindow methodsFor: 'counters' stamp: 'AF 11/28/2021 16:50:07'!
 buildCounterMorph: anId
 	| numberInputMorph counterMorph arrowDown arrowUp counter arrowsMorph counterId |
 	
@@ -126,7 +138,7 @@ buildCounterMorph: anId
 	
 	^ counterMorph.! !
 
-!CatalogWindow methodsFor: 'auxiliary' stamp: 'AF 11/28/2021 16:50:12'!
+!CatalogWindow methodsFor: 'counters' stamp: 'AF 11/28/2021 16:50:12'!
 updateCounterTextMorphBasedOn: aCounterModel  
 	
 	| textMorph counterId counterValue |
@@ -142,112 +154,7 @@ updateCounterTextMorphBasedOn: aCounterModel
 ! !
 
 
-!CatalogWindow methodsFor: 'cart' stamp: 'AF 11/28/2021 16:53:44'!
-buildCartItemRowWith: aQuantity of: aBookTitle withExtent: anExtent
-
-	| itemMorph quantityMorph |
-	itemMorph := LayoutMorph newRow.
-	itemMorph separation: 1@1; 
-	morphWidth: anExtent x; 
-	axisEdgeWeight: 0.0;
-	addMorph: (self buildCatalogTableItem: aBookTitle ownerExtent: itemMorph morphExtent);
-	addMorph: (self buildCatalogTableItem: '' ownerExtent: itemMorph morphExtent).
-	
-	quantityMorph _ (self buildCatalogTableItem: aQuantity asString ownerExtent: itemMorph morphExtent).
-	
-	itemMorph addMorph: quantityMorph.
-	
-	cartItemsQuantityMorphs add: aBookTitle -> quantityMorph.
-	
-
-	^ itemMorph.! !
-
-!CatalogWindow methodsFor: 'cart' stamp: 'AF 11/27/2021 20:23:39'!
-buildCartListColumn
-
-	| cartListColumnMorph |
-		
-	cartListColumnMorph := LayoutMorph newColumn.
-	cartListColumnMorph separation: 1@1;
-	axisEdgeWeight: 0.0;
-	morphExtent: (self defaultExtent x * 0.4)@(self defaultExtent y * 0.70).
-	
-	cartListMorph := (self buildCartListMorphWith: cartListColumnMorph morphExtent).
-	
-	cartListColumnMorph addMorph: cartListMorph;
-	addMorph: (self buildCheckoutRowWith: cartListColumnMorph morphExtent).
-
-	
-	^cartListColumnMorph.! !
-
-!CatalogWindow methodsFor: 'cart' stamp: 'AF 11/28/2021 14:50:07'!
-buildCartListHeaderWithExtent: anExtent
-
-	| catalogMorph |
-	
-	catalogMorph := LayoutMorph newRow.
-	catalogMorph separation: 1@1; 
-	axisEdgeWeight: 0.0;
-	addMorph: (self buildCatalogTableItem: 'Book name' ownerExtent: anExtent);
-	addMorph: (self buildCatalogTableItem: '' ownerExtent: anExtent);
-	addMorph: (self buildCatalogTableItem: 'Quantity' ownerExtent: anExtent).
-	^ catalogMorph.! !
-
-!CatalogWindow methodsFor: 'cart' stamp: 'AF 11/27/2021 20:24:47'!
-buildCartListMorphWith: anExtent
-
-	| rightColumnMorph scrollMorph |
-	
-	rightColumnMorph := LayoutMorph newColumn.
-	
-	scrollMorph := PluggableScrollPane new.
-	scrollMorph morphExtent: (anExtent x) @ (anExtent y);
-	scroller: rightColumnMorph.
-	
-	rightColumnMorph separation: 1@1; 
-	axisEdgeWeight: 0.0.
-	rightColumnMorph addMorph: (self buildCartListHeaderWithExtent: scrollMorph morphExtent).
-
-	
-	^ scrollMorph.! !
-
-!CatalogWindow methodsFor: 'cart' stamp: 'AF 11/28/2021 17:30:32'!
-buildCheckoutRowWith: anExtent
-	| checkoutButton checkoutRow |
-	
-	checkoutButton := PluggableButtonMorph model: self model stateGetter: nil action: #checkOut  label: 'Checkout'.
-	
-	checkoutRow := LayoutMorph newRow.
-	checkoutRow separation: 0@0;
-	axisEdgeWeight: 0.5;
-	morphExtent: (anExtent x) @ (anExtent y * 0.2);
- 	addMorph: checkoutButton.
-	
-	^checkoutRow.! !
-
-
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 16:47:39'!
-addToCart
-
-	|booksToAdd|
-
-	booksToAdd  _ Dictionary new.	
-	counterModels associationsDo: [:aBookCounterAssociation | aBookCounterAssociation value value asNumber > 0 
-												    ifTrue:[booksToAdd add: aBookCounterAssociation key -> aBookCounterAssociation value value asNumber]].
-	
-	self model addToCart: booksToAdd .! !
-
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 17:01:18'!
-buildMorphicWindow
-		
-	self layoutMorph beColumn;
-	separation: 1@1;
-	axisEdgeWeight: 0.0;
-	morphExtent: self defaultExtent;
-	addMorph: self buildShopHeader;
-	addMorph: self buildShopBody.! !
-
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 17:35:31'!
+!CatalogWindow methodsFor: 'shop' stamp: 'AF 11/27/2021 17:35:31'!
 buildShopBody
 
 	| bodyLayoutMorph catalogColumn cartListColumn |
@@ -264,7 +171,7 @@ buildShopBody
 	
 	^bodyLayoutMorph.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:58:03'!
+!CatalogWindow methodsFor: 'shop' stamp: 'AF 11/28/2021 20:58:03'!
 buildShopHeader
 
 	| firstRowLayoutMorph headerButtonsMorph |
@@ -286,13 +193,115 @@ buildShopHeader
 	
 	^firstRowLayoutMorph.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 16:38:21'!
+
+!CatalogWindow methodsFor: 'generic morphs' stamp: 'AF 11/29/2021 14:59:37'!
+build2ColumnListHeaderWithExtent: anExtent withLabels: firstColumnName and: secondColumnName
+	
+	| listHeaderMorph |
+	
+	listHeaderMorph := LayoutMorph newRow.
+	listHeaderMorph separation: 1@1; 
+	axisEdgeWeight: 0.0;
+	addMorph: (self buildTableItem: firstColumnName ownerExtent: anExtent);
+	addMorph: (self buildTableItem: secondColumnName ownerExtent: anExtent).
+	
+	^ listHeaderMorph.
+! !
+
+!CatalogWindow methodsFor: 'generic morphs' stamp: 'AF 11/29/2021 14:51:42'!
+buildButtonRowWith: anExtent andAction: anAction andLabel: aString andModel: aModel 
+
+    | button row |
+    
+        button := PluggableButtonMorph model: aModel stateGetter: nil action: anAction label: aString .
+
+        row := LayoutMorph newRow.
+        row separation: 25@0;
+        axisEdgeWeight: 1.0;
+        morphExtent: (anExtent x) @ (anExtent y * 0.2);
+        addMorph: button.
+
+        ^row.
+
+! !
+
+!CatalogWindow methodsFor: 'generic morphs' stamp: 'AF 11/29/2021 14:56:43'!
+buildScrollableListWith: anExtent
+
+	| columnMorph scrollMorph |
+	
+	columnMorph := LayoutMorph newColumn.
+	columnMorph separation: 0; 
+	axisEdgeWeight: 0.0.
+	
+	scrollMorph := PluggableScrollPane new.
+	scrollMorph morphExtent: anExtent;
+	scroller: columnMorph.
+
+	^scrollMorph.
+	
+! !
+
+!CatalogWindow methodsFor: 'generic morphs' stamp: 'AF 11/29/2021 14:59:37'!
+buildTableItem: aName ownerExtent: anExtent 
+	
+	| itemMorph |
+	
+	itemMorph := LabelMorph contents: aName font: FontFamily defaultFamilyAndPointSize.
+	itemMorph morphWidth: (anExtent x * 0.4).
+	^ itemMorph! !
+
+
+!CatalogWindow methodsFor: 'events' stamp: 'AF 11/29/2021 16:23:19'!
+retrieveQuantityMorphFor: aBook
+
+	^ cartItemsQuantityMorphs at: aBook ifAbsent:[cartListMorph scroller addMorph: (self buildCartItemRowWith: 0
+																				         of: aBook
+																	   		     withExtent: cartListMorph morphExtent).
+										cartItemsQuantityMorphs at: aBook.]! !
+
+!CatalogWindow methodsFor: 'events' stamp: 'AF 11/29/2021 13:30:24'!
+subscribeToEvents
+
+	self model when: #booksAddedToCart evaluate: [self updateCartContents].
+	self model when: #checkOutSuccessful evaluate: [:aTicket | CheckoutWindow openWithTicket: aTicket for: self model username and: self model password.
+													self delete].
+	self model when: #MultipleErrors evaluate: [:anErrorLabel :aCollectionOfErrorMessages | ErrorWindow openWith: anErrorLabel 
+																						    and: aCollectionOfErrorMessages].	
+	self model when: #Error evaluate: [:anErrorDescription | ErrorWindow openWith: anErrorDescription]! !
+
+!CatalogWindow methodsFor: 'events' stamp: 'AF 11/29/2021 16:23:40'!
+updateCartContents
+
+	| cartContents |
+	cartContents _ self model listCart.
+	cartContents at: '' ifAbsent:[
+	cartContents associationsDo: [:aBookQuantityAssociation | |counterModel quantityMorph|
+											   quantityMorph _ (self retrieveQuantityMorphFor: aBookQuantityAssociation key).
+											   quantityMorph contents: aBookQuantityAssociation value asString.
+											   counterModel _ (counterModels at: aBookQuantityAssociation key ) value: '0'.
+											   self updateCounterTextMorphBasedOn: counterModel 
+								 ]
+						 ]! !
+
+
+!CatalogWindow methodsFor: 'initialization' stamp: 'AF 11/27/2021 17:01:18'!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 1@1;
+	axisEdgeWeight: 0.0;
+	morphExtent: self defaultExtent;
+	addMorph: self buildShopHeader;
+	addMorph: self buildShopBody.! !
+
+!CatalogWindow methodsFor: 'initialization' stamp: 'AF 11/29/2021 14:15:05'!
 defaultExtent
 
-	^ 1335@685
+	^ 1100@500
 	! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 22:12:46'!
+!CatalogWindow methodsFor: 'initialization' stamp: 'AF 11/29/2021 13:30:24'!
 initializeWith: aTitle and: aUsername and: aPassword and: aCartID 
 	
 	
@@ -307,45 +316,34 @@ initializeWith: aTitle and: aUsername and: aPassword and: aCartID
 	self buildMorphicWindow.
 	self openInWorld.
 			
-	self model when: #booksAddedToCart evaluate: [self updateCartContents].
-	self model when: #checkOutSuccessful evaluate: [:aTicket | CheckoutWindow openWithTicket: aTicket for: self model username and: self model password.
-													self delete].
-	self model when: #MultipleErrors evaluate: [:anErrorLabel :aCollectionOfErrorMessages | ErrorWindow openWith: anErrorLabel 
-																						    and: aCollectionOfErrorMessages].	
-	self model when: #Error evaluate: [:anErrorDescription | ErrorWindow openWith: anErrorDescription]
+	self subscribeToEvents
 	
 	"Investigar:
 	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:38:37'!
+
+!CatalogWindow methodsFor: 'button actions' stamp: 'AF 11/28/2021 16:47:39'!
+addToCart
+
+	|booksToAdd|
+
+	booksToAdd  _ Dictionary new.	
+	counterModels associationsDo: [:aBookCounterAssociation | aBookCounterAssociation value value asNumber > 0 
+												    ifTrue:[booksToAdd add: aBookCounterAssociation key -> aBookCounterAssociation value value asNumber]].
+	
+	self model addToCart: booksToAdd .! !
+
+!CatalogWindow methodsFor: 'button actions' stamp: 'AF 11/28/2021 19:38:37'!
 logout
 	
 	LoginWindow open .
 	self delete.! !
 
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:59:01'!
+!CatalogWindow methodsFor: 'button actions' stamp: 'AF 11/28/2021 20:59:01'!
 purchaseHistory	
 
 	PurchaseHistoryWindow openFor: self model username and: self model password.
 ! !
-
-!CatalogWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 22:18:32'!
-updateCartContents
-
-	| cartContents |
-	cartContents _ self model listCart.
-	cartContents at: '' ifAbsent:[
-	cartContents associationsDo: [:aBookQuantityAssociation | |counterModel quantityMorph|
-											   quantityMorph _ (cartItemsQuantityMorphs at: aBookQuantityAssociation key ifAbsent:[
-											   						cartListMorph scroller addMorph: (self buildCartItemRowWith: 0
-																						     of: aBookQuantityAssociation key
-																			   		 withExtent: cartListMorph morphExtent).
-											    						cartItemsQuantityMorphs at: aBookQuantityAssociation key.]).
-											   quantityMorph contents: aBookQuantityAssociation value asString.
-											   counterModel _ (counterModels at: aBookQuantityAssociation key ) value: '0'.
-											   self updateCounterTextMorphBasedOn: counterModel 
-								 ]
-						 ]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -359,152 +357,6 @@ openWithUser: aUsername andPass: aPassword andCart: aCartID
 	^self new initializeWith: 'TusLibros - shop' and: aUsername and: aPassword and: aCartID.! !
 
 
-!classDefinition: #CheckoutWindow category: 'TusLibros-Graphics'!
-Panel subclass: #CheckoutWindow
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Graphics'!
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:12:45'!
-buildButtons
-
-	
-	   | checkoutButton checkoutRow checkoutButton2|
-
-	    checkoutButton := PluggableButtonMorph model: self stateGetter: nil action: #logout  label: 'Logout'.
-	    checkoutButton2 := PluggableButtonMorph model: self model stateGetter: nil action: #newPurchase  label: 'New Purchase'.
-
-	    checkoutRow := LayoutMorph newRow.
-	    checkoutRow separation: 50@0;
-	    axisEdgeWeight: 0.5;
-	    morphExtent: self defaultExtent;
-	    addMorph: checkoutButton;
-	    addMorph: checkoutButton2.
-
-	    ^checkoutRow.
-	! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'Chiro 11/27/2021 18:09:00'!
-buildCheckoutHeader
-	| firstRowLayoutMorph |
-		
-	firstRowLayoutMorph := LayoutMorph newRow.
-	firstRowLayoutMorph separation: 25@1;
-	axisEdgeWeight: 0.0;
-	morphExtent: (self defaultExtent x)@1;
-	addMorph:  (LabelMorph contents: 'test').
-	
-	^firstRowLayoutMorph.! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:47:37'!
-buildMorphicWindow
-       
-	
-	self layoutMorph beColumn;
-	separation: 10;
- 	axisEdgeWeight: 0.0;
- 	morphExtent: self defaultExtent;
-	addMorph:  (LabelMorph contents: 'Checkout');
-	addMorph: (self buildTicketMorphWith: self defaultExtent );
-	addMorph:  (LabelMorph contents: 'Total spent: $', self model ticketTotal);
-	addMorph: self buildButtons.
-	
-! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 21:22:31'!
-buildTicketHeaderWithExtent: anExtent
-	    | headerMorph |
-	    
-	    headerMorph := LayoutMorph newRow.
-	    headerMorph separation: 0@0; 
-	    axisEdgeWeight: 0.5;
-	    addMorph: (self buildTicketItem: 'Book name' ownerExtent: anExtent);
-	    addMorph: (self buildTicketItem: 'Spent' ownerExtent: anExtent).
-	    ^ headerMorph.! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 18:51:09'!
-buildTicketItem: aName ownerExtent: anExtent 
-	
-	| itemMorph |
-	
-	itemMorph := LabelMorph contents: aName font: FontFamily defaultFamilyAndPointSize.
-	itemMorph morphWidth: (anExtent x *0.45).
-	^ itemMorph! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:51:56'!
-buildTicketListRowWith: aBook and: anAmountSpent andExtent: anExtent
-	    | rowMorph |
-	    
-	    rowMorph := LayoutMorph newRow.
-	    rowMorph separation: 0@0; 
-	    morphExtent: anExtent;
-	    axisEdgeWeight: 0.5;
-	    addMorph: (self buildTicketItem: aBook ownerExtent: anExtent);
-	    addMorph: (self buildTicketItem: anAmountSpent ownerExtent: anExtent).
-	    ^ rowMorph.! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 18:52:56'!
-buildTicketMorphWith: anExtent
-
-    	| ticketListMorph scrollMorph |
-    
-    	ticketListMorph := LayoutMorph newColumn.
-   	scrollMorph := PluggableScrollPane new.
-    	scrollMorph morphExtent: (anExtent x *0.9) @ (anExtent y /2);
-    	scroller: ticketListMorph.
-    
-    	ticketListMorph separation: 0@0; 
-    	axisEdgeWeight: 0.5.
-    	ticketListMorph addMorph: (self buildTicketHeaderWithExtent: scrollMorph morphExtent).
-	self model ticket associationsDo: [:anAssociation | ticketListMorph addMorph: (self buildTicketListRowWith: anAssociation key 
-																				and: anAssociation value asString 
-																				andExtent: scrollMorph morphExtent).].
-
-
-    
-    	^scrollMorph.! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 18:43:20'!
-defaultExtent
-	 ^ 600@500
-! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:31:35'!
-initializeWith: aTicket for: aUsername and: aPassword  
-
- 
- 	self titleMorph showButtonsNamed: #( close collapse ).
-	self setLabel: 'Thanks for your purchase!!'.
-	self model: (CheckoutWindowModel with: aTicket for: aUsername and: aPassword ).
-	self morphExtent: self defaultExtent.
- 	self buildMorphicWindow.
- 	self openInWorld.
-
-
-	self model when: #newPurchase evaluate: [:aCartId | CatalogWindow openWithUser: self model username andPass: self model password andCart: aCartId.
-											 	self delete.].
-	self model when: #logout evaluate: [self logout ].! !
-
-!CheckoutWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:09:12'!
-logout
-	
-	LoginWindow open .
-	self delete.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'CheckoutWindow class' category: 'TusLibros-Graphics'!
-CheckoutWindow class
-	instanceVariableNames: ''!
-
-!CheckoutWindow class methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:20:11'!
-openWithTicket: aTicket for: aUsername and: aPassword  
-  
- 	^self new initializeWith: aTicket for: aUsername and: aPassword .
-! !
-
-
 !classDefinition: #ErrorWindow category: 'TusLibros-Graphics'!
 Panel subclass: #ErrorWindow
 	instanceVariableNames: 'dictionaryOfErrors'
@@ -512,26 +364,17 @@ Panel subclass: #ErrorWindow
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!ErrorWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 20:28:45'!
-ErrorRowFor: isbn text: err
+!ErrorWindow methodsFor: 'error display' stamp: 'AF 11/29/2021 15:48:52'!
+ErrorRowFor: anISBN text: anErrorMessage
     
     | morph |
     morph _ LayoutMorph  newRow.
     morph separation: 0@0;
     axisEdgeWeight: 0.0;
-    addMorph: (LabelMorph contents: (isbn, ': ', err)).
+    addMorph: (LabelMorph contents: (anISBN, ': ', anErrorMessage)).
     ^ morph! !
 
-!ErrorWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 22:21:24'!
-buildDefaultMorphicWindow: anErrorDescription
-
-    self layoutMorph beColumn;
-    separation: 10@10;
-    axisEdgeWeight: 0.5;
-    morphExtent: self defaultExtent;
-    addMorph: (LabelMorph contents: anErrorDescription).! !
-
-!ErrorWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 20:28:50'!
+!ErrorWindow methodsFor: 'error display' stamp: 'AF 11/27/2021 20:28:50'!
 buildErrorsMorph 
 
     | errorsMorph |
@@ -541,7 +384,17 @@ buildErrorsMorph
     dictionaryOfErrors keysAndValuesDo: [:isbn :err | errorsMorph addMorph: (self ErrorRowFor: isbn text: err)].
     ^ errorsMorph.! !
 
-!ErrorWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 13:32:29'!
+
+!ErrorWindow methodsFor: 'initialization' stamp: 'AF 11/28/2021 22:21:24'!
+buildDefaultMorphicWindow: anErrorDescription
+
+    self layoutMorph beColumn;
+    separation: 10@10;
+    axisEdgeWeight: 0.5;
+    morphExtent: self defaultExtent;
+    addMorph: (LabelMorph contents: anErrorDescription).! !
+
+!ErrorWindow methodsFor: 'initialization' stamp: 'AF 11/28/2021 13:32:29'!
 buildMorphicWindowForMultipleErrors
     
     | errorsMorph scrollMorph |
@@ -557,12 +410,12 @@ buildMorphicWindowForMultipleErrors
     morphExtent: self defaultExtent;
     addMorph: scrollMorph.! !
 
-!ErrorWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:03:03'!
+!ErrorWindow methodsFor: 'initialization' stamp: 'AF 11/28/2021 19:03:03'!
 defaultExtent
 
 	^600@200.! !
 
-!ErrorWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 13:36:11'!
+!ErrorWindow methodsFor: 'initialization' stamp: 'AF 11/28/2021 13:36:11'!
 initializeWith: anErrorDescription
 
     self titleMorph showButtonsNamed: #( close collapse ).
@@ -572,7 +425,7 @@ initializeWith: anErrorDescription
     self buildDefaultMorphicWindow: anErrorDescription .
     self openInWorld.! !
 
-!ErrorWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 13:32:29'!
+!ErrorWindow methodsFor: 'initialization' stamp: 'AF 11/28/2021 13:32:29'!
 initializeWith: aName and: aDictionaryOfErrors 
     
     dictionaryOfErrors := aDictionaryOfErrors.
@@ -590,12 +443,12 @@ initializeWith: aName and: aDictionaryOfErrors
 ErrorWindow class
 	instanceVariableNames: ''!
 
-!ErrorWindow class methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 13:33:21'!
+!ErrorWindow class methodsFor: 'instance creation' stamp: 'AF 11/28/2021 13:33:21'!
 openWith: anErrorDescription
 
 	^self new initializeWith: anErrorDescription .! !
 
-!ErrorWindow class methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 20:32:25'!
+!ErrorWindow class methodsFor: 'instance creation' stamp: 'AF 11/27/2021 20:32:25'!
 openWith: aTitle and: aDictionaryOfErrors
 
 	^self new initializeWith: aTitle and: aDictionaryOfErrors .! !
@@ -608,7 +461,55 @@ Panel subclass: #LoginWindow
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 21:01:44'!
+!LoginWindow methodsFor: 'login result' stamp: 'AF 11/27/2021 20:56:03'!
+loginErrorWith: anErrorMessage
+
+	errorMessageMorph contents: anErrorMessage .! !
+
+!LoginWindow methodsFor: 'login result' stamp: 'AF 11/27/2021 20:56:29'!
+loginSuccessfulFor: aUsername with:aPassword andObtaining: aCartId
+
+	CatalogWindow openWithUser: aUsername andPass: aPassword andCart: aCartId.
+	self delete! !
+
+
+!LoginWindow methodsFor: 'initialization' stamp: 'AF 11/27/2021 13:26:42'!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 1;
+	axisEdgeWeight: 0;
+	morphExtent: self defaultExtent ;
+	addMorph: self build1stRow1rstColumn ;
+	"addMorph: self build1stRow;
+	addMorph: self build2ndRow;"
+	addMorph: self build3rdRow;
+	addMorph: self build4rdRow.! !
+
+!LoginWindow methodsFor: 'initialization' stamp: 'AF 11/27/2021 13:22:41'!
+defaultExtent
+
+	^ 475@485
+	! !
+
+!LoginWindow methodsFor: 'initialization' stamp: 'AF 11/28/2021 14:26:17'!
+initializeWith: aTitle
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: aTitle.
+	self model: (LoginWindowModel new).
+	self morphExtent: self defaultExtent.
+	self buildMorphicWindow.
+	self openInWorld.
+			
+	self model when: #authenticationFailure evaluate: [:anErrorDescription | self loginErrorWith: anErrorDescription].
+	self model when: #authenticationSuccess evaluate: [:aUsername :aPassword :aCartId | self loginSuccessfulFor: aUsername with:aPassword andObtaining: aCartId ].
+	
+	"Investigar:
+	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
+
+
+!LoginWindow methodsFor: 'building window' stamp: 'AF 11/27/2021 21:01:44'!
 build1stRow
 	| firstRowLayoutMorph |
 	
@@ -625,7 +526,7 @@ build1stRow
 	
 	^firstRowLayoutMorph.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:25:45'!
+!LoginWindow methodsFor: 'building window' stamp: 'AF 11/27/2021 13:25:45'!
 build1stRow1rstColumn
 	| firstRowsFirstColumn |
 		
@@ -638,7 +539,7 @@ build1stRow1rstColumn
 	
 	^firstRowsFirstColumn.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:25:07'!
+!LoginWindow methodsFor: 'building window' stamp: 'AF 11/27/2021 13:25:07'!
 build2ndRow
 	| secondRowLayoutMorph |
 	
@@ -655,7 +556,7 @@ build2ndRow
 	
 	^secondRowLayoutMorph.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 11:34:35'!
+!LoginWindow methodsFor: 'building window' stamp: 'AF 11/27/2021 11:34:35'!
 build3rdRow
 	| loginButtonMorph thirdRowLayoutMorph |
 	
@@ -669,7 +570,7 @@ build3rdRow
 	
 	^thirdRowLayoutMorph.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 11:34:40'!
+!LoginWindow methodsFor: 'building window' stamp: 'AF 11/27/2021 11:34:40'!
 build4rdRow
 	| thirdRowLayoutMorph |
 	
@@ -684,52 +585,6 @@ build4rdRow
 	
 	^thirdRowLayoutMorph.! !
 
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:26:42'!
-buildMorphicWindow
-		
-	self layoutMorph beColumn;
-	separation: 1;
-	axisEdgeWeight: 0;
-	morphExtent: self defaultExtent ;
-	addMorph: self build1stRow1rstColumn ;
-	"addMorph: self build1stRow;
-	addMorph: self build2ndRow;"
-	addMorph: self build3rdRow;
-	addMorph: self build4rdRow.! !
-
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 13:22:41'!
-defaultExtent
-
-	^ 475@485
-	! !
-
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 14:26:17'!
-initializeWith: aTitle
-
-	self titleMorph showButtonsNamed: #( close collapse ).
-	self setLabel: aTitle.
-	self model: (LoginWindowModel new).
-	self morphExtent: self defaultExtent.
-	self buildMorphicWindow.
-	self openInWorld.
-			
-	self model when: #authenticationFailure evaluate: [:anErrorDescription | self loginErrorWith: anErrorDescription].
-	self model when: #authenticationSuccess evaluate: [:aUsername :aPassword :aCartId | self loginSuccessfulFor: aUsername with:aPassword andObtaining: aCartId ].
-	
-	"Investigar:
-	self model when: #newWordsArrived send: #refreshListOfWords:and: to: self."! !
-
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 20:56:03'!
-loginErrorWith: anErrorMessage
-
-	errorMessageMorph contents: anErrorMessage .! !
-
-!LoginWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 20:56:29'!
-loginSuccessfulFor: aUsername with:aPassword andObtaining: aCartId
-
-	CatalogWindow openWithUser: aUsername andPass: aPassword andCart: aCartId.
-	self delete! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'LoginWindow class' category: 'TusLibros-Graphics'!
@@ -742,35 +597,224 @@ open
 	^self new initializeWith: 'TusLibros - login'.! !
 
 
-!classDefinition: #PurchaseHistoryWindow category: 'TusLibros-Graphics'!
-Panel subclass: #PurchaseHistoryWindow
+!classDefinition: #SummaryWindow category: 'TusLibros-Graphics'!
+Panel subclass: #SummaryWindow
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!PurchaseHistoryWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:54:51'!
+!SummaryWindow methodsFor: 'list building' stamp: 'AF 11/29/2021 16:04:06'!
 buildItem: aName ownerExtent: anExtent 
 	
 	| itemMorph |
 	
 	itemMorph := LabelMorph contents: aName font: FontFamily defaultFamilyAndPointSize.
 	itemMorph morphWidth: (anExtent x *0.45).
-	^itemMorph! !
+	^ itemMorph! !
 
-!PurchaseHistoryWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 21:23:53'!
-buildListHeaderWithExtent: anExtent 
+!SummaryWindow methodsFor: 'list building' stamp: 'AF 11/29/2021 16:04:00'!
+buildListHeaderWithExtent: anExtent
 
-	| headerMorph |
+	    | headerMorph |
 	    
-	headerMorph := LayoutMorph newRow.
-	headerMorph separation: 0@0; 
-	axisEdgeWeight: 0.5;
-	addMorph: (self buildItem: 'Book name' ownerExtent: anExtent);
-	addMorph: (self buildItem: 'Spent' ownerExtent: anExtent).
-	^ headerMorph.! !
+	    headerMorph := LayoutMorph newRow.
+	    headerMorph separation: 0@0; 
+	    axisEdgeWeight: 0.5;
+	    addMorph: (self buildItem: 'Book name' ownerExtent: anExtent);
+	    addMorph: (self buildItem: 'Spent' ownerExtent: anExtent).
+	    ^ headerMorph.! !
 
-!PurchaseHistoryWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 21:21:55'!
+!SummaryWindow methodsFor: 'list building' stamp: 'AF 11/29/2021 16:11:36'!
+buildListMorphWith: anExtent
+
+	self subclassResponsibility.! !
+
+!SummaryWindow methodsFor: 'list building' stamp: 'AF 11/29/2021 16:03:45'!
+buildListRowWith: aBook and: anAmountSpent andExtent: anExtent
+	    | rowMorph |
+	    
+	    rowMorph := LayoutMorph newRow.
+	    rowMorph separation: 0@0; 
+	    morphExtent: anExtent;
+	    axisEdgeWeight: 0.5;
+	    addMorph: (self buildItem: aBook ownerExtent: anExtent);
+	    addMorph: (self buildItem: anAmountSpent ownerExtent: anExtent).
+	    ^ rowMorph.! !
+
+
+!SummaryWindow methodsFor: 'events' stamp: 'AF 11/29/2021 16:07:11'!
+subscribeToEvents
+	
+	self subclassResponsibility .
+! !
+
+
+!SummaryWindow methodsFor: 'initialization' stamp: 'AF 11/29/2021 16:06:44'!
+buildMorphicWindow
+       
+	
+	self subclassResponsibility .
+! !
+
+!SummaryWindow methodsFor: 'initialization' stamp: 'AF 11/29/2021 16:06:21'!
+defaultExtent
+	 ^ 600@500
+! !
+
+!SummaryWindow methodsFor: 'initialization' stamp: 'AF 11/29/2021 16:06:56'!
+initializeWith: aTicket for: aUsername and: aPassword  
+       
+	
+	self subclassResponsibility .
+! !
+
+
+!classDefinition: #CheckoutWindow category: 'TusLibros-Graphics'!
+SummaryWindow subclass: #CheckoutWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!CheckoutWindow methodsFor: 'initialization' stamp: 'AF 11/29/2021 15:59:33'!
+buildMorphicWindow
+       
+	
+	self layoutMorph beColumn;
+	separation: 10;
+ 	axisEdgeWeight: 0.0;
+ 	morphExtent: self defaultExtent;
+	addMorph:  (LabelMorph contents: 'Checkout');
+	addMorph: (self buildListMorphWith: self defaultExtent );
+	addMorph:  (LabelMorph contents: 'Total spent: $', self model ticketTotal);
+	addMorph: self buildButtons.
+	
+! !
+
+!CheckoutWindow methodsFor: 'initialization' stamp: 'AF 11/29/2021 16:05:22'!
+initializeWith: aTicket for: aUsername and: aPassword  
+
+ 
+ 	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: 'Thanks for your purchase!!'.
+	self model: (CheckoutWindowModel with: aTicket for: aUsername and: aPassword ).
+	self morphExtent: self defaultExtent.
+ 	self buildMorphicWindow.
+ 	self openInWorld.
+
+
+	self subscribeToEvents.! !
+
+
+!CheckoutWindow methodsFor: 'buttons' stamp: 'AF 11/29/2021 15:52:39'!
+buildButtons
+
+	| checkoutButton checkoutRow checkoutButton2|
+
+	checkoutButton := PluggableButtonMorph model: self stateGetter: nil action: #logout  label: 'Logout'.
+	checkoutButton2 := PluggableButtonMorph model: self model stateGetter: nil action: #newPurchase  label: 'New Purchase'.
+
+	checkoutRow := LayoutMorph newRow.
+	checkoutRow separation: 50@0;
+	axisEdgeWeight: 0.5;
+	morphExtent: self defaultExtent;
+	addMorph: checkoutButton;
+	addMorph: checkoutButton2.
+
+	^checkoutRow.
+	! !
+
+!CheckoutWindow methodsFor: 'buttons' stamp: 'AF 11/28/2021 19:09:12'!
+logout
+	
+	LoginWindow open .
+	self delete.! !
+
+
+!CheckoutWindow methodsFor: 'events' stamp: 'AF 11/29/2021 16:05:22'!
+subscribeToEvents
+
+	self model when: #newPurchase evaluate: [:aCartId | CatalogWindow openWithUser: self model username andPass: self model password andCart: aCartId.
+											 	self delete.].
+	self model when: #logout evaluate: [self logout ]! !
+
+
+!CheckoutWindow methodsFor: 'list building' stamp: 'AF 11/29/2021 16:11:17'!
+buildListMorphWith: anExtent
+
+    	| listMorph scrollMorph |
+    
+    	listMorph := LayoutMorph newColumn.
+   	scrollMorph := PluggableScrollPane new.
+    	scrollMorph morphExtent: (anExtent x *0.9) @ (anExtent y /2);
+    	scroller: listMorph.
+    
+    	listMorph separation: 0@0; 
+    	axisEdgeWeight: 0.5.
+    	listMorph addMorph: (self buildListHeaderWithExtent: scrollMorph morphExtent).
+	self model ticket associationsDo: [:anAssociation | listMorph addMorph: (self buildListRowWith: anAssociation key 
+																				and: anAssociation value asString 
+																				andExtent: scrollMorph morphExtent).].
+
+
+    
+    	^scrollMorph.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CheckoutWindow class' category: 'TusLibros-Graphics'!
+CheckoutWindow class
+	instanceVariableNames: ''!
+
+!CheckoutWindow class methodsFor: 'instance creation' stamp: 'AF 11/28/2021 19:20:11'!
+openWithTicket: aTicket for: aUsername and: aPassword  
+  
+ 	^self new initializeWith: aTicket for: aUsername and: aPassword .
+! !
+
+
+!classDefinition: #PurchaseHistoryWindow category: 'TusLibros-Graphics'!
+SummaryWindow subclass: #PurchaseHistoryWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!PurchaseHistoryWindow methodsFor: 'initialization' stamp: 'AF 11/28/2021 20:49:18'!
+buildMorphicWindow
+       
+	
+	self layoutMorph beColumn;
+	separation: 10;
+ 	axisEdgeWeight: 0.0;
+ 	morphExtent: self defaultExtent;
+	addMorph:  (LabelMorph contents: 'Purchase History');
+	addMorph: (self buildListMorphWith: self defaultExtent );
+	addMorph:  (LabelMorph contents: 'Total spent: $', self model purchasesTotal).! !
+
+!PurchaseHistoryWindow methodsFor: 'initialization' stamp: 'AF 11/29/2021 16:05:35'!
+initializeFor: aUsername and: aPassword
+ 
+ 	self titleMorph showButtonsNamed: #( close collapse ).
+	self setLabel: 'Purchase History'.
+	self model: (PurchaseHistoryWindowModel for: aUsername and: aPassword ).
+	self morphExtent: self defaultExtent.
+ 	self buildMorphicWindow.
+ 	self openInWorld.
+
+	
+	self subscribeToEvents! !
+
+
+!PurchaseHistoryWindow methodsFor: 'events' stamp: 'AF 11/29/2021 16:05:35'!
+subscribeToEvents
+
+	^ self model when: #Error evaluate: [:anErrorDescription | ErrorWindow openWith: anErrorDescription.
+												self delete ]! !
+
+
+!PurchaseHistoryWindow methodsFor: 'list building' stamp: 'AF 11/29/2021 16:11:27'!
 buildListMorphWith: anExtent
 
     	| listMorph scrollMorph |
@@ -791,56 +835,13 @@ buildListMorphWith: anExtent
     
     	^scrollMorph.! !
 
-!PurchaseHistoryWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:52:57'!
-buildListRowWith: aBook and: anAmountSpent andExtent: anExtent
-	    | rowMorph |
-	    
-	    rowMorph := LayoutMorph newRow.
-	    rowMorph separation: 0@0; 
-	    morphExtent: anExtent;
-	    axisEdgeWeight: 0.5;
-	    addMorph: (self buildItem: aBook ownerExtent: anExtent);
-	    addMorph: (self buildItem: anAmountSpent ownerExtent: anExtent).
-	    ^ rowMorph.! !
-
-!PurchaseHistoryWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:49:18'!
-buildMorphicWindow
-       
-	
-	self layoutMorph beColumn;
-	separation: 10;
- 	axisEdgeWeight: 0.0;
- 	morphExtent: self defaultExtent;
-	addMorph:  (LabelMorph contents: 'Purchase History');
-	addMorph: (self buildListMorphWith: self defaultExtent );
-	addMorph:  (LabelMorph contents: 'Total spent: $', self model purchasesTotal).! !
-
-!PurchaseHistoryWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:39:13'!
-defaultExtent
-	 ^ 600@500
-! !
-
-!PurchaseHistoryWindow methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 22:28:02'!
-initializeFor: aUsername and: aPassword
- 
- 	self titleMorph showButtonsNamed: #( close collapse ).
-	self setLabel: 'Purchase History'.
-	self model: (PurchaseHistoryWindowModel for: aUsername and: aPassword ).
-	self morphExtent: self defaultExtent.
- 	self buildMorphicWindow.
- 	self openInWorld.
-
-	
-	self model when: #Error evaluate: [:anErrorDescription | ErrorWindow openWith: anErrorDescription.
-												self delete ]! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'PurchaseHistoryWindow class' category: 'TusLibros-Graphics'!
 PurchaseHistoryWindow class
 	instanceVariableNames: ''!
 
-!PurchaseHistoryWindow class methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:15:50'!
+!PurchaseHistoryWindow class methodsFor: 'instance creation' stamp: 'AF 11/28/2021 20:15:50'!
 openFor: aUsername and: aPassword  
   
  	^self new initializeFor: aUsername and: aPassword .
@@ -854,60 +855,46 @@ Object subclass: #CatalogWindowModel
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 21:57:30'!
-addToCart: aDictionaryOfBooksAndQuantitys
-
-	|client notDecodedResponse respDict raisedErrors booksAdded |
-	client _ WebClient new.
-	booksAdded _ OrderedCollection new.
-	raisedErrors _ Dictionary new.
-	aDictionaryOfBooksAndQuantitys keysAndValuesDo: [:anISBN :aQuantity | aQuantity = 0 ifFalse:[
-		|encodedISBN|
-		encodedISBN _ self encodeSpacesForUrl: anISBN.
-		notDecodedResponse _ (client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId asString,'&bookIsbn=', encodedISBN ,'&bookQuantity=', aQuantity asString).
-		respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
-		(respDict at: 'status') = 0
-			ifTrue: [
-				booksAdded add: anISBN -> aQuantity.
-			] 
-			ifFalse: [
-				raisedErrors add: anISBN -> (respDict at: 'errorDescription').
-			]
-		]
-	].
-	
-	client close.
-	
-	raisedErrors ifNotEmpty: [self triggerEvent: #MultipleErrors withArguments: { 'The following books could not be added'. raisedErrors}].
-	
-	self triggerEvent: #booksAddedToCart! !
-
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 19:27:11'!
+!CatalogWindowModel methodsFor: 'accessing' stamp: 'AF 11/27/2021 19:27:11'!
 cartId
 
 	^cartId.! !
 
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 18:41:04'!
+!CatalogWindowModel methodsFor: 'accessing' stamp: 'AF 11/27/2021 18:41:04'!
 catalog
 
 	^catalog.
 ! !
 
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 22:21:54'!
+!CatalogWindowModel methodsFor: 'accessing' stamp: 'AF 11/28/2021 19:30:45'!
+password
+
+	^password.! !
+
+!CatalogWindowModel methodsFor: 'accessing' stamp: 'AF 11/27/2021 18:49:17'!
+username 
+
+	^username.! !
+
+
+!CatalogWindowModel methodsFor: 'requests' stamp: 'AF 11/29/2021 15:16:49'!
+addToCart: aDictionaryOfBooksAndQuantitys
+
+	|raisedErrors |
+
+	raisedErrors _ TusLibrosRequestSender new add: aDictionaryOfBooksAndQuantitys ToCart: cartId asString.
+	
+	raisedErrors ifNotEmpty: [self triggerEvent: #MultipleErrors withArguments: { 'The following books could not be added'. raisedErrors}].
+	
+	self triggerEvent: #booksAddedToCart! !
+
+!CatalogWindowModel methodsFor: 'requests' stamp: 'AF 11/29/2021 15:21:40'!
 checkOut
 
-	|client notDecodedResponse responseDictionary cced cco cnn |
-	client _ WebClient new.
+	|responseDictionary |
 	
-	cnn _ '1111222233334444'.
-	cced _ self encodeSpacesForUrl: (Month month: DateAndTime now monthIndex year: DateAndTime now yearNumber + 1) asString.
-	cco _ self encodeSpacesForUrl: 'Juan Perez'.
-
-	notDecodedResponse _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=',cartId asString,
-			    										    '&ccn=', cnn, 
-			    										  '&cced=', cced,
-			    										   '&cco=', cco).
-	responseDictionary _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	responseDictionary _ TusLibrosRequestSender new checkOut: cartId asString.
+	
 	(responseDictionary at: 'status') = 0
 		ifTrue: [
 			self triggerEvent: #checkOutSuccessful with: (responseDictionary at: 'ticket')
@@ -916,23 +903,18 @@ checkOut
 			self triggerEvent: #Error with: (responseDictionary at: 'errorDescription')
 		].
 	
-	client close.
+
 	! !
 
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 16:24:54'!
-encodeSpacesForUrl: aParameter
-	
-	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
-
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 22:10:18'!
+!CatalogWindowModel methodsFor: 'requests' stamp: 'AF 11/29/2021 15:24:13'!
 fetchCatalog
 
-	|client notDecodedResponse responseDictionary errorRaised|
-	client _ WebClient new.
+	|responseDictionary errorRaised|
 	
 	catalog _ Dictionary new.
-	notDecodedResponse _ (client httpGet: 'http://localhost:8080/fetchCatalog').
-	responseDictionary _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+
+	responseDictionary _ TusLibrosRequestSender new fetchCatalog.
+	
 	(responseDictionary at: 'status') = 0
 		ifTrue: [
 			catalog _ responseDictionary at: 'catalog'
@@ -941,11 +923,31 @@ fetchCatalog
 			errorRaised _ (responseDictionary at: 'errorDescription'),' - It was not possible to retrieve the catalog'.
 			self triggerEvent: #Error with: errorRaised.			
 		].
-			
-	client close.
+
 	! !
 
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 16:50:54'!
+!CatalogWindowModel methodsFor: 'requests' stamp: 'AF 11/29/2021 15:27:13'!
+listCart
+
+	|responseDictionary cartContents |
+	
+	cartContents _ Dictionary new.
+
+	responseDictionary _ TusLibrosRequestSender new listCart: cartId asString.
+	
+	(responseDictionary at: 'status') = 0
+		ifTrue: [
+			cartContents _ responseDictionary at: 'cartContents'
+		] 
+		ifFalse: [
+			self triggerEvent: #Error with: (responseDictionary at: 'errorDescription')
+		].
+
+	
+	^cartContents.! !
+
+
+!CatalogWindowModel methodsFor: 'initialization' stamp: 'AF 11/28/2021 16:50:54'!
 initializeWith: aUser and: aPassword and: aCartId
 
 	username := aUser.
@@ -956,44 +958,13 @@ initializeWith: aUser and: aPassword and: aCartId
 
 ! !
 
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 22:10:42'!
-listCart
-
-	|client notDecodedResponse responseDictionary cartContents |
-	client _ WebClient new.
-	
-	cartContents _ Dictionary new.
-	notDecodedResponse _ (client httpGet: 'http://localhost:8080/listCart?cartId=',cartId asString).
-	responseDictionary _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
-	(responseDictionary at: 'status') = 0
-		ifTrue: [
-			cartContents _ responseDictionary at: 'cartContents'
-		] 
-		ifFalse: [
-			self triggerEvent: #Error with: (responseDictionary at: 'errorDescription')
-		].
-			
-	client close.
-	
-	^cartContents.! !
-
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:30:45'!
-password
-
-	^password.! !
-
-!CatalogWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 18:49:17'!
-username 
-
-	^username.! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'CatalogWindowModel class' category: 'TusLibros-Graphics'!
 CatalogWindowModel class
 	instanceVariableNames: ''!
 
-!CatalogWindowModel class methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 17:56:16'!
+!CatalogWindowModel class methodsFor: 'instance creation' stamp: 'AF 11/27/2021 17:56:16'!
 with: aUser and: aPassword and: aCartId
 
 	^self basicNew initializeWith: aUser and: aPassword and: aCartId.! !
@@ -1006,7 +977,35 @@ Object subclass: #CheckoutWindowModel
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!CheckoutWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:21:58'!
+!CheckoutWindowModel methodsFor: 'accessing' stamp: 'AF 11/28/2021 19:33:24'!
+password
+	
+	^password! !
+
+!CheckoutWindowModel methodsFor: 'accessing' stamp: 'AF 11/28/2021 18:55:20'!
+ticket
+	
+	^ticket! !
+
+!CheckoutWindowModel methodsFor: 'accessing' stamp: 'AF 11/28/2021 19:33:07'!
+username
+
+	^username! !
+
+
+!CheckoutWindowModel methodsFor: 'ticket operations' stamp: 'AF 11/28/2021 18:51:56'!
+ticketTotal
+
+	|total|
+	
+	total _ 0.
+
+	ticket valuesDo: [:aPartialAmountSpent | total _ total + aPartialAmountSpent ].
+	
+	^total asString.! !
+
+
+!CheckoutWindowModel methodsFor: 'initialization' stamp: 'AF 11/28/2021 19:21:58'!
 initializeWith: aTicket for: aUsername and: aPassword  
 
 
@@ -1014,13 +1013,13 @@ initializeWith: aTicket for: aUsername and: aPassword
 	username _ aUsername.
 	password _ aPassword.! !
 
-!CheckoutWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:27:40'!
+
+!CheckoutWindowModel methodsFor: 'new purchase' stamp: 'AF 11/29/2021 15:45:07'!
 newPurchase
 
-	|client notDecodedResponse respDict |
-	client _ WebClient new.
-	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',username,'&password=',password ).
-	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	| respDict |
+
+	respDict _ TusLibrosRequestSender new createCartFor: username and: password.
 	(respDict at: 'status') = 0
 		ifTrue: [
 			|cartId|
@@ -1033,35 +1032,7 @@ newPurchase
 			
 			self triggerEvent: #logout
 		].
-	
-	
-	client close.! !
-
-!CheckoutWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:33:24'!
-password
-	
-	^password! !
-
-!CheckoutWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 18:55:20'!
-ticket
-	
-	^ticket! !
-
-!CheckoutWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 18:51:56'!
-ticketTotal
-
-	|total|
-	
-	total _ 0.
-
-	ticket valuesDo: [:aPartialAmountSpent | total _ total + aPartialAmountSpent ].
-	
-	^total asString.! !
-
-!CheckoutWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:33:07'!
-username
-
-	^username! !
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1069,7 +1040,7 @@ username
 CheckoutWindowModel class
 	instanceVariableNames: ''!
 
-!CheckoutWindowModel class methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 19:21:24'!
+!CheckoutWindowModel class methodsFor: 'instance creation' stamp: 'AF 11/28/2021 19:21:24'!
 with: aTicket for: aUsername and: aPassword  
 
 	^self new initializeWith: aTicket for: aUsername and: aPassword.! !
@@ -1082,18 +1053,14 @@ Object subclass: #ItemCounterModel
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:41:42'!
-id
-
-	^ id! !
-
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:41:35'!
+!ItemCounterModel methodsFor: 'initialization' stamp: 'AF 11/26/2021 19:41:35'!
 initializeWith: counterId
 
 	value _ '0'.
 	id _ counterId.! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 21:20:27'!
+
+!ItemCounterModel methodsFor: 'value edit' stamp: 'AF 11/27/2021 21:20:27'!
 reset
 
 	|newValue|
@@ -1103,12 +1070,7 @@ reset
 	self triggerEvent: #updateCounter with: self.	
 ! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/26/2021 19:41:50'!
-value
-
-	^ value.! !
-
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 22:01:14'!
+!ItemCounterModel methodsFor: 'value edit' stamp: 'AF 11/27/2021 22:01:14'!
 value: aValue
 	[
 		|num|
@@ -1116,7 +1078,7 @@ value: aValue
 		num >= 0 ifTrue: [value _ num asString].
 	] on: Error do: [].! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 22:01:22'!
+!ItemCounterModel methodsFor: 'value edit' stamp: 'AF 11/27/2021 22:01:22'!
 valueDown
 
 	|newValue|
@@ -1127,12 +1089,23 @@ valueDown
 	
 ! !
 
-!ItemCounterModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 22:01:30'!
+!ItemCounterModel methodsFor: 'value edit' stamp: 'AF 11/27/2021 22:01:30'!
 valueUp
 
 	self value: (self value asNumber asInteger +1) asString.
 	self triggerEvent: #updateCounter with: self.
 ! !
+
+
+!ItemCounterModel methodsFor: 'accessing' stamp: 'AF 11/26/2021 19:41:42'!
+id
+
+	^ id! !
+
+!ItemCounterModel methodsFor: 'accessing' stamp: 'AF 11/26/2021 19:41:50'!
+value
+
+	^ value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1140,7 +1113,7 @@ valueUp
 ItemCounterModel class
 	instanceVariableNames: ''!
 
-!ItemCounterModel class methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 23:12:48'!
+!ItemCounterModel class methodsFor: 'instance creation' stamp: 'MP 11/20/2021 23:12:48'!
 newWith: counterId
 	^ self new initializeWith: counterId.! !
 
@@ -1152,55 +1125,54 @@ Object subclass: #LoginWindowModel
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 21:05:36'!
+!LoginWindowModel methodsFor: 'accessing' stamp: 'MP 11/20/2021 17:56:49'!
+password
+	^ password.
+	! !
+
+!LoginWindowModel methodsFor: 'accessing' stamp: 'MP 11/20/2021 17:51:54'!
+username
+	^ username.
+	! !
+
+
+!LoginWindowModel methodsFor: 'initialization' stamp: 'AF 11/27/2021 20:58:13'!
+initialize
+
+	username := ''.
+	password := '' "Dont do this at home kids".! !
+
+
+!LoginWindowModel methodsFor: 'autentication' stamp: 'AF 11/29/2021 15:36:43'!
 authenticate
 
-	|client notDecodedResponse respDict |
-	client _ WebClient new.
-	notDecodedResponse _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self username,'&password=',self password ).
-	respDict _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
-	(respDict at: 'status') = 0
+	|responseDictionary |
+
+	responseDictionary _ TusLibrosRequestSender new createCartFor: self username and: self password.
+	
+	(responseDictionary at: 'status') = 0
 		ifTrue: [
 			|cartId|
-			cartId _ respDict at: 'cartId'.
+			cartId _ responseDictionary at: 'cartId'.
 			
 			self triggerEvent: #authenticationSuccess  withArguments: {username copy. password copy. cartId.}
 			
 		] 
 		ifFalse: [
 			
-			self triggerEvent: #authenticationFailure with: (respDict at: 'errorDescription').
+			self triggerEvent: #authenticationFailure with: (responseDictionary at: 'errorDescription').
 		].
 	
-	
-	client close.
-	
 	! !
 
-!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 20:58:13'!
-initialize
-
-	username := ''.
-	password := '' "Dont do this at home kids".! !
-
-!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:56:49'!
-password
-	^ password.
-	! !
-
-!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 20:58:03'!
+!LoginWindowModel methodsFor: 'autentication' stamp: 'AF 11/27/2021 20:58:03'!
 password: aPassword
 
 	password _ aPassword asString.
 
 	! !
 
-!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'MP 11/20/2021 17:51:54'!
-username
-	^ username.
-	! !
-
-!LoginWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/27/2021 20:57:54'!
+!LoginWindowModel methodsFor: 'autentication' stamp: 'AF 11/27/2021 20:57:54'!
 username: aUsername
 
 	username _ aUsername asString.
@@ -1215,24 +1187,14 @@ Object subclass: #PurchaseHistoryWindowModel
 	poolDictionaries: ''
 	category: 'TusLibros-Graphics'!
 
-!PurchaseHistoryWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 20:19:03'!
-initializeFor: aUsername and: aPassword
-
-	username _ aUsername.
-	password  _ aPassword.
-	
-	
-	self listPurchases.! !
-
-!PurchaseHistoryWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 22:25:58'!
+!PurchaseHistoryWindowModel methodsFor: 'purchases' stamp: 'AF 11/29/2021 15:41:50'!
 listPurchases
 
-	|client notDecodedResponse responseDictionary |
-	client _ WebClient new.
+	|responseDictionary |
 	
 	purchases _ Dictionary new.
-	notDecodedResponse _ (client httpGet: 'http://localhost:8080/listPurchases?clientId=', username,'&password=', password).
-	responseDictionary _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	
+	responseDictionary _ TusLibrosRequestSender new listPurchasesOf: username and: password.
 	(responseDictionary at: 'status') = 0
 		ifTrue: [
 			purchases _ responseDictionary at: 'purchases'
@@ -1240,17 +1202,16 @@ listPurchases
 		ifFalse: [
 			self triggerEvent: #Error with: (responseDictionary at: 'errorDescription')
 		].
-			
-	client close.
+
 
 	! !
 
-!PurchaseHistoryWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 21:24:01'!
+!PurchaseHistoryWindowModel methodsFor: 'purchases' stamp: 'AF 11/28/2021 21:24:01'!
 purchases
 
 	^purchases! !
 
-!PurchaseHistoryWindowModel methodsFor: 'as yet unclassified' stamp: 'AF 11/28/2021 21:26:45'!
+!PurchaseHistoryWindowModel methodsFor: 'purchases' stamp: 'AF 11/28/2021 21:26:45'!
 purchasesTotal
 	
 	|total|
@@ -1259,6 +1220,16 @@ purchasesTotal
 	purchases associationsDo: [: anAssociation | total _ total + anAssociation value].
 	
 	^total asString.! !
+
+
+!PurchaseHistoryWindowModel methodsFor: 'initialization' stamp: 'AF 11/28/2021 20:19:03'!
+initializeFor: aUsername and: aPassword
+
+	username _ aUsername.
+	password  _ aPassword.
+	
+	
+	self listPurchases.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1270,3 +1241,113 @@ PurchaseHistoryWindowModel class
 for: aUsername and: aPassword 
 
 	^self new initializeFor: aUsername and: aPassword .! !
+
+
+!classDefinition: #TusLibrosRequestSender category: 'TusLibros-Graphics'!
+Object subclass: #TusLibrosRequestSender
+	instanceVariableNames: 'port'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Graphics'!
+
+!TusLibrosRequestSender methodsFor: 'initialization' stamp: 'AF 11/29/2021 15:30:35'!
+port
+	
+	^port ifNil: [port:=8080].! !
+
+!TusLibrosRequestSender methodsFor: 'initialization' stamp: 'AF 11/29/2021 15:30:22'!
+url
+	
+	^'http://localhost:', self port asString! !
+
+
+!TusLibrosRequestSender methodsFor: 'sending requests' stamp: 'AF 11/29/2021 15:31:06'!
+add: aDictionaryOfBooksAndQuantitys ToCart: aCartId
+
+	|client notDecodedResponse responseDictionary raisedErrors |
+	client _ WebClient new.
+	raisedErrors _ Dictionary new.
+	aDictionaryOfBooksAndQuantitys keysAndValuesDo: [:anISBN :aQuantity | aQuantity = 0 ifFalse:[
+		|encodedISBN|
+		encodedISBN _ self encodeSpacesForUrl: anISBN.
+		notDecodedResponse _ (client httpGet: self url, '/addToCart?cartId=', aCartId,'&bookIsbn=', encodedISBN ,'&bookQuantity=', aQuantity asString).
+		responseDictionary _ WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+		(responseDictionary at: 'status') = 0
+			ifFalse: [
+				raisedErrors add: anISBN -> (responseDictionary at: 'errorDescription').
+			]
+		]
+	].
+	
+	client close.
+	
+	^raisedErrors .! !
+
+!TusLibrosRequestSender methodsFor: 'sending requests' stamp: 'AF 11/29/2021 15:31:45'!
+checkOut: aCartId
+
+	|client notDecodedResponse cced cco cnn |
+	client _ WebClient new.
+	
+	cnn _ '1111222233334444'.
+	cced _ self encodeSpacesForUrl: (Month month: DateAndTime now monthIndex year: DateAndTime now yearNumber + 1) asString.
+	cco _ self encodeSpacesForUrl: 'Juan Perez'.
+
+	notDecodedResponse _ (client httpGet: self url, '/checkOutCart?cartId=', aCartId,
+			    										    '&ccn=', cnn, 
+			    										  '&cced=', cced,
+			    										   '&cco=', cco).
+	client close.
+	
+	^WebUtils jsonMapFrom: (notDecodedResponse content) readStream.
+	
+	! !
+
+!TusLibrosRequestSender methodsFor: 'sending requests' stamp: 'AF 11/29/2021 15:35:11'!
+createCartFor: aUser and: aPassword
+
+	|client notDecodedResponse |
+	client _ WebClient new.
+	notDecodedResponse _ (client httpGet: self url,'/createCart?clientId=', aUser,'&password=', aPassword ).
+	client close.
+	^WebUtils jsonMapFrom: (notDecodedResponse content) readStream.! !
+
+!TusLibrosRequestSender methodsFor: 'sending requests' stamp: 'AF 11/29/2021 15:17:32'!
+encodeSpacesForUrl: aParameter
+	
+	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
+
+!TusLibrosRequestSender methodsFor: 'sending requests' stamp: 'AF 11/29/2021 15:32:07'!
+fetchCatalog
+
+	|client notDecodedResponse |
+	
+	client _ WebClient new.
+	
+	notDecodedResponse _ (client httpGet: self url, '/fetchCatalog').
+	
+	client close.
+	^WebUtils jsonMapFrom: (notDecodedResponse content) readStream.! !
+
+!TusLibrosRequestSender methodsFor: 'sending requests' stamp: 'AF 11/29/2021 15:32:13'!
+listCart: aCartId
+
+	|client notDecodedResponse |
+	client _ WebClient new.
+	
+	notDecodedResponse _ (client httpGet: self url, '/listCart?cartId=',aCartId).
+	
+	client close.
+	
+	^WebUtils jsonMapFrom: (notDecodedResponse content) readStream.! !
+
+!TusLibrosRequestSender methodsFor: 'sending requests' stamp: 'AF 11/29/2021 15:42:50'!
+listPurchasesOf: aUsername and: aPassword
+
+	|client notDecodedResponse |
+	client _ WebClient new.
+	
+	notDecodedResponse _ (client httpGet: self url, '/listPurchases?clientId=', aUsername ,'&password=', aPassword).
+	
+	client close.
+	^WebUtils jsonMapFrom: (notDecodedResponse content) readStream.! !

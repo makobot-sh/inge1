@@ -264,15 +264,40 @@ invalidPassword
 
 	^'notAdmin'! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:02:21'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:34:35'!
+validBook
+
+	^ testObjectsFactory itemSellByTheStore! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:35:56'!
+validBookPrice
+
+	^ testObjectsFactory itemSellByTheStorePrice! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:19:03'!
+validCreditCardNumber
+
+	^ testObjectsFactory notExpiredCreditCardNumber! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:20:40'!
+validCreditCardOwnerHttpEncoded
+
+	^ self encodeSpacesForUrl: testObjectsFactory notExpiredCreditCardOwner! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:20:10'!
+validExpirationDateHttpEncoded
+
+	^ self encodeSpacesForUrl: testObjectsFactory notExpiredMonthOfYear asString! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:17:05'!
 validUser
 
-	^'admin'! !
+	^testObjectsFactory validUser! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:02:25'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:17:16'!
 validUserPassword
 
-	^'admin'! !
+	^testObjectsFactory validUserPassword ! !
 
 !TusLibrosRestAPIInterfaceTest methodsFor: 'test objects' stamp: 'MP 11/17/2021 15:48:17'!
 validUsersAndPasswords
@@ -310,22 +335,16 @@ setUp
 ! !
 
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/19/2021 15:05:26'!
-decodeJsonMapFrom: resp
-
-	^ WebUtils jsonMapFrom: (resp content) readStream! !
-
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 12:54:07'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/29/2021 10:06:58'!
 test01CreateCartForValidCredentials
 
-	|server response client responseDecoded responseExpected|
+	|server responseDecoded responseExpected client |
 	
 	self setUp.
-	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
-	
+	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.	
 	client _ WebClient new.
-	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
-	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	responseDecoded _ self sendCreateCartRequest: client.
 	
 	client close.
 	server destroy.
@@ -335,7 +354,7 @@ test01CreateCartForValidCredentials
 	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .
 	self assert: (responseExpected at: 'cartId') equals: (responseDecoded at: 'cartId') .! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 12:54:15'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/29/2021 10:10:23'!
 test02CreateCartForInvalidCredentials
 
 	|server response client responseDecoded responseExpected|
@@ -357,22 +376,21 @@ test02CreateCartForInvalidCredentials
 	self assert: (responseExpected at: 'errorDescription') equals: (responseDecoded at: 'errorDescription').
 	! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 17:50:31'!
-test03AddToCart
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/29/2021 12:31:56'!
+test03AddToCartReturnsProperly
 
-	|server client cartId response responseDecoded responseExpected|
+	|server client cartId responseDecoded responseExpected|
 	self setUp.
 	
 	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
-	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	responseDecoded _ self sendCreateCartRequest: client.
 	
 	cartId _ responseDecoded at: 'cartId'.
 	
-	response _ (client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId asString,'&bookIsbn=', testObjectsFactory itemSellByTheStore, '&bookQuantity=1').
-	responseDecoded _ self decodeJsonMapFrom: response.
+	responseDecoded _ self sendAddToCartRequest: client withCartId: cartId .
 	
 	client close.
 	server destroy.
@@ -381,22 +399,23 @@ test03AddToCart
 	
 	self assert: (responseExpected at: 'status') equals: (responseDecoded at: 'status') .! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 17:50:00'!
-test04ListCart
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/29/2021 12:35:29'!
+test04ListCartReturnsProperly
 
 	|server client cartId book response responseDecoded responseExpected|
 	self setUp.
+	book _ self validBook.
 	
 	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
-	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	responseDecoded _ self sendCreateCartRequest: client.
 	
 	cartId _ (responseDecoded at: 'cartId') asString.
-	book _ testObjectsFactory itemSellByTheStore.
 	
-	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
+	
+	self sendAddToCartRequest: client withCartId: cartId .
 	
 	response _ (client httpGet: 'http://localhost:8080/listCart?cartId=',cartId ).
 	responseDecoded _ self decodeJsonMapFrom: response.
@@ -411,32 +430,24 @@ test04ListCart
 	self assert: ((responseExpected at: 'cartContents') at: book) equals: ((responseDecoded at: 'cartContents') at: book) .
 	! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 17:49:37'!
-test05CheckOut
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/29/2021 12:34:35'!
+test05CheckOutReturnsProperly
 
-	|server client cartId book response responseDecoded responseExpected creditCardExpirationHttpEncoded creditCardOwnerHttpEncoded |
+	|server client cartId book responseDecoded responseExpected |
 	self setUp.
-	book _ testObjectsFactory itemSellByTheStore.
+	book _ self validBook.
 	
 	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
-	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	responseDecoded _ self sendCreateCartRequest: client.
 	
 	cartId _ (responseDecoded at: 'cartId') asString.
 
-	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=1'.
-	
-	creditCardExpirationHttpEncoded _ self encodeSpacesForUrl: testObjectsFactory notExpiredMonthOfYear asString. 
-	
-	creditCardOwnerHttpEncoded _ self encodeSpacesForUrl: testObjectsFactory notExpiredCreditCardOwner.
-	
-	response _ (client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
-			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
-			    										  '&cced=', creditCardExpirationHttpEncoded,
-			    										   '&cco=', creditCardOwnerHttpEncoded).
-	responseDecoded _ self decodeJsonMapFrom: response.
+	self sendAddToCartRequest: client withCartId: cartId .	
+
+	responseDecoded _ self sendCheckOutCartRequest: client withCartId: cartId.
 
 	client close.
 	server destroy.
@@ -447,62 +458,51 @@ test05CheckOut
 	self assert: (responseExpected at: 'ticket') equals: (responseDecoded at: 'ticket').
 	! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 17:49:28'!
-test06listPurhcases
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/29/2021 12:35:56'!
+test06listPurchasesReturnsProperly
 
-	|server client cartId book response responseDecoded creditCardExpirationHttpEncoded creditCardOwnerHttpEncoded |
+	|server client cartId book responseDecoded |
 	self setUp.
-	book _ testObjectsFactory itemSellByTheStore.
+	book _ self validBook.
 	
 	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
-	response _ (client httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
-	responseDecoded _ self decodeJsonMapFrom: response.
+	
+	responseDecoded _ self sendCreateCartRequest: client.
 	
 	cartId _ (responseDecoded at: 'cartId') asString.
 
 	client httpGet: 'http://localhost:8080/addToCart?cartId=',cartId,'&bookIsbn=', book, '&bookQuantity=2'.
 	
-	creditCardExpirationHttpEncoded _ self encodeSpacesForUrl: testObjectsFactory notExpiredMonthOfYear asString. 
-	
-	creditCardOwnerHttpEncoded _ self encodeSpacesForUrl: testObjectsFactory notExpiredCreditCardOwner.
-	
-	client httpGet: 'http://localhost:8080/checkOutCart?cartId=', cartId,
-			    										    '&ccn=', testObjectsFactory notExpiredCreditCardNumber, 
-			    										  '&cced=', creditCardExpirationHttpEncoded,
-			    										   '&cco=', creditCardOwnerHttpEncoded.
+	self sendCheckOutCartRequest: client withCartId: cartId.
 
-	response _ (client httpGet: 'http://localhost:8080/listPurchases?clientId=',self validUser,'&password=',self validUserPassword ).
-
-	responseDecoded _ self decodeJsonMapFrom: response.
+	responseDecoded _ self sendListPurchases: client.
 
 	client close.
 	server destroy.
 	
-	self assert: (testObjectsFactory itemSellByTheStorePrice * 2) equals: ((responseDecoded at: 'purchases') at: book)! !
+	self assert: (self validBookPrice * 2) equals: ((responseDecoded at: 'purchases') at: book)! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/28/2021 13:26:42'!
-test07fetchCatalog
+!TusLibrosRestAPIInterfaceTest methodsFor: 'tests' stamp: 'AF 11/29/2021 12:32:22'!
+test07fetchCatalogReturnsProperly
 
-	|server client response responseDecoded |
+	|server client responseDecoded |
 	self setUp.
 	
 	server _ TusLibrosRestAPIInterface listeningOn: 8080 communicateWith: systemFacade.
 	
 	client _ WebClient new.
+
+	responseDecoded _ self sendFetchCatalog: client.
 	
-	response _ (client httpGet: 'http://localhost:8080/fetchCatalog' ).
-
-	responseDecoded _ self decodeJsonMapFrom: response.
-
 	client close.
 	server destroy.
 	
 	self assert: (testObjectsFactory defaultCatalog ) equals: (responseDecoded at: 'catalog')! !
 
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:34:43'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'GUI testing' stamp: 'MK 11/29/2021 00:34:43'!
 startTestServerAndLoginInterface
 
 	|server|
@@ -514,7 +514,7 @@ startTestServerAndLoginInterface
 	
 	^ server.! !
 
-!TusLibrosRestAPIInterfaceTest methodsFor: 'graphics testing' stamp: 'MK 11/29/2021 00:41:47'!
+!TusLibrosRestAPIInterfaceTest methodsFor: 'GUI testing' stamp: 'MK 11/29/2021 00:41:47'!
 startTestServerAndShopInterface
 
 	|server cart |
@@ -528,10 +528,65 @@ startTestServerAndShopInterface
 	^ server.! !
 
 
+!TusLibrosRestAPIInterfaceTest methodsFor: 'encoding' stamp: 'AF 11/19/2021 15:05:26'!
+decodeJsonMapFrom: resp
+
+	^ WebUtils jsonMapFrom: (resp content) readStream! !
+
 !TusLibrosRestAPIInterfaceTest methodsFor: 'encoding' stamp: 'MP 11/20/2021 16:10:28'!
 encodeSpacesForUrl: aParameter
 	
 	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
+
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'request http' stamp: 'AF 11/29/2021 12:34:35'!
+sendAddToCartRequest: aWebClient withCartId: aCartId
+
+	| response |
+	
+	response _ (aWebClient httpGet: 'http://localhost:8080/addToCart?cartId=',aCartId asString,'&bookIsbn=', self validBook, '&bookQuantity=1').
+	^self decodeJsonMapFrom: response.
+! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'request http' stamp: 'AF 11/29/2021 12:21:10'!
+sendCheckOutCartRequest: aWebClient withCartId: aCartId
+	
+	
+	| response |
+
+	response _ aWebClient httpGet: 'http://localhost:8080/checkOutCart?cartId=', aCartId ,
+    										    '&ccn=', self validCreditCardNumber, 
+    										  '&cced=', self validExpirationDateHttpEncoded,
+    										   '&cco=', self validCreditCardOwnerHttpEncoded.
+	
+	^self decodeJsonMapFrom: response.! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'request http' stamp: 'AF 11/29/2021 10:05:08'!
+sendCreateCartRequest: aWebClient
+
+	| response |
+	
+	response _ (aWebClient httpGet: 'http://localhost:8080/createCart?clientId=',self validUser,'&password=',self validUserPassword ).
+	^self decodeJsonMapFrom: response.
+! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'request http' stamp: 'AF 11/29/2021 12:25:11'!
+sendFetchCatalog: aWebClient
+	
+	
+	| response |
+	response _ (aWebClient httpGet: 'http://localhost:8080/fetchCatalog' ).
+
+	^self decodeJsonMapFrom: response.! !
+
+!TusLibrosRestAPIInterfaceTest methodsFor: 'request http' stamp: 'AF 11/29/2021 10:42:16'!
+sendListPurchases: aWebClient
+	
+	
+	| response |
+	response _ (aWebClient httpGet: 'http://localhost:8080/listPurchases?clientId=',self validUser,'&password=',self validUserPassword ).
+	^self decodeJsonMapFrom: response.
+! !
 
 
 !TusLibrosRestAPIInterfaceTest methodsFor: 'time' stamp: 'MK 11/29/2021 00:37:34'!
@@ -725,15 +780,15 @@ validBook
 
 	^testObjectsFactory itemSellByTheStore ! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/28/2021 12:53:36'!
+!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:17:41'!
 validUser
 
-	^'admin'! !
+	^testObjectsFactory validUser ! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/27/2021 21:03:52'!
+!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'AF 11/29/2021 12:17:52'!
 validUserPassword
 
-	^'admin'! !
+	^testObjectsFactory validUserPassword ! !
 
 !TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 22:43'!
 validUsersAndPasswords
@@ -898,52 +953,6 @@ revertTime: aDuration
 	clock revertTime: aDuration ! !
 
 
-!classDefinition: #ManualClock category: 'TusLibros-Tests'!
-Clock subclass: #ManualClock
-	instanceVariableNames: 'now'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Tests'!
-
-!ManualClock methodsFor: 'time change' stamp: 'HernanWilkinson 6/22/2013 12:54'!
-advanceTime: aDuration
-
-	now := now + aDuration ! !
-
-!ManualClock methodsFor: 'time change' stamp: 'HernanWilkinson 6/22/2013 13:08'!
-revertTime: aDuration
-
-	now := now + aDuration negated ! !
-
-
-!ManualClock methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 12:56'!
-now
-
-	^ now! !
-
-!ManualClock methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 12:53'!
-today
-
-	^now date! !
-
-
-!ManualClock methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:52'!
-initializeNow: aTime
-
-	now := aTime ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'ManualClock class' category: 'TusLibros-Tests'!
-ManualClock class
-	instanceVariableNames: ''!
-
-!ManualClock class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/22/2013 12:52'!
-now: aTime
-
-	^self new initializeNow: aTime ! !
-
-
 !classDefinition: #StoreTestObjectsFactory category: 'TusLibros-Tests'!
 Object subclass: #StoreTestObjectsFactory
 	instanceVariableNames: 'today'
@@ -1046,3 +1055,59 @@ today
 customer
 
 	^'aCustomer'! !
+
+!StoreTestObjectsFactory methodsFor: 'customer' stamp: 'AF 11/29/2021 12:16:05'!
+validUser
+
+	^'admin'.! !
+
+!StoreTestObjectsFactory methodsFor: 'customer' stamp: 'AF 11/29/2021 12:16:11'!
+validUserPassword
+
+	^'admin'.! !
+
+
+!classDefinition: #ManualClock category: 'TusLibros-Tests'!
+ProtoObject subclass: #ManualClock
+	instanceVariableNames: 'now'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!ManualClock methodsFor: 'time change' stamp: 'HernanWilkinson 6/22/2013 12:54'!
+advanceTime: aDuration
+
+	now := now + aDuration ! !
+
+!ManualClock methodsFor: 'time change' stamp: 'HernanWilkinson 6/22/2013 13:08'!
+revertTime: aDuration
+
+	now := now + aDuration negated ! !
+
+
+!ManualClock methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 12:56'!
+now
+
+	^ now! !
+
+!ManualClock methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 12:53'!
+today
+
+	^now date! !
+
+
+!ManualClock methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:52'!
+initializeNow: aTime
+
+	now := aTime ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ManualClock class' category: 'TusLibros-Tests'!
+ManualClock class
+	instanceVariableNames: ''!
+
+!ManualClock class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/22/2013 12:52'!
+now: aTime
+
+	^self new initializeNow: aTime ! !
